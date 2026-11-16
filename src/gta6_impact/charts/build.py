@@ -12,7 +12,6 @@ from html import escape
 
 from gta6_impact.charts.capture import capture
 from gta6_impact.charts.semantic import query
-from gta6_impact.charts.svg import Series, line_chart
 from gta6_impact.config import RELEASE_DAY, ROOT
 
 CHARTS = ROOT / "charts"
@@ -97,155 +96,83 @@ def _today_meta() -> str:
     return f"GTA 6 · day +{-days}"
 
 
-def share_chart(png: bool) -> dict:
-    rows = query(
-        ["gta_share_of_day_off_talk", "day_off_mentions", "day_off_mentions_gta"],
-        ["signal_day__days_from_release", "signal_day__study_year", "signal_day__source"],
-        where="{{ Dimension('signal_day__source') }} = 'bluesky' "
-        "and {{ Dimension('signal_day__days_from_release') }} >= -45",
-    )
-    series = {}
-    for r in rows:
-        if r["gta_share_of_day_off_talk"] is None:
-            continue
-        series.setdefault(r["signal_day__study_year"], []).append(
-            (r["signal_day__days_from_release"], 100 * r["gta_share_of_day_off_talk"])
-        )
-    study = sorted(series.get(2026, []))
-    control = sorted(series.get(2025, []))
-    latest_day, latest = study[-1] if study else (None, 0)
-    early = next((v for d, v in study if d == -14), None)
-    svg = line_chart(
+def _day(value: str) -> dt.date:
+    return dt.date.fromisoformat(str(value)[:10])
+
+
+def _span(first_week: dt.date, last_week: dt.date) -> str:
+    """Google weeks run Sunday to Saturday; label a window by its first and last day."""
+    last_day = last_week + dt.timedelta(days=6)
+    if first_week.month == last_day.month:
+        return f"{first_week.day}–{last_day.day} {last_day:%b %Y}"
+    return f"{first_week.day} {first_week:%b} – {last_day.day} {last_day:%b %Y}"
+
+
+def index_card(png: bool) -> dict:
+    """The Day-Off Index with its breakdown on the same card: never one without the other."""
+    window = "day_off_index_window__"
+    head = query(
+        ["day_off_index"],
         [
-            Series("2026", study, "s-study", "{:.1f}%"),
-            Series("2025 control", control, "s-control", "{:.1f}%"),
+            f"{window}breakdown",
+            f"{window}current_start_week",
+            f"{window}current_end_week",
+            f"{window}prior_start_week",
+            f"{window}prior_end_week",
         ],
-        width=1096,
-        height=300,
-        x_min=-45,
-        x_max=7,
-        y_fmt="{:.0f}%",
-        x_ticks=[-42, -35, -28, -21, -14, -7, 0, 7],
-        x_label=lambda x: "Thu 19 Nov" if x == 0 else (f"{int(x)}d" if x < 0 else f"+{int(x)}d"),
-        marker_label="GTA 6",
+    )[0]
+    terms = query(
+        ["day_off_index_term_change", "day_off_index_term_current", "day_off_index_term_prior"],
+        ["day_off_index_term__term"],
     )
-    mult = f"{latest / early:.0f}×" if early else ""
-    body = f"""    <h1>Of everyone posting about a day off, <em>{latest:.1f}%</em> now say GTA.</h1>
-    <p class="lede">Share of Bluesky posts about a day off, PTO or calling in sick that also mention
-    GTA, by day before release. {("Up " + mult + " in two weeks. ") if mult else ""}The same weeks
-    of 2025 sit at zero.</p>
-    <div class="plot">{svg}</div>"""
-    data = {"rows": rows, "latest_days_from_release": latest_day, "latest_share_pct": latest}
-    _write(
-        "gta-share-of-day-off-talk",
-        title="GTA share of day-off talk",
-        meta=_today_meta(),
-        body=body,
-        source="Bluesky public search · UTC days · association, not causation",
-        w=1200,
-        h=630,
-        data=data,
-        png=png,
+    current = _span(
+        _day(head[f"{window}current_start_week__day"]), _day(head[f"{window}current_end_week__day"])
     )
-    return data
-
-
-def hype_chart(png: bool) -> dict:
-    rows = query(
-        ["gta_wiki_pageviews"],
-        ["signal_day__days_from_release", "signal_day__study_year"],
-        where="{{ Dimension('signal_day__days_from_release') }} >= -45",
+    prior = _span(
+        _day(head[f"{window}prior_start_week__day"]), _day(head[f"{window}prior_end_week__day"])
     )
-    by_year: dict[int, list] = {}
-    for r in rows:
-        if r["gta_wiki_pageviews"] is not None:
-            by_year.setdefault(r["signal_day__study_year"], []).append(
-                (r["signal_day__days_from_release"], r["gta_wiki_pageviews"] / 1000)
-            )
-    control = sorted(by_year.get(2025, []))
-    peak = max(control, key=lambda p: p[1], default=None)
-    notes = [(peak[0], peak[1], "Nov 2025: the delay to 2026")] if peak else []
-    svg = line_chart(
-        [
-            Series("2026", sorted(by_year.get(2026, [])), "s-study", "{:.0f}k"),
-            Series("2025", control, "s-control", "{:.0f}k"),
-        ],
-        width=1096,
-        height=300,
-        x_min=-45,
-        x_max=7,
-        y_fmt="{:.0f}k",
-        x_ticks=[-42, -35, -28, -21, -14, -7, 0, 7],
-        x_label=lambda x: "Thu 19 Nov" if x == 0 else (f"{int(x)}d" if x < 0 else f"+{int(x)}d"),
-        marker_label="GTA 6",
-        notes=notes,
-    )
-    body = f"""    <h1>The hype line: daily readers of the <em>GTA VI</em> Wikipedia article.</h1>
-    <p class="lede">English Wikipedia user pageviews, by day before release, against the same
-    weeks a year earlier.</p>
-    <div class="plot">{svg}</div>"""
-    _write(
-        "gta-wikipedia-hype",
-        title="GTA VI hype line",
-        meta=_today_meta(),
-        body=body,
-        source="Wikimedia pageviews API · users, all access · UTC days",
-        w=1200,
-        h=630,
-        data={"rows": rows},
-        png=png,
-    )
-    return {"rows": rows}
-
-
-def index_card(png: bool, share: dict) -> dict:
-    rows = query(["day_off_index"], ["index_year__study_year"])
-    idx = {r["index_year__study_year"]: r["day_off_index"] for r in rows}
-    effect = query(["day_off_index_gta_effect"])[0]["day_off_index_gta_effect"]
-    control = idx.get(2025)
-    study = idx.get(2026)
-    if study is None:
-        big = f"{share['latest_share_pct']:.1f}<small>%</small>"
-        h1 = "GTA 6 lands Thursday. We're counting who calls in sick."
-        lede = (
-            "The Day-Off Index compares Thursday 19 Nov with the Thursday before, across "
-            "search, Bluesky and Reddit, net of the usual pre-Thanksgiving drift. "
-            "Until then: the share of day-off posts that already mention GTA."
+    index = head["day_off_index"]
+    big = f"{index:+.0f}<small>%</small>" if index is not None else "n/a"
+    rows = []
+    for r in sorted(terms, key=lambda r: -(r["day_off_index_term_change"] or 0)):
+        change = r["day_off_index_term_change"]
+        cell = f'<b class="red">{change:+.0f}%</b>' if change is not None else "<b>n/a</b>"
+        rows.append(
+            f'<div class="row"><span>“{escape(r["day_off_index_term__term"])}”'
+            f" · {r['day_off_index_term_prior']:.1f} → {r['day_off_index_term_current']:.1f}"
+            f"</span>{cell}</div>"
         )
-        study_cell = "<b>pending Thu 19 Nov</b>"
-        effect_cell = "<b>pending</b>"
-    else:
-        big = f"{study:.0f}"
-        h1 = "The Day-Off Index for GTA 6 Thursday."
-        lede = (
-            "100 is a normal week. Thursday 19 Nov against Thursday 12 Nov, across search, "
-            "Bluesky and Reddit."
-        )
-        study_cell = f'<b class="red">{study:.0f}</b>'
-        effect_cell = f'<b class="red">{effect:.0f}</b>' if effect else "<b>n/a</b>"
-    control_cell = f"<b>{control:.0f}</b>" if control else "<b>n/a</b>"
+    index_cell = f'<b class="red">{index:+.0f}%</b>' if index is not None else "<b>n/a</b>"
     body = f"""    <div class="hero">
       <div>
         <div class="big">{big}</div>
-        <h1 style="margin-top:22px">{escape(h1)}</h1>
-        <p class="lede">{escape(lede)}</p>
+        <h1 style="margin-top:22px">US Google searches for skipping work, vs last year.</h1>
+        <p class="lede">The Day-Off Index: the average change in searches for “call in sick”,
+        “sick day” and “day off work”, {escape(current)} against {escape(prior)}.
+        GTA 6 launches Thursday 19 November.</p>
       </div>
       <div class="box">
-        <div class="strip">Day-Off Index · 100 = normal</div>
+        <div class="strip">Breakdown · 2025 → 2026</div>
         <div class="rows">
-          <div class="row"><span>GTA week, 2026</span>{study_cell}</div>
-          <div class="row"><span>Same week, 2025</span>{control_cell}</div>
-          <div class="row"><span>Net of season</span>{effect_cell}</div>
+          {"".join(rows)}
+          <div class="row"><span>Day-Off Index (average)</span>{index_cell}</div>
         </div>
       </div>
     </div>"""
-    data = {"index": idx, "gta_effect": effect, "share": share.get("latest_share_pct")}
+    data = {
+        "day_off_index": index,
+        "breakdown": head[f"{window}breakdown"],
+        "current_window": current,
+        "prior_window": prior,
+        "terms": terms,
+    }
     _write(
         "day-off-index",
         title="Day-Off Index",
         meta=_today_meta(),
         body=body,
-        source="Google Trends · Bluesky · Reddit · public-signal proxy, not headcount",
+        source="Google Trends · US · weekly, one request per phrase across both years · "
+        "search interest, not headcount",
         w=1200,
         h=630,
         data=data,
@@ -254,72 +181,8 @@ def index_card(png: bool, share: dict) -> dict:
     return data
 
 
-def lifts_chart(png: bool) -> dict:
-    rows = query(
-        ["thursday_lift"],
-        [
-            "thursday_lift__source",
-            "thursday_lift__signal",
-            "thursday_lift__geo",
-            "thursday_lift__study_year",
-        ],
-        where="{{ Dimension('thursday_lift__is_index_component') }}",
-    )
-    signals: dict[tuple, dict] = {}
-    for r in rows:
-        key = (r["thursday_lift__source"], r["thursday_lift__signal"], r["thursday_lift__geo"])
-        signals.setdefault(key, {})[r["thursday_lift__study_year"]] = r["thursday_lift"]
-    hi = 2.0
-    for v in (x for d in signals.values() for x in d.values() if x):
-        hi = max(hi, v * 1.1)
-
-    def pct(v: float) -> float:
-        return max(0.0, min(100.0, (v - 0) / hi * 100))
-
-    bar_rows = []
-    for (source, signal, geo), years in sorted(signals.items()):
-        name = f"{source.replace('_', ' ')} · {signal.split(':', 1)[1]}" + (
-            f" · {geo}" if source == "google_trends" else ""
-        )
-        s, c = years.get(2026), years.get(2025)
-        study = (
-            f'<div class="fill study" style="width:{pct(s):.1f}%"></div>'
-            if s
-            else '<div class="fill pending" style="width:' + f'{pct(1):.1f}%"></div>'
-        )
-        control = f'<div class="fill control" style="width:{pct(c):.1f}%"></div>' if c else ""
-        val = f"{s:.2f}×" if s else "Thu →"
-        bar_rows.append(
-            f'<div class="bar-row" title="2026: {val} · 2025: {c or 0:.2f}×">'
-            f'<div class="name">{escape(name)}</div>'
-            f'<div class="track">{study}{control}<div class="par" style="left:{pct(1):.1f}%">'
-            f'</div></div><div class="val">{val}</div></div>'
-        )
-    body = f"""    <h1>Thursday over Thursday, <em>signal by signal</em>.</h1>
-    <p class="lede">Each bar is release Thursday over the Thursday before. The line is a normal
-    week (1.0×). Grey is the same pair of Thursdays in 2025.</p>
-    <div class="legend"><span><i class="study"></i>2026 (19 vs 12 Nov)</span>
-    <span><i class="control"></i>2025 control (20 vs 13 Nov)</span></div>
-    <div class="bars">{"".join(bar_rows)}</div>"""
-    _write(
-        "thursday-lifts",
-        title="Thursday lifts",
-        meta=_today_meta(),
-        body=body,
-        source="Index components only · UTC days · Trends values relative within request",
-        w=1200,
-        h=630,
-        data={"rows": rows},
-        png=png,
-    )
-    return {"rows": rows}
-
-
 def build(png: bool = True) -> dict:
-    share = share_chart(png)
-    hype_chart(png)
-    lifts_chart(png)
-    return index_card(png, share)
+    return index_card(png)
 
 
 if __name__ == "__main__":

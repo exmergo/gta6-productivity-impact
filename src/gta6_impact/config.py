@@ -20,9 +20,6 @@ USER_AGENT = (
 )
 
 RELEASE_DAY = dt.date(2026, 11, 19)  # Thursday. All days in this study are UTC days.
-BASELINE_DAY = dt.date(2026, 11, 12)  # The Thursday before.
-CONTROL_RELEASE_DAY = dt.date(2025, 11, 20)  # Same Thursday one year earlier.
-CONTROL_BASELINE_DAY = dt.date(2025, 11, 13)
 
 
 @dataclass(frozen=True)
@@ -73,10 +70,11 @@ REDDIT_SUBREDDITS = (
 
 WIKI_ARTICLES = ("Grand_Theft_Auto_VI", "Sick_leave", "Paid_time_off", "Presenteeism")
 
-# Trends rescales each request to its own peak, so "GTA 6" would flatten the day-off terms
-# to zero. Each group is its own request.
-TRENDS_TERM_GROUPS = {
-    "day_off": ("call in sick", "sick day", "PTO", "day off work"),
-    "hype": ("GTA 6",),
-}
-TRENDS_GEOS = ("US", "")  # "" is worldwide.
+# The Day-Off Index: US Google searches for these three phrases, compared year over year.
+DAY_OFF_INDEX_TERMS = ("call in sick", "sick day", "day off work")
+TRENDS_GEO = "US"
+# One Trends request per phrase over this whole span, so 2025 and 2026 sit on one 0-100
+# scale. Longer than ~9 months, Google answers in weeks (Sunday to Saturday). The span is
+# part of the snapshot: a different span rescales every value. It must cover both index
+# windows (dbt vars day_off_index_*). Canonical snapshot: 2025-11-01 to 2026-11-15.
+TRENDS_SPAN = (dt.date(2025, 11, 1), dt.date(2026, 11, 15))

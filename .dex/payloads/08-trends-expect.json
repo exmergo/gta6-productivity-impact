@@ -1,0 +1,4 @@
+{"added": "none",
+ "removed": {"where": "source = 'google_trends' and (signal = 'search:pto' or (geo = 'WORLD' and signal <> 'search:gta 6'))"},
+ "changed_columns": ["signal_value", "is_available"],
+ "key": "unchanged"}

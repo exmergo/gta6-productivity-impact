@@ -1,18 +1,6 @@
 -- Every signal as one daily value per (source, signal, geo, UTC day).
 -- A value that could not be read is NULL with is_available = false: unavailable, never zero.
-with trends as (
-    select
-        'google_trends' as source,
-        'search:' || lower(term) as signal,
-        case term_group when 'day_off' then 'day_off_intent' else 'hype' end as signal_family,
-        geo,
-        interest_date as signal_date,
-        case when not is_partial then cast(interest as double) end as signal_value,
-        not is_partial as is_available
-    from {{ ref('stg_trends__interest') }}
-),
-
-bluesky as (
+with bluesky as (
     select
         'bluesky' as source,
         case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,
@@ -50,8 +38,6 @@ wikipedia as (
     from {{ ref('stg_wiki__pageviews') }}
 )
 
-select * from trends
-union all
 select * from bluesky
 union all
 select * from hacker_news

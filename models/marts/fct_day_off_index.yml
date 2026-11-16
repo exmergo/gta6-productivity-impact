@@ -1,94 +1,234 @@
 version: 2
-
 models:
-  - name: fct_day_off_index
-    description: 'One row per study year: the Day-Off Index and each source''s lift.'
+- name: fct_day_off_index
+  description: 'The Day-Off Index: the average year-over-year change, in percent, of US Google searches
+    for call in sick, sick day and day off work over the configured window. One row per window, always
+    carrying its per-phrase breakdown.'
+  config:
+    meta:
+      dex:
+        grain:
+        - index_window
+        population:
+          rule: One row for the configured window (vars day_off_index_*).
+        assumptions:
+        - decision: How the phrases combine
+          chosen: plain average of the per-phrase percent changes
+          evidence: request
+          detail: 'user: the index is the average of these 3 searches; each phrase is on its own 0-100
+            scale, so changes are averaged, not interest values'
+          column: day_off_index
+        - decision: A phrase not yet available
+          chosen: index NULL
+          evidence: default
+          detail: an average over fewer phrases would be a different index
+          column: day_off_index
+        - decision: Old index columns (study_year, release_day, per-source lifts, source counts)
+          chosen: removed; the index is one row per window, no longer per study year
+          evidence: request
+          detail: 'user: scratch everything of the old Day-Off Index and redefine it'
+          column: study_year
+        - decision: Old index column release_day
+          chosen: removed
+          evidence: request
+          detail: the Thursday-lift design is retired
+          column: release_day
+        - decision: Old index column sources_total
+          chosen: removed
+          evidence: request
+          detail: the Thursday-lift design is retired
+          column: sources_total
+        - decision: Old index column sources_with_lift
+          chosen: removed
+          evidence: request
+          detail: the Thursday-lift design is retired
+          column: sources_with_lift
+        - decision: Old index column google_trends_lift
+          chosen: removed
+          evidence: request
+          detail: the Thursday-lift design is retired
+          column: google_trends_lift
+        - decision: Old index column bluesky_lift
+          chosen: removed
+          evidence: request
+          detail: the Thursday-lift design is retired
+          column: bluesky_lift
+        - decision: Old index column reddit_lift
+          chosen: removed
+          evidence: request
+          detail: the Thursday-lift design is retired
+          column: reddit_lift
+        - decision: Index grain
+          chosen: one row per window (index_window), was per study year
+          evidence: request
+          detail: 'user: one YoY comparison over a configurable window'
+          column: index_window
+        - decision: Breakdown travels with the index
+          chosen: breakdown column on the index row
+          evidence: request
+          detail: 'user: the index is always accompanied by its breakdown, never left to be discovered'
+          column: breakdown
+  columns:
+  - name: index_window
+    description: <current_start_week>/<current_end_week>.
     config:
       meta:
         dex:
-          grain:
-            - study_year
-          population:
-            rule: Study years with at least one index component.
-          assumptions:
-            - decision: How lifts combine
-              chosen: geometric mean within each source, then across sources, equal weights
-              evidence: default
-              detail: lifts are ratios; the geometric mean keeps one noisy source from dominating
-            - decision: A zero lift
-              chosen: floored at 0.01 before the log
-              evidence: default
-              detail: ln(0) is undefined; a component that fell to zero still pulls the index down hard
-            - decision: Incomplete index
-              chosen: NULL until every component source has a lift
-              evidence: request
-              detail: missing is unavailable, never zero
-    columns:
-      - name: study_year
-        config:
-          meta:
-            dex:
-              role: key
-              null_rule: never
-        data_tests:
-          - unique
-          - not_null
-      - name: release_day
-        config:
-          meta:
-            dex:
-              role: time
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: sources_total
-        config:
-          meta:
-            dex:
-              role: attribute
-              null_rule: never
-              unit: count
-        data_tests:
-          - not_null
-      - name: sources_with_lift
-        config:
-          meta:
-            dex:
-              role: attribute
-              null_rule: never
-              unit: count
-        data_tests:
-          - not_null
-      - name: day_off_index
-        config:
-          meta:
-            dex:
-              role: measure
-              null_rule: NULL until every component source has a lift
-              aggregation: max
-              additivity: non_additive
-              unit: index (100 = normal week)
-      - name: google_trends_lift
-        config:
-          meta:
-            dex:
-              role: measure
-              aggregation: max
-              additivity: non_additive
-              unit: ratio
-      - name: bluesky_lift
-        config:
-          meta:
-            dex:
-              role: measure
-              aggregation: max
-              additivity: non_additive
-              unit: ratio
-      - name: reddit_lift
-        config:
-          meta:
-            dex:
-              role: measure
-              aggregation: max
-              additivity: non_additive
-              unit: ratio
+          role: key
+          null_rule: never
+    data_tests:
+    - unique
+    - not_null
+  - name: current_start_week
+    description: Sunday of the first week of the current window.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: current_end_week
+    description: Sunday of the last week of the current window.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: prior_start_week
+    description: Sunday of the first comparison week (weeks_back earlier).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: prior_end_week
+    description: Sunday of the last comparison week.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: weeks
+    description: Weeks in each window.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+          unit: count
+    data_tests:
+    - not_null
+  - name: batch_id
+    description: The Trends pull the values come from.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: phrase_count
+    description: Phrases in the index.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+          unit: count
+    data_tests:
+    - not_null
+  - name: phrases_available
+    description: Phrases whose change is available.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+          unit: count
+    data_tests:
+    - not_null
+  - name: day_off_index
+    description: Average of the phrases' year-over-year changes, in percent (50 = searches up 50% on average).
+      Always report with `breakdown`.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: 'NULL unless every phrase''s change is available: unavailable, never zero'
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+  - name: breakdown
+    description: Every phrase's change, e.g. 'call in sick +40.4% · day off work +73.4% · sick day +36.4%'.
+      Report it with the index, every time.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+unit_tests:
+- name: index_is_average_with_breakdown
+  model: fct_day_off_index
+  description: The index is the plain average of the phrase changes and carries every phrase in breakdown.
+  given:
+  - input: ref('fct_day_off_index_terms')
+    rows:
+    - term: sick day
+      batch_id: b1
+      current_start_week: '2026-11-01'
+      current_end_week: '2026-11-08'
+      prior_start_week: '2025-11-02'
+      prior_end_week: '2025-11-09'
+      weeks: 2
+      pct_change: 30.0
+    - term: call in sick
+      batch_id: b1
+      current_start_week: '2026-11-01'
+      current_end_week: '2026-11-08'
+      prior_start_week: '2025-11-02'
+      prior_end_week: '2025-11-09'
+      weeks: 2
+      pct_change: 10.0
+  expect:
+    rows:
+    - index_window: 2026-11-01/2026-11-08
+      phrase_count: 2
+      phrases_available: 2
+      day_off_index: 20.0
+      breakdown: call in sick +10.0% · sick day +30.0%
+- name: index_unavailable_when_a_phrase_is
+  model: fct_day_off_index
+  description: 'One phrase unavailable: the index is NULL and the breakdown says which.'
+  given:
+  - input: ref('fct_day_off_index_terms')
+    rows:
+    - term: call in sick
+      batch_id: b1
+      current_start_week: '2026-11-01'
+      current_end_week: '2026-11-08'
+      prior_start_week: '2025-11-02'
+      prior_end_week: '2025-11-09'
+      weeks: 2
+      pct_change: 10.0
+    - term: sick day
+      batch_id: b1
+      current_start_week: '2026-11-01'
+      current_end_week: '2026-11-08'
+      prior_start_week: '2025-11-02'
+      prior_end_week: '2025-11-09'
+      weeks: 2
+      pct_change: null
+  expect:
+    rows:
+    - phrases_available: 1
+      day_off_index: null
+      breakdown: call in sick +10.0% · sick day not yet available

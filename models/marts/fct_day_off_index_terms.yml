@@ -1,0 +1,366 @@
+version: 2
+models:
+- name: fct_day_off_index_terms
+  description: 'The Day-Off Index breakdown: one row per search phrase, with its average weekly US search
+    interest over the current window, over the same weeks a year earlier, and the percent change.'
+  config:
+    meta:
+      dex:
+        grain:
+        - term
+        population:
+          rule: Every phrase in the Trends snapshot the index reads (stg_trends__weekly).
+          parent:
+            model: stg_trends__weekly
+            key:
+              term: term
+        assumptions:
+        - decision: What the index compares
+          chosen: average weekly interest over the current window vs the same weeks 52 weeks earlier,
+            per phrase
+          evidence: request
+          detail: 'user: average daily search interest 1-15 Nov 2026 vs 1-15 Nov 2025, weekly is fine
+            over the 2-week window; configurable start, end and number of weeks'
+          column: pct_change
+        - decision: Partial or missing weeks
+          chosen: excluded from the averages; the change is NULL unless both windows are complete
+          evidence: default
+          detail: a week still filling in would understate its average
+          column: pct_change
+        - decision: Week alignment
+          chosen: 52 weeks back (364 days), so both windows start on a Sunday like Google's weeks
+          evidence: default
+          detail: 'canonical: 1-14 Nov 2026 vs 2-15 Nov 2025'
+          column: prior_start_week
+  columns:
+  - name: term
+    description: The search phrase.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+    - unique
+    - not_null
+  - name: geo
+    description: US.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: batch_id
+    description: The Trends pull the values come from.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: span_start
+    description: First day of the request span.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: span_end
+    description: Last day of the request span.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: current_start_week
+    description: Sunday of the first week of the current window.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: current_end_week
+    description: Sunday of the last week of the current window.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: prior_start_week
+    description: Sunday of the first comparison week (weeks_back earlier).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: prior_end_week
+    description: Sunday of the last comparison week.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: weeks
+    description: Weeks in each window.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+          unit: count
+    data_tests:
+    - not_null
+  - name: current_weeks_found
+    description: Complete weeks found in the current window.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+          unit: count
+    data_tests:
+    - not_null
+  - name: prior_weeks_found
+    description: Complete weeks found in the comparison window.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+          unit: count
+    data_tests:
+    - not_null
+  - name: current_avg_interest
+    description: Average weekly search interest, current window.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when no complete week of the window is loaded
+          aggregation: max
+          additivity: non_additive
+          unit: index (0-100, relative within one phrase's request)
+  - name: prior_avg_interest
+    description: Average weekly search interest, same weeks a year earlier.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when no complete week of the window is loaded
+          aggregation: max
+          additivity: non_additive
+          unit: index (0-100, relative within one phrase's request)
+  - name: pct_change
+    description: Year-over-year change of the phrase's average weekly search interest, in percent (40
+      = +40%).
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: 'NULL unless every week of both windows is loaded and complete: unavailable, never
+            zero'
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+unit_tests:
+- name: terms_start_and_end_week
+  model: fct_day_off_index_terms
+  description: 'Start + end week: averages only the window''s weeks, compares 52 weeks back.'
+  overrides:
+    vars:
+      day_off_index_start_week: '2026-11-01'
+      day_off_index_end_week: '2026-11-08'
+      day_off_index_weeks_back: 52
+  given:
+  - input: ref('stg_trends__weekly')
+    rows:
+    - term: call in sick
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2025-10-26'
+      interest: 99
+      is_partial: false
+    - term: call in sick
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2025-11-02'
+      interest: 40
+      is_partial: false
+    - term: call in sick
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2025-11-09'
+      interest: 60
+      is_partial: false
+    - term: call in sick
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2026-11-01'
+      interest: 70
+      is_partial: false
+    - term: call in sick
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2026-11-08'
+      interest: 80
+      is_partial: false
+    - term: call in sick
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2026-11-15'
+      interest: 10
+      is_partial: false
+  expect:
+    rows:
+    - term: call in sick
+      prior_start_week: '2025-11-02'
+      prior_end_week: '2025-11-09'
+      weeks: 2
+      current_weeks_found: 2
+      prior_weeks_found: 2
+      current_avg_interest: 75.0
+      prior_avg_interest: 50.0
+      pct_change: 50.0
+- name: terms_start_and_number_of_weeks
+  model: fct_day_off_index_terms
+  description: 'No end week: start week + day_off_index_weeks sets the window.'
+  overrides:
+    vars:
+      day_off_index_start_week: '2026-10-25'
+      day_off_index_end_week: null
+      day_off_index_weeks: 3
+  given:
+  - input: ref('stg_trends__weekly')
+    rows:
+    - term: sick day
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2025-10-26'
+      interest: 30
+      is_partial: false
+    - term: sick day
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2025-11-02'
+      interest: 40
+      is_partial: false
+    - term: sick day
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2025-11-09'
+      interest: 50
+      is_partial: false
+    - term: sick day
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2026-10-25'
+      interest: 45
+      is_partial: false
+    - term: sick day
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2026-11-01'
+      interest: 70
+      is_partial: false
+    - term: sick day
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2026-11-08'
+      interest: 80
+      is_partial: false
+  expect:
+    rows:
+    - term: sick day
+      current_end_week: '2026-11-08'
+      prior_start_week: '2025-10-26'
+      weeks: 3
+      current_avg_interest: 65.0
+      prior_avg_interest: 40.0
+      pct_change: 62.5
+- name: terms_partial_week_is_unavailable
+  model: fct_day_off_index_terms
+  description: A week still filling in is left out and the change reads NULL, never a smaller number.
+  overrides:
+    vars:
+      day_off_index_start_week: '2026-11-08'
+      day_off_index_end_week: '2026-11-15'
+  given:
+  - input: ref('stg_trends__weekly')
+    rows:
+    - term: day off work
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2025-11-09'
+      interest: 50
+      is_partial: false
+    - term: day off work
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2025-11-16'
+      interest: 50
+      is_partial: false
+    - term: day off work
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2026-11-08'
+      interest: 80
+      is_partial: false
+    - term: day off work
+      geo: US
+      batch_id: b1
+      span_start: '2025-11-01'
+      span_end: '2026-11-15'
+      week_start: '2026-11-15'
+      interest: 90
+      is_partial: true
+  expect:
+    rows:
+    - term: day off work
+      current_weeks_found: 1
+      prior_weeks_found: 2
+      pct_change: null

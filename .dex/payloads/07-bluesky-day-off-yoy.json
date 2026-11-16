@@ -1,0 +1,36 @@
+{
+ "definitions": [
+  {
+   "kind": "metric",
+   "op": "delete",
+   "name": "bluesky_gta_day_off_posts_yoy"
+  },
+  {
+   "kind": "metric",
+   "op": "delete",
+   "name": "bluesky_gta_day_off_posts_2026"
+  },
+  {
+   "kind": "metric",
+   "op": "delete",
+   "name": "bluesky_gta_day_off_posts_2025"
+  },
+  {
+   "kind": "metric",
+   "op": "delete",
+   "name": "bluesky_gta_day_off_posts"
+  },
+  {
+   "kind": "metric",
+   "content": "name: bluesky_day_off_posts_2026\nlabel: Bluesky day-off posts, 2026\ndescription: Bluesky posts per UTC day saying someone is taking a day off, PTO or calling in sick (any reason), 2026 study window. Release is Thu 19 Nov 2026 (days_from_release 0).\ntype: simple\ntype_params:\n  measure: signal_value_measure\nfilter: |\n  {{ Dimension('signal_day__signal') }} = 'posts:day_off' and {{ Dimension('signal_day__source') }} = 'bluesky' and {{ Dimension('signal_day__study_year') }} = 2026\n"
+  },
+  {
+   "kind": "metric",
+   "content": "name: bluesky_day_off_posts_2025\nlabel: Bluesky day-off posts, 2025\ndescription: The same count in the 2025 control window, aligned on Thu 20 Nov 2025 (days_from_release 0), the same weekday a year earlier.\ntype: simple\ntype_params:\n  measure: signal_value_measure\nfilter: |\n  {{ Dimension('signal_day__signal') }} = 'posts:day_off' and {{ Dimension('signal_day__source') }} = 'bluesky' and {{ Dimension('signal_day__study_year') }} = 2025\n"
+  },
+  {
+   "kind": "metric",
+   "content": "name: bluesky_day_off_posts_yoy\nlabel: Bluesky day-off posts, year over year\ndescription: Bluesky day-off posts (any reason) in 2026 over the same weekday-aligned days of 2025 (x times; 1.0 = no change). The headline is release day, signal_day__days_from_release = 0 (Thu 19 Nov 2026 vs Thu 20 Nov 2025). Always filter days_from_release to days both years have loaded. Posts, not headcount; association, not causation; includes Bluesky's own platform growth.\ntype: derived\ntype_params:\n  expr: bluesky_day_off_posts_2026 / nullif(bluesky_day_off_posts_2025, 0)\n  metrics:\n    - name: bluesky_day_off_posts_2026\n    - name: bluesky_day_off_posts_2025\n"
+  }
+ ]
+}

@@ -1,128 +1,131 @@
 version: 2
-
 models:
-  - name: fct_signal_daily
-    description: One row per signal per UTC day inside the study and control windows, with its place relative to release.
+- name: fct_signal_daily
+  description: One row per signal per UTC day inside the study and control windows, with its place relative to release.
+  config:
+    meta:
+      dex:
+        grain:
+          - signal_day_key
+        population:
+          rule: Signal-days whose date falls in dim_date; days outside the spine are dropped by the inner join.
+        assumptions:
+          - decision: Days outside the window
+            chosen: dropped
+            evidence: request
+            detail: the study compares Thursdays in Oct-Nov 2026 against the same weeks of 2025; the inner join to dim_date keeps only that spine
+            column: signal_date
+          - decision: Surrogate key
+            chosen: md5 of the natural grain
+            evidence: default
+            detail: the key is md5 of the composite Dex drafts as the grain, so the two describe the same rows; MetricFlow needs a single-column primary entity
+          - decision: Thursday comparison roles
+            chosen: removed
+            evidence: request
+            detail: they tagged the old index's release and baseline Thursdays
+            column: comparison_role
+          - decision: Google Trends rows and comparison roles
+            chosen: removed
+            evidence: request
+            detail: 'user: scratch the old Day-Off Index; Trends moved to the new index'
+            column: source
+  columns:
+  - name: source
+    description: bluesky, reddit, hacker_news or wikipedia.
     config:
       meta:
         dex:
-          grain:
-            - signal_day_key
-          population:
-            rule: Signal-days whose date falls in dim_date; days outside the spine are dropped by the inner join.
-          assumptions:
-            - decision: Days outside the window
-              chosen: dropped
-              evidence: request
-              detail: the study compares Thursdays in Oct-Nov 2026 against the same weeks of 2025; the inner join to dim_date keeps only that spine
-              column: signal_date
-            - decision: Surrogate key
-              chosen: md5 of the natural grain
-              evidence: default
-              detail: the key is md5 of the composite Dex drafts as the grain, so the two describe the same rows; MetricFlow needs a single-column primary entity
-    columns:
-      - name: source
-        description: google_trends, bluesky, reddit, hacker_news or wikipedia.
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: signal
-        description: What is counted, e.g. search:pto, posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi.
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: signal_family
-        description: day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference.
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: geo
-        description: US or WORLD. Only Google Trends has a US slice.
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: signal_date
-        description: UTC day (Google's own day for Trends).
-        config:
-          meta:
-            dex:
-              role: time
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: signal_value
-        description: Counts for posts and pageviews; relative 0-100 interest for Trends. Never add across signals or sources.
-        config:
-          meta:
-            dex:
-              role: measure
-              null_rule: 'NULL when the value could not be read: unavailable, never zero.'
-              aggregation: sum
-              additivity: non_additive
-              unit: count or index (see signal)
-      - name: is_available
-        description: False when any part of the day's value failed to load or was partial.
-        config:
-          meta:
-            dex:
-              role: attribute
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: signal_day_key
-        description: md5 of source|signal|geo|signal_date.
-        config:
-          meta:
-            dex:
-              role: key
-              null_rule: never
-        data_tests:
-          - unique
-          - not_null
-      - name: study_year
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: days_from_release
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-              unit: days
-        data_tests:
-          - not_null
-      - name: iso_day_of_week
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: comparison_role
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: NULL except on the two compared Thursdays
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: signal
+    description: What is counted, e.g. posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: signal_family
+    description: day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: geo
+    description: WORLD.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: signal_date
+    description: UTC day.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: signal_value
+    description: Counts for posts and pageviews. Never add across signals or sources.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: 'NULL when the value could not be read: unavailable, never zero.'
+          aggregation: sum
+          additivity: non_additive
+          unit: count or index (see signal)
+  - name: is_available
+    description: False when any part of the day's value failed to load or was partial.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: signal_day_key
+    description: md5 of source|signal|geo|signal_date.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+    - unique
+    - not_null
+  - name: study_year
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: days_from_release
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+          unit: days
+    data_tests:
+    - not_null
+  - name: iso_day_of_week
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null

@@ -13,3 +13,11 @@ models:
       +materialized: view
     marts:
       +materialized: table
+vars:
+  day_off_index_span_start: '2025-11-01'
+  day_off_index_span_end: '2026-11-15'
+  day_off_index_batch: 20261116T185310
+  day_off_index_start_week: '2026-11-01'
+  day_off_index_end_week: '2026-11-08'
+  day_off_index_weeks: 2
+  day_off_index_weeks_back: 52

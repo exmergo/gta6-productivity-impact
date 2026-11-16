@@ -5,15 +5,18 @@ Every number must come out of the dbt project and its semantic layer.
 
 ## Answering a question about the data
 
-1. Run `uv run dex explore semantic list` and pick the governed metric. The headline metrics
-   are `day_off_index` (group by `index_year__study_year`), `day_off_index_gta_effect`,
-   `gta_share_of_day_off_talk`, `thursday_lift`, `signal_value` and `gta_wiki_pageviews`.
+1. Run `uv run dex explore semantic list` and pick the governed metric. The headline is
+   `day_off_index` (average YoY change in US Google searches for "call in sick", "sick day"
+   and "day off work"); its breakdown is `day_off_index_term_change` by
+   `day_off_index_term__term`. Also `gta_share_of_day_off_talk`, `signal_value` and
+   `gta_wiki_pageviews`.
 2. Query it with `uv run dex explore semantic query <metrics> --group-by ...`. Never answer
    from raw SQL when a metric exists, and never add `signal_value` across signals or sources.
-3. Report the UTC day, the study year (2026 = GTA, 2025 = control), and the caveat: this
-   is a public-signal proxy, not a headcount, and a lift is association, not causation.
-4. A NULL is unavailable, never zero. Say "not yet available" for the 2026 index before UTC
-   Thursday 19 November 2026 has closed and loaded.
+3. **Never report `day_off_index` without its breakdown**: group it by
+   `day_off_index_window__breakdown`, or give each phrase's change beside it.
+4. Report the windows compared (canonical: 1-14 Nov 2026 vs 2-15 Nov 2025) and the caveat:
+   search interest, not a headcount, and a rise is association, not causation.
+5. A NULL is unavailable, never zero.
 
 ## Changing the project
 

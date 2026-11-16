@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/png/day-off-index-dark.png">
-  <img alt="The Day-Off Index: GTA 6 lands Thursday 19 November. We're counting who calls in sick." src="charts/png/day-off-index-light.png">
+  <img alt="Day-Off Index: +50%. US Google searches for call in sick +40%, sick day +36%, day off work +73%, 1–14 Nov 2026 against 2–15 Nov 2025." src="charts/png/day-off-index-light.png">
 </picture>
 
 **GTA 6 comes out on Thursday 19 November 2026.** Twelve years after GTA V. Two delays. One
@@ -10,62 +10,48 @@ trailer that broke YouTube's record for a game reveal. Somewhere, a calendar now
 "dentist (GTA)".
 
 Nobody publishes how many people booked that Thursday off. So we measured what people
-*search* and *say*, and compared Thursday with the Thursday before. Every number in this
+*search* for when they're planning to skip work, against the same weeks last year. Every number in this
 repo comes out of a dbt project and a semantic layer that [Dex](https://trydex.ai) wrote,
 tested and checks every day. The joke is GTA. The method is real.
 
 ## The numbers so far
 
-> [!NOTE]
-> The release Thursday hasn't happened yet. The Day-Off Index for 2026 fills in once UTC
-> Thursday 19 November has closed. The refresh runs daily, plus extra runs around release.
+**The Day-Off Index: +50%.** US Google searches for skipping work, 1–14 Nov 2026 against
+2–15 Nov 2025:
 
-**Of everyone posting about a day off on Bluesky, about 6% now mention GTA.** Two weeks
-earlier it was a quarter of a percent. The same weeks of 2025 sit at zero.
+| Search (US) | 2025 | 2026 | Change |
+|---|---|---|---|
+| "day off work" | 54.5 | 94.5 | **+73%** |
+| "call in sick" | 68.0 | 95.5 | **+40%** |
+| "sick day" | 70.0 | 95.5 | **+36%** |
+| **Day-Off Index** (average) | | | **+50%** |
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/png/gta-share-of-day-off-talk-dark.png">
-  <img alt="Share of Bluesky day-off posts that mention GTA, by day before release, 2026 against 2025." src="charts/png/gta-share-of-day-off-talk-light.png">
-</picture>
-
-**The control week matters.** The same pair of Thursdays in 2025 (20 vs 13 November)
-already scores **108** on the Day-Off Index. The week before Thanksgiving week runs hot
-without any help from Rockstar. So the headline is the 2026 index *net of* that.
-
-**The hype line.** Daily readers of the GTA VI Wikipedia article went from about 12k at the
-start of October to over 80k. The 2025 spike is the day the game was delayed to 2026.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/png/gta-wikipedia-hype-dark.png">
-  <img alt="Daily English Wikipedia pageviews of Grand Theft Auto VI, 2026 against 2025." src="charts/png/gta-wikipedia-hype-light.png">
-</picture>
+Weekly Google Trends interest, one request per phrase covering both years, so both years
+sit on one scale.
 
 Live scoreboard: **https://exmergo.github.io/gta6-productivity-impact/**
 
 ## How we measured a vibe
 
-The **Day-Off Index** is the geometric mean of Thursday lifts (Thu 19 Nov over Thu 12 Nov)
-across three kinds of signal, times 100. A normal week is 100.
+The **Day-Off Index** is the average year-over-year change in US Google searches for "call
+in sick", "sick day" and "day off work". Each phrase's change compares its average weekly
+search interest over a window (canonical: the two Google weeks of 1–14 Nov 2026) with the
+same weeks a year earlier. The window is configurable: start week, end week or number of
+weeks. The index is always shown with its breakdown.
 
-| Signal | Source | What it counts |
-|---|---|---|
-| Search intent | Google Trends, US and worldwide | "call in sick", "sick day", "PTO", "day off work" |
-| Posts | Bluesky public search | Posts per UTC day that say day off, PTO or calling in sick |
-| Posts | Reddit, via the Arctic Shift archive | The same, in 9 subreddits from r/GTA6 to r/antiwork |
-
-Supporting numbers: the GTA share of day-off talk, Wikipedia readers of the GTA VI
-article, and Hacker News. Hacker News found 334 day-off posts in 107 days, so it's in here
-for the joke. Full method: [docs/methodology.md](docs/methodology.md). Sources and what we
-tried and dropped: [docs/sources.md](docs/sources.md).
+Supporting numbers, outside the index: the GTA share of Bluesky day-off talk, Wikipedia
+readers of the GTA VI article, and Hacker News (334 day-off posts in 107 days, so it's in
+here for the joke). Full method: [docs/methodology.md](docs/methodology.md). Sources and
+what we tried and dropped: [docs/sources.md](docs/sources.md).
 
 **Two honest limits.**
 
-1. This is a proxy, not a headcount. People who quietly book PTO in an HR system don't
-   post about it. For an outside reference, BambooHR reportedly saw time-off requests for
+1. This is search interest, not a headcount. People who quietly book PTO in an HR system
+   don't search for it. For an outside reference, BambooHR reportedly saw time-off requests for
    19 November up 9–17%. That's their data, not ours.
-2. Search indexes move. Bluesky's `hitsTotal` and Algolia's `nbHits` are what those
-   services report on the day we ask. `dex maintain check` runs on every refresh, so a
-   sudden change in volume shows up as a finding before it becomes a chart.
+2. Google samples. Two pulls of the same Trends request differ by a point or two, so the
+   published numbers come from one pinned pull (`day_off_index_batch` in `dbt_project.yml`),
+   committed in `data/raw/trends/`.
 
 ## What Dex did here
 
@@ -82,8 +68,8 @@ summarised.
   outside the study window. Plans: [`.dex/plans/`](.dex/plans/). Payloads:
   [`.dex/payloads/`](.dex/payloads/).
 - **The semantic layer.** Dex drafted the MetricFlow semantic models from the declarations.
-  We wrote the 12 metrics on top: `day_off_index`, `day_off_index_gta_effect` (net of
-  season), `gta_share_of_day_off_talk`, `signal_value_prior_week_ratio` and more. Every chart
+  We wrote the metrics on top: `day_off_index`, its breakdown `day_off_index_term_change`,
+  `gta_share_of_day_off_talk` and more. Every chart
   in this README is drawn from `dex explore semantic query`, never from raw SQL. If an agent
   can ask it, the chart can draw it.
 - **Maintain.** `dex maintain verify` proves all declared grains (10 of 10). The baseline is
@@ -110,15 +96,17 @@ uv sync
 # What does the layer know?
 uv run dex explore semantic list
 
-# The headline, and the control
-uv run dex explore semantic query day_off_index --group-by index_year__study_year
+# The headline, always with its breakdown
+uv run dex explore semantic query day_off_index --group-by day_off_index_window__breakdown
+uv run dex explore semantic query day_off_index_term_change,day_off_index_term_prior,day_off_index_term_current \
+  --group-by day_off_index_term__term
 
 # The lead-up, by day and source
 uv run dex explore semantic query gta_share_of_day_off_talk \
   --group-by metric_time__day,signal_day__source
 ```
 
-Or point your coding agent at the repo and ask "how many people took Thursday off for GTA 6?".
+Or point your coding agent at the repo and ask "are people searching for sick days more than last year?".
 `AGENTS.md` tells it to go through the semantic layer first.
 
 ## Reproduce in two minutes
@@ -149,7 +137,7 @@ npx skills add exmergo/dex
 
 | # | Metric | Question | When |
 |---|---|---|---|
-| 1 | **Day-Off Index** | Did people take Thursday off? | live |
+| 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | live |
 | 2 | **PRs opened on GitHub** | Did GitHub go quiet on Thursday? | Fri 20 Nov |
 | 3 | **Stack Overflow silence** | Did developers stop asking questions? | after release |
 | 4 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | after release |

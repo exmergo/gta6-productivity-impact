@@ -1,0 +1,20 @@
+{
+ "definitions": [
+  {
+   "kind": "metric",
+   "content": "name: bluesky_gta_day_off_posts\nlabel: Bluesky GTA day-off posts\ndescription: Bluesky posts per UTC day that say someone is taking time off and also mention GTA. A count of posts, not of days off taken.\ntype: simple\ntype_params:\n  measure: signal_value_measure\nfilter: |\n  {{ Dimension('signal_day__signal') }} = 'posts:day_off_gta' and {{ Dimension('signal_day__source') }} = 'bluesky'\n"
+  },
+  {
+   "kind": "metric",
+   "content": "name: bluesky_gta_day_off_posts_2026\nlabel: Bluesky GTA day-off posts, 2026\ndescription: Bluesky GTA day-off posts in the 2026 study window (release Thu 19 Nov 2026).\ntype: simple\ntype_params:\n  measure: signal_value_measure\nfilter: |\n  {{ Dimension('signal_day__signal') }} = 'posts:day_off_gta' and {{ Dimension('signal_day__source') }} = 'bluesky' and {{ Dimension('signal_day__study_year') }} = 2026\n"
+  },
+  {
+   "kind": "metric",
+   "content": "name: bluesky_gta_day_off_posts_2025\nlabel: Bluesky GTA day-off posts, 2025 control\ndescription: Bluesky GTA day-off posts in the 2025 control window (aligned on Thu 20 Nov 2025).\ntype: simple\ntype_params:\n  measure: signal_value_measure\nfilter: |\n  {{ Dimension('signal_day__signal') }} = 'posts:day_off_gta' and {{ Dimension('signal_day__source') }} = 'bluesky' and {{ Dimension('signal_day__study_year') }} = 2025\n"
+  },
+  {
+   "kind": "metric",
+   "content": "name: bluesky_gta_day_off_posts_yoy\nlabel: Bluesky GTA day-off posts, year over year\ndescription: 2026 Bluesky GTA day-off posts over 2025 posts on the same days from release (x times). Always filter signal_day__days_from_release to days both years have loaded; a single day with zero 2025 posts reads NULL. Posts, not days off; association, not causation.\ntype: derived\ntype_params:\n  expr: bluesky_gta_day_off_posts_2026 / nullif(bluesky_gta_day_off_posts_2025, 0)\n  metrics:\n    - name: bluesky_gta_day_off_posts_2026\n    - name: bluesky_gta_day_off_posts_2025\n"
+  }
+ ]
+}

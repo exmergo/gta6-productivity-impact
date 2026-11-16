@@ -1,0 +1,109 @@
+version: 2
+
+models:
+  - name: stg_trends__weekly
+    description: One row per Day-Off Index search phrase per Google week, from one weekly US Trends request per phrase spanning both years (one 0-100 scale per phrase).
+    config:
+      meta:
+        dex:
+          grain:
+            - term
+            - week_start
+          population:
+            rule: Rows of requests over the configured span (vars day_off_index_span_*), from the pinned batch (var day_off_index_batch) or else each phrase's newest batch. Older daily per-year pulls carry no span and are excluded.
+          assumptions:
+            - decision: Which Trends rows the index reads
+              chosen: one weekly request per phrase over the configured span; daily per-year pulls excluded
+              evidence: request
+              detail: user defined the index as one Trends snapshot from 1 Nov 2025 to 15 Nov 2026
+              column: span_start
+            - decision: Which pull
+              chosen: pinned batch 20261116T185310, else newest
+              evidence: request
+              detail: 'user: the canonical snapshot for the post is the one already shown; pulls differ by 1-2 points because Trends samples'
+              column: batch_id
+    columns:
+      - name: request_id
+        description: 'The Trends request: <phrase>-<geo>-<span>-<batch>.'
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: batch_id
+        description: When the pull ran (UTC, YYYYMMDDTHHMMSS).
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: span_start
+        description: First day of the request span.
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: span_end
+        description: Last day of the request span.
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: geo
+        description: US.
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: term
+        description: 'The search phrase: call in sick, sick day or day off work.'
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: week_start
+        description: The Sunday that starts the Google week.
+        config:
+          meta:
+            dex:
+              role: time
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: interest
+        description: Relative weekly search interest; 100 is that phrase's peak week in the span. Never compare across phrases.
+        config:
+          meta:
+            dex:
+              role: measure
+              null_rule: never
+              aggregation: max
+              additivity: non_additive
+              unit: index (0-100, relative within one phrase's request)
+        data_tests:
+          - not_null
+      - name: is_partial
+        description: True for the week still in progress when the pull ran.
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+        data_tests:
+          - not_null

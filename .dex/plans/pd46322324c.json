@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "plan_id": "pd46322324c",
+  "created_at": "2026-11-16T19:05:06.858320+00:00",
+  "intent": "Redefine the Day-Off Index: YoY average weekly US Google searches (call in sick, sick day, day off work), configurable window; remove the Thursday-lift design",
+  "project_dir": ".",
+  "edit_target": "project",
+  "edits": [
+    {
+      "path": "dbt_project.yml",
+      "new_content": "name: gta6_impact\nversion: 1.0.0\nprofile: gta6_impact\nmodel-paths:\n- models\ntest-paths:\n- data_tests\nmodels:\n  gta6_impact:\n    staging:\n      +materialized: view\n    intermediate:\n      +materialized: view\n    marts:\n      +materialized: table\nvars:\n  day_off_index_span_start: '2025-11-01'\n  day_off_index_span_end: '2026-11-15'\n  day_off_index_batch: 20261116T185310\n  day_off_index_start_week: '2026-11-01'\n  day_off_index_end_week: '2026-11-08'\n  day_off_index_weeks: 2\n  day_off_index_weeks_back: 52\n",
+      "old_content_hash": "7d8e48fdb8ad1619849d99b92cf5420c8832b285ffd52a8c542125b657d9d4c3",
+      "op": "upsert",
+      "kind": "project_yml"
+    },
+    {
+      "path": "models/marts/fct_thursday_lift.sql",
+      "new_content": null,
+      "old_content_hash": "57285c55c6170449f30e4dab19b9c130f8ad60757264f163f9ccb0690b8e679c",
+      "op": "delete",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/fct_thursday_lift.yml",
+      "new_content": null,
+      "old_content_hash": "ab0765a5ff5db7151fe73b8fc324af2fe5a4c4d05d61e58cd6153b228de7027a",
+      "op": "delete",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/marts/semantic/thursday_lift.yml",
+      "new_content": null,
+      "old_content_hash": "5a5f9d12a2a2efe759463f6c6564007f7ce9a470ecfbd59328fc4c61746de3cc",
+      "op": "delete",
+      "kind": "semantic_yml"
+    },
+    {
+      "path": "models/staging/stg_trends__interest.sql",
+      "new_content": null,
+      "old_content_hash": "f08589fe14577842ad564a2c09c420d98e92e11d4c7b90356401a6959b839592",
+      "op": "delete",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/staging/stg_trends__interest.yml",
+      "new_content": null,
+      "old_content_hash": "7e2d15c6945198f6561f563c20bb840e79169112118e1f8ecc7217480c0a4531",
+      "op": "delete",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "data_tests/assert_control_year_present.sql",
+      "new_content": null,
+      "old_content_hash": "9b954974ad9c9bb24b3fc6f5ad5f781659cfedbe86c190ee6afb05f234412cea",
+      "op": "delete",
+      "kind": "test_sql"
+    },
+    {
+      "path": "data_tests/assert_no_lift_from_unavailable.sql",
+      "new_content": null,
+      "old_content_hash": "facd57889244d9773b72301ae419b42e0a8e25a868125446fb5fcb66a9b4c233",
+      "op": "delete",
+      "kind": "test_sql"
+    },
+    {
+      "path": "data_tests/assert_thursday_lift_grain.sql",
+      "new_content": null,
+      "old_content_hash": "fa7fc6476ed4dcea40b83a578edac7799930c0eea084b641b025f9be5c8d2840",
+      "op": "delete",
+      "kind": "test_sql"
+    },
+    {
+      "path": "models/staging/stg_trends__weekly.sql",
+      "new_content": "-- One row per search phrase per Google week (labelled by its Sunday), from one weekly\n-- Trends request per phrase that spans both years, so 2025 and 2026 share one 0-100 scale.\n-- Keeps the requests over the configured span (older daily per-year pulls have no span and\n-- drop out), and the pinned batch (var day_off_index_batch) or else the newest per phrase.\n{%- set batch = var('day_off_index_batch', none) %}\nwith source as (\n    select *\n    from {{ source('raw', 'trends_interest') }}\n    where span_start = date '{{ var(\"day_off_index_span_start\") }}'\n        and span_end = date '{{ var(\"day_off_index_span_end\") }}'\n),\n\nchosen as (\n    select\n        term,\n        {% if batch %}'{{ batch }}'{% else %}max(batch_id){% endif %} as batch_id\n    from source\n    group by term\n)\n\nselect\n    source.request_id,\n    source.batch_id,\n    source.span_start,\n    source.span_end,\n    source.geo,\n    source.term,\n    source.day as week_start,\n    cast(source.interest as integer) as interest,\n    source.is_partial\nfrom source\ninner join chosen\n    on source.term = chosen.term\n    and source.batch_id = chosen.batch_id\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/fct_day_off_index_terms.sql",
+      "new_content": "-- The Day-Off Index breakdown: one row per search phrase, its average weekly search\n-- interest over the current window and over the same weeks a year earlier, and the change.\n-- The window is configurable (vars day_off_index_*): a start week and an end week, or a\n-- start week and a number of weeks. Weeks are Google's, labelled by their Sunday.\n{%- set start_week = var('day_off_index_start_week') %}\n{%- set end_week = var('day_off_index_end_week', none) %}\n{%- set weeks = var('day_off_index_weeks', 2) %}\n{%- set weeks_back = var('day_off_index_weeks_back', 52) %}\nwith params as (\n    select\n        date '{{ start_week }}' as current_start_week,\n        {% if end_week -%}\n        date '{{ end_week }}'\n        {%- else -%}\n        cast(date '{{ start_week }}' + 7 * ({{ weeks }} - 1) as date)\n        {%- endif %} as current_end_week\n),\n\nwindows as (\n    select\n        current_start_week,\n        current_end_week,\n        cast(current_start_week - 7 * {{ weeks_back }} as date) as prior_start_week,\n        cast(current_end_week - 7 * {{ weeks_back }} as date) as prior_end_week,\n        cast((current_end_week - current_start_week) / 7 + 1 as integer) as weeks\n    from params\n),\n\nphrases as (\n    select distinct term, geo, batch_id, span_start, span_end\n    from {{ ref('stg_trends__weekly') }}\n),\n\nper_phrase as (\n    select\n        phrases.term,\n        phrases.geo,\n        phrases.batch_id,\n        phrases.span_start,\n        phrases.span_end,\n        windows.current_start_week,\n        windows.current_end_week,\n        windows.prior_start_week,\n        windows.prior_end_week,\n        windows.weeks,\n        avg(weekly.interest) filter (\n            where weekly.week_start between windows.current_start_week\n                and windows.current_end_week and not weekly.is_partial\n        ) as current_avg_interest,\n        avg(weekly.interest) filter (\n            where weekly.week_start between windows.prior_start_week\n                and windows.prior_end_week and not weekly.is_partial\n        ) as prior_avg_interest,\n        count(weekly.week_start) filter (\n            where weekly.week_start between windows.current_start_week\n                and windows.current_end_week and not weekly.is_partial\n        ) as current_weeks_found,\n        count(weekly.week_start) filter (\n            where weekly.week_start between windows.prior_start_week\n                and windows.prior_end_week and not weekly.is_partial\n        ) as prior_weeks_found\n    from phrases\n    cross join windows\n    left join {{ ref('stg_trends__weekly') }} as weekly\n        on phrases.term = weekly.term\n    group by\n        phrases.term,\n        phrases.geo,\n        phrases.batch_id,\n        phrases.span_start,\n        phrases.span_end,\n        windows.current_start_week,\n        windows.current_end_week,\n        windows.prior_start_week,\n        windows.prior_end_week,\n        windows.weeks\n)\n\nselect\n    term,\n    geo,\n    batch_id,\n    span_start,\n    span_end,\n    current_start_week,\n    current_end_week,\n    prior_start_week,\n    prior_end_week,\n    weeks,\n    current_weeks_found,\n    prior_weeks_found,\n    current_avg_interest,\n    prior_avg_interest,\n    case\n        when current_weeks_found = weeks\n            and prior_weeks_found = weeks\n            and prior_avg_interest > 0\n            then 100 * (current_avg_interest / prior_avg_interest - 1)\n    end as pct_change\nfrom per_phrase\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/fct_day_off_index.sql",
+      "new_content": "-- The Day-Off Index: the average of the three phrases' year-over-year changes, in percent,\n-- one row per window. It always carries its breakdown: `breakdown` spells out every phrase's\n-- change, so the index is never read without it.\nwith terms as (\n    select * from {{ ref('fct_day_off_index_terms') }}\n)\n\nselect\n    cast(current_start_week as varchar) || '/' || cast(current_end_week as varchar)\n        as index_window,\n    current_start_week,\n    current_end_week,\n    prior_start_week,\n    prior_end_week,\n    weeks,\n    max(batch_id) as batch_id,\n    count(*) as phrase_count,\n    count(pct_change) as phrases_available,\n    case when count(pct_change) = count(*) then avg(pct_change) end as day_off_index,\n    string_agg(\n        term || ' ' || coalesce(printf('%+.1f%%', pct_change), 'not yet available'),\n        ' \u00b7 ' order by term\n    ) as breakdown\nfrom terms\ngroup by current_start_week, current_end_week, prior_start_week, prior_end_week, weeks\n",
+      "old_content_hash": "db126f21f5ce50d197e225a5ac0fd8cf9001fbc3f71e7f4dab331cb0af8fc4d7",
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "data_tests/assert_day_off_index_has_breakdown.sql",
+      "new_content": "-- The Day-Off Index never travels without its breakdown: a row with an index has one.\nselect *\nfrom {{ ref('fct_day_off_index') }}\nwhere day_off_index is not null\n    and (breakdown is null or phrases_available <> phrase_count)\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "test_sql"
+    },
+    {
+      "path": "models/marts/semantic/day_off_index.yml",
+      "new_content": "version: 2\nsemantic_models:\n- name: fct_day_off_index\n  description: The Day-Off Index, one row per window, with its breakdown.\n  model: ref('fct_day_off_index')\n  defaults:\n    agg_time_dimension: current_start_week\n  entities:\n  - name: day_off_index_window\n    type: primary\n    expr: index_window\n    config: &id001\n      meta:\n        dex:\n          null_rule: never\n  dimensions:\n  - name: breakdown\n    type: categorical\n    description: Every phrase's change. Always report it with the index.\n    config: *id001\n  - name: current_start_week\n    type: time\n    type_params:\n      time_granularity: day\n    config: *id001\n  - name: current_end_week\n    type: time\n    type_params:\n      time_granularity: day\n    config: *id001\n  - name: prior_start_week\n    type: time\n    type_params:\n      time_granularity: day\n    config: *id001\n  - name: prior_end_week\n    type: time\n    type_params:\n      time_granularity: day\n    config: *id001\n  - name: batch_id\n    type: categorical\n    config: *id001\n  measures:\n  - name: day_off_index_measure\n    agg: max\n    expr: day_off_index\n    description: Average YoY change of the phrases, in percent.\n- name: fct_day_off_index_terms\n  description: 'The Day-Off Index breakdown: one row per search phrase.'\n  model: ref('fct_day_off_index_terms')\n  defaults:\n    agg_time_dimension: current_start_week\n  entities:\n  - name: day_off_index_term\n    type: primary\n    expr: term\n    config: *id001\n  dimensions:\n  - name: term\n    type: categorical\n    description: The search phrase.\n    config: *id001\n  - name: current_start_week\n    type: time\n    type_params:\n      time_granularity: day\n    config: *id001\n  - name: batch_id\n    type: categorical\n    config: *id001\n  measures:\n  - name: term_pct_change\n    agg: max\n    expr: pct_change\n  - name: term_current_avg_interest\n    agg: max\n    expr: current_avg_interest\n  - name: term_prior_avg_interest\n    agg: max\n    expr: prior_avg_interest\n",
+      "old_content_hash": "aa515ae86b882d0bb68c97bc22124ab28250d0fb6bf7454de7807cc16416f77e",
+      "op": "upsert",
+      "kind": "semantic_yml"
+    },
+    {
+      "path": "models/intermediate/int_signals__daily.sql",
+      "new_content": "-- Every signal as one daily value per (source, signal, geo, UTC day).\n-- A value that could not be read is NULL with is_available = false: unavailable, never zero.\nwith bluesky as (\n    select\n        'bluesky' as source,\n        case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,\n        case gta_filter when 'gta' then 'day_off_gta' else 'day_off_intent' end as signal_family,\n        'WORLD' as geo,\n        hit_date as signal_date,\n        case when bool_and(is_available) then cast(sum(hits_total) as double) end as signal_value,\n        bool_and(is_available) as is_available\n    from {{ ref('stg_bluesky__daily_hits') }}\n    group by gta_filter, hit_date\n),\n\nhacker_news as (\n    select\n        'hacker_news' as source,\n        case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,\n        case gta_filter when 'gta' then 'day_off_gta' else 'day_off_intent' end as signal_family,\n        'WORLD' as geo,\n        hit_date as signal_date,\n        case when bool_and(is_available) then cast(sum(hits_total) as double) end as signal_value,\n        bool_and(is_available) as is_available\n    from {{ ref('stg_hn__daily_hits') }}\n    group by gta_filter, hit_date\n),\n\nwikipedia as (\n    select\n        'wikipedia' as source,\n        'pageviews:' || lower(article) as signal,\n        case when article = 'Grand_Theft_Auto_VI' then 'hype' else 'reference' end as signal_family,\n        'WORLD' as geo,\n        view_date as signal_date,\n        cast(views as double) as signal_value,\n        true as is_available\n    from {{ ref('stg_wiki__pageviews') }}\n)\n\nselect * from bluesky\nunion all\nselect * from hacker_news\nunion all\nselect * from wikipedia\n",
+      "old_content_hash": "42325369b7d0b5de08f1328e72c761fbdd91149daa473248be5144b5862c7b6e",
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/dim_date.sql",
+      "new_content": "-- One row per UTC day of the study window and its control year, with its place relative\n-- to that year's release Thursday.\nwith spine as (\n    select cast(range as date) as date_day\n    from range(date '2025-10-01', date '2027-01-01', interval 1 day)\n),\n\nyears as (\n    select\n        date_day,\n        case when date_day >= date '2026-01-01' then 2026 else 2025 end as study_year\n    from spine\n),\n\nanchored as (\n    select\n        date_day,\n        study_year,\n        case study_year when 2026 then date '2026-11-19' else date '2025-11-20' end as release_day\n    from years\n)\n\nselect\n    date_day,\n    study_year,\n    release_day,\n    cast(date_day - release_day as integer) as days_from_release,\n    isodow(date_day) as iso_day_of_week,\n    dayname(date_day) as day_name,\n    study_year = 2026 and date_day = release_day as is_gta_release_day\nfrom anchored\n",
+      "old_content_hash": "8e5d361387a6942785d2fcec34db41263998dbe4b4bceb1dd3ad78b401303735",
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/fct_signal_daily.sql",
+      "new_content": "select\n    md5(\n        signals.source || '|' || signals.signal || '|' || signals.geo || '|'\n        || cast(signals.signal_date as varchar)\n    ) as signal_day_key,\n    signals.source,\n    signals.signal,\n    signals.signal_family,\n    signals.geo,\n    signals.signal_date,\n    signals.signal_value,\n    signals.is_available,\n    dates.study_year,\n    dates.days_from_release,\n    dates.iso_day_of_week\nfrom {{ ref('int_signals__daily') }} as signals\ninner join {{ ref('dim_date') }} as dates\n    on signals.signal_date = dates.date_day\n",
+      "old_content_hash": "fc4a82455667ec5f5e0902e148df309030444177941c332c0cb06c5e186fa060",
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/semantic/signal_daily.yml",
+      "new_content": "version: 2\nsemantic_models:\n- name: fct_signal_daily\n  description: 'One row per signal per UTC day inside the study and control windows, with its place relative\n    to release. Population: Signal-days whose date falls in dim_date; days outside the spine are dropped\n    by the inner join.'\n  model: ref('fct_signal_daily')\n  defaults:\n    agg_time_dimension: signal_date\n  entities:\n  - name: signal_day\n    type: primary\n    expr: signal_day_key\n    config:\n      meta:\n        dex:\n          null_rule: never\n  dimensions:\n  - name: source\n    type: categorical\n    description: bluesky, reddit, hacker_news or wikipedia.\n    config:\n      meta:\n        dex:\n          null_rule: never\n  - name: signal\n    type: categorical\n    description: What is counted, e.g. posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi.\n    config:\n      meta:\n        dex:\n          null_rule: never\n  - name: signal_family\n    type: categorical\n    description: day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning\n      GTA), hype (interest in GTA itself), reference.\n    config:\n      meta:\n        dex:\n          null_rule: never\n  - name: geo\n    type: categorical\n    description: WORLD.\n    config:\n      meta:\n        dex:\n          null_rule: never\n  - name: signal_date\n    type: time\n    type_params:\n      time_granularity: day\n    description: UTC day.\n    config:\n      meta:\n        dex:\n          null_rule: never\n  - name: study_year\n    type: categorical\n    config:\n      meta:\n        dex:\n          null_rule: never\n  - name: days_from_release\n    type: categorical\n    config:\n      meta:\n        dex:\n          unit: days\n          null_rule: never\n  - name: iso_day_of_week\n    type: categorical\n    config:\n      meta:\n        dex:\n          null_rule: never\n  measures:\n  - name: signal_value_measure\n    agg: sum\n    expr: signal_value\n    description: Daily value of a signal. Counts for posts and pageviews, 0-100 relative interest for\n      Trends. Only meaningful grouped by source, signal and geo; never add across signals.\n    config:\n      meta:\n        dex:\n          unit: count or index (see signal)\n          additivity: non_additive\n          null_rule: NULL when the value could not be read\n  config:\n    meta:\n      dex:\n        population:\n          rule: Signal-days whose date falls in dim_date; days outside the spine are dropped by the inner\n            join.\n        assumptions:\n        - decision: Days outside the window\n          chosen: dropped\n          evidence: request\n          detail: the study compares Thursdays in Oct-Nov 2026 against the same weeks of 2025; the inner\n            join to dim_date keeps only that spine\n          column: signal_date\n        - decision: Surrogate key\n          chosen: md5 of the natural grain\n          evidence: default\n          detail: the key is md5 of the composite Dex drafts as the grain, so the two describe the same\n            rows; MetricFlow needs a single-column primary entity\n",
+      "old_content_hash": "2e65fb7a2bbee69259e2342636fa32130fe2d409e3226d882a0dd42084f87d3e",
+      "op": "upsert",
+      "kind": "semantic_yml"
+    },
+    {
+      "path": "models/marts/semantic/metrics.yml",
+      "new_content": "version: 2\nmetrics:\n- name: day_off_index\n  label: Day-Off Index\n  description: 'Average year-over-year change, in percent, of US Google searches for call in sick, sick\n    day and day off work over the configured window (canonical: 1-14 Nov 2026 vs 2-15 Nov 2025). 50 =\n    searches up 50% on average. Never report it alone: always with its breakdown (group by day_off_index_window__breakdown,\n    or query day_off_index_term_change by day_off_index_term__term).'\n  type: simple\n  type_params:\n    measure: day_off_index_measure\n- name: day_off_index_term_change\n  label: Day-Off Index, change by phrase\n  description: 'The breakdown: one phrase''s year-over-year change in average weekly search interest,\n    in percent. Group by day_off_index_term__term.'\n  type: simple\n  type_params:\n    measure: term_pct_change\n- name: day_off_index_term_current\n  label: Search interest, current window\n  description: A phrase's average weekly search interest over the current window (0-100 on that phrase's\n    own scale). Group by day_off_index_term__term.\n  type: simple\n  type_params:\n    measure: term_current_avg_interest\n- name: day_off_index_term_prior\n  label: Search interest, a year earlier\n  description: A phrase's average weekly search interest over the same weeks a year earlier (0-100 on\n    that phrase's own scale). Group by day_off_index_term__term.\n  type: simple\n  type_params:\n    measure: term_prior_avg_interest\n- name: signal_value\n  label: Signal value\n  description: Daily value of a signal. Always group by signal_day__source and signal_day__signal; never\n    add across signals.\n  type: simple\n  type_params:\n    measure: signal_value_measure\n- name: day_off_mentions\n  label: Day-off mentions\n  description: Posts saying someone is taking time off (any reason), summed over seed phrases. Group by\n    signal_day__source.\n  type: simple\n  type_params:\n    measure: signal_value_measure\n  filter: '{{ Dimension(''signal_day__signal'') }} = ''posts:day_off''\n\n    '\n- name: day_off_mentions_gta\n  label: Day-off mentions that say GTA\n  description: Posts saying someone is taking time off that also mention GTA.\n  type: simple\n  type_params:\n    measure: signal_value_measure\n  filter: '{{ Dimension(''signal_day__signal'') }} = ''posts:day_off_gta''\n\n    '\n- name: gta_share_of_day_off_talk\n  label: GTA share of day-off talk\n  description: Day-off posts that mention GTA, as a share of all day-off posts. A fraction (0 to 1). Thursday-is-chattier\n    effects cancel out.\n  type: ratio\n  type_params:\n    numerator: day_off_mentions_gta\n    denominator: day_off_mentions\n- name: gta_wiki_pageviews\n  label: GTA VI Wikipedia pageviews\n  description: Daily user pageviews of the English Wikipedia article Grand Theft Auto VI. The hype line.\n  type: simple\n  type_params:\n    measure: signal_value_measure\n  filter: '{{ Dimension(''signal_day__signal'') }} = ''pageviews:grand_theft_auto_vi''\n\n    '\n",
+      "old_content_hash": "5efbf84722636de9fa5e66311b7dc01e31da2b23738f09e1e1e1faee8b937aa2",
+      "op": "upsert",
+      "kind": "semantic_yml"
+    },
+    {
+      "path": "models/staging/stg_trends__weekly.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: stg_trends__weekly\n    description: One row per Day-Off Index search phrase per Google week, from one weekly US Trends request per phrase spanning both years (one 0-100 scale per phrase).\n    config:\n      meta:\n        dex:\n          grain:\n            - term\n            - week_start\n          population:\n            rule: Rows of requests over the configured span (vars day_off_index_span_*), from the pinned batch (var day_off_index_batch) or else each phrase's newest batch. Older daily per-year pulls carry no span and are excluded.\n          assumptions:\n            - decision: Which Trends rows the index reads\n              chosen: one weekly request per phrase over the configured span; daily per-year pulls excluded\n              evidence: request\n              detail: user defined the index as one Trends snapshot from 1 Nov 2025 to 15 Nov 2026\n              column: span_start\n            - decision: Which pull\n              chosen: pinned batch 20261116T185310, else newest\n              evidence: request\n              detail: 'user: the canonical snapshot for the post is the one already shown; pulls differ by 1-2 points because Trends samples'\n              column: batch_id\n    columns:\n      - name: request_id\n        description: 'The Trends request: <phrase>-<geo>-<span>-<batch>.'\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: batch_id\n        description: When the pull ran (UTC, YYYYMMDDTHHMMSS).\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: span_start\n        description: First day of the request span.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: span_end\n        description: Last day of the request span.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: geo\n        description: US.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: term\n        description: 'The search phrase: call in sick, sick day or day off work.'\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: week_start\n        description: The Sunday that starts the Google week.\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: interest\n        description: Relative weekly search interest; 100 is that phrase's peak week in the span. Never compare across phrases.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: never\n              aggregation: max\n              additivity: non_additive\n              unit: index (0-100, relative within one phrase's request)\n        data_tests:\n          - not_null\n      - name: is_partial\n        description: True for the week still in progress when the pull ran.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/marts/fct_day_off_index_terms.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: fct_day_off_index_terms\n    description: 'The Day-Off Index breakdown: one row per search phrase, with its average weekly US search interest over the current window, over the same weeks a year earlier, and the percent change.'\n    config:\n      meta:\n        dex:\n          grain:\n            - term\n          population:\n            rule: Every phrase in the Trends snapshot the index reads (stg_trends__weekly).\n            parent:\n              model: stg_trends__weekly\n              key:\n                term: term\n          assumptions:\n            - decision: What the index compares\n              chosen: average weekly interest over the current window vs the same weeks 52 weeks earlier, per phrase\n              evidence: request\n              detail: 'user: average daily search interest 1-15 Nov 2026 vs 1-15 Nov 2025, weekly is fine over the 2-week window; configurable start, end and number of weeks'\n              column: pct_change\n            - decision: Partial or missing weeks\n              chosen: excluded from the averages; the change is NULL unless both windows are complete\n              evidence: default\n              detail: a week still filling in would understate its average\n              column: pct_change\n            - decision: Week alignment\n              chosen: 52 weeks back (364 days), so both windows start on a Sunday like Google's weeks\n              evidence: default\n              detail: 'canonical: 1-14 Nov 2026 vs 2-15 Nov 2025'\n              column: prior_start_week\n    columns:\n      - name: term\n        description: The search phrase.\n        config:\n          meta:\n            dex:\n              role: key\n              null_rule: never\n        data_tests:\n          - unique\n          - not_null\n      - name: geo\n        description: US.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: batch_id\n        description: The Trends pull the values come from.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: span_start\n        description: First day of the request span.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: span_end\n        description: Last day of the request span.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: current_start_week\n        description: Sunday of the first week of the current window.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: current_end_week\n        description: Sunday of the last week of the current window.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: prior_start_week\n        description: Sunday of the first comparison week (weeks_back earlier).\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: prior_end_week\n        description: Sunday of the last comparison week.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: weeks\n        description: Weeks in each window.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n      - name: current_weeks_found\n        description: Complete weeks found in the current window.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n      - name: prior_weeks_found\n        description: Complete weeks found in the comparison window.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n      - name: current_avg_interest\n        description: Average weekly search interest, current window.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: NULL when no complete week of the window is loaded\n              aggregation: max\n              additivity: non_additive\n              unit: index (0-100, relative within one phrase's request)\n      - name: prior_avg_interest\n        description: Average weekly search interest, same weeks a year earlier.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: NULL when no complete week of the window is loaded\n              aggregation: max\n              additivity: non_additive\n              unit: index (0-100, relative within one phrase's request)\n      - name: pct_change\n        description: Year-over-year change of the phrase's average weekly search interest, in percent (40 = +40%).\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: 'NULL unless every week of both windows is loaded and complete: unavailable, never zero'\n              aggregation: max\n              additivity: non_additive\n              unit: percent\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/marts/fct_day_off_index.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: fct_day_off_index\n    description: 'The Day-Off Index: the average year-over-year change, in percent, of US Google searches for call in sick, sick day and day off work over the configured window. One row per window, always carrying its per-phrase breakdown.'\n    config:\n      meta:\n        dex:\n          grain:\n            - index_window\n          population:\n            rule: One row for the configured window (vars day_off_index_*).\n          assumptions:\n            - decision: How the phrases combine\n              chosen: plain average of the per-phrase percent changes\n              evidence: request\n              detail: 'user: the index is the average of these 3 searches; each phrase is on its own 0-100 scale, so changes are averaged, not interest values'\n              column: day_off_index\n            - decision: A phrase not yet available\n              chosen: index NULL\n              evidence: default\n              detail: an average over fewer phrases would be a different index\n              column: day_off_index\n            - decision: Breakdown travels with the index\n              chosen: breakdown column on the index row\n              evidence: request\n              detail: 'user: the index is always accompanied by its breakdown, never left to be discovered'\n              column: breakdown\n    columns:\n      - name: study_year\n        config:\n          meta:\n            dex:\n              role: key\n              null_rule: never\n        data_tests:\n          - unique\n          - not_null\n      - name: release_day\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: sources_total\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n      - name: sources_with_lift\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n      - name: day_off_index\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: 'NULL unless every phrase''s change is available: unavailable, never zero'\n              aggregation: max\n              additivity: non_additive\n              unit: percent\n        description: Average of the phrases' year-over-year changes, in percent (50 = searches up 50% on average). Always report with `breakdown`.\n      - name: google_trends_lift\n        config:\n          meta:\n            dex:\n              role: measure\n              aggregation: max\n              additivity: non_additive\n              unit: ratio\n      - name: bluesky_lift\n        config:\n          meta:\n            dex:\n              role: measure\n              aggregation: max\n              additivity: non_additive\n              unit: ratio\n      - name: reddit_lift\n        config:\n          meta:\n            dex:\n              role: measure\n              aggregation: max\n              additivity: non_additive\n              unit: ratio\n      - name: index_window\n        description: <current_start_week>/<current_end_week>.\n        config:\n          meta:\n            dex:\n              role: key\n              null_rule: never\n        data_tests:\n          - unique\n          - not_null\n      - name: current_start_week\n        description: Sunday of the first week of the current window.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: current_end_week\n        description: Sunday of the last week of the current window.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: prior_start_week\n        description: Sunday of the first comparison week (weeks_back earlier).\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: prior_end_week\n        description: Sunday of the last comparison week.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: weeks\n        description: Weeks in each window.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n      - name: batch_id\n        description: The Trends pull the values come from.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: phrase_count\n        description: Phrases in the index.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n      - name: phrases_available\n        description: Phrases whose change is available.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n      - name: breakdown\n        description: Every phrase's change, e.g. 'call in sick +40.4% \u00b7 day off work +73.4% \u00b7 sick day +36.4%'. Report it with the index, every time.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n",
+      "old_content_hash": "9cc4d544e361e80231df82caba6bdb628b7ec59cab81d242831531c9e66887a4",
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/intermediate/int_signals__daily.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: int_signals__daily\n    description: 'One row per signal per day: every source''s daily value in one shape.'\n    config:\n      meta:\n        dex:\n          grain:\n            - source\n            - signal\n            - geo\n            - signal_date\n          population:\n            rule: Every staged day of every source; Bluesky and Hacker News seeds are summed per day and filter.\n          assumptions:\n            - decision: Combining seed phrases\n              chosen: sum hits across seeds per day\n              evidence: default\n              detail: a post matching two seeds counts twice; the double count is the same on both Thursdays, so the lift is unaffected in expectation\n            - decision: A partial or failed day\n              chosen: signal_value NULL, is_available false\n              evidence: request\n              detail: 'docs/methodology.md: missing is unavailable, never zero'\n            - decision: Google Trends signals\n              chosen: removed; Trends now feeds only the Day-Off Index, weekly, through stg_trends__weekly\n              evidence: request\n              detail: 'user: scratch everything of the old Day-Off Index; the daily per-year Trends pulls were its input'\n              column: source\n    columns:\n      - name: source\n        description: bluesky, reddit, hacker_news or wikipedia.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal\n        description: What is counted, e.g. posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_family\n        description: day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: geo\n        description: WORLD.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_date\n        description: UTC day.\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_value\n        description: Counts for posts and pageviews. Never add across signals or sources.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: 'NULL when the value could not be read: unavailable, never zero.'\n              aggregation: sum\n              additivity: non_additive\n              unit: count or index (see signal)\n      - name: is_available\n        description: False when any part of the day's value failed to load or was partial.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n",
+      "old_content_hash": "01a92acbbc39c57a14a0eb80de9f936009af415ed411ab12c85cffa746eb2255",
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/marts/dim_date.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: dim_date\n    description: One row per UTC day from 2025-10-01 to 2026-12-31, placed relative to that year's release Thursday.\n    config:\n      meta:\n        dex:\n          grain:\n            - date_day\n          population:\n            rule: Every calendar day in the spine; 2025 days belong to the control year (anchor Thu 20 Nov 2025), 2026 days to the study (anchor Thu 19 Nov 2026).\n          assumptions:\n            - decision: Control anchor\n              chosen: Thu 20 Nov 2025 vs Thu 13 Nov 2025\n              evidence: request\n              detail: same week of November, one year earlier, both a week before US Thanksgiving week\n            - decision: Thursday comparison roles\n              chosen: removed\n              evidence: request\n              detail: they tagged the old index's release and baseline Thursdays\n              column: comparison_role\n    columns:\n      - name: date_day\n        config:\n          meta:\n            dex:\n              role: key\n              null_rule: never\n        data_tests:\n          - unique\n          - not_null\n      - name: study_year\n        description: 2026 = GTA 6 release year; 2025 = seasonality control.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: release_day\n        description: That year's anchor Thursday.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: days_from_release\n        description: 0 on that year's anchor Thursday.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n              unit: days\n        data_tests:\n          - not_null\n      - name: iso_day_of_week\n        description: 1 = Monday ... 7 = Sunday.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: day_name\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: comparison_role\n        description: '''release'' or ''baseline''.'\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: NULL on days that are neither Thursday of the comparison\n      - name: is_gta_release_day\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n",
+      "old_content_hash": "5d5c7b8e7d23ac8f0c6741565d4909fcff89f245f3cd652592db4262930c5132",
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/marts/fct_signal_daily.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: fct_signal_daily\n    description: One row per signal per UTC day inside the study and control windows, with its place relative to release.\n    config:\n      meta:\n        dex:\n          grain:\n            - signal_day_key\n          population:\n            rule: Signal-days whose date falls in dim_date; days outside the spine are dropped by the inner join.\n          assumptions:\n            - decision: Days outside the window\n              chosen: dropped\n              evidence: request\n              detail: the study compares Thursdays in Oct-Nov 2026 against the same weeks of 2025; the inner join to dim_date keeps only that spine\n              column: signal_date\n            - decision: Surrogate key\n              chosen: md5 of the natural grain\n              evidence: default\n              detail: the key is md5 of the composite Dex drafts as the grain, so the two describe the same rows; MetricFlow needs a single-column primary entity\n            - decision: Google Trends rows and comparison roles\n              chosen: removed\n              evidence: request\n              detail: 'user: scratch the old Day-Off Index; Trends moved to the new index'\n              column: source\n    columns:\n      - name: source\n        description: bluesky, reddit, hacker_news or wikipedia.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal\n        description: What is counted, e.g. posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_family\n        description: day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: geo\n        description: WORLD.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_date\n        description: UTC day.\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_value\n        description: Counts for posts and pageviews. Never add across signals or sources.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: 'NULL when the value could not be read: unavailable, never zero.'\n              aggregation: sum\n              additivity: non_additive\n              unit: count or index (see signal)\n      - name: is_available\n        description: False when any part of the day's value failed to load or was partial.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_day_key\n        description: md5 of source|signal|geo|signal_date.\n        config:\n          meta:\n            dex:\n              role: key\n              null_rule: never\n        data_tests:\n          - unique\n          - not_null\n      - name: study_year\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: days_from_release\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n              unit: days\n        data_tests:\n          - not_null\n      - name: iso_day_of_week\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: comparison_role\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: NULL except on the two compared Thursdays\n",
+      "old_content_hash": "25d41fc4fd918050a1325c63abfb5a427647a585181e95bfb9894a5352911bb7",
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/marts/dim_date_semantic.yml",
+      "new_content": "version: 2\n\nsemantic_models:\n  - name: dim_date\n    description: 'One row per UTC day from 2025-10-01 to 2026-12-31, placed relative to that year''s release Thursday. Population: Every calendar day in the spine; 2025 days belong to the control year (anchor Thu 20 Nov 2025), 2026 days to the study (anchor Thu 19 Nov 2026).'\n    model: ref('dim_date')\n    entities:\n      - name: date_day\n        type: primary\n        expr: date_day\n        config:\n          meta:\n            dex:\n              null_rule: never\n    dimensions:\n      - name: study_year\n        type: categorical\n        description: 2026 = GTA 6 release year; 2025 = seasonality control.\n        config:\n          meta:\n            dex:\n              null_rule: never\n      - name: days_from_release\n        type: categorical\n        description: 0 on that year's anchor Thursday.\n        config:\n          meta:\n            dex:\n              unit: days\n              null_rule: never\n      - name: iso_day_of_week\n        type: categorical\n        description: 1 = Monday ... 7 = Sunday.\n        config:\n          meta:\n            dex:\n              null_rule: never\n      - name: comparison_role\n        type: categorical\n        description: '''release'' or ''baseline''.'\n        config:\n          meta:\n            dex:\n              null_rule: NULL on days that are neither Thursday of the comparison\n      - name: is_gta_release_day\n        type: categorical\n        config:\n          meta:\n            dex:\n              null_rule: never\n    config:\n      meta:\n        dex:\n          population:\n            rule: Every calendar day in the spine; 2025 days belong to the control year (anchor Thu 20 Nov 2025), 2026 days to the study (anchor Thu 19 Nov 2026).\n          assumptions:\n            - decision: Control anchor\n              chosen: Thu 20 Nov 2025 vs Thu 13 Nov 2025\n              evidence: request\n              detail: same week of November, one year earlier, both a week before US Thanksgiving week\n            - decision: Thursday comparison roles\n              chosen: removed\n              evidence: request\n              detail: they tagged the old index's release and baseline Thursdays\n              column: comparison_role\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "semantic_yml"
+    }
+  ],
+  "applied_at": null,
+  "refactor_models": {
+    "dim_date": "none",
+    "fct_day_off_index": "unattributed",
+    "fct_signal_daily": "none",
+    "int_signals__daily": "unattributed"
+  },
+  "refactor_baseline_ready": {
+    "dim_date": true,
+    "fct_day_off_index": true,
+    "fct_signal_daily": true,
+    "int_signals__daily": true
+  },
+  "comparisons": {},
+  "identifier_conversions": {
+    "fct_day_off_index": [
+      {
+        "column": "current_end_week",
+        "authored": "CAST(current_end_week AS TEXT)",
+        "status": "unchecked",
+        "reason_code": "unprofiled_input"
+      },
+      {
+        "column": "current_start_week",
+        "authored": "CAST(current_start_week AS TEXT)",
+        "status": "unchecked",
+        "reason_code": "unprofiled_input"
+      }
+    ]
+  },
+  "change_scope": {
+    "fct_day_off_index": [
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "bluesky_lift",
+        "status": "undeclared"
+      },
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "google_trends_lift",
+        "status": "undeclared"
+      },
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "reddit_lift",
+        "status": "undeclared"
+      },
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "release_day",
+        "status": "undeclared"
+      },
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "sources_total",
+        "status": "undeclared"
+      },
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "sources_with_lift",
+        "status": "undeclared"
+      },
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "study_year",
+        "status": "undeclared"
+      },
+      {
+        "axis": "population",
+        "kind": "group_by_changed",
+        "columns": [
+          "study_year"
+        ],
+        "status": "undeclared"
+      },
+      {
+        "kind": "elided",
+        "status": "unchecked"
+      }
+    ],
+    "fct_signal_daily": [
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "comparison_role",
+        "status": "undeclared"
+      }
+    ],
+    "dim_date": [
+      {
+        "axis": "output",
+        "kind": "column_removed",
+        "column": "comparison_role",
+        "status": "declared"
+      }
+    ],
+    "int_signals__daily": [
+      {
+        "kind": "unread",
+        "status": "unchecked"
+      }
+    ]
+  },
+  "population_acceptance": null,
+  "repair": null,
+  "baseline_sources": null,
+  "retirement": null,
+  "toggle": null
+}

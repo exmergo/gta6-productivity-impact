@@ -272,19 +272,19 @@
     {
       "identifier": "gta6.main.fct_day_off_index",
       "object_type": "table",
-      "row_count": 2,
+      "row_count": 1,
       "byte_size": null,
       "columns": [
         {
-          "name": "study_year",
-          "data_type": "INTEGER",
+          "name": "index_window",
+          "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 2,
+          "distinct_count": 1,
           "distinct_count_exact": true,
           "is_unique": true,
-          "min_value": 2025,
-          "max_value": 2026,
+          "min_value": null,
+          "max_value": null,
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
@@ -295,32 +295,89 @@
           "temporal_largest_gap": null
         },
         {
-          "name": "release_day",
+          "name": "current_start_week",
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 2,
+          "distinct_count": 1,
           "distinct_count_exact": true,
           "is_unique": true,
-          "min_value": "2025-11-20",
-          "max_value": "2026-11-19",
+          "min_value": "2026-11-01",
+          "max_value": "2026-11-01",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "month",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "current_end_week",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": "2026-11-08",
+          "max_value": "2026-11-08",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 365,
-          "temporal_distinct_periods": 2,
-          "temporal_missing_periods": 363,
-          "temporal_largest_gap": 363
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
         },
         {
-          "name": "sources_total",
-          "data_type": "BIGINT",
+          "name": "prior_start_week",
+          "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
           "distinct_count": 1,
-          "distinct_count_exact": false,
-          "is_unique": false,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": "2025-11-02",
+          "max_value": "2025-11-02",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "prior_end_week",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": "2025-11-09",
+          "max_value": "2025-11-09",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "weeks",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
           "min_value": 2,
           "max_value": 2,
           "pii": null,
@@ -333,15 +390,53 @@
           "temporal_largest_gap": null
         },
         {
-          "name": "sources_with_lift",
+          "name": "batch_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "phrase_count",
           "data_type": "BIGINT",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 2,
+          "distinct_count": 1,
           "distinct_count_exact": true,
           "is_unique": true,
-          "min_value": 0,
-          "max_value": 2,
+          "min_value": 3,
+          "max_value": 3,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "phrases_available",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": true,
+          "min_value": 3,
+          "max_value": 3,
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
@@ -355,67 +450,29 @@
           "name": "day_off_index",
           "data_type": "DOUBLE",
           "nullable": true,
-          "null_fraction": 0.5,
+          "null_fraction": 0.0,
           "distinct_count": 1,
-          "distinct_count_exact": true,
-          "is_unique": false,
-          "min_value": 107.98599867619178,
-          "max_value": 107.98599867619178,
-          "pii": null,
-          "pii_overridden": null,
-          "value_domain": null,
-          "temporal_granularity": null,
-          "temporal_span": null,
-          "temporal_distinct_periods": null,
-          "temporal_missing_periods": null,
-          "temporal_largest_gap": null
-        },
-        {
-          "name": "google_trends_lift",
-          "data_type": "DOUBLE",
-          "nullable": true,
-          "null_fraction": 0.5,
-          "distinct_count": 1,
-          "distinct_count_exact": true,
-          "is_unique": false,
-          "min_value": 1.0984085487872648,
-          "max_value": 1.0984085487872648,
-          "pii": null,
-          "pii_overridden": null,
-          "value_domain": null,
-          "temporal_granularity": null,
-          "temporal_span": null,
-          "temporal_distinct_periods": null,
-          "temporal_missing_periods": null,
-          "temporal_largest_gap": null
-        },
-        {
-          "name": "bluesky_lift",
-          "data_type": "DOUBLE",
-          "nullable": true,
-          "null_fraction": 0.5,
-          "distinct_count": 1,
-          "distinct_count_exact": true,
-          "is_unique": false,
-          "min_value": 1.061624649859944,
-          "max_value": 1.061624649859944,
-          "pii": null,
-          "pii_overridden": null,
-          "value_domain": null,
-          "temporal_granularity": null,
-          "temporal_span": null,
-          "temporal_distinct_periods": null,
-          "temporal_missing_periods": null,
-          "temporal_largest_gap": null
-        },
-        {
-          "name": "reddit_lift",
-          "data_type": "DOUBLE",
-          "nullable": true,
-          "null_fraction": 1.0,
-          "distinct_count": 0,
           "distinct_count_exact": false,
-          "is_unique": false,
+          "is_unique": true,
+          "min_value": 50.08808110400124,
+          "max_value": 50.08808110400124,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "breakdown",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": true,
           "min_value": null,
           "max_value": null,
           "pii": null,
@@ -430,66 +487,140 @@
       ],
       "candidate_keys": [
         [
-          "study_year"
+          "index_window"
         ],
         [
-          "release_day"
+          "current_start_week"
         ],
         [
-          "sources_with_lift"
+          "current_end_week"
+        ],
+        [
+          "prior_start_week"
+        ],
+        [
+          "prior_end_week"
+        ],
+        [
+          "weeks"
+        ],
+        [
+          "batch_id"
+        ],
+        [
+          "phrase_count"
+        ],
+        [
+          "phrases_available"
+        ],
+        [
+          "day_off_index"
+        ],
+        [
+          "breakdown"
         ]
       ],
       "grain": [
-        "study_year"
+        "batch_id"
       ],
       "composite_keys": [],
       "key_evidence": [
         {
           "columns": [
-            "study_year"
+            "index_window"
           ],
           "status": "reported",
-          "reason": "study_year is unique and non-null on all 2 rows, proven by an exact distinct count"
+          "reason": "index_window is unique and non-null on all 1 rows, proven by an exact distinct count"
         },
         {
           "columns": [
-            "release_day"
+            "current_start_week"
           ],
           "status": "reported",
-          "reason": "release_day is unique and non-null on all 2 rows, proven by an exact distinct count"
+          "reason": "current_start_week is unique and non-null on all 1 rows, proven by an exact distinct count"
         },
         {
           "columns": [
-            "sources_with_lift"
+            "current_end_week"
           ],
           "status": "reported",
-          "reason": "sources_with_lift is unique and non-null on all 2 rows, proven by an exact distinct count"
+          "reason": "current_end_week is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "prior_start_week"
+          ],
+          "status": "reported",
+          "reason": "prior_start_week is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "prior_end_week"
+          ],
+          "status": "reported",
+          "reason": "prior_end_week is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "weeks"
+          ],
+          "status": "reported",
+          "reason": "weeks is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "batch_id"
+          ],
+          "status": "reported",
+          "reason": "batch_id is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "phrase_count"
+          ],
+          "status": "reported",
+          "reason": "phrase_count is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "phrases_available"
+          ],
+          "status": "reported",
+          "reason": "phrases_available is unique and non-null on all 1 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
+        },
+        {
+          "columns": [
+            "day_off_index"
+          ],
+          "status": "reported",
+          "reason": "day_off_index is unique and non-null on all 1 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
+        },
+        {
+          "columns": [
+            "breakdown"
+          ],
+          "status": "reported",
+          "reason": "breakdown is unique and non-null on all 1 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
         }
       ],
       "rank_score": 0.3708,
       "data_quality": [],
       "findings": [
         {
-          "column": "reddit_lift",
-          "code": "fully_null_column",
-          "severity": "high",
-          "detail": "reddit_lift is 100% NULL"
-        },
-        {
-          "column": "study_year",
+          "column": "batch_id",
           "code": "nullable_grain_column",
           "severity": "medium",
-          "detail": "study_year participates in the detected grain but the warehouse still allows it to be NULL"
+          "detail": "batch_id participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-16T16:37:49.011936+00:00",
+      "profiled_at": "2026-11-16T19:06:25.798311+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
     {
       "identifier": "gta6.main.fct_signal_daily",
       "object_type": "table",
-      "row_count": 1936,
+      "row_count": 856,
       "byte_size": null,
       "columns": [
         {
@@ -497,7 +628,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 1936,
+          "distinct_count": 856,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": null,
@@ -516,7 +647,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 4,
+          "distinct_count": 3,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -525,10 +656,6 @@
           "pii_overridden": null,
           "value_domain": {
             "values": [
-              {
-                "value": "google_trends",
-                "count": 1080
-              },
               {
                 "value": "wikipedia",
                 "count": 428
@@ -555,7 +682,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 11,
+          "distinct_count": 6,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -564,26 +691,6 @@
           "pii_overridden": null,
           "value_domain": {
             "values": [
-              {
-                "value": "search:call in sick",
-                "count": 216
-              },
-              {
-                "value": "search:day off work",
-                "count": 216
-              },
-              {
-                "value": "search:gta 6",
-                "count": 216
-              },
-              {
-                "value": "search:pto",
-                "count": 216
-              },
-              {
-                "value": "search:sick day",
-                "count": 216
-              },
               {
                 "value": "posts:day_off",
                 "count": 214
@@ -632,20 +739,20 @@
           "value_domain": {
             "values": [
               {
-                "value": "day_off_intent",
-                "count": 1078
-              },
-              {
-                "value": "hype",
-                "count": 323
-              },
-              {
                 "value": "reference",
                 "count": 321
               },
               {
                 "value": "day_off_gta",
                 "count": 214
+              },
+              {
+                "value": "day_off_intent",
+                "count": 214
+              },
+              {
+                "value": "hype",
+                "count": 107
               }
             ],
             "elided": 0
@@ -661,7 +768,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 2,
+          "distinct_count": 1,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -683,17 +790,17 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 110,
+          "distinct_count": 109,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02",
-          "max_value": "2026-11-16",
+          "max_value": "2026-11-15",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 411,
-          "temporal_distinct_periods": 108,
+          "temporal_span": 410,
+          "temporal_distinct_periods": 107,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -701,8 +808,8 @@
           "name": "signal_value",
           "data_type": "DOUBLE",
           "nullable": true,
-          "null_fraction": 0.005165289256198302,
-          "distinct_count": 319,
+          "null_fraction": 0.0,
+          "distinct_count": 313,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": 0.0,
@@ -721,10 +828,10 @@
           "data_type": "BOOLEAN",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 2,
+          "distinct_count": 1,
           "distinct_count_exact": false,
           "is_unique": false,
-          "min_value": false,
+          "min_value": true,
           "max_value": true,
           "pii": null,
           "pii_overridden": null,
@@ -732,11 +839,7 @@
             "values": [
               {
                 "value": true,
-                "count": 1926
-              },
-              {
-                "value": false,
-                "count": 10
+                "count": 856
               }
             ],
             "elided": 0
@@ -763,11 +866,11 @@
             "values": [
               {
                 "value": 2025,
-                "count": 1098
+                "count": 488
               },
               {
                 "value": 2026,
-                "count": 838
+                "count": 368
               }
             ],
             "elided": 0
@@ -813,62 +916,31 @@
             "values": [
               {
                 "value": 4,
-                "count": 288
+                "count": 128
               },
               {
                 "value": 5,
-                "count": 288
+                "count": 128
               },
               {
                 "value": 6,
-                "count": 288
+                "count": 128
               },
               {
                 "value": 7,
-                "count": 288
+                "count": 128
               },
               {
                 "value": 1,
-                "count": 280
+                "count": 120
               },
               {
                 "value": 2,
-                "count": 252
+                "count": 112
               },
               {
                 "value": 3,
-                "count": 252
-              }
-            ],
-            "elided": 0
-          },
-          "temporal_granularity": null,
-          "temporal_span": null,
-          "temporal_distinct_periods": null,
-          "temporal_missing_periods": null,
-          "temporal_largest_gap": null
-        },
-        {
-          "name": "comparison_role",
-          "data_type": "VARCHAR",
-          "nullable": true,
-          "null_fraction": 0.9721074380165289,
-          "distinct_count": 2,
-          "distinct_count_exact": false,
-          "is_unique": false,
-          "min_value": null,
-          "max_value": null,
-          "pii": null,
-          "pii_overridden": null,
-          "value_domain": {
-            "values": [
-              {
-                "value": "baseline",
-                "count": 36
-              },
-              {
-                "value": "release",
-                "count": 18
+                "count": 112
               }
             ],
             "elided": 0
@@ -895,7 +967,7 @@
             "signal_day_key"
           ],
           "status": "reported",
-          "reason": "signal_day_key is unique and non-null on all 1936 rows, proven by an exact distinct count"
+          "reason": "signal_day_key is unique and non-null on all 856 rows, proven by an exact distinct count"
         }
       ],
       "rank_score": 0.67,
@@ -906,15 +978,9 @@
           "code": "nullable_grain_column",
           "severity": "medium",
           "detail": "signal_day_key participates in the detected grain but the warehouse still allows it to be NULL"
-        },
-        {
-          "column": "comparison_role",
-          "code": "mostly_null_column",
-          "severity": "low",
-          "detail": "comparison_role is 97.2% NULL"
         }
       ],
-      "profiled_at": "2026-11-16T16:42:13.729550+00:00",
+      "profiled_at": "2026-11-16T19:06:27.209056+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -2164,7 +2230,7 @@
     {
       "identifier": "gta6.main.stg_trends__interest",
       "object_type": "view",
-      "row_count": 1080,
+      "row_count": 540,
       "byte_size": null,
       "columns": [
         {
@@ -2172,50 +2238,14 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 8,
+          "distinct_count": 10,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
           "max_value": null,
           "pii": null,
           "pii_overridden": null,
-          "value_domain": {
-            "values": [
-              {
-                "value": "day_off-US-2025-20261116T161241",
-                "count": 244
-              },
-              {
-                "value": "day_off-WORLD-2025-20261116T161247",
-                "count": 244
-              },
-              {
-                "value": "day_off-US-2026-20261116T161220",
-                "count": 188
-              },
-              {
-                "value": "day_off-WORLD-2026-20261116T161226",
-                "count": 188
-              },
-              {
-                "value": "hype-US-2025-20261116T161252",
-                "count": 61
-              },
-              {
-                "value": "hype-WORLD-2025-20261116T161257",
-                "count": 61
-              },
-              {
-                "value": "hype-US-2026-20261116T161231",
-                "count": 47
-              },
-              {
-                "value": "hype-WORLD-2026-20261116T161236",
-                "count": 47
-              }
-            ],
-            "elided": 0
-          },
+          "value_domain": null,
           "temporal_granularity": null,
           "temporal_span": null,
           "temporal_distinct_periods": null,
@@ -2238,11 +2268,11 @@
             "values": [
               {
                 "value": 2025,
-                "count": 610
+                "count": 305
               },
               {
                 "value": 2026,
-                "count": 470
+                "count": 235
               }
             ],
             "elided": 0
@@ -2258,7 +2288,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 2,
+          "distinct_count": 4,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -2268,12 +2298,20 @@
           "value_domain": {
             "values": [
               {
-                "value": "day_off",
-                "count": 864
-              },
-              {
                 "value": "hype",
                 "count": 216
+              },
+              {
+                "value": "call_in_sick",
+                "count": 108
+              },
+              {
+                "value": "day_off_work",
+                "count": 108
+              },
+              {
+                "value": "sick_day",
+                "count": 108
               }
             ],
             "elided": 0
@@ -2311,7 +2349,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 5,
+          "distinct_count": 4,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -2325,20 +2363,16 @@
                 "count": 216
               },
               {
-                "value": "PTO",
-                "count": 216
-              },
-              {
                 "value": "call in sick",
-                "count": 216
+                "count": 108
               },
               {
                 "value": "day off work",
-                "count": 216
+                "count": 108
               },
               {
                 "value": "sick day",
-                "count": 216
+                "count": 108
               }
             ],
             "elided": 0
@@ -2370,17 +2404,48 @@
         },
         {
           "name": "interest",
-          "data_type": "INTEGER",
+          "data_type": "DOUBLE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 84,
+          "distinct_count": 91,
           "distinct_count_exact": false,
           "is_unique": false,
-          "min_value": 0,
-          "max_value": 100,
+          "min_value": 0.0,
+          "max_value": 100.0,
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "pull_count",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 1,
+          "max_value": 5,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": 5,
+                "count": 432
+              },
+              {
+                "value": 1,
+                "count": 108
+              }
+            ],
+            "elided": 0
+          },
           "temporal_granularity": null,
           "temporal_span": null,
           "temporal_distinct_periods": null,
@@ -2403,11 +2468,11 @@
             "values": [
               {
                 "value": false,
-                "count": 1070
+                "count": 535
               },
               {
                 "value": true,
-                "count": 10
+                "count": 5
               }
             ],
             "elided": 0
@@ -2419,16 +2484,49 @@
           "temporal_largest_gap": null
         }
       ],
-      "candidate_keys": [],
-      "grain": null,
-      "composite_keys": [],
-      "key_evidence": [],
-      "rank_score": 0.32,
-      "data_quality": [
-        "no candidate key detected; grain unknown"
+      "candidate_keys": [
+        [
+          "interest_date",
+          "request_id"
+        ]
       ],
-      "findings": [],
-      "profiled_at": "2026-11-16T16:45:56.921836+00:00",
+      "grain": [
+        "interest_date",
+        "request_id"
+      ],
+      "composite_keys": [
+        [
+          "interest_date",
+          "request_id"
+        ]
+      ],
+      "key_evidence": [
+        {
+          "columns": [
+            "interest_date",
+            "request_id"
+          ],
+          "status": "reported",
+          "reason": "interest_date, request_id is unique as a combination on all 540 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
+        }
+      ],
+      "rank_score": 0.32,
+      "data_quality": [],
+      "findings": [
+        {
+          "column": "interest_date",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "interest_date participates in the detected grain but the warehouse still allows it to be NULL"
+        },
+        {
+          "column": "request_id",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "request_id participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-16T18:44:11.532854+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -3556,13 +3654,639 @@
       "profiled_at": "2026-11-16T16:14:59.079316+00:00",
       "semantic_models": [],
       "values_withheld": false
+    },
+    {
+      "identifier": "gta6.main.fct_day_off_index_terms",
+      "object_type": "table",
+      "row_count": 3,
+      "byte_size": null,
+      "columns": [
+        {
+          "name": "term",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 3,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "geo",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": {
+            "category": "location",
+            "confidence": 0.3
+          },
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "batch_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "span_start",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2025-11-01",
+          "max_value": "2025-11-01",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "month",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "span_end",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-15",
+          "max_value": "2026-11-15",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "current_start_week",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-01",
+          "max_value": "2026-11-01",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "month",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "current_end_week",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-08",
+          "max_value": "2026-11-08",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "prior_start_week",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2025-11-02",
+          "max_value": "2025-11-02",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "prior_end_week",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2025-11-09",
+          "max_value": "2025-11-09",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "weeks",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 2,
+          "max_value": 2,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "current_weeks_found",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 2,
+          "max_value": 2,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "prior_weeks_found",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 2,
+          "max_value": 2,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "current_avg_interest",
+          "data_type": "DOUBLE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 94.5,
+          "max_value": 95.5,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "prior_avg_interest",
+          "data_type": "DOUBLE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 3,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": 54.5,
+          "max_value": 70.0,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "pct_change",
+          "data_type": "DOUBLE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 3,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": 36.42857142857143,
+          "max_value": 73.39449541284404,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        }
+      ],
+      "candidate_keys": [
+        [
+          "term"
+        ],
+        [
+          "prior_avg_interest"
+        ],
+        [
+          "pct_change"
+        ]
+      ],
+      "grain": [
+        "term"
+      ],
+      "composite_keys": [],
+      "key_evidence": [
+        {
+          "columns": [
+            "term"
+          ],
+          "status": "reported",
+          "reason": "term is unique and non-null on all 3 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "prior_avg_interest"
+          ],
+          "status": "reported",
+          "reason": "prior_avg_interest is unique and non-null on all 3 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "pct_change"
+          ],
+          "status": "reported",
+          "reason": "pct_change is unique and non-null on all 3 rows, proven by an exact distinct count"
+        }
+      ],
+      "rank_score": null,
+      "data_quality": [],
+      "findings": [
+        {
+          "column": "term",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "term participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-16T19:06:25.302726+00:00",
+      "semantic_models": [],
+      "values_withheld": false
+    },
+    {
+      "identifier": "gta6.main.stg_trends__weekly",
+      "object_type": "view",
+      "row_count": 168,
+      "byte_size": null,
+      "columns": [
+        {
+          "name": "request_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 3,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "batch_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "20261116T185310",
+                "count": 168
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "span_start",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2025-11-01",
+          "max_value": "2025-11-01",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "2025-11-01",
+                "count": 168
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": "month",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "span_end",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-15",
+          "max_value": "2026-11-15",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "2026-11-15",
+                "count": 168
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "geo",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": {
+            "category": "location",
+            "confidence": 0.3
+          },
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "term",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 3,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "call in sick",
+                "count": 56
+              },
+              {
+                "value": "day off work",
+                "count": 56
+              },
+              {
+                "value": "sick day",
+                "count": 56
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "week_start",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 58,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2025-10-26",
+          "max_value": "2026-11-15",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 386,
+          "temporal_distinct_periods": 56,
+          "temporal_missing_periods": 330,
+          "temporal_largest_gap": 6
+        },
+        {
+          "name": "interest",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 53,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 39,
+          "max_value": 100,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "is_partial",
+          "data_type": "BOOLEAN",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": false,
+          "max_value": true,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": false,
+                "count": 165
+              },
+              {
+                "value": true,
+                "count": 3
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        }
+      ],
+      "candidate_keys": [
+        [
+          "week_start",
+          "request_id"
+        ]
+      ],
+      "grain": [
+        "week_start",
+        "request_id"
+      ],
+      "composite_keys": [
+        [
+          "week_start",
+          "request_id"
+        ]
+      ],
+      "key_evidence": [
+        {
+          "columns": [
+            "week_start",
+            "request_id"
+          ],
+          "status": "reported",
+          "reason": "week_start, request_id is unique as a combination on all 168 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
+        }
+      ],
+      "rank_score": null,
+      "data_quality": [],
+      "findings": [
+        {
+          "column": "week_start",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "week_start participates in the detected grain but the warehouse still allows it to be NULL"
+        },
+        {
+          "column": "request_id",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "request_id participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-16T19:06:26.571931+00:00",
+      "semantic_models": [],
+      "values_withheld": false
     }
   ],
   "relationships": [],
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-16T16:45:56.551805+00:00",
+    "updated_at": "2026-11-16T19:06:27.069611+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

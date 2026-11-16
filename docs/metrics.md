@@ -6,7 +6,7 @@ semantic query.
 
 | # | Metric | Question | Source | Status |
 |---|---|---|---|---|
-| 1 | **Day-Off Index** | Did people take Thursday off? | Trends, Bluesky, Reddit, HN, Wikipedia | live |
+| 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | Google Trends, US, weekly | live |
 | 2 | **PRs opened** | Did GitHub go quiet? | GitHub Search API, `is:pr created:<day>` | after release |
 | 3 | **Stack Overflow silence** | Did developers stop asking questions? | Stack Exchange API, `filter=total` | after release |
 | 4 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | Wikimedia `edits/aggregate` | after release |

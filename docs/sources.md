@@ -7,7 +7,7 @@ All sources are free and public, and no API keys are needed. The ingesters are i
 | Source | Endpoint | Granularity | Raw table |
 |---|---|---|---|
 | Wikipedia | `wikimedia.org/api/rest_v1/metrics/pageviews/per-article` (users, all access) | daily | `raw.wiki_pageviews` |
-| Google Trends | `trendspy` (unofficial) | daily, relative 0–100 per request | `raw.trends_interest` |
+| Google Trends | `trendspy` (unofficial), one US request per Day-Off Index phrase over `TRENDS_SPAN` | weekly, relative 0–100 per request | `raw.trends_interest` |
 | Bluesky | `api.bsky.app/xrpc/app.bsky.feed.searchPosts`, one UTC day per call, `hitsTotal` | daily count | `raw.bluesky_daily_hits` |
 | Hacker News | `hn.algolia.com/api/v1/search_by_date`, `nbHits`, typo tolerance off | daily count | `raw.hn_daily_hits` |
 | Reddit | `arctic-shift.photon-reddit.com/api/{posts,comments}/search` | item | `raw.reddit_items` |
@@ -24,6 +24,9 @@ All sources are free and public, and no API keys are needed. The ingesters are i
 ## When Google Trends rate-limits
 
 Trends has no official API. If `gta6 ingest trends` gets a 429 response, export the
-same terms and window from trends.google.com and save the export as Parquet in
-`data/manual/trends/` with the same columns: `request_id, term_group, geo, term, day,
-interest, is_partial`. `gta6 load` picks it up.
+same phrases and span from trends.google.com (one phrase per export, US) and save each as
+Parquet in `data/manual/trends/` with the columns `request_id, batch_id, span_start,
+span_end, geo, term, day, interest, is_partial`. `gta6 load` picks it up.
+
+Older daily, one-request-per-year pulls stay in `data/raw/trends/` as history. They carry no
+span, so the index never reads them.

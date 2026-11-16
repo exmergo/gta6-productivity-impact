@@ -1,87 +1,84 @@
 version: 2
-
 models:
-  - name: dim_date
-    description: One row per UTC day from 2025-10-01 to 2026-12-31, placed relative to that year's release Thursday.
+- name: dim_date
+  description: One row per UTC day from 2025-10-01 to 2026-12-31, placed relative to that year's release Thursday.
+  config:
+    meta:
+      dex:
+        grain:
+          - date_day
+        population:
+          rule: Every calendar day in the spine; 2025 days belong to the control year (anchor Thu 20 Nov 2025), 2026 days to the study (anchor Thu 19 Nov 2026).
+        assumptions:
+          - decision: Control anchor
+            chosen: Thu 20 Nov 2025 vs Thu 13 Nov 2025
+            evidence: request
+            detail: same week of November, one year earlier, both a week before US Thanksgiving week
+          - decision: Thursday comparison roles
+            chosen: removed
+            evidence: request
+            detail: they tagged the old index's release and baseline Thursdays
+            column: comparison_role
+  columns:
+  - name: date_day
     config:
       meta:
         dex:
-          grain:
-            - date_day
-          population:
-            rule: Every calendar day in the spine; 2025 days belong to the control year (anchor Thu 20 Nov 2025), 2026 days to the study (anchor Thu 19 Nov 2026).
-          assumptions:
-            - decision: Control anchor
-              chosen: Thu 20 Nov 2025 vs Thu 13 Nov 2025
-              evidence: request
-              detail: same week of November, one year earlier, both a week before US Thanksgiving week
-    columns:
-      - name: date_day
-        config:
-          meta:
-            dex:
-              role: key
-              null_rule: never
-        data_tests:
-          - unique
-          - not_null
-      - name: study_year
-        description: 2026 = GTA 6 release year; 2025 = seasonality control.
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: release_day
-        description: That year's anchor Thursday.
-        config:
-          meta:
-            dex:
-              role: attribute
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: days_from_release
-        description: 0 on the anchor Thursday, -7 on the baseline Thursday.
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-              unit: days
-        data_tests:
-          - not_null
-      - name: iso_day_of_week
-        description: 1 = Monday ... 7 = Sunday.
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: day_name
-        config:
-          meta:
-            dex:
-              role: attribute
-              null_rule: never
-        data_tests:
-          - not_null
-      - name: comparison_role
-        description: '''release'' or ''baseline''.'
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: NULL on days that are neither Thursday of the comparison
-      - name: is_gta_release_day
-        config:
-          meta:
-            dex:
-              role: dimension
-              null_rule: never
-        data_tests:
-          - not_null
+          role: key
+          null_rule: never
+    data_tests:
+    - unique
+    - not_null
+  - name: study_year
+    description: 2026 = GTA 6 release year; 2025 = seasonality control.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: release_day
+    description: That year's anchor Thursday.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: days_from_release
+    description: 0 on that year's anchor Thursday.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+          unit: days
+    data_tests:
+    - not_null
+  - name: iso_day_of_week
+    description: 1 = Monday ... 7 = Sunday.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: day_name
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: is_gta_release_day
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null

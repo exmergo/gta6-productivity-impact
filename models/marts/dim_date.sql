@@ -27,9 +27,5 @@ select
     cast(date_day - release_day as integer) as days_from_release,
     isodow(date_day) as iso_day_of_week,
     dayname(date_day) as day_name,
-    case cast(date_day - release_day as integer)
-        when 0 then 'release'
-        when -7 then 'baseline'
-    end as comparison_role,
     study_year = 2026 and date_day = release_day as is_gta_release_day
 from anchored

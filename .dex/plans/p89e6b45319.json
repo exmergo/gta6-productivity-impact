@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "plan_id": "p89e6b45319",
+  "created_at": "2026-11-16T18:43:01.177871+00:00",
+  "intent": "Trends: one term per request, median of repeated pulls, US only, no PTO",
+  "project_dir": ".",
+  "edit_target": "project",
+  "edits": [
+    {
+      "path": "models/staging/stg_trends__interest.sql",
+      "new_content": "-- Each Trends request is scaled to its own 0-100, so values only compare inside one request.\n-- The ingester asks for one term per request (so each term uses the full range) and pulls\n-- every request several times in one batch, because Trends samples. request_id is\n-- <group>-<geo>-<year>-<batch>-<pull>. We keep the newest batch per (term group, geo,\n-- study year) and take the per-day median across its pulls. Older multi-term requests\n-- (the 2026-11 'day_off' group) are dropped: their terms shared one scale.\nwith source as (\n    select\n        *,\n        cast(split_part(request_id, '-', 3) as integer) as study_year,\n        split_part(request_id, '-', 4) as batch_id\n    from {{ source('raw', 'trends_interest') }}\n),\n\nsingle_term_requests as (\n    select request_id\n    from source\n    group by request_id\n    having count(distinct term) = 1\n),\n\nnewest_batch as (\n    select source.term_group, source.geo, source.study_year, max(source.batch_id) as batch_id\n    from source\n    inner join single_term_requests using (request_id)\n    group by source.term_group, source.geo, source.study_year\n)\n\nselect\n    source.term_group || '-' || source.geo || '-' || cast(source.study_year as varchar)\n        || '-' || source.batch_id as request_id,\n    source.study_year,\n    source.term_group,\n    source.geo,\n    source.term,\n    source.day as interest_date,\n    median(cast(source.interest as double)) as interest,\n    count(distinct source.request_id) as pull_count,\n    bool_or(source.is_partial) as is_partial\nfrom source\ninner join single_term_requests using (request_id)\ninner join newest_batch\n    on source.term_group = newest_batch.term_group\n    and source.geo = newest_batch.geo\n    and source.study_year = newest_batch.study_year\n    and source.batch_id = newest_batch.batch_id\ngroup by\n    source.term_group,\n    source.geo,\n    source.study_year,\n    source.batch_id,\n    source.term,\n    source.day\n",
+      "old_content_hash": "8b4a374b13e9bd41a626cd9ad9351772901abdb81bfba982afaa8054b210eb2d",
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/intermediate/int_signals__daily.sql",
+      "new_content": "-- Every signal as one daily value per (source, signal, geo, UTC day).\n-- A value that could not be read is NULL with is_available = false: unavailable, never zero.\nwith trends as (\n    select\n        'google_trends' as source,\n        'search:' || lower(term) as signal,\n        case when term_group = 'hype' then 'hype' else 'day_off_intent' end as signal_family,\n        geo,\n        interest_date as signal_date,\n        case when not is_partial then cast(interest as double) end as signal_value,\n        not is_partial as is_available\n    from {{ ref('stg_trends__interest') }}\n),\n\nbluesky as (\n    select\n        'bluesky' as source,\n        case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,\n        case gta_filter when 'gta' then 'day_off_gta' else 'day_off_intent' end as signal_family,\n        'WORLD' as geo,\n        hit_date as signal_date,\n        case when bool_and(is_available) then cast(sum(hits_total) as double) end as signal_value,\n        bool_and(is_available) as is_available\n    from {{ ref('stg_bluesky__daily_hits') }}\n    group by gta_filter, hit_date\n),\n\nhacker_news as (\n    select\n        'hacker_news' as source,\n        case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,\n        case gta_filter when 'gta' then 'day_off_gta' else 'day_off_intent' end as signal_family,\n        'WORLD' as geo,\n        hit_date as signal_date,\n        case when bool_and(is_available) then cast(sum(hits_total) as double) end as signal_value,\n        bool_and(is_available) as is_available\n    from {{ ref('stg_hn__daily_hits') }}\n    group by gta_filter, hit_date\n),\n\nwikipedia as (\n    select\n        'wikipedia' as source,\n        'pageviews:' || lower(article) as signal,\n        case when article = 'Grand_Theft_Auto_VI' then 'hype' else 'reference' end as signal_family,\n        'WORLD' as geo,\n        view_date as signal_date,\n        cast(views as double) as signal_value,\n        true as is_available\n    from {{ ref('stg_wiki__pageviews') }}\n)\n\nselect * from trends\nunion all\nselect * from bluesky\nunion all\nselect * from hacker_news\nunion all\nselect * from wikipedia\n",
+      "old_content_hash": "806632498605ed8ec793a9e08ff33e635dcb25053445fba875141fe603b221fa",
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/staging/stg_trends__interest.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: stg_trends__interest\n    description: 'One row per Trends term per day: the per-day median over the pulls of the newest single-term batch for each (term group, geo, study year).'\n    config:\n      meta:\n        dex:\n          grain:\n            - term_group\n            - geo\n            - study_year\n            - term\n            - interest_date\n          population:\n            rule: Only single-term requests, newest batch per (term_group, geo, study_year). Multi-term requests are dropped because their terms shared one 0-100 scale (PTO squeezed call in sick to 3-8).\n          assumptions:\n            - decision: How to combine repeated Trends pulls\n              chosen: per-day median across the pulls of the newest batch\n              evidence: request\n              detail: 'user asked to fix Trends noise: Trends samples, so repeated pulls of the same request are medianed; pulls of one request share a scale'\n            - decision: Which requests count\n              chosen: single-term requests only\n              evidence: request\n              detail: user approved one term per request; multi-term requests squeezed low-volume terms (call in sick 3-8)\n              column: term\n            - decision: PTO and worldwide day-off terms\n              chosen: no longer staged\n              evidence: request\n              detail: user approved US-only, no PTO (HR-portal navigation, power take-off)\n              column: term_group\n            - decision: Study year and batch source\n              chosen: third and fourth dash-separated parts of request_id\n              evidence: contract\n              detail: gta6_impact.ingest.trends writes <group>-<geo>-<year>-<batch>-<pull>\n            - decision: interest type\n              chosen: double (median can fall between integers)\n              evidence: request\n              detail: median of pulls\n              column: interest\n            - decision: Partial days across pulls\n              chosen: a day is partial when any pull marks it partial\n              evidence: default\n              detail: 'conservative: a day still filling in for one pull is not settled'\n              column: is_partial\n            - decision: request_id meaning\n              chosen: the batch id <group>-<geo>-<year>-<batch>, one per median\n              evidence: request\n              detail: a median spans the batch's pulls, so the row's provenance is the batch\n              column: request_id\n    columns:\n      - name: request_id\n        description: The batch the value came from (<group>-<geo>-<year>-<batch>); values only compare within one batch.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: study_year\n        description: 2026 = study window, 2025 = seasonality control.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: term_group\n        description: 'One group per term: call_in_sick, sick_day, day_off_work, or hype (GTA 6). Each requested on its own.'\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: geo\n        description: '''US'' for new batches; ''WORLD'' only from older single-term hype pulls.'\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: term\n        description: The search term.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: interest_date\n        description: The day Google reports, in Google's own day boundaries.\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: interest\n        description: Median relative search interest across the batch's pulls; 100 is the peak of a pull.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: never\n              aggregation: max\n              additivity: non_additive\n              unit: index (0-100, relative within request)\n        data_tests:\n          - not_null\n      - name: is_partial\n        description: True when any pull marked the day partial (Google's latest day while it fills in).\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: pull_count\n        description: How many pulls of the batch reported this day.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n              unit: count\n        data_tests:\n          - not_null\n",
+      "old_content_hash": "6d0f99cb88180a0ff3cfc1434aa387c6b35ce50c78d61b967d3f422750882e25",
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/intermediate/int_signals__daily.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: int_signals__daily\n    description: 'One row per signal per day: every source''s daily value in one shape.'\n    config:\n      meta:\n        dex:\n          grain:\n            - source\n            - signal\n            - geo\n            - signal_date\n          population:\n            rule: Every staged day of every source; Bluesky and Hacker News seeds are summed per day and filter.\n          assumptions:\n            - decision: Combining seed phrases\n              chosen: sum hits across seeds per day\n              evidence: default\n              detail: a post matching two seeds counts twice; the double count is the same on both Thursdays, so the lift is unaffected in expectation\n            - decision: A partial or failed day\n              chosen: signal_value NULL, is_available false\n              evidence: request\n              detail: 'docs/methodology.md: missing is unavailable, never zero'\n            - decision: Trends partial days\n              chosen: treated as unavailable\n              evidence: default\n              detail: Google flags the latest day isPartial while it fills in\n            - decision: Trends signal family\n              chosen: every Trends group except hype is day_off_intent\n              evidence: request\n              detail: Trends day-off terms are now one group per term\n              column: signal_family\n            - decision: Trends day-off signals kept\n              chosen: US call in sick, sick day, day off work; PTO and WORLD day-off signals removed\n              evidence: request\n              detail: 'user approved the Trends fix: US only, no PTO'\n              column: signal\n    columns:\n      - name: source\n        description: google_trends, bluesky, reddit, hacker_news or wikipedia.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal\n        description: What is counted, e.g. search:pto, posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_family\n        description: day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: geo\n        description: US or WORLD. Only Google Trends has a US slice.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_date\n        description: UTC day (Google's own day for Trends).\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: signal_value\n        description: Counts for posts and pageviews; relative 0-100 interest for Trends. Never add across signals or sources.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: 'NULL when the value could not be read: unavailable, never zero.'\n              aggregation: sum\n              additivity: non_additive\n              unit: count or index (see signal)\n      - name: is_available\n        description: False when any part of the day's value failed to load or was partial.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n",
+      "old_content_hash": "54512239261015928358f2b4803aada4a3b9e098ac32c5f4be6278bea7e4682d",
+      "op": "upsert",
+      "kind": "schema_yml"
+    }
+  ],
+  "applied_at": "2026-11-16T18:43:53.153112+00:00",
+  "refactor_models": {
+    "int_signals__daily": "unattributed",
+    "stg_trends__interest": "unattributed"
+  },
+  "refactor_baseline_ready": {
+    "int_signals__daily": true,
+    "stg_trends__interest": true
+  },
+  "comparisons": {
+    "int_signals__daily": {
+      "status": "unexpected",
+      "reason_code": "unexpected_change",
+      "compared_at": "2026-11-16T18:43:36.306244+00:00",
+      "input_scope": [
+        "gta6.main.stg_bluesky__daily_hits",
+        "gta6.main.stg_hn__daily_hits",
+        "gta6.main.stg_wiki__pageviews",
+        "gta6.raw.trends_interest"
+      ],
+      "baseline_compiled": "7b00c8bfedd0a7c4",
+      "proposed_compiled": "833f09fd47e166e1",
+      "inputs_built_by": {
+        "invocation_id": "1777510d-ca3b-44aa-93a3-dae6838e72bc",
+        "generated_at": "2026-11-16T18:28:07.514610Z",
+        "cold": false
+      },
+      "expectation": "db9cfe6f9e654d45"
+    }
+  },
+  "identifier_conversions": {
+    "stg_trends__interest": [
+      {
+        "column": "study_year",
+        "authored": "CAST(source.study_year AS TEXT)",
+        "status": "unchecked",
+        "reason_code": "unsupported_scope"
+      }
+    ]
+  },
+  "change_scope": {
+    "int_signals__daily": [
+      {
+        "kind": "unread",
+        "status": "unchecked"
+      }
+    ],
+    "stg_trends__interest": [
+      {
+        "axis": "output",
+        "kind": "aggregate_changed",
+        "column": "interest",
+        "status": "declared"
+      },
+      {
+        "axis": "output",
+        "kind": "aggregate_changed",
+        "column": "is_partial",
+        "status": "declared"
+      },
+      {
+        "axis": "output",
+        "kind": "type_changed",
+        "column": "interest",
+        "status": "declared"
+      },
+      {
+        "axis": "population",
+        "kind": "group_by_changed",
+        "status": "declared"
+      }
+    ]
+  },
+  "population_acceptance": null,
+  "repair": null,
+  "baseline_sources": {
+    "models/staging/stg_trends__interest.sql": "-- Each Trends request is scaled to its own 0-100, so we keep exactly one request per\n-- (term group, geo, study year): the newest. Mixing requests would mix scales.\nwith source as (\n    select\n        *,\n        cast(split_part(request_id, '-', 3) as integer) as study_year\n    from {{ source('raw', 'trends_interest') }}\n),\n\nnewest as (\n    select term_group, geo, study_year, max(request_id) as request_id\n    from source\n    group by term_group, geo, study_year\n)\n\nselect\n    source.request_id,\n    source.study_year,\n    source.term_group,\n    source.geo,\n    source.term,\n    source.day as interest_date,\n    cast(source.interest as integer) as interest,\n    source.is_partial\nfrom source\ninner join newest\n    on source.request_id = newest.request_id\n",
+    "models/intermediate/int_signals__daily.sql": "-- Every signal as one daily value per (source, signal, geo, UTC day).\n-- A value that could not be read is NULL with is_available = false: unavailable, never zero.\nwith trends as (\n    select\n        'google_trends' as source,\n        'search:' || lower(term) as signal,\n        case term_group when 'day_off' then 'day_off_intent' else 'hype' end as signal_family,\n        geo,\n        interest_date as signal_date,\n        case when not is_partial then cast(interest as double) end as signal_value,\n        not is_partial as is_available\n    from {{ ref('stg_trends__interest') }}\n),\n\nbluesky as (\n    select\n        'bluesky' as source,\n        case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,\n        case gta_filter when 'gta' then 'day_off_gta' else 'day_off_intent' end as signal_family,\n        'WORLD' as geo,\n        hit_date as signal_date,\n        case when bool_and(is_available) then cast(sum(hits_total) as double) end as signal_value,\n        bool_and(is_available) as is_available\n    from {{ ref('stg_bluesky__daily_hits') }}\n    group by gta_filter, hit_date\n),\n\nhacker_news as (\n    select\n        'hacker_news' as source,\n        case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,\n        case gta_filter when 'gta' then 'day_off_gta' else 'day_off_intent' end as signal_family,\n        'WORLD' as geo,\n        hit_date as signal_date,\n        case when bool_and(is_available) then cast(sum(hits_total) as double) end as signal_value,\n        bool_and(is_available) as is_available\n    from {{ ref('stg_hn__daily_hits') }}\n    group by gta_filter, hit_date\n),\n\nwikipedia as (\n    select\n        'wikipedia' as source,\n        'pageviews:' || lower(article) as signal,\n        case when article = 'Grand_Theft_Auto_VI' then 'hype' else 'reference' end as signal_family,\n        'WORLD' as geo,\n        view_date as signal_date,\n        cast(views as double) as signal_value,\n        true as is_available\n    from {{ ref('stg_wiki__pageviews') }}\n)\n\nselect * from trends\nunion all\nselect * from bluesky\nunion all\nselect * from hacker_news\nunion all\nselect * from wikipedia\n"
+  },
+  "retirement": null,
+  "toggle": null
+}

@@ -1,33 +1,28 @@
--- The Day-Off Index: geometric mean of per-source lifts (each source the geometric mean of
--- its own component signals), x 100. 100 is a normal week.
-with components as (
-    select * from {{ ref('fct_thursday_lift') }}
-    where is_index_component
-),
-
-by_source as (
+-- The Day-Off Index: the average of the three phrases' year-over-year changes, in percent,
+-- one row per window. It always carries its breakdown: `breakdown` spells out every phrase's
+-- change, so the index is never read without it.
+with terms as (
     select
-        study_year,
-        source,
-        count(*) as signals_total,
-        count(lift) as signals_with_lift,
-        case
-            when count(lift) = count(*) then exp(avg(ln(greatest(lift, 0.01))))
-        end as source_lift
-    from components
-    group by study_year, source
+        *,
+        cast(current_start_week as varchar) || '/' || cast(current_end_week as varchar)
+            as index_window
+    from {{ ref('fct_day_off_index_terms') }}
 )
 
 select
-    study_year,
-    case study_year when 2026 then date '2026-11-19' else date '2025-11-20' end as release_day,
-    count(*) as sources_total,
-    count(source_lift) as sources_with_lift,
-    case
-        when count(source_lift) = count(*) then 100 * exp(avg(ln(source_lift)))
-    end as day_off_index,
-    max(case when source = 'google_trends' then source_lift end) as google_trends_lift,
-    max(case when source = 'bluesky' then source_lift end) as bluesky_lift,
-    max(case when source = 'reddit' then source_lift end) as reddit_lift
-from by_source
-group by study_year
+    index_window,
+    min(current_start_week) as current_start_week,
+    min(current_end_week) as current_end_week,
+    min(prior_start_week) as prior_start_week,
+    min(prior_end_week) as prior_end_week,
+    min(weeks) as weeks,
+    max(batch_id) as batch_id,
+    count(*) as phrase_count,
+    count(pct_change) as phrases_available,
+    case when count(pct_change) = count(*) then avg(pct_change) end as day_off_index,
+    string_agg(
+        term || ' ' || coalesce(printf('%+.1f%%', pct_change), 'not yet available'),
+        ' · ' order by term
+    ) as breakdown
+from terms
+group by index_window

@@ -11,7 +11,6 @@ html, body { margin: 0; background: var(--dex-paper); }
     linear-gradient(90deg, color-mix(in srgb, var(--dex-line) 6%, transparent) 1px, transparent 1px);
   background-size: 32px 32px;
 }
-.card::before { content: ""; position: absolute; inset: 22px; border: 1px solid var(--dex-line-soft); pointer-events: none; }
 .mast { display: flex; align-items: center; justify-content: space-between; gap: 20px; position: relative; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { height: 34px; width: auto; }
@@ -54,11 +53,11 @@ h1 .red { color: var(--dex-redline); }
 .fine { margin: 8px 0 0; font: 12px/1.45 var(--font-mono); color: var(--dex-ink-faint); }
 
 /* Image bubble: a round crop in the top right that fades into the paper */
-.aside { position: absolute; top: 40px; right: 64px; width: 290px; height: 290px; margin: 0;
+.aside { position: absolute; top: 36px; right: 58px; width: 310px; height: 310px; margin: 0;
   overflow: hidden; border-radius: 50%; pointer-events: none;
   -webkit-mask-image: radial-gradient(circle closest-side, var(--dex-black) 62%, transparent 100%);
   mask-image: radial-gradient(circle closest-side, var(--dex-black) 62%, transparent 100%); }
-.aside img { position: absolute; height: 150%; top: -2%; left: 50%; transform: translateX(-50%); }
+.aside img { position: absolute; height: 130%; top: -1%; left: 50%; transform: translateX(-46%); }
 
 /* Year-on-year bars: per phrase, last year above this year, the change at the end */
 .yoy { display: grid; grid-template-columns: 132px 1fr 76px; column-gap: 14px; row-gap: 18px; align-items: center; }

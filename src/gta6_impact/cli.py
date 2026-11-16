@@ -25,26 +25,37 @@ def ingest(sources: list[str]) -> None:
     )
     pulled = store.pull_id()
     for source in sources:
-        if source == "wikipedia":
-            from gta6_impact.ingest import wikipedia
-
-            rows = wikipedia.run(http)
-        elif source == "bluesky":
-            from gta6_impact.ingest import bluesky
-
-            rows = bluesky.run(http, skip=warehouse.settled_keys("bluesky"))
-        elif source == "hn":
-            from gta6_impact.ingest import hn
-
-            rows = hn.run(http, skip=warehouse.settled_keys("hn"))
-        elif source == "trends":
-            from gta6_impact.ingest import trends
-
-            rows = trends.run()
-        else:
+        if source not in SOURCES:
             raise SystemExit(f"unknown source {source}")
-        path = store.write(source, rows, tag=source, pulled=pulled)
-        print(json.dumps({"source": source, "rows": len(rows), "path": str(path)}), flush=True)
+        # One public API having a bad day (Google Trends rate-limits cloud IPs) must not stop
+        # the rest: the published numbers are pinned to committed pulls, so log and carry on.
+        try:
+            _ingest_one(source, http, pulled)
+        except Exception as exc:  # noqa: BLE001
+            print(json.dumps({"source": source, "skipped": repr(exc)[:300]}), flush=True)
+
+
+def _ingest_one(source: str, http: Http, pulled: str) -> None:
+    if source == "wikipedia":
+        from gta6_impact.ingest import wikipedia
+
+        rows = wikipedia.run(http)
+    elif source == "bluesky":
+        from gta6_impact.ingest import bluesky
+
+        rows = bluesky.run(http, skip=warehouse.settled_keys("bluesky"))
+    elif source == "hn":
+        from gta6_impact.ingest import hn
+
+        rows = hn.run(http, skip=warehouse.settled_keys("hn"))
+    elif source == "trends":
+        from gta6_impact.ingest import trends
+
+        rows = trends.run()
+    else:
+        raise SystemExit(f"unknown source {source}")
+    path = store.write(source, rows, tag=source, pulled=pulled)
+    print(json.dumps({"source": source, "rows": len(rows), "path": str(path)}), flush=True)
 
 
 def dex(*args: str, evidence: str | None = None) -> dict:

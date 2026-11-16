@@ -230,7 +230,7 @@
           "reason": "date_day is unique and non-null on all 457 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5821,
+      "rank_score": 0.5806,
       "data_quality": [],
       "findings": [
         {
@@ -578,7 +578,7 @@
           "reason": "breakdown is unique and non-null on all 1 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
         }
       ],
-      "rank_score": 0.6496,
+      "rank_score": 0.6495,
       "data_quality": [],
       "findings": [
         {
@@ -925,7 +925,7 @@
           "reason": "pct_change is unique and non-null on all 3 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.4793,
+      "rank_score": 0.479,
       "data_quality": [],
       "findings": [
         {
@@ -1292,7 +1292,7 @@
           "reason": "signal_day_key is unique and non-null on all 856 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.6089,
+      "rank_score": 0.6073,
       "data_quality": [],
       "findings": [
         {
@@ -1637,7 +1637,7 @@
           "reason": "thursday_lift_key is unique and non-null on all 26 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.461,
+      "rank_score": 0.4602,
       "data_quality": [],
       "findings": [
         {
@@ -1923,7 +1923,7 @@
           "reason": "date_day is unique and non-null on all 1094 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.4594,
+      "rank_score": 0.4577,
       "data_quality": [],
       "findings": [
         {
@@ -3362,7 +3362,7 @@
           "reason": "observed_at is unique and non-null on all 1284 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5562,
+      "rank_score": 0.5545,
       "data_quality": [],
       "findings": [
         {
@@ -3674,7 +3674,7 @@
           "reason": "observed_at is unique and non-null on all 1284 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5562,
+      "rank_score": 0.5545,
       "data_quality": [],
       "findings": [
         {
@@ -4172,7 +4172,7 @@
           "reason": "ts, article is unique as a combination on all 428 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
         }
       ],
-      "rank_score": 0.5093,
+      "rank_score": 0.5078,
       "data_quality": [],
       "findings": [
         {
@@ -4194,22 +4194,6 @@
     }
   ],
   "relationships": [
-    {
-      "from_dataset": "gta6.raw.trends_interest",
-      "from_columns": [
-        "batch_id"
-      ],
-      "to_dataset": "gta6.main.fct_day_off_index",
-      "to_columns": [
-        "batch_id"
-      ],
-      "kind": "inferred",
-      "confidence": 0.45,
-      "verified": false,
-      "orphan_fraction": null,
-      "declared_by": null,
-      "declaration_sources": []
-    },
     {
       "from_dataset": "gta6.main.fct_day_off_index_terms",
       "from_columns": [
@@ -4241,12 +4225,28 @@
       "orphan_fraction": null,
       "declared_by": null,
       "declaration_sources": []
+    },
+    {
+      "from_dataset": "gta6.raw.trends_interest",
+      "from_columns": [
+        "batch_id"
+      ],
+      "to_dataset": "gta6.main.fct_day_off_index",
+      "to_columns": [
+        "batch_id"
+      ],
+      "kind": "inferred",
+      "confidence": 0.45,
+      "verified": false,
+      "orphan_fraction": null,
+      "declared_by": null,
+      "declaration_sources": []
     }
   ],
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-16T19:31:18.837231+00:00",
+    "updated_at": "2026-11-16T23:46:14.861661+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

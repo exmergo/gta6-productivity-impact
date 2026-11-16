@@ -1,0 +1,25 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.13.5"
+      - run: uv sync --locked
+      - run: uv run ruff check .
+      - run: uv run pytest -q
+      - name: Rebuild from committed raw data (offline)
+        run: uv run gta6 refresh --offline
+      - name: Warehouse stays small enough to commit
+        run: test "$(stat -c%s warehouse/gta6.duckdb)" -lt 26214400

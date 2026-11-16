@@ -1,0 +1,7 @@
+connector: duckdb
+duckdb:
+  path: warehouse/gta6.duckdb
+dbt_target: dev
+dbt_project_dir: .
+query:
+  max_rows: 1000

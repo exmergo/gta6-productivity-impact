@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: stg_wiki__pageviews
+    description: 'One row per Wikipedia article per UTC day: daily user pageviews.'
+    config:
+      meta:
+        dex:
+          grain:
+            - article
+            - view_date
+          population:
+            rule: Daily-granularity rows only; the per-article API serves no hourly data.
+            filters:
+              - column: granularity
+                includes:
+                  - daily
+          assumptions:
+            - decision: Which day a timestamp belongs to
+              chosen: the UTC date of ts
+              evidence: data
+              detail: explore showed ts rendered at +01:00/+02:00 in a local session; the API's timestamps are UTC midnights
+    columns:
+      - name: article
+        description: English Wikipedia article title.
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: view_date
+        description: UTC day. The raw ts is a UTC midnight stored as TIMESTAMPTZ; converted explicitly so the session time zone cannot shift it.
+        config:
+          meta:
+            dex:
+              role: time
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: views
+        description: Pageviews by users (agent=user), all access methods.
+        config:
+          meta:
+            dex:
+              role: measure
+              null_rule: never
+              aggregation: sum
+              additivity: additive
+              unit: count
+        data_tests:
+          - not_null

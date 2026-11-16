@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: stg_bluesky__daily_hits
+    description: 'One row per Bluesky search (seed phrase x gta filter) per UTC day: the hitsTotal Bluesky reported.'
+    config:
+      meta:
+        dex:
+          grain:
+            - hit_date
+            - seed
+            - gta_filter
+          population:
+            rule: Every query we asked, including failed ones (hits_total NULL).
+          assumptions:
+            - decision: Grain
+              chosen: '(hit_date, seed, gta_filter): one search per key per day'
+              evidence: data
+              detail: 'probe .dex/review/06-*.json: distinct (day, seed, gta_filter) equals row count. observed_at is unique only because every request is timed separately; it is not the grain'
+            - decision: Population
+              chosen: every query this source was asked, independent of the other search source
+              evidence: request
+              detail: Bluesky and Hacker News are searched with the same seeds on the same days, but neither is a parent of the other
+            - decision: A failed call
+              chosen: kept with hits_total NULL and is_available false
+              evidence: request
+              detail: missing is unavailable, never zero (docs/methodology.md)
+    columns:
+      - name: hit_date
+        description: UTC day the count covers.
+        config:
+          meta:
+            dex:
+              role: time
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: seed
+        description: Day-off seed phrase searched, quoted.
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: gta_filter
+        description: '''any'' = the phrase alone; ''gta'' = the phrase plus the word gta.'
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: query
+        description: The exact query string sent.
+        config:
+          meta:
+            dex:
+              role: attribute
+      - name: hits_total
+        description: Matches Bluesky reports for the query in that UTC day.
+        config:
+          meta:
+            dex:
+              role: measure
+              null_rule: 'NULL when the Bluesky call failed: unavailable, never zero.'
+              aggregation: sum
+              additivity: additive
+              unit: count
+      - name: is_available
+        description: True when hits_total was returned.
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: observed_at
+        description: When the count was read (counts can move as indexes update).
+        config:
+          meta:
+            dex:
+              role: attribute

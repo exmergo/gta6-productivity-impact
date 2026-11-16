@@ -1,0 +1,144 @@
+/* ===========================================================================
+   The trydex.ai theme: the Dex website's "engineering drawing" look, for
+   posts and images that should match the site rather than the Exmergo feed
+   style. Opt in per post with:
+
+     <html lang="en" data-theme="dex-site">
+     <link rel="stylesheet" href="../brand/tokens.css" />
+     <link rel="stylesheet" href="../brand/dex-site.css" />
+
+   Source of truth: the dex-website repo, src/app/(site)/globals.css (colours)
+   and src/lib/og.tsx (the social preview card). Change them together.
+
+   The site's palette: paper grounds, ink text, blue linework, redline kept for
+   warnings. Brand black is used for primary actions and the trydex.ai tag.
+   IBM Plex is bundled in brand/fonts (SIL OFL, licence alongside) so captures
+   stay reproducible offline, like the system stack the other themes use.
+   =========================================================================== */
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("fonts/IBMPlexSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("fonts/IBMPlexSans-Bold.ttf") format("truetype");
+  font-weight: 600 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/IBMPlexMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root[data-theme="dex-site"] {
+  /* The site's own tokens, by their names in dex-website's globals.css. */
+  --dex-paper: #f5f4ef;
+  --dex-paper-raised: #fbfaf7;
+  --dex-paper-sunk: #eceae2;
+  --dex-rule: #dad7cc;
+  --dex-ink: #0b1a3a;
+  --dex-ink-muted: #4a5468;
+  --dex-ink-faint: #8a91a0;
+  --dex-wash: #eff6ff;
+  --dex-line-soft: #93c5fd;
+  --dex-brand: #3b82f6;
+  --dex-action: #2563eb;
+  --dex-line: #1d4ed8;
+  --dex-redline: #e2462f;
+  --dex-black: #000000;
+  /* The "Dex" wordmark beside the mark, as the site's BrandLockup draws it
+     (and exmergo.com/dex): Arial Bold in Tailwind's gray-900, not the ink. */
+  --dex-wordmark: #101828;
+  --font-wordmark: Arial, Helvetica, sans-serif;
+
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* The shared component variables (tokens.css), mapped onto the site. */
+  --ground: var(--dex-paper);
+  --surface: var(--dex-paper-raised);
+  --surface-strong: var(--dex-paper-raised);
+  --hairline: var(--dex-rule);
+  --border: var(--dex-line-soft);
+
+  --text: var(--dex-ink);
+  --text-body: var(--dex-ink-muted);
+  --text-muted: var(--dex-ink-muted);
+  --text-faint: var(--dex-ink-faint);
+
+  --dot: rgba(29, 78, 216, 0.08);
+
+  --accent: var(--dex-line);
+  --accent-solid: var(--dex-black);
+  --on-accent: #ffffff;
+
+  --chip-bg: var(--dex-wash);
+  --chip-border: var(--dex-line-soft);
+  --glow: transparent;
+  --spine: var(--dex-line-soft);
+  --rule: var(--dex-line-soft);
+  --gradient-brand: linear-gradient(90deg, var(--dex-line), var(--dex-line));
+  --strike: rgba(11, 26, 58, 0.3);
+
+  --logo-mark-src: url("assets/exmergo-mark-black.png");
+}
+
+/* ---------------------------------------------------------------------------
+   The trydex.ai theme in the dark: a blueprint. The site itself has no dark
+   mode; this is for images that must also sit on dark grounds (the dex
+   README's <picture> sources for GitHub's dark mode). Same drawing, inverted
+   the way a blueprint is: navy paper, light linework, paper-white text.
+     <html lang="en" data-theme="dex-site-dark">
+   --------------------------------------------------------------------------- */
+:root[data-theme="dex-site-dark"] {
+  --dex-paper: #0b1a3a;
+  --dex-paper-raised: #0f2147;
+  --dex-paper-sunk: #091530;
+  --dex-rule: #2a3b63;
+  --dex-ink: #f5f4ef;
+  --dex-ink-muted: #b9c2d6;
+  --dex-ink-faint: #7f8bab;
+  --dex-wash: #13285a;
+  --dex-line-soft: #3d5a9e;
+  --dex-brand: #93c5fd;
+  --dex-action: #93c5fd;
+  --dex-line: #93c5fd;
+  --dex-redline: #ff7a63;
+  --dex-black: #000000;
+  /* The wordmark in white, as the white mark beside it. */
+  --dex-wordmark: #ffffff;
+  --font-wordmark: Arial, Helvetica, sans-serif;
+  /* Vendor logos are drawn for light grounds: their tiles stay paper. */
+  --dex-tile: #fbfaf7;
+
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --ground: var(--dex-paper);
+  --surface: var(--dex-paper-raised);
+  --surface-strong: var(--dex-paper-raised);
+  --hairline: var(--dex-rule);
+  --border: var(--dex-line-soft);
+  --text: var(--dex-ink);
+  --text-body: var(--dex-ink-muted);
+  --text-muted: var(--dex-ink-muted);
+  --text-faint: var(--dex-ink-faint);
+  --dot: rgba(147, 197, 253, 0.1);
+  --accent: var(--dex-line);
+  --accent-solid: var(--dex-black);
+  --on-accent: #ffffff;
+  --chip-bg: var(--dex-wash);
+  --chip-border: var(--dex-line-soft);
+  --glow: transparent;
+  --spine: var(--dex-line-soft);
+  --rule: var(--dex-line-soft);
+  --gradient-brand: linear-gradient(90deg, var(--dex-line), var(--dex-line));
+  --strike: rgba(245, 244, 239, 0.3);
+
+  --logo-mark-src: url("assets/exmergo-mark-white.png");
+}

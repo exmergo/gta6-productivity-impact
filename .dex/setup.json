@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "mode": "new",
+  "project_name": "gta6_impact",
+  "project_dir": ".",
+  "layered_schemas": false,
+  "agent_files": [
+    "AGENTS.md"
+  ]
+}

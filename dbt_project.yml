@@ -1,0 +1,15 @@
+name: gta6_impact
+version: 1.0.0
+profile: gta6_impact
+model-paths:
+- models
+test-paths:
+- data_tests
+models:
+  gta6_impact:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table

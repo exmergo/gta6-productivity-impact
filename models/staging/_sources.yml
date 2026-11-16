@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: >
+      Public signals landed by `gta6 ingest` as Parquet under data/raw/ and loaded by
+      `gta6 load`. Every table is rebuilt from the files on each load; the newest pull
+      wins per key. No post text, handles or usernames are stored.
+    tables:
+      - name: wiki_pageviews
+        description: Daily English Wikipedia pageviews by users (all access) per article.
+      - name: trends_interest
+        description: >
+          Google Trends relative interest (0-100) per term and day. Values only compare
+          within one request_id; Google rescales every request to its own peak.
+      - name: bluesky_daily_hits
+        description: >
+          Bluesky public search hitsTotal for one quoted seed phrase (optionally plus "gta")
+          bounded to one UTC day. hits_total is NULL when the call failed.
+      - name: hn_daily_hits
+        description: >
+          Hacker News (Algolia) nbHits for one quoted seed phrase (optionally plus "gta")
+          over stories and comments in one UTC day. NULL when the call failed.
+      - name: reddit_items
+        description: >
+          Reddit posts and comments (Arctic Shift archive) that matched a day-off seed in a
+          tracked subreddit, with flags computed from the text at ingest. Text is discarded.
+      - name: reddit_coverage
+        description: >
+          One row per (subreddit, kind, seed, weekly slice) we asked Arctic Shift for, with
+          whether paging completed, was capped, or failed.

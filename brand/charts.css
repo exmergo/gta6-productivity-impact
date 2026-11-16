@@ -1,0 +1,84 @@
+/* Chart cards for this repo, in the trydex.ai drawing style (brand/dex-site.css tokens). */
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--dex-paper); }
+.card {
+  position: relative; display: flex; flex-direction: column;
+  padding: 44px 52px 30px; overflow: hidden;
+  font-family: var(--font-sans); color: var(--dex-ink);
+  background-color: var(--dex-paper);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--dex-line) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--dex-line) 6%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.card::before { content: ""; position: absolute; inset: 22px; border: 1px solid var(--dex-line-soft); pointer-events: none; }
+.mast { display: flex; align-items: center; justify-content: space-between; gap: 20px; position: relative; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand img { height: 34px; width: auto; }
+.meta { font: 15px var(--font-mono); letter-spacing: 1px; color: var(--dex-line); text-transform: uppercase; }
+.main { flex: 1; min-height: 0; padding-top: 26px; position: relative; display: flex; flex-direction: column; }
+h1 { margin: 0; font-size: 40px; line-height: 1.06; letter-spacing: -1.4px; font-weight: 700; }
+h1 em { font-style: normal; color: var(--dex-line); }
+h1 .red { color: var(--dex-redline); }
+.lede { margin: 10px 0 0; font-size: 20px; line-height: 1.35; color: var(--dex-ink-muted); max-width: 980px; }
+.plot { margin-top: 14px; flex: 1; min-height: 0; }
+.plot svg { width: 100%; height: 100%; }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  padding-top: 13px; margin-top: 14px; border-top: 1px solid var(--dex-line-soft);
+  font: 14px var(--font-mono); color: var(--dex-ink-muted); position: relative; }
+.foot b { color: var(--dex-ink); font-weight: 400; }
+
+/* Marks */
+.chart { display: block; overflow: visible; font-family: var(--font-sans); }
+.chart .grid { stroke: var(--dex-rule); stroke-width: 1; }
+.chart .axis { stroke: var(--dex-ink-faint); stroke-width: 1; }
+.chart .tick { fill: var(--dex-ink-muted); font: 14px var(--font-mono); }
+.chart .line { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.chart .line.s-study { stroke: var(--dex-line); }
+.chart .line.s-control { stroke: var(--dex-ink-faint); stroke-dasharray: 6 5; }
+.chart circle.end.s-study { fill: var(--dex-line); }
+.chart circle.end.s-control { fill: var(--dex-ink-faint); }
+.chart circle.end { stroke: var(--dex-paper); stroke-width: 2; stroke-dasharray: none; }
+.chart .hit { fill: transparent; stroke: none; }
+.chart .hit:hover { fill: color-mix(in srgb, var(--dex-line) 25%, transparent); }
+.chart .marker { stroke: var(--dex-redline); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.chart .marker-label { fill: var(--dex-redline); font: 14px var(--font-mono); text-transform: uppercase; letter-spacing: 1px; }
+.chart .direct { fill: var(--dex-ink); font-size: 17px; font-weight: 700; }
+.chart .direct-name { fill: var(--dex-ink-muted); font-weight: 400; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 44px; align-items: center; flex: 1; }
+.big { font-size: 150px; line-height: .9; letter-spacing: -6px; font-weight: 700; color: var(--dex-redline); }
+.big small { font-size: 52px; letter-spacing: -1px; }
+.box { position: relative; background: var(--dex-paper-raised); border: 1px solid var(--dex-line); }
+.box::before, .box::after { content: ""; position: absolute; width: 18px; height: 18px;
+  border-top: 1px solid var(--dex-line); border-left: 1px solid var(--dex-line);
+  border-radius: 50% 0 0; top: -9px; left: -9px; }
+.box::after { left: auto; top: auto; right: -9px; bottom: -9px; transform: rotate(180deg); }
+.strip { padding: 12px 18px; border-bottom: 1px solid var(--dex-line-soft); font: 15px var(--font-mono);
+  letter-spacing: 1px; text-transform: uppercase; color: var(--dex-line); }
+.rows { padding: 2px 18px; }
+.row { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--dex-rule); font-size: 20px; }
+.row:last-child { border-bottom: 0; }
+.row span { color: var(--dex-ink-muted); }
+.row b.red { color: var(--dex-redline); }
+
+/* Lift bars */
+.bars { display: grid; gap: 10px; margin-top: 8px; }
+.bar-row { display: grid; grid-template-columns: 300px 1fr 92px; gap: 16px; align-items: center; font-size: 18px; }
+.bar-row .name { color: var(--dex-ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-row .track { position: relative; height: 22px; }
+.bar-row .fill { position: absolute; top: 2px; height: 8px; border-radius: 0 4px 4px 0; }
+.bar-row .fill.study { background: var(--dex-line); top: 0; height: 10px; }
+.bar-row .fill.control { background: var(--dex-ink-faint); top: 13px; height: 7px; }
+.bar-row .fill.pending { background: none; border: 1px dashed var(--dex-line-soft); top: 0; height: 10px; }
+.bar-row .par { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1px solid var(--dex-ink); }
+.bar-row .val { font: 16px var(--font-mono); text-align: right; }
+.legend { display: flex; gap: 22px; font: 14px var(--font-mono); color: var(--dex-ink-muted); margin-top: 6px; }
+.legend i { display: inline-block; width: 18px; height: 8px; margin-right: 8px; vertical-align: middle; }
+.legend .study { background: var(--dex-line); }
+.legend .control { background: var(--dex-ink-faint); }
+.legend .red { background: var(--dex-redline); height: 2px; }
+.chart .direct, .chart .marker-label, .chart .note { paint-order: stroke; stroke: var(--dex-paper); stroke-width: 6px; stroke-linejoin: round; }
+.chart .note { fill: var(--dex-ink-muted); font: 14px var(--font-mono); }
+.chart .note-dot { fill: none; stroke: var(--dex-ink-muted); stroke-width: 1; }

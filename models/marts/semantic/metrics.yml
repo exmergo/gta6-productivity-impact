@@ -1,0 +1,107 @@
+version: 2
+
+metrics:
+  - name: day_off_index
+    label: Day-Off Index
+    description: Geometric mean of the Thursday lifts of the day-off intent signals (Google Trends, Bluesky, Reddit), x 100. 100 is a normal week. Group by index_year__study_year.
+    type: simple
+    type_params:
+      measure: day_off_index_measure
+
+  - name: day_off_index_2026
+    label: Day-Off Index, GTA week (2026)
+    description: The Day-Off Index for release Thursday 19 Nov 2026 against Thursday 12 Nov 2026.
+    type: simple
+    type_params:
+      measure: day_off_index_measure
+    filter: |
+      {{ Dimension('index_year__study_year') }} = 2026
+
+  - name: day_off_index_2025
+    label: Day-Off Index, control week (2025)
+    description: The same index for Thu 20 Nov 2025 against Thu 13 Nov 2025, before GTA 6. The seasonal baseline.
+    type: simple
+    type_params:
+      measure: day_off_index_measure
+    filter: |
+      {{ Dimension('index_year__study_year') }} = 2025
+
+  - name: day_off_index_gta_effect
+    label: Day-Off Index, net of season
+    description: The 2026 index divided by the 2025 control index, x 100. What is left after the pre-Thanksgiving drift. 100 = GTA 6 changed nothing.
+    type: derived
+    type_params:
+      expr: 100 * day_off_index_2026 / nullif(day_off_index_2025, 0)
+      metrics:
+        - name: day_off_index_2026
+        - name: day_off_index_2025
+
+  - name: thursday_lift
+    label: Thursday lift
+    description: Release Thursday's value over the Thursday before, per signal. 1.0 = a normal week. Group by thursday_lift__source, __signal, __geo and __study_year.
+    type: simple
+    type_params:
+      measure: lift
+
+  - name: signal_value
+    label: Signal value
+    description: Daily value of a signal. Always group by signal_day__source, signal_day__signal and signal_day__geo; never add across signals.
+    type: simple
+    type_params:
+      measure: signal_value_measure
+
+  - name: signal_value_prior_week_ratio
+    label: Signal, week over week
+    description: A signal's value over its value seven days earlier. On a Thursday this is the Thursday lift.
+    type: derived
+    type_params:
+      expr: signal_value / nullif(signal_value_prior_week, 0)
+      metrics:
+        - name: signal_value
+        - name: signal_value
+          offset_window: 1 week
+          alias: signal_value_prior_week
+
+  - name: day_off_mentions
+    label: Day-off mentions
+    description: Posts saying someone is taking time off (any reason), summed over seed phrases. Group by signal_day__source.
+    type: simple
+    type_params:
+      measure: signal_value_measure
+    filter: |
+      {{ Dimension('signal_day__signal') }} = 'posts:day_off'
+
+  - name: day_off_mentions_gta
+    label: Day-off mentions that say GTA
+    description: Posts saying someone is taking time off that also mention GTA.
+    type: simple
+    type_params:
+      measure: signal_value_measure
+    filter: |
+      {{ Dimension('signal_day__signal') }} = 'posts:day_off_gta'
+
+  - name: gta_share_of_day_off_talk
+    label: GTA share of day-off talk
+    description: Day-off posts that mention GTA, as a share of all day-off posts. A fraction (0 to 1). Thursday-is-chattier effects cancel out.
+    type: ratio
+    type_params:
+      numerator: day_off_mentions_gta
+      denominator: day_off_mentions
+
+  - name: gta_wiki_pageviews
+    label: GTA VI Wikipedia pageviews
+    description: Daily user pageviews of the English Wikipedia article Grand Theft Auto VI. The hype line.
+    type: simple
+    type_params:
+      measure: signal_value_measure
+    filter: |
+      {{ Dimension('signal_day__signal') }} = 'pageviews:grand_theft_auto_vi'
+
+  - name: search_interest
+    label: Search interest
+    description: Google Trends relative interest (0-100 within one request). Group by signal_day__signal and signal_day__geo.
+    type: simple
+    type_params:
+      measure: signal_value_measure
+    filter: |
+      {{ Dimension('signal_day__source') }} = 'google_trends'

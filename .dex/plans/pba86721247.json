@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "plan_id": "pba86721247",
+  "created_at": "2026-11-16T16:38:18.660184+00:00",
+  "intent": "MetricFlow time spine",
+  "project_dir": ".",
+  "edit_target": "project",
+  "edits": [
+    {
+      "path": "models/marts/metricflow_time_spine.sql",
+      "new_content": "-- MetricFlow's day-grain time spine, covering the study window and its control year.\nselect cast(range as date) as date_day\nfrom range(date '2025-01-01', date '2027-12-31', interval 1 day)\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/metricflow_time_spine.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: metricflow_time_spine\n    description: One row per calendar day, 2025-2027. MetricFlow's time spine.\n    time_spine:\n      standard_granularity_column: date_day\n    config:\n      meta:\n        dex:\n          grain:\n            - date_day\n          population:\n            rule: Every calendar day from 2025-01-01 to 2027-12-30.\n          assumptions:\n            - decision: Spine range\n              chosen: 2025-2027\n              evidence: default\n              detail: covers the control year, the study year and the recovery tail\n    columns:\n      - name: date_day\n        description: Calendar day.\n        granularity: day\n        config:\n          meta:\n            dex:\n              role: key\n              null_rule: never\n        data_tests:\n          - unique\n          - not_null\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    }
+  ],
+  "applied_at": "2026-11-16T16:38:19.053298+00:00",
+  "refactor_models": null,
+  "refactor_baseline_ready": null,
+  "comparisons": {},
+  "identifier_conversions": {
+    "metricflow_time_spine": [
+      {
+        "column": "range",
+        "authored": "CAST(range AS DATE)",
+        "status": "unchecked",
+        "reason_code": "probe_refused"
+      }
+    ]
+  },
+  "change_scope": null,
+  "population_acceptance": null,
+  "repair": null,
+  "baseline_sources": null,
+  "retirement": null,
+  "toggle": null
+}

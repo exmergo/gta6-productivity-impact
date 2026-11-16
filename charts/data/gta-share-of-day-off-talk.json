@@ -1,0 +1,798 @@
+{
+ "rows": [
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -15,
+   "gta_share_of_day_off_talk": 0.0019665683382497543,
+   "day_off_mentions": 1017.0,
+   "day_off_mentions_gta": 2.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -12,
+   "gta_share_of_day_off_talk": 0.01642710472279261,
+   "day_off_mentions": 487.0,
+   "day_off_mentions_gta": 8.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -22,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 679.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 5,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 743.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -24,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 779.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -18,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 506.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -43,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 650.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 0,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 758.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -45,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 1013.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -5,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 480.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -26,
+   "gta_share_of_day_off_talk": 0.0038910505836575876,
+   "day_off_mentions": 514.0,
+   "day_off_mentions_gta": 2.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -16,
+   "gta_share_of_day_off_talk": 0.005545286506469501,
+   "day_off_mentions": 1082.0,
+   "day_off_mentions_gta": 6.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -44,
+   "gta_share_of_day_off_talk": 0.0032679738562091504,
+   "day_off_mentions": 612.0,
+   "day_off_mentions_gta": 2.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -35,
+   "gta_share_of_day_off_talk": 0.00625,
+   "day_off_mentions": 640.0,
+   "day_off_mentions_gta": 4.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -28,
+   "gta_share_of_day_off_talk": 0.021592442645074223,
+   "day_off_mentions": 741.0,
+   "day_off_mentions_gta": 16.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -21,
+   "gta_share_of_day_off_talk": 0.006544502617801047,
+   "day_off_mentions": 764.0,
+   "day_off_mentions_gta": 5.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -33,
+   "gta_share_of_day_off_talk": 0.0021929824561403508,
+   "day_off_mentions": 456.0,
+   "day_off_mentions_gta": 1.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -31,
+   "gta_share_of_day_off_talk": 0.0013623978201634877,
+   "day_off_mentions": 734.0,
+   "day_off_mentions_gta": 1.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -17,
+   "gta_share_of_day_off_talk": 0.004968944099378882,
+   "day_off_mentions": 805.0,
+   "day_off_mentions_gta": 4.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 9,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 464.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -9,
+   "gta_share_of_day_off_talk": 0.030913978494623656,
+   "day_off_mentions": 744.0,
+   "day_off_mentions_gta": 23.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -40,
+   "gta_share_of_day_off_talk": 0.0020833333333333333,
+   "day_off_mentions": 480.0,
+   "day_off_mentions_gta": 1.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -32,
+   "gta_share_of_day_off_talk": 0.0055762081784386614,
+   "day_off_mentions": 538.0,
+   "day_off_mentions_gta": 3.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -10,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 1061.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -3,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 701.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -13,
+   "gta_share_of_day_off_talk": 0.0024271844660194173,
+   "day_off_mentions": 824.0,
+   "day_off_mentions_gta": 2.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 11,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 894.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -11,
+   "gta_share_of_day_off_talk": 0.013618677042801557,
+   "day_off_mentions": 514.0,
+   "day_off_mentions_gta": 7.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -39,
+   "gta_share_of_day_off_talk": 0.008097165991902834,
+   "day_off_mentions": 494.0,
+   "day_off_mentions_gta": 4.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -38,
+   "gta_share_of_day_off_talk": 0.0028328611898017,
+   "day_off_mentions": 1059.0,
+   "day_off_mentions_gta": 3.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -8,
+   "gta_share_of_day_off_talk": 0.04798172124904798,
+   "day_off_mentions": 1313.0,
+   "day_off_mentions_gta": 63.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -6,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 727.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 10,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 545.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -37,
+   "gta_share_of_day_off_talk": 0.004329004329004329,
+   "day_off_mentions": 693.0,
+   "day_off_mentions_gta": 3.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -36,
+   "gta_share_of_day_off_talk": 0.004807692307692308,
+   "day_off_mentions": 624.0,
+   "day_off_mentions_gta": 3.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -30,
+   "gta_share_of_day_off_talk": 0.021212121212121213,
+   "day_off_mentions": 660.0,
+   "day_off_mentions_gta": 14.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -34,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 774.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -19,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 472.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 2,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 525.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -42,
+   "gta_share_of_day_off_talk": 0.011816838995568686,
+   "day_off_mentions": 677.0,
+   "day_off_mentions_gta": 8.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -41,
+   "gta_share_of_day_off_talk": 0.0015060240963855422,
+   "day_off_mentions": 664.0,
+   "day_off_mentions_gta": 1.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -29,
+   "gta_share_of_day_off_talk": 0.026243093922651933,
+   "day_off_mentions": 724.0,
+   "day_off_mentions_gta": 19.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -7,
+   "gta_share_of_day_off_talk": 0.04487179487179487,
+   "day_off_mentions": 1092.0,
+   "day_off_mentions_gta": 49.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -25,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 589.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -14,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 746.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -20,
+   "gta_share_of_day_off_talk": 0.008708272859216255,
+   "day_off_mentions": 689.0,
+   "day_off_mentions_gta": 6.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -4,
+   "gta_share_of_day_off_talk": 0.05944055944055944,
+   "day_off_mentions": 572.0,
+   "day_off_mentions_gta": 34.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -27,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 722.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -23,
+   "gta_share_of_day_off_talk": 0.0012642225031605564,
+   "day_off_mentions": 791.0,
+   "day_off_mentions_gta": 1.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -23,
+   "gta_share_of_day_off_talk": 0.02402022756005057,
+   "day_off_mentions": 791.0,
+   "day_off_mentions_gta": 19.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -39,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 608.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 1,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 797.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 8,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 744.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -27,
+   "gta_share_of_day_off_talk": 0.02094972067039106,
+   "day_off_mentions": 716.0,
+   "day_off_mentions_gta": 15.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -19,
+   "gta_share_of_day_off_talk": 0.005016722408026756,
+   "day_off_mentions": 598.0,
+   "day_off_mentions_gta": 3.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -37,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 903.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -4,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 579.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -1,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 678.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -36,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 683.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -2,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 748.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -6,
+   "gta_share_of_day_off_talk": 0.02353896103896104,
+   "day_off_mentions": 1232.0,
+   "day_off_mentions_gta": 29.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -14,
+   "gta_share_of_day_off_talk": 0.002484472049689441,
+   "day_off_mentions": 805.0,
+   "day_off_mentions_gta": 2.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -41,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 932.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -38,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 1210.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -11,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 537.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -34,
+   "gta_share_of_day_off_talk": 0.0084985835694051,
+   "day_off_mentions": 706.0,
+   "day_off_mentions_gta": 6.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -42,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 791.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 7,
+   "gta_share_of_day_off_talk": 0.0010384215991692627,
+   "day_off_mentions": 963.0,
+   "day_off_mentions_gta": 1.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -25,
+   "gta_share_of_day_off_talk": 0.009560229445506692,
+   "day_off_mentions": 523.0,
+   "day_off_mentions_gta": 5.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -8,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 866.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -7,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 714.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -30,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 781.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -29,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 750.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -20,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 746.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -10,
+   "gta_share_of_day_off_talk": 0.0163265306122449,
+   "day_off_mentions": 735.0,
+   "day_off_mentions_gta": 12.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -5,
+   "gta_share_of_day_off_talk": 0.0608,
+   "day_off_mentions": 625.0,
+   "day_off_mentions_gta": 38.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -26,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 477.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -24,
+   "gta_share_of_day_off_talk": 0.010043041606886656,
+   "day_off_mentions": 697.0,
+   "day_off_mentions_gta": 7.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -9,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 1346.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 3,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 554.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -43,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 890.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -31,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 953.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -15,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 728.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -44,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 1081.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -32,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 596.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -35,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 695.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -28,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 677.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -12,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 515.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -17,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 740.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -18,
+   "gta_share_of_day_off_talk": 0.004016064257028112,
+   "day_off_mentions": 498.0,
+   "day_off_mentions_gta": 2.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -21,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 762.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 6,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 954.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -40,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 537.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": 4,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 885.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -33,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 505.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2025,
+   "signal_day__days_from_release": -16,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 848.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -45,
+   "gta_share_of_day_off_talk": 0.0,
+   "day_off_mentions": 715.0,
+   "day_off_mentions_gta": 0.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -22,
+   "gta_share_of_day_off_talk": 0.008064516129032258,
+   "day_off_mentions": 744.0,
+   "day_off_mentions_gta": 6.0
+  },
+  {
+   "signal_day__source": "bluesky",
+   "signal_day__study_year": 2026,
+   "signal_day__days_from_release": -13,
+   "gta_share_of_day_off_talk": 0.011406844106463879,
+   "day_off_mentions": 789.0,
+   "day_off_mentions_gta": 9.0
+  }
+ ],
+ "latest_days_from_release": -4,
+ "latest_share_pct": 5.944055944055944
+}

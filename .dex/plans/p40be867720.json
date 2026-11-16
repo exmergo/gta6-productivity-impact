@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "plan_id": "p40be867720",
+  "created_at": "2026-11-16T16:35:31.553133+00:00",
+  "intent": "Staging layer for Wikipedia, Google Trends, Bluesky and Hacker News day-off signals",
+  "project_dir": ".",
+  "edit_target": "project",
+  "edits": [
+    {
+      "path": "models/staging/_sources.yml",
+      "new_content": "version: 2\n\nsources:\n  - name: raw\n    schema: raw\n    description: >\n      Public signals landed by `gta6 ingest` as Parquet under data/raw/ and loaded by\n      `gta6 load`. Every table is rebuilt from the files on each load; the newest pull\n      wins per key. No post text, handles or usernames are stored.\n    tables:\n      - name: wiki_pageviews\n        description: Daily English Wikipedia pageviews by users (all access) per article.\n      - name: trends_interest\n        description: >\n          Google Trends relative interest (0-100) per term and day. Values only compare\n          within one request_id; Google rescales every request to its own peak.\n      - name: bluesky_daily_hits\n        description: >\n          Bluesky public search hitsTotal for one quoted seed phrase (optionally plus \"gta\")\n          bounded to one UTC day. hits_total is NULL when the call failed.\n      - name: hn_daily_hits\n        description: >\n          Hacker News (Algolia) nbHits for one quoted seed phrase (optionally plus \"gta\")\n          over stories and comments in one UTC day. NULL when the call failed.\n      - name: reddit_items\n        description: >\n          Reddit posts and comments (Arctic Shift archive) that matched a day-off seed in a\n          tracked subreddit, with flags computed from the text at ingest. Text is discarded.\n      - name: reddit_coverage\n        description: >\n          One row per (subreddit, kind, seed, weekly slice) we asked Arctic Shift for, with\n          whether paging completed, was capped, or failed.\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/staging/stg_wiki__pageviews.sql",
+      "new_content": "with source as (\n    select * from {{ source('raw', 'wiki_pageviews') }}\n)\n\nselect\n    article,\n    cast(timezone('UTC', ts) as date) as view_date,\n    cast(views as bigint) as views\nfrom source\nwhere granularity = 'daily'\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/staging/stg_trends__interest.sql",
+      "new_content": "-- Each Trends request is scaled to its own 0-100, so we keep exactly one request per\n-- (term group, geo, study year): the newest. Mixing requests would mix scales.\nwith source as (\n    select\n        *,\n        cast(split_part(request_id, '-', 3) as integer) as study_year\n    from {{ source('raw', 'trends_interest') }}\n),\n\nnewest as (\n    select term_group, geo, study_year, max(request_id) as request_id\n    from source\n    group by term_group, geo, study_year\n)\n\nselect\n    source.request_id,\n    source.study_year,\n    source.term_group,\n    source.geo,\n    source.term,\n    source.day as interest_date,\n    cast(source.interest as integer) as interest,\n    source.is_partial\nfrom source\ninner join newest\n    on source.request_id = newest.request_id\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/staging/stg_bluesky__daily_hits.sql",
+      "new_content": "select\n    day as hit_date,\n    seed,\n    gta_filter,\n    query,\n    cast(hits_total as bigint) as hits_total,\n    hits_total is not null as is_available,\n    observed_at\nfrom {{ source('raw', 'bluesky_daily_hits') }}\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/staging/stg_hn__daily_hits.sql",
+      "new_content": "select\n    day as hit_date,\n    seed,\n    gta_filter,\n    query,\n    cast(hits_total as bigint) as hits_total,\n    hits_total is not null as is_available,\n    observed_at\nfrom {{ source('raw', 'hn_daily_hits') }}\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/staging/stg_wiki__pageviews.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: stg_wiki__pageviews\n    description: 'One row per Wikipedia article per UTC day: daily user pageviews.'\n    config:\n      meta:\n        dex:\n          grain:\n            - article\n            - view_date\n          population:\n            rule: Daily-granularity rows only; the per-article API serves no hourly data.\n            filters:\n              - column: granularity\n                includes:\n                  - daily\n          assumptions:\n            - decision: Which day a timestamp belongs to\n              chosen: the UTC date of ts\n              evidence: data\n              detail: explore showed ts rendered at +01:00/+02:00 in a local session; the API's timestamps are UTC midnights\n    columns:\n      - name: article\n        description: English Wikipedia article title.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: view_date\n        description: UTC day. The raw ts is a UTC midnight stored as TIMESTAMPTZ; converted explicitly so the session time zone cannot shift it.\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: views\n        description: Pageviews by users (agent=user), all access methods.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: never\n              aggregation: sum\n              additivity: additive\n              unit: count\n        data_tests:\n          - not_null\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/staging/stg_trends__interest.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: stg_trends__interest\n    description: One row per Trends term per day, from the newest request for each (term group, geo, study year).\n    config:\n      meta:\n        dex:\n          grain:\n            - term_group\n            - geo\n            - study_year\n            - term\n            - interest_date\n          population:\n            rule: Only the newest request per (term_group, geo, study_year); older pulls are dropped because each request has its own 0-100 scale.\n          assumptions:\n            - decision: How to combine repeated Trends pulls\n              chosen: keep only the newest request per (term_group, geo, study_year)\n              evidence: default\n              detail: Trends rescales each request; averaging requests would mix scales\n            - decision: Study year source\n              chosen: third dash-separated part of request_id\n              evidence: contract\n              detail: request_id is written as <group>-<geo>-<year>-<stamp> by gta6_impact.ingest.trends\n    columns:\n      - name: request_id\n        description: The Trends request the value came from; values only compare within one request.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: study_year\n        description: 2026 = study window, 2025 = seasonality control.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: term_group\n        description: '''day_off'' (call in sick, sick day, PTO, day off work) or ''hype'' (GTA 6). Requested separately.'\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: geo\n        description: '''US'' or ''WORLD''.'\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: term\n        description: The search term.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: interest_date\n        description: The day Google reports, in Google's own day boundaries.\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: interest\n        description: Relative search interest; 100 is the peak of that request.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: never\n              aggregation: max\n              additivity: non_additive\n              unit: index (0-100, relative within request)\n        data_tests:\n          - not_null\n      - name: is_partial\n        description: Google marks the latest day partial while it is still filling in.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/staging/stg_bluesky__daily_hits.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: stg_bluesky__daily_hits\n    description: 'One row per Bluesky search (seed phrase x gta filter) per UTC day: the hitsTotal Bluesky reported.'\n    config:\n      meta:\n        dex:\n          grain:\n            - hit_date\n            - seed\n            - gta_filter\n          population:\n            rule: Every query we asked, including failed ones (hits_total NULL).\n          assumptions:\n            - decision: Grain\n              chosen: '(hit_date, seed, gta_filter): one search per key per day'\n              evidence: data\n              detail: 'probe .dex/review/06-*.json: distinct (day, seed, gta_filter) equals row count. observed_at is unique only because every request is timed separately; it is not the grain'\n            - decision: Population\n              chosen: every query this source was asked, independent of the other search source\n              evidence: request\n              detail: Bluesky and Hacker News are searched with the same seeds on the same days, but neither is a parent of the other\n            - decision: A failed call\n              chosen: kept with hits_total NULL and is_available false\n              evidence: request\n              detail: missing is unavailable, never zero (docs/methodology.md)\n    columns:\n      - name: hit_date\n        description: UTC day the count covers.\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: seed\n        description: Day-off seed phrase searched, quoted.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: gta_filter\n        description: '''any'' = the phrase alone; ''gta'' = the phrase plus the word gta.'\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: query\n        description: The exact query string sent.\n        config:\n          meta:\n            dex:\n              role: attribute\n      - name: hits_total\n        description: Matches Bluesky reports for the query in that UTC day.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: 'NULL when the Bluesky call failed: unavailable, never zero.'\n              aggregation: sum\n              additivity: additive\n              unit: count\n      - name: is_available\n        description: True when hits_total was returned.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: observed_at\n        description: When the count was read (counts can move as indexes update).\n        config:\n          meta:\n            dex:\n              role: attribute\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/staging/stg_hn__daily_hits.yml",
+      "new_content": "version: 2\n\nmodels:\n  - name: stg_hn__daily_hits\n    description: 'One row per Hacker News search (seed phrase x gta filter) per UTC day: Algolia''s nbHits over stories and comments.'\n    config:\n      meta:\n        dex:\n          grain:\n            - hit_date\n            - seed\n            - gta_filter\n          population:\n            rule: Every query we asked, including failed ones (hits_total NULL).\n          assumptions:\n            - decision: Grain\n              chosen: '(hit_date, seed, gta_filter): one search per key per day'\n              evidence: data\n              detail: 'probe .dex/review/05-*.json: distinct (day, seed, gta_filter) equals row count. observed_at is unique only because every request is timed separately; it is not the grain'\n            - decision: Population\n              chosen: every query this source was asked, independent of the other search source\n              evidence: request\n              detail: Bluesky and Hacker News are searched with the same seeds on the same days, but neither is a parent of the other\n            - decision: A failed call\n              chosen: kept with hits_total NULL and is_available false\n              evidence: request\n              detail: missing is unavailable, never zero (docs/methodology.md)\n    columns:\n      - name: hit_date\n        description: UTC day the count covers.\n        config:\n          meta:\n            dex:\n              role: time\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: seed\n        description: Day-off seed phrase searched, quoted.\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: gta_filter\n        description: '''any'' = the phrase alone; ''gta'' = the phrase plus the word gta.'\n        config:\n          meta:\n            dex:\n              role: dimension\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: query\n        description: The exact query string sent.\n        config:\n          meta:\n            dex:\n              role: attribute\n      - name: hits_total\n        description: Matches Hacker News reports for the query in that UTC day.\n        config:\n          meta:\n            dex:\n              role: measure\n              null_rule: 'NULL when the Hacker News call failed: unavailable, never zero.'\n              aggregation: sum\n              additivity: additive\n              unit: count\n      - name: is_available\n        description: True when hits_total was returned.\n        config:\n          meta:\n            dex:\n              role: attribute\n              null_rule: never\n        data_tests:\n          - not_null\n      - name: observed_at\n        description: When the count was read (counts can move as indexes update).\n        config:\n          meta:\n            dex:\n              role: attribute\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/staging/.gitkeep",
+      "new_content": null,
+      "old_content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "op": "delete",
+      "kind": "model_sql"
+    }
+  ],
+  "applied_at": "2026-11-16T16:35:35.819602+00:00",
+  "refactor_models": null,
+  "refactor_baseline_ready": null,
+  "comparisons": {},
+  "identifier_conversions": {
+    "stg_wiki__pageviews": [
+      {
+        "column": "ts",
+        "authored": "TIMEZONE('UTC', ts)",
+        "status": "unchecked",
+        "reason_code": "unsupported_expression"
+      }
+    ],
+    "stg_trends__interest": [
+      {
+        "column": "request_id",
+        "authored": "SPLIT_PART(request_id, '-', 3)",
+        "status": "unchecked",
+        "reason_code": "unsupported_expression"
+      }
+    ]
+  },
+  "change_scope": null,
+  "population_acceptance": null,
+  "repair": null,
+  "baseline_sources": {
+    "models/staging/.gitkeep": ""
+  },
+  "retirement": null,
+  "toggle": null
+}

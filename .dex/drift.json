@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "connector": "duckdb",
+  "snapshot_created_at": "2026-11-16T16:43:32.903004+00:00",
+  "axes": {
+    "schema": {
+      "run_at": "2026-11-16T16:45:57.521882+00:00",
+      "scope": null,
+      "findings": [
+        {
+          "axis": "schema",
+          "code": "dangling_source",
+          "identifier": "raw.reddit_coverage",
+          "column": null,
+          "severity": "high",
+          "detail": "declared source raw.reddit_coverage has no matching warehouse object",
+          "exact": true,
+          "data": {
+            "declared_in": "models/staging/_sources.yml"
+          },
+          "impacted_models": [],
+          "impacted_metrics": []
+        },
+        {
+          "axis": "schema",
+          "code": "dangling_source",
+          "identifier": "raw.reddit_items",
+          "column": null,
+          "severity": "high",
+          "detail": "declared source raw.reddit_items has no matching warehouse object",
+          "exact": true,
+          "data": {
+            "declared_in": "models/staging/_sources.yml"
+          },
+          "impacted_models": [],
+          "impacted_metrics": []
+        }
+      ]
+    },
+    "volume": {
+      "run_at": "2026-11-16T16:45:57.521882+00:00",
+      "scope": null,
+      "findings": []
+    },
+    "grain": {
+      "run_at": "2026-11-16T16:45:57.521882+00:00",
+      "scope": null,
+      "findings": [
+        {
+          "axis": "grain",
+          "code": "mostly_null_column",
+          "identifier": "gta6.main.dim_date",
+          "column": "comparison_role",
+          "severity": "low",
+          "detail": "comparison_role on gta6.main.dim_date is 99.1% NULL",
+          "exact": true,
+          "data": {
+            "null_fraction": 0.9912472647702407,
+            "row_count": 457
+          },
+          "impacted_models": [
+            "dim_date",
+            "fct_day_off_index",
+            "fct_signal_daily",
+            "fct_thursday_lift"
+          ],
+          "impacted_metrics": [
+            "day_off_mentions",
+            "day_off_mentions_gta",
+            "gta_share_of_day_off_talk",
+            "gta_wiki_pageviews",
+            "search_interest",
+            "signal_value",
+            "signal_value_prior_week_ratio"
+          ]
+        },
+        {
+          "axis": "grain",
+          "code": "mostly_null_column",
+          "identifier": "gta6.main.fct_signal_daily",
+          "column": "comparison_role",
+          "severity": "low",
+          "detail": "comparison_role on gta6.main.fct_signal_daily is 97.2% NULL",
+          "exact": true,
+          "data": {
+            "null_fraction": 0.9721074380165289,
+            "row_count": 1936
+          },
+          "impacted_models": [
+            "fct_day_off_index",
+            "fct_signal_daily",
+            "fct_thursday_lift"
+          ],
+          "impacted_metrics": [
+            "day_off_mentions",
+            "day_off_mentions_gta",
+            "gta_share_of_day_off_talk",
+            "gta_wiki_pageviews",
+            "search_interest",
+            "signal_value",
+            "signal_value_prior_week_ratio"
+          ]
+        },
+        {
+          "axis": "grain",
+          "code": "fully_null_column",
+          "identifier": "gta6.main.fct_day_off_index",
+          "column": "reddit_lift",
+          "severity": "low",
+          "detail": "reddit_lift on gta6.main.fct_day_off_index is 100% NULL (severity capped at low: fewer than 100 rows)",
+          "exact": true,
+          "data": {
+            "null_fraction": 1.0,
+            "row_count": 2,
+            "severity_floor_applied": true,
+            "grain_min_rows": 100
+          },
+          "impacted_models": [
+            "fct_day_off_index"
+          ],
+          "impacted_metrics": []
+        }
+      ]
+    },
+    "semantic": {
+      "run_at": "2026-11-16T16:45:57.521882+00:00",
+      "scope": null,
+      "findings": []
+    }
+  }
+}

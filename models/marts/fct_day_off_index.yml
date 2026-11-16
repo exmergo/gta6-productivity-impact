@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: fct_day_off_index
+    description: 'One row per study year: the Day-Off Index and each source''s lift.'
+    config:
+      meta:
+        dex:
+          grain:
+            - study_year
+          population:
+            rule: Study years with at least one index component.
+          assumptions:
+            - decision: How lifts combine
+              chosen: geometric mean within each source, then across sources, equal weights
+              evidence: default
+              detail: lifts are ratios; the geometric mean keeps one noisy source from dominating
+            - decision: A zero lift
+              chosen: floored at 0.01 before the log
+              evidence: default
+              detail: ln(0) is undefined; a component that fell to zero still pulls the index down hard
+            - decision: Incomplete index
+              chosen: NULL until every component source has a lift
+              evidence: request
+              detail: missing is unavailable, never zero
+    columns:
+      - name: study_year
+        config:
+          meta:
+            dex:
+              role: key
+              null_rule: never
+        data_tests:
+          - unique
+          - not_null
+      - name: release_day
+        config:
+          meta:
+            dex:
+              role: time
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: sources_total
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+              unit: count
+        data_tests:
+          - not_null
+      - name: sources_with_lift
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+              unit: count
+        data_tests:
+          - not_null
+      - name: day_off_index
+        config:
+          meta:
+            dex:
+              role: measure
+              null_rule: NULL until every component source has a lift
+              aggregation: max
+              additivity: non_additive
+              unit: index (100 = normal week)
+      - name: google_trends_lift
+        config:
+          meta:
+            dex:
+              role: measure
+              aggregation: max
+              additivity: non_additive
+              unit: ratio
+      - name: bluesky_lift
+        config:
+          meta:
+            dex:
+              role: measure
+              aggregation: max
+              additivity: non_additive
+              unit: ratio
+      - name: reddit_lift
+        config:
+          meta:
+            dex:
+              role: measure
+              aggregation: max
+              additivity: non_additive
+              unit: ratio

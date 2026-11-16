@@ -1,0 +1,78 @@
+name: fct_day_off_index
+description: 'One row per study year: the Day-Off Index and each source''s lift. Population: Study years with at least one index component.'
+model: ref('fct_day_off_index')
+defaults:
+  agg_time_dimension: release_day
+entities:
+  - name: index_year
+    type: primary
+    expr: study_year
+    config:
+      meta:
+        dex:
+          null_rule: never
+dimensions:
+  - name: study_year
+    type: categorical
+    expr: study_year
+    description: 2026 = GTA 6 release year; 2025 = seasonality control.
+  - name: release_day
+    type: time
+    type_params:
+      time_granularity: day
+    config:
+      meta:
+        dex:
+          null_rule: never
+measures:
+  - name: day_off_index_measure
+    agg: max
+    expr: day_off_index
+    config:
+      meta:
+        dex:
+          unit: index (100 = normal week)
+          null_rule: NULL until every component source has a lift
+          additivity: non_additive
+  - name: google_trends_lift
+    agg: max
+    expr: google_trends_lift
+    config:
+      meta:
+        dex:
+          unit: ratio
+          additivity: non_additive
+  - name: bluesky_lift
+    agg: max
+    expr: bluesky_lift
+    config:
+      meta:
+        dex:
+          unit: ratio
+          additivity: non_additive
+  - name: reddit_lift
+    agg: max
+    expr: reddit_lift
+    config:
+      meta:
+        dex:
+          unit: ratio
+          additivity: non_additive
+config:
+  meta:
+    dex:
+      population:
+        rule: Study years with at least one index component.
+      assumptions:
+        - decision: How lifts combine
+          chosen: geometric mean within each source, then across sources, equal weights
+          evidence: default
+          detail: lifts are ratios; the geometric mean keeps one noisy source from dominating
+        - decision: A zero lift
+          chosen: floored at 0.01 before the log
+          evidence: default
+          detail: ln(0) is undefined; a component that fell to zero still pulls the index down hard
+        - decision: Incomplete index
+          chosen: NULL until every component source has a lift
+          evidence: request
+          detail: missing is unavailable, never zero

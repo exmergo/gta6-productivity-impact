@@ -1,0 +1,1721 @@
+{
+ "status": "ok",
+ "data": {
+  "completion": {
+   "outcome": "validated",
+   "process": {
+    "success": true,
+    "returncode": 0,
+    "node_counts": {
+     "pass": 66,
+     "success": 10
+    }
+   },
+   "change": {},
+   "deliverables": {
+    "coverage": "unknown",
+    "required": 0,
+    "built": {
+     "count": 0,
+     "names": [],
+     "elided": 0
+    },
+    "failed": {
+     "count": 0,
+     "names": [],
+     "elided": 0
+    },
+    "skipped": {
+     "count": 0,
+     "names": [],
+     "elided": 0
+    },
+    "missing": {
+     "count": 0,
+     "names": [],
+     "elided": 0
+    },
+    "stale": {
+     "count": 0,
+     "names": [],
+     "elided": 0
+    },
+    "blocked": [],
+    "note": "no plan was named, so nothing says which nodes this build was for; pass --for-plan <id> (or --for-plan-file) to learn whether the change's deliverables were built"
+   },
+   "blockers": [],
+   "assurance": {
+    "basis": "built_models",
+    "asserted": {
+     "count": 10,
+     "names": [
+      "dim_date",
+      "metricflow_time_spine",
+      "stg_bluesky__daily_hits",
+      "stg_hn__daily_hits",
+      "stg_trends__interest"
+     ],
+     "elided": 5
+    },
+    "failed_checks": {
+     "count": 0,
+     "names": [],
+     "elided": 0,
+     "checks": []
+    },
+    "build_only": {
+     "count": 0,
+     "names": [],
+     "elided": 0
+    }
+   },
+   "verification": {
+    "ran": true,
+    "finding_count": 0,
+    "findings_dropped": 0,
+    "by_severity": {},
+    "top": [],
+    "suppressed": [
+     "no_relation",
+     "parent_population",
+     "population",
+     "temporal",
+     "unit"
+    ],
+    "offered": false
+   },
+   "obligations": {
+    "checked": true,
+    "by_status": {
+     "satisfied": 3,
+     "unchecked": 1
+    },
+    "contradicted": [],
+    "unchecked": [
+     {
+      "model": "stg_trends__interest",
+      "kind": "join_coverage",
+      "status": "unchecked",
+      "reason_code": "filtered_cte"
+     }
+    ],
+    "no_declared_columns": {
+     "count": 0,
+     "names": [],
+     "elided": 0
+    },
+    "prose_population": {
+     "count": 0,
+     "names": [],
+     "elided": 0
+    }
+   },
+   "details": [
+    "data.evidence",
+    "data.verification",
+    "data.nodes"
+   ],
+   "elided": {}
+  },
+  "outcome": "validated",
+  "target": "dev",
+  "success": true,
+  "returncode": 0,
+  "nodes": [
+   {
+    "name": "dim_date",
+    "unique_id": "model.gta6_impact.dim_date",
+    "status": "success",
+    "execution_time": 0.0454709529876709
+   },
+   {
+    "name": "metricflow_time_spine",
+    "unique_id": "model.gta6_impact.metricflow_time_spine",
+    "status": "success",
+    "execution_time": 0.010965108871459961
+   },
+   {
+    "name": "stg_bluesky__daily_hits",
+    "unique_id": "model.gta6_impact.stg_bluesky__daily_hits",
+    "status": "success",
+    "execution_time": 0.013957977294921875
+   },
+   {
+    "name": "stg_hn__daily_hits",
+    "unique_id": "model.gta6_impact.stg_hn__daily_hits",
+    "status": "success",
+    "execution_time": 0.00970911979675293
+   },
+   {
+    "name": "stg_trends__interest",
+    "unique_id": "model.gta6_impact.stg_trends__interest",
+    "status": "success",
+    "execution_time": 0.01007533073425293
+   },
+   {
+    "name": "stg_wiki__pageviews",
+    "unique_id": "model.gta6_impact.stg_wiki__pageviews",
+    "status": "success",
+    "execution_time": 0.00903010368347168
+   },
+   {
+    "name": "not_null_dim_date_date_day",
+    "unique_id": "test.gta6_impact.not_null_dim_date_date_day.e3f312efb2",
+    "status": "pass",
+    "execution_time": 0.015239953994750977
+   },
+   {
+    "name": "not_null_dim_date_day_name",
+    "unique_id": "test.gta6_impact.not_null_dim_date_day_name.3a968349a4",
+    "status": "pass",
+    "execution_time": 0.005775928497314453
+   },
+   {
+    "name": "not_null_dim_date_days_from_release",
+    "unique_id": "test.gta6_impact.not_null_dim_date_days_from_release.b42f6c8e0a",
+    "status": "pass",
+    "execution_time": 0.0055429935455322266
+   },
+   {
+    "name": "not_null_dim_date_is_gta_release_day",
+    "unique_id": "test.gta6_impact.not_null_dim_date_is_gta_release_day.9830f12a58",
+    "status": "pass",
+    "execution_time": 0.00553441047668457
+   },
+   {
+    "name": "not_null_dim_date_iso_day_of_week",
+    "unique_id": "test.gta6_impact.not_null_dim_date_iso_day_of_week.af59f4565b",
+    "status": "pass",
+    "execution_time": 0.005410194396972656
+   },
+   {
+    "name": "not_null_dim_date_release_day",
+    "unique_id": "test.gta6_impact.not_null_dim_date_release_day.23663d7497",
+    "status": "pass",
+    "execution_time": 0.0062940120697021484
+   },
+   {
+    "name": "not_null_dim_date_study_year",
+    "unique_id": "test.gta6_impact.not_null_dim_date_study_year.cb8eedee8a",
+    "status": "pass",
+    "execution_time": 0.03863024711608887
+   },
+   {
+    "name": "unique_dim_date_date_day",
+    "unique_id": "test.gta6_impact.unique_dim_date_date_day.d56fd19199",
+    "status": "pass",
+    "execution_time": 0.006553173065185547
+   },
+   {
+    "name": "not_null_metricflow_time_spine_date_day",
+    "unique_id": "test.gta6_impact.not_null_metricflow_time_spine_date_day.54acf49e8d",
+    "status": "pass",
+    "execution_time": 0.005352973937988281
+   },
+   {
+    "name": "unique_metricflow_time_spine_date_day",
+    "unique_id": "test.gta6_impact.unique_metricflow_time_spine_date_day.ddb41ceac8",
+    "status": "pass",
+    "execution_time": 0.006331205368041992
+   },
+   {
+    "name": "not_null_stg_bluesky__daily_hits_gta_filter",
+    "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_gta_filter.cd59a07611",
+    "status": "pass",
+    "execution_time": 0.008099794387817383
+   },
+   {
+    "name": "not_null_stg_bluesky__daily_hits_hit_date",
+    "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_hit_date.964800a65a",
+    "status": "pass",
+    "execution_time": 0.007134199142456055
+   },
+   {
+    "name": "not_null_stg_bluesky__daily_hits_is_available",
+    "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_is_available.50557f9c49",
+    "status": "pass",
+    "execution_time": 0.007397890090942383
+   },
+   {
+    "name": "not_null_stg_bluesky__daily_hits_seed",
+    "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_seed.e5980925d8",
+    "status": "pass",
+    "execution_time": 0.006318807601928711
+   },
+   {
+    "name": "not_null_stg_hn__daily_hits_gta_filter",
+    "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_gta_filter.949ad46fd7",
+    "status": "pass",
+    "execution_time": 0.006335020065307617
+   },
+   {
+    "name": "not_null_stg_hn__daily_hits_hit_date",
+    "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_hit_date.793804f46c",
+    "status": "pass",
+    "execution_time": 0.006460905075073242
+   },
+   {
+    "name": "not_null_stg_hn__daily_hits_is_available",
+    "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_is_available.bbf8f6cadd",
+    "status": "pass",
+    "execution_time": 0.0067861080169677734
+   },
+   {
+    "name": "not_null_stg_hn__daily_hits_seed",
+    "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_seed.e56498a4ac",
+    "status": "pass",
+    "execution_time": 0.006913900375366211
+   },
+   {
+    "name": "not_null_stg_trends__interest_geo",
+    "unique_id": "test.gta6_impact.not_null_stg_trends__interest_geo.e773d434b1",
+    "status": "pass",
+    "execution_time": 0.007768154144287109
+   },
+   {
+    "name": "not_null_stg_trends__interest_interest",
+    "unique_id": "test.gta6_impact.not_null_stg_trends__interest_interest.053ace0388",
+    "status": "pass",
+    "execution_time": 0.007590055465698242
+   },
+   {
+    "name": "not_null_stg_trends__interest_interest_date",
+    "unique_id": "test.gta6_impact.not_null_stg_trends__interest_interest_date.24656434b3",
+    "status": "pass",
+    "execution_time": 0.007235050201416016
+   },
+   {
+    "name": "not_null_stg_trends__interest_is_partial",
+    "unique_id": "test.gta6_impact.not_null_stg_trends__interest_is_partial.8135b668dc",
+    "status": "pass",
+    "execution_time": 0.0066738128662109375
+   },
+   {
+    "name": "not_null_stg_trends__interest_request_id",
+    "unique_id": "test.gta6_impact.not_null_stg_trends__interest_request_id.7cbc516346",
+    "status": "pass",
+    "execution_time": 0.006558895111083984
+   },
+   {
+    "name": "not_null_stg_trends__interest_study_year",
+    "unique_id": "test.gta6_impact.not_null_stg_trends__interest_study_year.d4def0bb3d",
+    "status": "pass",
+    "execution_time": 0.006400108337402344
+   },
+   {
+    "name": "not_null_stg_trends__interest_term",
+    "unique_id": "test.gta6_impact.not_null_stg_trends__interest_term.d16441e528",
+    "status": "pass",
+    "execution_time": 0.007452964782714844
+   },
+   {
+    "name": "not_null_stg_trends__interest_term_group",
+    "unique_id": "test.gta6_impact.not_null_stg_trends__interest_term_group.66e584e695",
+    "status": "pass",
+    "execution_time": 0.007073879241943359
+   },
+   {
+    "name": "not_null_stg_wiki__pageviews_article",
+    "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_article.98a92521cf",
+    "status": "pass",
+    "execution_time": 0.006529092788696289
+   },
+   {
+    "name": "not_null_stg_wiki__pageviews_view_date",
+    "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_view_date.51cacd7a24",
+    "status": "pass",
+    "execution_time": 0.0061109066009521484
+   },
+   {
+    "name": "not_null_stg_wiki__pageviews_views",
+    "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_views.49e7cd1be2",
+    "status": "pass",
+    "execution_time": 0.00577998161315918
+   },
+   {
+    "name": "int_signals__daily",
+    "unique_id": "model.gta6_impact.int_signals__daily",
+    "status": "success",
+    "execution_time": 0.011447668075561523
+   },
+   {
+    "name": "assert_int_signals_grain",
+    "unique_id": "test.gta6_impact.assert_int_signals_grain",
+    "status": "pass",
+    "execution_time": 0.007290840148925781
+   },
+   {
+    "name": "not_null_int_signals__daily_geo",
+    "unique_id": "test.gta6_impact.not_null_int_signals__daily_geo.c4442ee3ad",
+    "status": "pass",
+    "execution_time": 0.007005214691162109
+   },
+   {
+    "name": "not_null_int_signals__daily_is_available",
+    "unique_id": "test.gta6_impact.not_null_int_signals__daily_is_available.18bcff0704",
+    "status": "pass",
+    "execution_time": 0.007869958877563477
+   },
+   {
+    "name": "not_null_int_signals__daily_signal",
+    "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal.d79f91186c",
+    "status": "pass",
+    "execution_time": 0.008124113082885742
+   },
+   {
+    "name": "not_null_int_signals__daily_signal_date",
+    "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal_date.772fce9435",
+    "status": "pass",
+    "execution_time": 0.008252859115600586
+   },
+   {
+    "name": "not_null_int_signals__daily_signal_family",
+    "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal_family.cab0f22b41",
+    "status": "pass",
+    "execution_time": 0.007557868957519531
+   },
+   {
+    "name": "not_null_int_signals__daily_source",
+    "unique_id": "test.gta6_impact.not_null_int_signals__daily_source.465454d4d6",
+    "status": "pass",
+    "execution_time": 0.006407022476196289
+   },
+   {
+    "name": "fct_signal_daily",
+    "unique_id": "model.gta6_impact.fct_signal_daily",
+    "status": "success",
+    "execution_time": 0.017589092254638672
+   },
+   {
+    "name": "not_null_fct_signal_daily_days_from_release",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_days_from_release.b9d84e34b1",
+    "status": "pass",
+    "execution_time": 0.006761074066162109
+   },
+   {
+    "name": "not_null_fct_signal_daily_geo",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_geo.eb520153f0",
+    "status": "pass",
+    "execution_time": 0.006565093994140625
+   },
+   {
+    "name": "not_null_fct_signal_daily_is_available",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_is_available.ff4f6a77d9",
+    "status": "pass",
+    "execution_time": 0.006102085113525391
+   },
+   {
+    "name": "not_null_fct_signal_daily_iso_day_of_week",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_iso_day_of_week.ff74ec14f9",
+    "status": "pass",
+    "execution_time": 0.006165742874145508
+   },
+   {
+    "name": "not_null_fct_signal_daily_signal",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal.42281514c2",
+    "status": "pass",
+    "execution_time": 0.005910634994506836
+   },
+   {
+    "name": "not_null_fct_signal_daily_signal_date",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_date.789a10b16b",
+    "status": "pass",
+    "execution_time": 0.006320953369140625
+   },
+   {
+    "name": "not_null_fct_signal_daily_signal_day_key",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_day_key.c75da9e519",
+    "status": "pass",
+    "execution_time": 0.006173849105834961
+   },
+   {
+    "name": "not_null_fct_signal_daily_signal_family",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_family.67f7b1c054",
+    "status": "pass",
+    "execution_time": 0.006446123123168945
+   },
+   {
+    "name": "not_null_fct_signal_daily_source",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_source.792ce64ba8",
+    "status": "pass",
+    "execution_time": 0.006356000900268555
+   },
+   {
+    "name": "not_null_fct_signal_daily_study_year",
+    "unique_id": "test.gta6_impact.not_null_fct_signal_daily_study_year.117c2c1b34",
+    "status": "pass",
+    "execution_time": 0.007077217102050781
+   },
+   {
+    "name": "unique_fct_signal_daily_signal_day_key",
+    "unique_id": "test.gta6_impact.unique_fct_signal_daily_signal_day_key.b33b4e6988",
+    "status": "pass",
+    "execution_time": 0.00843191146850586
+   },
+   {
+    "name": "fct_thursday_lift",
+    "unique_id": "model.gta6_impact.fct_thursday_lift",
+    "status": "success",
+    "execution_time": 0.017850875854492188
+   },
+   {
+    "name": "assert_control_year_present",
+    "unique_id": "test.gta6_impact.assert_control_year_present",
+    "status": "pass",
+    "execution_time": 0.007100820541381836
+   },
+   {
+    "name": "assert_no_lift_from_unavailable",
+    "unique_id": "test.gta6_impact.assert_no_lift_from_unavailable",
+    "status": "pass",
+    "execution_time": 0.006943941116333008
+   },
+   {
+    "name": "assert_thursday_lift_grain",
+    "unique_id": "test.gta6_impact.assert_thursday_lift_grain",
+    "status": "pass",
+    "execution_time": 0.006273031234741211
+   },
+   {
+    "name": "not_null_fct_thursday_lift_geo",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_geo.a28ff23405",
+    "status": "pass",
+    "execution_time": 0.008455991744995117
+   },
+   {
+    "name": "not_null_fct_thursday_lift_is_baseline_available",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_is_baseline_available.386b456f72",
+    "status": "pass",
+    "execution_time": 0.007439136505126953
+   },
+   {
+    "name": "not_null_fct_thursday_lift_is_index_component",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_is_index_component.7dc72cdb6f",
+    "status": "pass",
+    "execution_time": 0.007467031478881836
+   },
+   {
+    "name": "not_null_fct_thursday_lift_is_release_available",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_is_release_available.97fa5b11b6",
+    "status": "pass",
+    "execution_time": 0.0074939727783203125
+   },
+   {
+    "name": "not_null_fct_thursday_lift_release_day",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_release_day.7a59e14a73",
+    "status": "pass",
+    "execution_time": 0.007584095001220703
+   },
+   {
+    "name": "not_null_fct_thursday_lift_signal",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_signal.bac038c48a",
+    "status": "pass",
+    "execution_time": 0.007868051528930664
+   },
+   {
+    "name": "not_null_fct_thursday_lift_signal_family",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_signal_family.faca6d9586",
+    "status": "pass",
+    "execution_time": 0.007807016372680664
+   },
+   {
+    "name": "not_null_fct_thursday_lift_source",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_source.2888490714",
+    "status": "pass",
+    "execution_time": 0.006482839584350586
+   },
+   {
+    "name": "not_null_fct_thursday_lift_study_year",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_study_year.2f0eef7f74",
+    "status": "pass",
+    "execution_time": 0.006869077682495117
+   },
+   {
+    "name": "not_null_fct_thursday_lift_thursday_lift_key",
+    "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_thursday_lift_key.c45586552d",
+    "status": "pass",
+    "execution_time": 0.007664203643798828
+   },
+   {
+    "name": "unique_fct_thursday_lift_thursday_lift_key",
+    "unique_id": "test.gta6_impact.unique_fct_thursday_lift_thursday_lift_key.202fcfd13c",
+    "status": "pass",
+    "execution_time": 0.006464719772338867
+   },
+   {
+    "name": "fct_day_off_index",
+    "unique_id": "model.gta6_impact.fct_day_off_index",
+    "status": "success",
+    "execution_time": 0.016782045364379883
+   },
+   {
+    "name": "not_null_fct_day_off_index_release_day",
+    "unique_id": "test.gta6_impact.not_null_fct_day_off_index_release_day.ce55ec2514",
+    "status": "pass",
+    "execution_time": 0.007881879806518555
+   },
+   {
+    "name": "not_null_fct_day_off_index_sources_total",
+    "unique_id": "test.gta6_impact.not_null_fct_day_off_index_sources_total.55c380016e",
+    "status": "pass",
+    "execution_time": 0.012027978897094727
+   },
+   {
+    "name": "not_null_fct_day_off_index_sources_with_lift",
+    "unique_id": "test.gta6_impact.not_null_fct_day_off_index_sources_with_lift.7e2b8f4f06",
+    "status": "pass",
+    "execution_time": 0.007106781005859375
+   },
+   {
+    "name": "not_null_fct_day_off_index_study_year",
+    "unique_id": "test.gta6_impact.not_null_fct_day_off_index_study_year.443a4de630",
+    "status": "pass",
+    "execution_time": 0.006541013717651367
+   },
+   {
+    "name": "unique_fct_day_off_index_study_year",
+    "unique_id": "test.gta6_impact.unique_fct_day_off_index_study_year.e416a52c90",
+    "status": "pass",
+    "execution_time": 0.0070416927337646484
+   }
+  ],
+  "counts": {
+   "success": 10,
+   "pass": 66
+  },
+  "artifact_directory": "target/dex/dbt-1.12.7",
+  "evidence": {
+   "outcome": "validated",
+   "invocation": {
+    "invocation_id": "345e6b50-52f6-46f9-a061-ce9bf684e4e7",
+    "generated_at": "2026-11-16T16:45:52.249844Z",
+    "started_at": "2026-11-16T16:45:51.065194Z",
+    "dbt_version": "1.12.7",
+    "command": "build",
+    "target": "dev",
+    "select": null,
+    "full_refresh": false,
+    "artifact_producer": {
+     "dbt_version": "1.12.7",
+     "adapter_version": null,
+     "project": "gta6_impact",
+     "target": "dev",
+     "artifact_directory": "target/dex/dbt-1.12.7",
+     "invocation_id": "345e6b50-52f6-46f9-a061-ce9bf684e4e7"
+    },
+    "elapsed_seconds": 0.7999460697174072
+   },
+   "selection": {
+    "requested": null,
+    "matched": [
+     "dim_date",
+     "metricflow_time_spine",
+     "stg_bluesky__daily_hits",
+     "stg_hn__daily_hits",
+     "stg_trends__interest",
+     "stg_wiki__pageviews",
+     "not_null_dim_date_date_day",
+     "not_null_dim_date_day_name",
+     "not_null_dim_date_days_from_release",
+     "not_null_dim_date_is_gta_release_day",
+     "not_null_dim_date_iso_day_of_week",
+     "not_null_dim_date_release_day",
+     "not_null_dim_date_study_year",
+     "unique_dim_date_date_day",
+     "not_null_metricflow_time_spine_date_day",
+     "unique_metricflow_time_spine_date_day",
+     "not_null_stg_bluesky__daily_hits_gta_filter",
+     "not_null_stg_bluesky__daily_hits_hit_date",
+     "not_null_stg_bluesky__daily_hits_is_available",
+     "not_null_stg_bluesky__daily_hits_seed",
+     "not_null_stg_hn__daily_hits_gta_filter",
+     "not_null_stg_hn__daily_hits_hit_date",
+     "not_null_stg_hn__daily_hits_is_available",
+     "not_null_stg_hn__daily_hits_seed",
+     "not_null_stg_trends__interest_geo",
+     "not_null_stg_trends__interest_interest",
+     "not_null_stg_trends__interest_interest_date",
+     "not_null_stg_trends__interest_is_partial",
+     "not_null_stg_trends__interest_request_id",
+     "not_null_stg_trends__interest_study_year",
+     "not_null_stg_trends__interest_term",
+     "not_null_stg_trends__interest_term_group",
+     "not_null_stg_wiki__pageviews_article",
+     "not_null_stg_wiki__pageviews_view_date",
+     "not_null_stg_wiki__pageviews_views",
+     "int_signals__daily",
+     "assert_int_signals_grain",
+     "not_null_int_signals__daily_geo",
+     "not_null_int_signals__daily_is_available",
+     "not_null_int_signals__daily_signal",
+     "not_null_int_signals__daily_signal_date",
+     "not_null_int_signals__daily_signal_family",
+     "not_null_int_signals__daily_source",
+     "fct_signal_daily",
+     "not_null_fct_signal_daily_days_from_release",
+     "not_null_fct_signal_daily_geo",
+     "not_null_fct_signal_daily_is_available",
+     "not_null_fct_signal_daily_iso_day_of_week",
+     "not_null_fct_signal_daily_signal",
+     "not_null_fct_signal_daily_signal_date",
+     "not_null_fct_signal_daily_signal_day_key",
+     "not_null_fct_signal_daily_signal_family",
+     "not_null_fct_signal_daily_source",
+     "not_null_fct_signal_daily_study_year",
+     "unique_fct_signal_daily_signal_day_key",
+     "fct_thursday_lift",
+     "assert_control_year_present",
+     "assert_no_lift_from_unavailable",
+     "assert_thursday_lift_grain",
+     "not_null_fct_thursday_lift_geo",
+     "not_null_fct_thursday_lift_is_baseline_available",
+     "not_null_fct_thursday_lift_is_index_component",
+     "not_null_fct_thursday_lift_is_release_available",
+     "not_null_fct_thursday_lift_release_day",
+     "not_null_fct_thursday_lift_signal",
+     "not_null_fct_thursday_lift_signal_family",
+     "not_null_fct_thursday_lift_source",
+     "not_null_fct_thursday_lift_study_year",
+     "not_null_fct_thursday_lift_thursday_lift_key",
+     "unique_fct_thursday_lift_thursday_lift_key",
+     "fct_day_off_index",
+     "not_null_fct_day_off_index_release_day",
+     "not_null_fct_day_off_index_sources_total",
+     "not_null_fct_day_off_index_sources_with_lift",
+     "not_null_fct_day_off_index_study_year",
+     "unique_fct_day_off_index_study_year"
+    ],
+    "empty": false,
+    "complete": true,
+    "unmatched": []
+   },
+   "digests": {
+    "manifest_sha256": "sha256:af75066dd1c02c4b38c73093e7b9d92707a8a152b5b9e5d96f4f877cbce18365",
+    "run_results_sha256": "sha256:bd58bb1aab6d3d2ed78102077171f8ad8fe8c62201f1c2acee3a3fb4aa036f95",
+    "source_digest": "sha256:0ed594001eaa0ba23debb8e2dc26684da29d722e5557f557704d2722ac519afb",
+    "plan_digest": null
+   },
+   "generated": [
+    "gta6.main.dim_date",
+    "gta6.main.fct_day_off_index",
+    "gta6.main.fct_signal_daily",
+    "gta6.main.fct_thursday_lift",
+    "gta6.main.int_signals__daily",
+    "gta6.main.metricflow_time_spine",
+    "gta6.main.stg_bluesky__daily_hits",
+    "gta6.main.stg_hn__daily_hits",
+    "gta6.main.stg_trends__interest",
+    "gta6.main.stg_wiki__pageviews"
+   ],
+   "errors": [],
+   "stale_artifacts": false,
+   "plan_drift": [],
+   "nodes": [
+    {
+     "unique_id": "model.gta6_impact.dim_date",
+     "name": "dim_date",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.0454709529876709,
+     "materialization": "table",
+     "relation": "gta6.main.dim_date",
+     "message": "OK"
+    },
+    {
+     "unique_id": "model.gta6_impact.metricflow_time_spine",
+     "name": "metricflow_time_spine",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.010965108871459961,
+     "materialization": "table",
+     "relation": "gta6.main.metricflow_time_spine",
+     "message": "OK"
+    },
+    {
+     "unique_id": "model.gta6_impact.stg_bluesky__daily_hits",
+     "name": "stg_bluesky__daily_hits",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.013957977294921875,
+     "materialization": "view",
+     "relation": "gta6.main.stg_bluesky__daily_hits",
+     "message": "OK"
+    },
+    {
+     "unique_id": "model.gta6_impact.stg_hn__daily_hits",
+     "name": "stg_hn__daily_hits",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.00970911979675293,
+     "materialization": "view",
+     "relation": "gta6.main.stg_hn__daily_hits",
+     "message": "OK"
+    },
+    {
+     "unique_id": "model.gta6_impact.stg_trends__interest",
+     "name": "stg_trends__interest",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.01007533073425293,
+     "materialization": "view",
+     "relation": "gta6.main.stg_trends__interest",
+     "message": "OK"
+    },
+    {
+     "unique_id": "model.gta6_impact.stg_wiki__pageviews",
+     "name": "stg_wiki__pageviews",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.00903010368347168,
+     "materialization": "view",
+     "relation": "gta6.main.stg_wiki__pageviews",
+     "message": "OK"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_dim_date_date_day.e3f312efb2",
+     "name": "not_null_dim_date_date_day",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.015239953994750977,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_dim_date_day_name.3a968349a4",
+     "name": "not_null_dim_date_day_name",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.005775928497314453,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_dim_date_days_from_release.b42f6c8e0a",
+     "name": "not_null_dim_date_days_from_release",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.0055429935455322266,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_dim_date_is_gta_release_day.9830f12a58",
+     "name": "not_null_dim_date_is_gta_release_day",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.00553441047668457,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_dim_date_iso_day_of_week.af59f4565b",
+     "name": "not_null_dim_date_iso_day_of_week",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.005410194396972656,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_dim_date_release_day.23663d7497",
+     "name": "not_null_dim_date_release_day",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.0062940120697021484,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_dim_date_study_year.cb8eedee8a",
+     "name": "not_null_dim_date_study_year",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.03863024711608887,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.unique_dim_date_date_day.d56fd19199",
+     "name": "unique_dim_date_date_day",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006553173065185547,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_metricflow_time_spine_date_day.54acf49e8d",
+     "name": "not_null_metricflow_time_spine_date_day",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.005352973937988281,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.unique_metricflow_time_spine_date_day.ddb41ceac8",
+     "name": "unique_metricflow_time_spine_date_day",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006331205368041992,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_gta_filter.cd59a07611",
+     "name": "not_null_stg_bluesky__daily_hits_gta_filter",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.008099794387817383,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_hit_date.964800a65a",
+     "name": "not_null_stg_bluesky__daily_hits_hit_date",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007134199142456055,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_is_available.50557f9c49",
+     "name": "not_null_stg_bluesky__daily_hits_is_available",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007397890090942383,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_seed.e5980925d8",
+     "name": "not_null_stg_bluesky__daily_hits_seed",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006318807601928711,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_gta_filter.949ad46fd7",
+     "name": "not_null_stg_hn__daily_hits_gta_filter",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006335020065307617,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_hit_date.793804f46c",
+     "name": "not_null_stg_hn__daily_hits_hit_date",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006460905075073242,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_is_available.bbf8f6cadd",
+     "name": "not_null_stg_hn__daily_hits_is_available",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.0067861080169677734,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_seed.e56498a4ac",
+     "name": "not_null_stg_hn__daily_hits_seed",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006913900375366211,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_trends__interest_geo.e773d434b1",
+     "name": "not_null_stg_trends__interest_geo",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007768154144287109,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_trends__interest_interest.053ace0388",
+     "name": "not_null_stg_trends__interest_interest",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007590055465698242,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_trends__interest_interest_date.24656434b3",
+     "name": "not_null_stg_trends__interest_interest_date",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007235050201416016,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_trends__interest_is_partial.8135b668dc",
+     "name": "not_null_stg_trends__interest_is_partial",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.0066738128662109375,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_trends__interest_request_id.7cbc516346",
+     "name": "not_null_stg_trends__interest_request_id",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006558895111083984,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_trends__interest_study_year.d4def0bb3d",
+     "name": "not_null_stg_trends__interest_study_year",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006400108337402344,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_trends__interest_term.d16441e528",
+     "name": "not_null_stg_trends__interest_term",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007452964782714844,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_trends__interest_term_group.66e584e695",
+     "name": "not_null_stg_trends__interest_term_group",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007073879241943359,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_article.98a92521cf",
+     "name": "not_null_stg_wiki__pageviews_article",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006529092788696289,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_view_date.51cacd7a24",
+     "name": "not_null_stg_wiki__pageviews_view_date",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.0061109066009521484,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_views.49e7cd1be2",
+     "name": "not_null_stg_wiki__pageviews_views",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.00577998161315918,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "model.gta6_impact.int_signals__daily",
+     "name": "int_signals__daily",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.011447668075561523,
+     "materialization": "view",
+     "relation": "gta6.main.int_signals__daily",
+     "message": "OK"
+    },
+    {
+     "unique_id": "test.gta6_impact.assert_int_signals_grain",
+     "name": "assert_int_signals_grain",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007290840148925781,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_int_signals__daily_geo.c4442ee3ad",
+     "name": "not_null_int_signals__daily_geo",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007005214691162109,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_int_signals__daily_is_available.18bcff0704",
+     "name": "not_null_int_signals__daily_is_available",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007869958877563477,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal.d79f91186c",
+     "name": "not_null_int_signals__daily_signal",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.008124113082885742,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal_date.772fce9435",
+     "name": "not_null_int_signals__daily_signal_date",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.008252859115600586,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal_family.cab0f22b41",
+     "name": "not_null_int_signals__daily_signal_family",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007557868957519531,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_int_signals__daily_source.465454d4d6",
+     "name": "not_null_int_signals__daily_source",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006407022476196289,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "model.gta6_impact.fct_signal_daily",
+     "name": "fct_signal_daily",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.017589092254638672,
+     "materialization": "table",
+     "relation": "gta6.main.fct_signal_daily",
+     "message": "OK"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_days_from_release.b9d84e34b1",
+     "name": "not_null_fct_signal_daily_days_from_release",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006761074066162109,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_geo.eb520153f0",
+     "name": "not_null_fct_signal_daily_geo",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006565093994140625,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_is_available.ff4f6a77d9",
+     "name": "not_null_fct_signal_daily_is_available",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006102085113525391,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_iso_day_of_week.ff74ec14f9",
+     "name": "not_null_fct_signal_daily_iso_day_of_week",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006165742874145508,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal.42281514c2",
+     "name": "not_null_fct_signal_daily_signal",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.005910634994506836,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_date.789a10b16b",
+     "name": "not_null_fct_signal_daily_signal_date",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006320953369140625,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_day_key.c75da9e519",
+     "name": "not_null_fct_signal_daily_signal_day_key",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006173849105834961,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_family.67f7b1c054",
+     "name": "not_null_fct_signal_daily_signal_family",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006446123123168945,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_source.792ce64ba8",
+     "name": "not_null_fct_signal_daily_source",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006356000900268555,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_study_year.117c2c1b34",
+     "name": "not_null_fct_signal_daily_study_year",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007077217102050781,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.unique_fct_signal_daily_signal_day_key.b33b4e6988",
+     "name": "unique_fct_signal_daily_signal_day_key",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.00843191146850586,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "model.gta6_impact.fct_thursday_lift",
+     "name": "fct_thursday_lift",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.017850875854492188,
+     "materialization": "table",
+     "relation": "gta6.main.fct_thursday_lift",
+     "message": "OK"
+    },
+    {
+     "unique_id": "test.gta6_impact.assert_control_year_present",
+     "name": "assert_control_year_present",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007100820541381836,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.assert_no_lift_from_unavailable",
+     "name": "assert_no_lift_from_unavailable",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006943941116333008,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.assert_thursday_lift_grain",
+     "name": "assert_thursday_lift_grain",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006273031234741211,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_geo.a28ff23405",
+     "name": "not_null_fct_thursday_lift_geo",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.008455991744995117,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_is_baseline_available.386b456f72",
+     "name": "not_null_fct_thursday_lift_is_baseline_available",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007439136505126953,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_is_index_component.7dc72cdb6f",
+     "name": "not_null_fct_thursday_lift_is_index_component",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007467031478881836,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_is_release_available.97fa5b11b6",
+     "name": "not_null_fct_thursday_lift_is_release_available",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.0074939727783203125,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_release_day.7a59e14a73",
+     "name": "not_null_fct_thursday_lift_release_day",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007584095001220703,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_signal.bac038c48a",
+     "name": "not_null_fct_thursday_lift_signal",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007868051528930664,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_signal_family.faca6d9586",
+     "name": "not_null_fct_thursday_lift_signal_family",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007807016372680664,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_source.2888490714",
+     "name": "not_null_fct_thursday_lift_source",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006482839584350586,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_study_year.2f0eef7f74",
+     "name": "not_null_fct_thursday_lift_study_year",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006869077682495117,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_thursday_lift_thursday_lift_key.c45586552d",
+     "name": "not_null_fct_thursday_lift_thursday_lift_key",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007664203643798828,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.unique_fct_thursday_lift_thursday_lift_key.202fcfd13c",
+     "name": "unique_fct_thursday_lift_thursday_lift_key",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006464719772338867,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "model.gta6_impact.fct_day_off_index",
+     "name": "fct_day_off_index",
+     "resource_type": "model",
+     "status": "success",
+     "execution_time": 0.016782045364379883,
+     "materialization": "table",
+     "relation": "gta6.main.fct_day_off_index",
+     "message": "OK"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_release_day.ce55ec2514",
+     "name": "not_null_fct_day_off_index_release_day",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007881879806518555,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_sources_total.55c380016e",
+     "name": "not_null_fct_day_off_index_sources_total",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.012027978897094727,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_sources_with_lift.7e2b8f4f06",
+     "name": "not_null_fct_day_off_index_sources_with_lift",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.007106781005859375,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_study_year.443a4de630",
+     "name": "not_null_fct_day_off_index_study_year",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.006541013717651367,
+     "materialization": "test"
+    },
+    {
+     "unique_id": "test.gta6_impact.unique_fct_day_off_index_study_year.e416a52c90",
+     "name": "unique_fct_day_off_index_study_year",
+     "resource_type": "test",
+     "status": "pass",
+     "execution_time": 0.0070416927337646484,
+     "materialization": "test"
+    }
+   ]
+  },
+  "verification": {
+   "ran": true,
+   "scope": [
+    "dim_date",
+    "fct_day_off_index",
+    "fct_signal_daily",
+    "fct_thursday_lift",
+    "int_signals__daily",
+    "metricflow_time_spine",
+    "stg_bluesky__daily_hits",
+    "stg_hn__daily_hits",
+    "stg_trends__interest",
+    "stg_wiki__pageviews"
+   ],
+   "scope_not_built": [],
+   "findings": [],
+   "finding_count": 0,
+   "suppressed": {
+    "no_relation": "dbt's run results are authoritative for the nodes this build ran",
+    "unit": "no model this build ran declares a column's unit as fraction or percent",
+    "parent_population": "no model this build ran declares a population.parent",
+    "temporal": "no model this build ran declares a history temporal contract",
+    "population": "no declaration could be checked: stg_wiki__pageviews: no declared column could be measured"
+   },
+   "join_coverage": [
+    {
+     "model": "stg_trends__interest",
+     "join": "inner join newest on source.request_id = newest.request_id",
+     "status": "unchecked",
+     "reason_code": "filtered_cte",
+     "reason": "a join column is read through CTE `newest`, which reduces its rows with a shape dex does not carry into a probe (a GROUP BY), so probing the physical relation underneath would measure rows the model never joins"
+    },
+    {
+     "model": "fct_signal_daily",
+     "join": "inner join \"gta6\".\"main\".\"dim_date\" AS dates on signals.signal_date = dates.date_day",
+     "side": "inner",
+     "from_relation": "gta6.main.int_signals__daily",
+     "from_columns": [
+      "signal_date"
+     ],
+     "to_relation": "gta6.main.dim_date",
+     "to_columns": [
+      "date_day"
+     ],
+     "declared": {
+      "required": false,
+      "required_by": null,
+      "optional": false,
+      "null_keys": "unmatched",
+      "null_keys_by": "signal_date is declared null_rule: never",
+      "derived_columns": [
+       "comparison_role",
+       "days_from_release",
+       "iso_day_of_week",
+       "study_year"
+      ]
+     },
+     "measured": {
+      "rows": 1936,
+      "null_key_rows": 0,
+      "eligible_rows": 1936,
+      "matched_rows": 1936,
+      "unmatched_rows": 0,
+      "eligible_keys": 108,
+      "matched_keys": 108,
+      "unmatched_keys": 0
+     },
+     "coverage": {
+      "rows": 1.0,
+      "keys": 1.0
+     },
+     "threshold_source": "default",
+     "thresholds": {
+      "join_zero_overlap": 0.9,
+      "join_orphans": 0.2
+     },
+     "status": "satisfied"
+    }
+   ],
+   "population_delta": [
+    {
+     "model": "stg_bluesky__daily_hits",
+     "drafted": {
+      "parent": "stg_hn__daily_hits",
+      "key": [
+       {
+        "column": "hit_date",
+        "parent_column": "hit_date"
+       },
+       {
+        "column": "seed",
+        "parent_column": "seed"
+       },
+       {
+        "column": "gta_filter",
+        "parent_column": "gta_filter"
+       }
+      ],
+      "filters_applied": [],
+      "filters_unapplied": [],
+      "evidence": "unique_key",
+      "supported_by": [
+       "unique_key"
+      ],
+      "detail": "gta_filter, hit_date, seed is unique on stg_hn__daily_hits (its declared grain) (grain: declared)"
+     },
+     "parent_relation": "gta6.main.stg_hn__daily_hits",
+     "status": "satisfied",
+     "measured": {
+      "output_rows": 1284,
+      "output_keys": 1284,
+      "output_null_key_rows": 0,
+      "parent_keys": 1284,
+      "eligible_parent_keys": 1284,
+      "excluded_by_filters": 0,
+      "parents_present": 1284,
+      "missing_parents": 0,
+      "orphan_keys": 0,
+      "empty_rows": null,
+      "empty_columns": [],
+      "empty_share": null,
+      "coverage": 1.0,
+      "thresholds": {
+       "empty_share": 0.05
+      }
+     }
+    },
+    {
+     "model": "stg_hn__daily_hits",
+     "drafted": {
+      "parent": "stg_bluesky__daily_hits",
+      "key": [
+       {
+        "column": "hit_date",
+        "parent_column": "hit_date"
+       },
+       {
+        "column": "seed",
+        "parent_column": "seed"
+       },
+       {
+        "column": "gta_filter",
+        "parent_column": "gta_filter"
+       }
+      ],
+      "filters_applied": [],
+      "filters_unapplied": [],
+      "evidence": "unique_key",
+      "supported_by": [
+       "unique_key"
+      ],
+      "detail": "gta_filter, hit_date, seed is unique on stg_bluesky__daily_hits (its declared grain) (grain: declared)"
+     },
+     "parent_relation": "gta6.main.stg_bluesky__daily_hits",
+     "status": "satisfied",
+     "measured": {
+      "output_rows": 1284,
+      "output_keys": 1284,
+      "output_null_key_rows": 0,
+      "parent_keys": 1284,
+      "eligible_parent_keys": 1284,
+      "excluded_by_filters": 0,
+      "parents_present": 1284,
+      "missing_parents": 0,
+      "orphan_keys": 0,
+      "empty_rows": null,
+      "empty_columns": [],
+      "empty_share": null,
+      "coverage": 1.0,
+      "thresholds": {
+       "empty_share": 0.05
+      }
+     }
+    }
+   ],
+   "column_contract": {
+    "checked": [
+     "dim_date",
+     "fct_day_off_index",
+     "fct_signal_daily",
+     "fct_thursday_lift",
+     "int_signals__daily",
+     "metricflow_time_spine",
+     "stg_bluesky__daily_hits",
+     "stg_hn__daily_hits",
+     "stg_trends__interest",
+     "stg_wiki__pageviews"
+    ],
+    "no_declared_columns": [],
+    "unchecked": []
+   }
+  },
+  "decisions": [
+   {
+    "model": "int_signals__daily",
+    "decision": "Combining seed phrases",
+    "chosen": "sum hits across seeds per day",
+    "evidence": "default",
+    "detail": "a post matching two seeds counts twice; the double count is the same on both Thursdays, so the lift is unaffected in expectation"
+   },
+   {
+    "model": "int_signals__daily",
+    "decision": "A partial or failed day",
+    "chosen": "signal_value NULL, is_available false",
+    "evidence": "request",
+    "detail": "docs/methodology.md: missing is unavailable, never zero"
+   },
+   {
+    "model": "int_signals__daily",
+    "decision": "Trends partial days",
+    "chosen": "treated as unavailable",
+    "evidence": "default",
+    "detail": "Google flags the latest day isPartial while it fills in"
+   },
+   {
+    "model": "dim_date",
+    "decision": "Control anchor",
+    "chosen": "Thu 20 Nov 2025 vs Thu 13 Nov 2025",
+    "evidence": "request",
+    "detail": "same week of November, one year earlier, both a week before US Thanksgiving week"
+   },
+   {
+    "model": "fct_day_off_index",
+    "decision": "How lifts combine",
+    "chosen": "geometric mean within each source, then across sources, equal weights",
+    "evidence": "default",
+    "detail": "lifts are ratios; the geometric mean keeps one noisy source from dominating"
+   },
+   {
+    "model": "fct_day_off_index",
+    "decision": "A zero lift",
+    "chosen": "floored at 0.01 before the log",
+    "evidence": "default",
+    "detail": "ln(0) is undefined; a component that fell to zero still pulls the index down hard"
+   },
+   {
+    "model": "fct_day_off_index",
+    "decision": "Incomplete index",
+    "chosen": "NULL until every component source has a lift",
+    "evidence": "request",
+    "detail": "missing is unavailable, never zero"
+   },
+   {
+    "model": "fct_signal_daily",
+    "decision": "Days outside the window",
+    "chosen": "dropped",
+    "evidence": "request",
+    "column": "signal_date",
+    "detail": "the study compares Thursdays in Oct-Nov 2026 against the same weeks of 2025; the inner join to dim_date keeps only that spine"
+   },
+   {
+    "model": "fct_signal_daily",
+    "decision": "Surrogate key",
+    "chosen": "md5 of the natural grain",
+    "evidence": "default",
+    "detail": "the key is md5 of the composite Dex drafts as the grain, so the two describe the same rows; MetricFlow needs a single-column primary entity"
+   },
+   {
+    "model": "fct_thursday_lift",
+    "decision": "Index components",
+    "chosen": "day_off_intent signals of google_trends, bluesky and reddit",
+    "evidence": "request",
+    "detail": "Hacker News is too sparse (334 hits in 107 days, .dex/review/05); Wikipedia is hype or reference only"
+   },
+   {
+    "model": "fct_thursday_lift",
+    "decision": "Low-resolution Trends terms",
+    "chosen": "excluded from the index when the baseline is below 5",
+    "evidence": "data",
+    "detail": "Trends rounds to integers; a baseline of 1-4 turns a one-point wobble into a 25-100% lift"
+   },
+   {
+    "model": "fct_thursday_lift",
+    "decision": "Surrogate key",
+    "chosen": "md5 of the natural grain",
+    "evidence": "default",
+    "detail": "the key is md5 of the composite Dex drafts as the grain, so the two describe the same rows; MetricFlow needs a single-column primary entity"
+   },
+   {
+    "model": "metricflow_time_spine",
+    "decision": "Spine range",
+    "chosen": "2025-2027",
+    "evidence": "default",
+    "detail": "covers the control year, the study year and the recovery tail"
+   },
+   {
+    "model": "stg_bluesky__daily_hits",
+    "decision": "Grain",
+    "chosen": "(hit_date, seed, gta_filter): one search per key per day",
+    "evidence": "data",
+    "detail": "probe .dex/review/06-*.json: distinct (day, seed, gta_filter) equals row count. observed_at is unique only because every request is timed separately; it is not the grain"
+   },
+   {
+    "model": "stg_bluesky__daily_hits",
+    "decision": "Population",
+    "chosen": "every query this source was asked, independent of the other search source",
+    "evidence": "request",
+    "detail": "Bluesky and Hacker News are searched with the same seeds on the same days, but neither is a parent of the other"
+   },
+   {
+    "model": "stg_bluesky__daily_hits",
+    "decision": "A failed call",
+    "chosen": "kept with hits_total NULL and is_available false",
+    "evidence": "request",
+    "detail": "missing is unavailable, never zero (docs/methodology.md)"
+   },
+   {
+    "model": "stg_hn__daily_hits",
+    "decision": "Grain",
+    "chosen": "(hit_date, seed, gta_filter): one search per key per day",
+    "evidence": "data",
+    "detail": "probe .dex/review/05-*.json: distinct (day, seed, gta_filter) equals row count. observed_at is unique only because every request is timed separately; it is not the grain"
+   },
+   {
+    "model": "stg_hn__daily_hits",
+    "decision": "Population",
+    "chosen": "every query this source was asked, independent of the other search source",
+    "evidence": "request",
+    "detail": "Bluesky and Hacker News are searched with the same seeds on the same days, but neither is a parent of the other"
+   },
+   {
+    "model": "stg_hn__daily_hits",
+    "decision": "A failed call",
+    "chosen": "kept with hits_total NULL and is_available false",
+    "evidence": "request",
+    "detail": "missing is unavailable, never zero (docs/methodology.md)"
+   },
+   {
+    "model": "stg_trends__interest",
+    "decision": "How to combine repeated Trends pulls",
+    "chosen": "keep only the newest request per (term_group, geo, study_year)",
+    "evidence": "default",
+    "detail": "Trends rescales each request; averaging requests would mix scales"
+   },
+   {
+    "model": "stg_trends__interest",
+    "decision": "Study year source",
+    "chosen": "third dash-separated part of request_id",
+    "evidence": "contract",
+    "detail": "request_id is written as <group>-<geo>-<year>-<stamp> by gta6_impact.ingest.trends"
+   },
+   {
+    "model": "stg_wiki__pageviews",
+    "decision": "Which day a timestamp belongs to",
+    "chosen": "the UTC date of ts",
+    "evidence": "data",
+    "detail": "explore showed ts rendered at +01:00/+02:00 in a local session; the API's timestamps are UTC midnights"
+   }
+  ],
+  "notes": [
+   "row population was not compared for dim_date (generated in SQL; no parent relation to compare against), metricflow_time_spine (generated in SQL; no parent relation to compare against)",
+   "8 built model(s) have no drafted parent (no grain, or no entity outside their own lineage keyed by it), so their population was not measured against one"
+  ]
+ },
+ "connection": {
+  "connector": "duckdb",
+  "target": {
+   "path": "./warehouse/gta6.duckdb"
+  },
+  "source": ".dex/config.yml"
+ },
+ "cost": {
+  "paradigm": "free_local",
+  "estimate": 0.0,
+  "ceiling": null,
+  "estimate_quality": null,
+  "unit": null
+ },
+ "warnings": [
+  "no confirm handshake: this connector cannot bill, so there was nothing to confirm and the command ran without asking",
+  "no single driving parent could be identified for int_signals__daily (it is a set operation, so it has no single parent)",
+  "stg_trends__interest: inner join newest on source.request_id = newest.request_id: a join column is read through CTE `newest`, which reduces its rows with a shape dex does not carry into a probe (a GROUP BY), so probing the physical relation underneath would measure rows the model never joins",
+  "the declared population on stg_wiki__pageviews names column(s) the built relation does not have, so it was not checked: granularity; a column a model aggregates away cannot carry its population rule into the result, so that rule is checked upstream or not at all"
+ ],
+ "diffs": [],
+ "errors": [],
+ "reason": null
+}

@@ -1,0 +1,40 @@
+{
+ "edits": [
+  {
+   "path": "models/marts/metricflow_time_spine.sql",
+   "kind": "model_sql",
+   "content": "-- MetricFlow's day-grain time spine, covering the study window and its control year.\nselect cast(range as date) as date_day\nfrom range(date '2025-01-01', date '2027-12-31', interval 1 day)\n"
+  },
+  {
+   "path": "models/marts/metricflow_time_spine.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\n\nmodels:\n  - name: metricflow_time_spine\n    description: One row per calendar day, 2025-2027. MetricFlow's time spine.\n    time_spine:\n      standard_granularity_column: date_day\n    columns:\n      - name: date_day\n        description: Calendar day.\n        granularity: day\n"
+  }
+ ],
+ "declarations": [
+  {
+   "model": "metricflow_time_spine",
+   "description": "One row per calendar day, 2025-2027. MetricFlow's time spine.",
+   "grain": [
+    "date_day"
+   ],
+   "population": {
+    "rule": "Every calendar day from 2025-01-01 to 2027-12-30."
+   },
+   "columns": {
+    "date_day": {
+     "role": "key",
+     "null_rule": "never"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Spine range",
+     "chosen": "2025-2027",
+     "evidence": "default",
+     "detail": "covers the control year, the study year and the recovery tail"
+    }
+   ]
+  }
+ ]
+}

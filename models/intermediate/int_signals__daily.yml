@@ -1,0 +1,93 @@
+version: 2
+
+models:
+  - name: int_signals__daily
+    description: 'One row per signal per day: every source''s daily value in one shape.'
+    config:
+      meta:
+        dex:
+          grain:
+            - source
+            - signal
+            - geo
+            - signal_date
+          population:
+            rule: Every staged day of every source; Bluesky and Hacker News seeds are summed per day and filter.
+          assumptions:
+            - decision: Combining seed phrases
+              chosen: sum hits across seeds per day
+              evidence: default
+              detail: a post matching two seeds counts twice; the double count is the same on both Thursdays, so the lift is unaffected in expectation
+            - decision: A partial or failed day
+              chosen: signal_value NULL, is_available false
+              evidence: request
+              detail: 'docs/methodology.md: missing is unavailable, never zero'
+            - decision: Trends partial days
+              chosen: treated as unavailable
+              evidence: default
+              detail: Google flags the latest day isPartial while it fills in
+    columns:
+      - name: source
+        description: google_trends, bluesky, reddit, hacker_news or wikipedia.
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: signal
+        description: What is counted, e.g. search:pto, posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi.
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: signal_family
+        description: day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference.
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: geo
+        description: US or WORLD. Only Google Trends has a US slice.
+        config:
+          meta:
+            dex:
+              role: dimension
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: signal_date
+        description: UTC day (Google's own day for Trends).
+        config:
+          meta:
+            dex:
+              role: time
+              null_rule: never
+        data_tests:
+          - not_null
+      - name: signal_value
+        description: Counts for posts and pageviews; relative 0-100 interest for Trends. Never add across signals or sources.
+        config:
+          meta:
+            dex:
+              role: measure
+              null_rule: 'NULL when the value could not be read: unavailable, never zero.'
+              aggregation: sum
+              additivity: non_additive
+              unit: count or index (see signal)
+      - name: is_available
+        description: False when any part of the day's value failed to load or was partial.
+        config:
+          meta:
+            dex:
+              role: attribute
+              null_rule: never
+        data_tests:
+          - not_null

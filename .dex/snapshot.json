@@ -1,0 +1,3398 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-16T16:43:32.903004+00:00",
+  "connector": "duckdb",
+  "tool_version": "1.18.0",
+  "warehouse": {
+    "datasets": [
+      {
+        "identifier": "gta6.raw.bluesky_daily_hits",
+        "object_type": "table",
+        "row_count": 1284,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 109,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2025-10-02",
+            "max_value": "2026-11-15",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 410,
+            "temporal_distinct_periods": 107,
+            "temporal_missing_periods": 303,
+            "temporal_largest_gap": 303
+          },
+          {
+            "name": "seed",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 6,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "call in sick",
+                  "count": 214
+                },
+                {
+                  "value": "calling in sick",
+                  "count": 214
+                },
+                {
+                  "value": "day off",
+                  "count": 214
+                },
+                {
+                  "value": "pto",
+                  "count": 214
+                },
+                {
+                  "value": "sick day",
+                  "count": 214
+                },
+                {
+                  "value": "time off",
+                  "count": 214
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "gta_filter",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "any",
+                  "count": 642
+                },
+                {
+                  "value": "gta",
+                  "count": 642
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "query",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 12,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "\"call in sick\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"call in sick\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"calling in sick\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"calling in sick\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"day off\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"day off\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"pto\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"pto\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"sick day\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"sick day\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"time off\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"time off\" gta",
+                  "count": 107
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "hits_total",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 269,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 0,
+            "max_value": 957,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "observed_at",
+            "data_type": "TIMESTAMP WITH TIME ZONE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1284,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2026-11-16T17:11:22.162552+01:00",
+            "max_value": "2026-11-16T17:24:16.895891+01:00",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "hour",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "pull_id",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "20261116T161121Z",
+                  "count": 1284
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "observed_at"
+          ]
+        ],
+        "grain": [
+          "observed_at"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "observed_at"
+            ],
+            "status": "reported",
+            "reason": "observed_at is unique and non-null on all 1284 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": 0.6,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "observed_at",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "observed_at participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-16T16:34:55.873806+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.raw.hn_daily_hits",
+        "object_type": "table",
+        "row_count": 1284,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 109,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2025-10-02",
+            "max_value": "2026-11-15",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 410,
+            "temporal_distinct_periods": 107,
+            "temporal_missing_periods": 303,
+            "temporal_largest_gap": 303
+          },
+          {
+            "name": "seed",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 6,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "call in sick",
+                  "count": 214
+                },
+                {
+                  "value": "calling in sick",
+                  "count": 214
+                },
+                {
+                  "value": "day off",
+                  "count": 214
+                },
+                {
+                  "value": "pto",
+                  "count": 214
+                },
+                {
+                  "value": "sick day",
+                  "count": 214
+                },
+                {
+                  "value": "time off",
+                  "count": 214
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "gta_filter",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "any",
+                  "count": 642
+                },
+                {
+                  "value": "gta",
+                  "count": 642
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "query",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 12,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "\"call in sick\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"call in sick\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"calling in sick\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"calling in sick\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"day off\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"day off\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"pto\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"pto\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"sick day\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"sick day\" gta",
+                  "count": 107
+                },
+                {
+                  "value": "\"time off\"",
+                  "count": 107
+                },
+                {
+                  "value": "\"time off\" gta",
+                  "count": 107
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "hits_total",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 9,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 0,
+            "max_value": 17,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": 0,
+                  "count": 1108
+                },
+                {
+                  "value": 1,
+                  "count": 103
+                },
+                {
+                  "value": 2,
+                  "count": 39
+                },
+                {
+                  "value": 4,
+                  "count": 14
+                },
+                {
+                  "value": 3,
+                  "count": 10
+                },
+                {
+                  "value": 5,
+                  "count": 6
+                },
+                {
+                  "value": 6,
+                  "count": 2
+                },
+                {
+                  "value": 11,
+                  "count": 1
+                },
+                {
+                  "value": 17,
+                  "count": 1
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "observed_at",
+            "data_type": "TIMESTAMP WITH TIME ZONE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1284,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2026-11-16T17:24:17.688892+01:00",
+            "max_value": "2026-11-16T17:33:17.615584+01:00",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "hour",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "pull_id",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "20261116T161121Z",
+                  "count": 1284
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "observed_at"
+          ]
+        ],
+        "grain": [
+          "observed_at"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "observed_at"
+            ],
+            "status": "reported",
+            "reason": "observed_at is unique and non-null on all 1284 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": 0.6,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "observed_at",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "observed_at participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-16T16:35:00.412516+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.raw.trends_interest",
+        "object_type": "table",
+        "row_count": 1080,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "request_id",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 8,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "day_off-US-2025-20261116T161241",
+                  "count": 244
+                },
+                {
+                  "value": "day_off-WORLD-2025-20261116T161247",
+                  "count": 244
+                },
+                {
+                  "value": "day_off-US-2026-20261116T161220",
+                  "count": 188
+                },
+                {
+                  "value": "day_off-WORLD-2026-20261116T161226",
+                  "count": 188
+                },
+                {
+                  "value": "hype-US-2025-20261116T161252",
+                  "count": 61
+                },
+                {
+                  "value": "hype-WORLD-2025-20261116T161257",
+                  "count": 61
+                },
+                {
+                  "value": "hype-US-2026-20261116T161231",
+                  "count": 47
+                },
+                {
+                  "value": "hype-WORLD-2026-20261116T161236",
+                  "count": 47
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "term_group",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "day_off",
+                  "count": 864
+                },
+                {
+                  "value": "hype",
+                  "count": 216
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "geo",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": {
+              "category": "location",
+              "confidence": 0.3
+            },
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "term",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 5,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "GTA 6",
+                  "count": 216
+                },
+                {
+                  "value": "PTO",
+                  "count": 216
+                },
+                {
+                  "value": "call in sick",
+                  "count": 216
+                },
+                {
+                  "value": "day off work",
+                  "count": 216
+                },
+                {
+                  "value": "sick day",
+                  "count": 216
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 110,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2025-10-02",
+            "max_value": "2026-11-16",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 411,
+            "temporal_distinct_periods": 108,
+            "temporal_missing_periods": 303,
+            "temporal_largest_gap": 303
+          },
+          {
+            "name": "interest",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 84,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 0,
+            "max_value": 100,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_partial",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 1070
+                },
+                {
+                  "value": true,
+                  "count": 10
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "pull_id",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "20261116T161219Z",
+                  "count": 1080
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [],
+        "grain": null,
+        "composite_keys": [],
+        "key_evidence": [],
+        "rank_score": 0.5915,
+        "data_quality": [
+          "no candidate key detected; grain unknown"
+        ],
+        "findings": [],
+        "profiled_at": "2026-11-16T16:14:58.982814+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.raw.wiki_pageviews",
+        "object_type": "table",
+        "row_count": 428,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "article",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 4,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "granularity",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "daily",
+                  "count": 428
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "ts",
+            "data_type": "TIMESTAMP WITH TIME ZONE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 102,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2025-10-02T02:00:00+02:00",
+            "max_value": "2026-11-15T01:00:00+01:00",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "hour",
+            "temporal_span": 9817,
+            "temporal_distinct_periods": 107,
+            "temporal_missing_periods": 9710,
+            "temporal_largest_gap": 7295
+          },
+          {
+            "name": "views",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 213,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 4,
+            "max_value": 82149,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "pull_id",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "20261116T161114Z",
+                  "count": 428
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "ts",
+            "article"
+          ]
+        ],
+        "grain": [
+          "ts",
+          "article"
+        ],
+        "composite_keys": [
+          [
+            "ts",
+            "article"
+          ]
+        ],
+        "key_evidence": [
+          {
+            "columns": [
+              "ts",
+              "article"
+            ],
+            "status": "reported",
+            "reason": "ts, article is unique as a combination on all 428 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
+          }
+        ],
+        "rank_score": 0.5464,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "ts",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "ts participates in the detected grain but the warehouse still allows it to be NULL"
+          },
+          {
+            "column": "article",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "article participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-16T16:14:59.079316+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_thursday_lift",
+        "object_type": "table",
+        "row_count": 36,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "thursday_lift_key",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 36,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "source",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 4,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "signal",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 11,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "signal_family",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 4,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "geo",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": {
+              "category": "location",
+              "confidence": 0.3
+            },
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "study_year",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 2025,
+            "max_value": 2026,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": 2025,
+                  "count": 18
+                },
+                {
+                  "value": 2026,
+                  "count": 18
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2025-11-20",
+            "max_value": "2026-11-19",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "2025-11-20",
+                  "count": 18
+                },
+                {
+                  "value": "2026-11-19",
+                  "count": 18
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": "day",
+            "temporal_span": 365,
+            "temporal_distinct_periods": 2,
+            "temporal_missing_periods": 363,
+            "temporal_largest_gap": 363
+          },
+          {
+            "name": "baseline_value",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 28,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 0.0,
+            "max_value": 73739.0,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_value",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.5,
+            "distinct_count": 13,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 0.0,
+            "max_value": 7133.0,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_baseline_available",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": true,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": true,
+                  "count": 36
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_release_available",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 18
+                },
+                {
+                  "value": true,
+                  "count": 18
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "lift",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.5555555555555556,
+            "distinct_count": 15,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 0.6428571428571429,
+            "max_value": 2.3333333333333335,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_index_component",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 18
+                },
+                {
+                  "value": true,
+                  "count": 18
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "thursday_lift_key"
+          ]
+        ],
+        "grain": [
+          "thursday_lift_key"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "thursday_lift_key"
+            ],
+            "status": "reported",
+            "reason": "thursday_lift_key is unique and non-null on all 36 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "thursday_lift_key",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "thursday_lift_key participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-16T16:37:48.665890+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_day_off_index",
+        "object_type": "table",
+        "row_count": 2,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "study_year",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 2025,
+            "max_value": 2026,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2025-11-20",
+            "max_value": "2026-11-19",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 365,
+            "temporal_distinct_periods": 2,
+            "temporal_missing_periods": 363,
+            "temporal_largest_gap": 363
+          },
+          {
+            "name": "sources_total",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 2,
+            "max_value": 2,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "sources_with_lift",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 0,
+            "max_value": 2,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "day_off_index",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.5,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 107.98599867619178,
+            "max_value": 107.98599867619178,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "google_trends_lift",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.5,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 1.0984085487872648,
+            "max_value": 1.0984085487872648,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "bluesky_lift",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.5,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 1.061624649859944,
+            "max_value": 1.061624649859944,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "reddit_lift",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 1.0,
+            "distinct_count": 0,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "study_year"
+          ],
+          [
+            "release_day"
+          ],
+          [
+            "sources_with_lift"
+          ]
+        ],
+        "grain": [
+          "study_year"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "study_year"
+            ],
+            "status": "reported",
+            "reason": "study_year is unique and non-null on all 2 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "release_day"
+            ],
+            "status": "reported",
+            "reason": "release_day is unique and non-null on all 2 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "sources_with_lift"
+            ],
+            "status": "reported",
+            "reason": "sources_with_lift is unique and non-null on all 2 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "reddit_lift",
+            "code": "fully_null_column",
+            "severity": "high",
+            "detail": "reddit_lift is 100% NULL"
+          },
+          {
+            "column": "study_year",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "study_year participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-16T16:37:49.011936+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_signal_daily",
+        "object_type": "table",
+        "row_count": 1936,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "signal_day_key",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1936,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "source",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 4,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "google_trends",
+                  "count": 1080
+                },
+                {
+                  "value": "wikipedia",
+                  "count": 428
+                },
+                {
+                  "value": "bluesky",
+                  "count": 214
+                },
+                {
+                  "value": "hacker_news",
+                  "count": 214
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "signal",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 11,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "search:call in sick",
+                  "count": 216
+                },
+                {
+                  "value": "search:day off work",
+                  "count": 216
+                },
+                {
+                  "value": "search:gta 6",
+                  "count": 216
+                },
+                {
+                  "value": "search:pto",
+                  "count": 216
+                },
+                {
+                  "value": "search:sick day",
+                  "count": 216
+                },
+                {
+                  "value": "posts:day_off",
+                  "count": 214
+                },
+                {
+                  "value": "posts:day_off_gta",
+                  "count": 214
+                },
+                {
+                  "value": "pageviews:grand_theft_auto_vi",
+                  "count": 107
+                },
+                {
+                  "value": "pageviews:paid_time_off",
+                  "count": 107
+                },
+                {
+                  "value": "pageviews:presenteeism",
+                  "count": 107
+                },
+                {
+                  "value": "pageviews:sick_leave",
+                  "count": 107
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "signal_family",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 4,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "day_off_intent",
+                  "count": 1078
+                },
+                {
+                  "value": "hype",
+                  "count": 323
+                },
+                {
+                  "value": "reference",
+                  "count": 321
+                },
+                {
+                  "value": "day_off_gta",
+                  "count": 214
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "geo",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": {
+              "category": "location",
+              "confidence": 0.3
+            },
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "signal_date",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 110,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2025-10-02",
+            "max_value": "2026-11-16",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 411,
+            "temporal_distinct_periods": 108,
+            "temporal_missing_periods": 303,
+            "temporal_largest_gap": 303
+          },
+          {
+            "name": "signal_value",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.005165289256198302,
+            "distinct_count": 319,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 0.0,
+            "max_value": 82149.0,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_available",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": true,
+                  "count": 1926
+                },
+                {
+                  "value": false,
+                  "count": 10
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "study_year",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 2025,
+            "max_value": 2026,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": 2025,
+                  "count": 1098
+                },
+                {
+                  "value": 2026,
+                  "count": 838
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "days_from_release",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 62,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": -49,
+            "max_value": 11,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "iso_day_of_week",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 7,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 1,
+            "max_value": 7,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": 4,
+                  "count": 288
+                },
+                {
+                  "value": 5,
+                  "count": 288
+                },
+                {
+                  "value": 6,
+                  "count": 288
+                },
+                {
+                  "value": 7,
+                  "count": 288
+                },
+                {
+                  "value": 1,
+                  "count": 280
+                },
+                {
+                  "value": 2,
+                  "count": 252
+                },
+                {
+                  "value": 3,
+                  "count": 252
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "comparison_role",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.9721074380165289,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "baseline",
+                  "count": 36
+                },
+                {
+                  "value": "release",
+                  "count": 18
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "signal_day_key"
+          ]
+        ],
+        "grain": [
+          "signal_day_key"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "signal_day_key"
+            ],
+            "status": "reported",
+            "reason": "signal_day_key is unique and non-null on all 1936 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "signal_day_key",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "signal_day_key participates in the detected grain but the warehouse still allows it to be NULL"
+          },
+          {
+            "column": "comparison_role",
+            "code": "mostly_null_column",
+            "severity": "low",
+            "detail": "comparison_role is 97.2% NULL"
+          }
+        ],
+        "profiled_at": "2026-11-16T16:42:13.729550+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.int_signals__daily",
+        "object_type": "view",
+        "row_count": 1936,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "source",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 4,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "google_trends",
+                  "count": 1080
+                },
+                {
+                  "value": "wikipedia",
+                  "count": 428
+                },
+                {
+                  "value": "bluesky",
+                  "count": 214
+                },
+                {
+                  "value": "hacker_news",
+                  "count": 214
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "signal",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 11,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "search:call in sick",
+                  "count": 216
+                },
+                {
+                  "value": "search:day off work",
+                  "count": 216
+                },
+                {
+                  "value": "search:gta 6",
+                  "count": 216
+                },
+                {
+                  "value": "search:pto",
+                  "count": 216
+                },
+                {
+                  "value": "search:sick day",
+                  "count": 216
+                },
+                {
+                  "value": "posts:day_off",
+                  "count": 214
+                },
+                {
+                  "value": "posts:day_off_gta",
+                  "count": 214
+                },
+                {
+                  "value": "pageviews:grand_theft_auto_vi",
+                  "count": 107
+                },
+                {
+                  "value": "pageviews:paid_time_off",
+                  "count": 107
+                },
+                {
+                  "value": "pageviews:presenteeism",
+                  "count": 107
+                },
+                {
+                  "value": "pageviews:sick_leave",
+                  "count": 107
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "signal_family",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 4,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "day_off_intent",
+                  "count": 1078
+                },
+                {
+                  "value": "hype",
+                  "count": 323
+                },
+                {
+                  "value": "reference",
+                  "count": 321
+                },
+                {
+                  "value": "day_off_gta",
+                  "count": 214
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "geo",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": {
+              "category": "location",
+              "confidence": 0.3
+            },
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "signal_date",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 110,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2025-10-02",
+            "max_value": "2026-11-16",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 411,
+            "temporal_distinct_periods": 108,
+            "temporal_missing_periods": 303,
+            "temporal_largest_gap": 303
+          },
+          {
+            "name": "signal_value",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.005165289256198302,
+            "distinct_count": 319,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 0.0,
+            "max_value": 82149.0,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_available",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": true,
+                  "count": 1926
+                },
+                {
+                  "value": false,
+                  "count": 10
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [],
+        "grain": null,
+        "composite_keys": [],
+        "key_evidence": [],
+        "rank_score": null,
+        "data_quality": [
+          "no candidate key detected; grain unknown"
+        ],
+        "findings": [],
+        "profiled_at": "2026-11-16T16:42:13.832543+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.dim_date",
+        "object_type": "table",
+        "row_count": 457,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "date_day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 457,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2025-10-01",
+            "max_value": "2026-12-31",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 457,
+            "temporal_distinct_periods": 457,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "study_year",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 2025,
+            "max_value": 2026,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": 2026,
+                  "count": 365
+                },
+                {
+                  "value": 2025,
+                  "count": 92
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2025-11-20",
+            "max_value": "2026-11-19",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "2026-11-19",
+                  "count": 365
+                },
+                {
+                  "value": "2025-11-20",
+                  "count": 92
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": "day",
+            "temporal_span": 365,
+            "temporal_distinct_periods": 2,
+            "temporal_missing_periods": 363,
+            "temporal_largest_gap": 363
+          },
+          {
+            "name": "days_from_release",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 365,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": -322,
+            "max_value": 42,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "iso_day_of_week",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 7,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 1,
+            "max_value": 7,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": 3,
+                  "count": 66
+                },
+                {
+                  "value": 4,
+                  "count": 66
+                },
+                {
+                  "value": 1,
+                  "count": 65
+                },
+                {
+                  "value": 2,
+                  "count": 65
+                },
+                {
+                  "value": 5,
+                  "count": 65
+                },
+                {
+                  "value": 6,
+                  "count": 65
+                },
+                {
+                  "value": 7,
+                  "count": 65
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "day_name",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 7,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": {
+              "category": "name",
+              "confidence": 0.6
+            },
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "comparison_role",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.9912472647702407,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_gta_release_day",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 456
+                },
+                {
+                  "value": true,
+                  "count": 1
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "date_day"
+          ]
+        ],
+        "grain": [
+          "date_day"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "date_day"
+            ],
+            "status": "reported",
+            "reason": "date_day is unique and non-null on all 457 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "date_day",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "date_day participates in the detected grain but the warehouse still allows it to be NULL"
+          },
+          {
+            "column": "comparison_role",
+            "code": "mostly_null_column",
+            "severity": "low",
+            "detail": "comparison_role is 99.1% NULL"
+          }
+        ],
+        "profiled_at": "2026-11-16T16:42:13.890748+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      }
+    ],
+    "relationships": []
+  },
+  "warehouse_from": "cache",
+  "cache_updated_at": "2026-11-16T16:42:13.593659+00:00",
+  "transform_layer": {
+    "files": {
+      "models/intermediate/int_signals__daily.sql": "806632498605ed8ec793a9e08ff33e635dcb25053445fba875141fe603b221fa",
+      "models/intermediate/int_signals__daily.yml": "54512239261015928358f2b4803aada4a3b9e098ac32c5f4be6278bea7e4682d",
+      "models/marts/dim_date.sql": "8e5d361387a6942785d2fcec34db41263998dbe4b4bceb1dd3ad78b401303735",
+      "models/marts/dim_date.yml": "5d5c7b8e7d23ac8f0c6741565d4909fcff89f245f3cd652592db4262930c5132",
+      "models/marts/fct_day_off_index.sql": "db126f21f5ce50d197e225a5ac0fd8cf9001fbc3f71e7f4dab331cb0af8fc4d7",
+      "models/marts/fct_day_off_index.yml": "9cc4d544e361e80231df82caba6bdb628b7ec59cab81d242831531c9e66887a4",
+      "models/marts/fct_signal_daily.sql": "fc4a82455667ec5f5e0902e148df309030444177941c332c0cb06c5e186fa060",
+      "models/marts/fct_signal_daily.yml": "25d41fc4fd918050a1325c63abfb5a427647a585181e95bfb9894a5352911bb7",
+      "models/marts/fct_thursday_lift.sql": "57285c55c6170449f30e4dab19b9c130f8ad60757264f163f9ccb0690b8e679c",
+      "models/marts/fct_thursday_lift.yml": "ab0765a5ff5db7151fe73b8fc324af2fe5a4c4d05d61e58cd6153b228de7027a",
+      "models/marts/metricflow_time_spine.sql": "fa9fa9f664236f9af4e868eaf8b3fb300253d7b5677936d36bef66fd75049c01",
+      "models/marts/metricflow_time_spine.yml": "3455df32cbd9525b0b5164becc1a9bc7909dce85d8f53784f4f8e3f154a93d5a",
+      "models/marts/semantic/day_off_index.yml": "aa515ae86b882d0bb68c97bc22124ab28250d0fb6bf7454de7807cc16416f77e",
+      "models/marts/semantic/metrics.yml": "7234fdf10adde05214cb2075263e0332039d85be918211938ddac99359b33251",
+      "models/marts/semantic/signal_daily.yml": "2e65fb7a2bbee69259e2342636fa32130fe2d409e3226d882a0dd42084f87d3e",
+      "models/marts/semantic/thursday_lift.yml": "5a5f9d12a2a2efe759463f6c6564007f7ce9a470ecfbd59328fc4c61746de3cc",
+      "models/staging/_sources.yml": "8b4093fa40cb9b4bac6eee6be707aeb41d8f0b80a40fe8dd372c4d4ff8f3b579",
+      "models/staging/stg_bluesky__daily_hits.sql": "6bbd92a4c09bad5a8c9db4458bfb3c587854153870ac529400762195edc858b9",
+      "models/staging/stg_bluesky__daily_hits.yml": "6d9fb352935fcd60fd36b457dd4051488bd44834e77f139d740043cea041f6f4",
+      "models/staging/stg_hn__daily_hits.sql": "f61b6d745229d492facfc84bf5fedfdcd542593b564c1669f650772fac787781",
+      "models/staging/stg_hn__daily_hits.yml": "5a00fd93b31ce089672b511a3e4a9bdf541f146a2cd5ba7f1330f6825802d3d0",
+      "models/staging/stg_trends__interest.sql": "8b4a374b13e9bd41a626cd9ad9351772901abdb81bfba982afaa8054b210eb2d",
+      "models/staging/stg_trends__interest.yml": "6d0f99cb88180a0ff3cfc1434aa387c6b35ce50c78d61b967d3f422750882e25",
+      "models/staging/stg_wiki__pageviews.sql": "2a206d30dc32a91dbae3d2af53178dee0eac84476be45be665a6f08791520d32",
+      "models/staging/stg_wiki__pageviews.yml": "9600a44e2fff8bca7b7d11a7c42ad27e429751a67f45981d55107c1327321b99",
+      "data_tests/assert_control_year_present.sql": "9b954974ad9c9bb24b3fc6f5ad5f781659cfedbe86c190ee6afb05f234412cea",
+      "data_tests/assert_int_signals_grain.sql": "ce01913fa81342fd9770b78d22706576f42bf36fe1c9711364d6963325b86349",
+      "data_tests/assert_no_lift_from_unavailable.sql": "facd57889244d9773b72301ae419b42e0a8e25a868125446fb5fcb66a9b4c233",
+      "data_tests/assert_thursday_lift_grain.sql": "fa7fc6476ed4dcea40b83a578edac7799930c0eea084b641b025f9be5c8d2840",
+      "profiles.yml": "be2450ec6c0b4a460844d1b73ce4245729ba6de8b4ea570dcd3a3886b7279a9d",
+      "dbt_project.yml": "7d8e48fdb8ad1619849d99b92cf5420c8832b285ffd52a8c542125b657d9d4c3"
+    },
+    "models": [
+      "dim_date",
+      "fct_day_off_index",
+      "fct_signal_daily",
+      "fct_thursday_lift",
+      "int_signals__daily",
+      "metricflow_time_spine",
+      "stg_bluesky__daily_hits",
+      "stg_hn__daily_hits",
+      "stg_trends__interest",
+      "stg_wiki__pageviews"
+    ],
+    "model_paths": {
+      "int_signals__daily": "models/intermediate/int_signals__daily.sql",
+      "dim_date": "models/marts/dim_date.sql",
+      "fct_day_off_index": "models/marts/fct_day_off_index.sql",
+      "fct_signal_daily": "models/marts/fct_signal_daily.sql",
+      "fct_thursday_lift": "models/marts/fct_thursday_lift.sql",
+      "metricflow_time_spine": "models/marts/metricflow_time_spine.sql",
+      "stg_bluesky__daily_hits": "models/staging/stg_bluesky__daily_hits.sql",
+      "stg_hn__daily_hits": "models/staging/stg_hn__daily_hits.sql",
+      "stg_trends__interest": "models/staging/stg_trends__interest.sql",
+      "stg_wiki__pageviews": "models/staging/stg_wiki__pageviews.sql"
+    },
+    "sources": [
+      {
+        "source_name": "raw",
+        "schema_name": "raw",
+        "table": "wiki_pageviews",
+        "columns": [],
+        "path": "models/staging/_sources.yml"
+      },
+      {
+        "source_name": "raw",
+        "schema_name": "raw",
+        "table": "trends_interest",
+        "columns": [],
+        "path": "models/staging/_sources.yml"
+      },
+      {
+        "source_name": "raw",
+        "schema_name": "raw",
+        "table": "bluesky_daily_hits",
+        "columns": [],
+        "path": "models/staging/_sources.yml"
+      },
+      {
+        "source_name": "raw",
+        "schema_name": "raw",
+        "table": "hn_daily_hits",
+        "columns": [],
+        "path": "models/staging/_sources.yml"
+      },
+      {
+        "source_name": "raw",
+        "schema_name": "raw",
+        "table": "reddit_items",
+        "columns": [],
+        "path": "models/staging/_sources.yml"
+      },
+      {
+        "source_name": "raw",
+        "schema_name": "raw",
+        "table": "reddit_coverage",
+        "columns": [],
+        "path": "models/staging/_sources.yml"
+      }
+    ],
+    "model_sources": {
+      "stg_bluesky__daily_hits": [
+        "raw.bluesky_daily_hits"
+      ],
+      "stg_hn__daily_hits": [
+        "raw.hn_daily_hits"
+      ],
+      "stg_trends__interest": [
+        "raw.trends_interest"
+      ],
+      "stg_wiki__pageviews": [
+        "raw.wiki_pageviews"
+      ]
+    },
+    "model_refs": {
+      "int_signals__daily": [
+        "stg_bluesky__daily_hits",
+        "stg_hn__daily_hits",
+        "stg_trends__interest",
+        "stg_wiki__pageviews"
+      ],
+      "fct_day_off_index": [
+        "fct_thursday_lift"
+      ],
+      "fct_signal_daily": [
+        "dim_date",
+        "int_signals__daily"
+      ],
+      "fct_thursday_lift": [
+        "fct_signal_daily"
+      ]
+    },
+    "declarations": {
+      "int_signals__daily": {
+        "path": "models/intermediate/int_signals__daily.yml",
+        "fields": {
+          "description": "d355f8524ab1413f25fd126e87cb20377644049d3f1d25fc9dfb67c32a26621a",
+          "grain": "45bd3df72a65dbd8438e76cc9e336e1ab33d3007c7cfa370fd1da96cd5f6baa3",
+          "population": "101e4ccb4f1ff574d4f8df7e3bb78630789e4ba3925151cd8b61c79e3dea13b6",
+          "assumptions": "dbc1ff6da1c4b436909368aef0d11256af34535677688bec19c502f4452cbd31"
+        },
+        "columns": {
+          "source": {
+            "description": "927dbac726730c17c7805d948c24ac3764b6664fb9e08a4d8d0c03c1495cc87e",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal": {
+            "description": "aced5061bcc8935578575a5e83fc6560950944316a2e91756318ca2a98d75d4c",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal_family": {
+            "description": "1c5e94556227b548ca21413677c338818dff15a5823e186dd1906e26097da32c",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "geo": {
+            "description": "2c2b4ade226d4b82286e69d530339c9ef74ecee000db202c273ee7580fc640a4",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal_date": {
+            "description": "1df2349e2ef2d106f0ffca928b5e6f9f9fa9536faca46bd51c3600898d1b111e",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal_value": {
+            "description": "095802251b0d6adfcd61fc87bf1797bf139a79b95176790c034374cce849a040",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "75d052597da8d0b03543d0b5f6076bf4be8792ff687ab86810336b902437ebaf",
+            "aggregation": "4482ea0ae0ce3742ddbdc1953682872957da22ba1fd100977e444012ed63572c",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "66bfb7213f67cd0af0db92bbcf55f7be955e767c936e4e808051b9f330aa724d"
+          },
+          "is_available": {
+            "description": "d5687e6e2fa9faa06001f938bb989fe18122bd8fad6f409682c34d8717e68cbf",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          }
+        }
+      },
+      "dim_date": {
+        "path": "models/marts/dim_date.yml",
+        "fields": {
+          "description": "6dc9915aae54570750cd435b2cfcc2fc8be06edfc25ca45dc46f5197120cc463",
+          "grain": "8721f5843b05eea366367de4ba6832fdb2c95f3f262a47472a7329ec431a1ce4",
+          "population": "3cb8256035ab6be73e1bdd03b8763465f00c6b278151f2e7bc61818b7d1f0f77",
+          "assumptions": "80266e483b2b4560117de0478e20facbbeda4c819885168d4bf795b2db829d8d"
+        },
+        "columns": {
+          "date_day": {
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "study_year": {
+            "description": "fc429ac494fad63e7c290b96e5e970ed941f1978c564187d260228146c3c58a1",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "release_day": {
+            "description": "17f82b8836eb8e8208569e84827e596864033b15c143091b5c66695bd3f04f66",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "days_from_release": {
+            "description": "a9df19e67bdd1cd04419a9cb547c8e35b073977e35b3457a146e0baeb637de91",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "unit": "15ab0356a25e08eb0d93e4658961021125228d88b28c2fc71c97575f97d1f292"
+          },
+          "iso_day_of_week": {
+            "description": "cf2bf6e045f98456671c6993b55fc5bf2c6842d568ed1b91090d95bd58fb1033",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "day_name": {
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "comparison_role": {
+            "description": "88766b80ae64b9e8a28fa21d90be578bdce3694148f2ec387cb3dc1ffd954052",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "507c30dfd842f7711cf59c0a2b864b51b3725dea7648043494f48df81edca92b"
+          },
+          "is_gta_release_day": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          }
+        }
+      },
+      "fct_day_off_index": {
+        "path": "models/marts/fct_day_off_index.yml",
+        "fields": {
+          "description": "376984f7e27686720c35df6173fe7a67859f3055950d56a2f7862dd209799e2d",
+          "grain": "7c2e10956aab30404b00ba6afaefe972a2bf27a00fbf2c872a2ca8d1fca96d47",
+          "population": "54127a1a16a3fb14f214e0bab8959e21ff9ad8cde44834729cc2af82f4a0c944",
+          "assumptions": "a4ebd55e96f2b7b10dae923e7e399cab5b8d365054dca4d02bf1923b26964851"
+        },
+        "columns": {
+          "study_year": {
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "release_day": {
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "sources_total": {
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "sources_with_lift": {
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "day_off_index": {
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "9f15cdb16a39eeb4ffc4d069003baada57a64eea320545300e4a316ef015c454",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "605796fe027588e216c3d61d0bc1f0ceddcd33493c17f68184d1bf87d526dfdf"
+          },
+          "google_trends_lift": {
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "239094bb2e2c37df236512cacff08f7f2524a6f9098e494218e6e47181ec2381"
+          },
+          "bluesky_lift": {
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "239094bb2e2c37df236512cacff08f7f2524a6f9098e494218e6e47181ec2381"
+          },
+          "reddit_lift": {
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "239094bb2e2c37df236512cacff08f7f2524a6f9098e494218e6e47181ec2381"
+          }
+        }
+      },
+      "fct_signal_daily": {
+        "path": "models/marts/fct_signal_daily.yml",
+        "fields": {
+          "description": "06a35ac39ae30d3ec4741ea6c662f41c524222a17dad39f31dab627eaf79cb77",
+          "grain": "0a47bb52203da5f7a4c20be37d2d2ecb477f7d9d85a5b2faf3b10610ce15daf0",
+          "population": "b6b5994f6b2f57ed2013db5be642851245bab5d54348783fda8a6e0253534777",
+          "assumptions": "105461d248b2b29e34dbf6bd7265f0d9500b19982918d0db36c4744c34b3f0c8"
+        },
+        "columns": {
+          "source": {
+            "description": "927dbac726730c17c7805d948c24ac3764b6664fb9e08a4d8d0c03c1495cc87e",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal": {
+            "description": "aced5061bcc8935578575a5e83fc6560950944316a2e91756318ca2a98d75d4c",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal_family": {
+            "description": "1c5e94556227b548ca21413677c338818dff15a5823e186dd1906e26097da32c",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "geo": {
+            "description": "2c2b4ade226d4b82286e69d530339c9ef74ecee000db202c273ee7580fc640a4",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal_date": {
+            "description": "1df2349e2ef2d106f0ffca928b5e6f9f9fa9536faca46bd51c3600898d1b111e",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal_value": {
+            "description": "095802251b0d6adfcd61fc87bf1797bf139a79b95176790c034374cce849a040",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "75d052597da8d0b03543d0b5f6076bf4be8792ff687ab86810336b902437ebaf",
+            "aggregation": "4482ea0ae0ce3742ddbdc1953682872957da22ba1fd100977e444012ed63572c",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "66bfb7213f67cd0af0db92bbcf55f7be955e767c936e4e808051b9f330aa724d"
+          },
+          "is_available": {
+            "description": "d5687e6e2fa9faa06001f938bb989fe18122bd8fad6f409682c34d8717e68cbf",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal_day_key": {
+            "description": "ce4f792a98cd2442678b33212797d2d12d05614a2df7e9c474f29022ebc4d241",
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "study_year": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "days_from_release": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "unit": "15ab0356a25e08eb0d93e4658961021125228d88b28c2fc71c97575f97d1f292"
+          },
+          "iso_day_of_week": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "comparison_role": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "c63e668853a363c611acb03c24c2c972f9e32b0e704ace281f5367227de8f6c3"
+          }
+        }
+      },
+      "fct_thursday_lift": {
+        "path": "models/marts/fct_thursday_lift.yml",
+        "fields": {
+          "description": "1596c3eb7bb4c85cac73ef64da276e128f5a7031d6616cfcb2c82bba468e5ac4",
+          "grain": "99334e917b460dc5dcfc404e3ec178c5811eb5465829cd7a18844cee3bb2ec35",
+          "population": "ba972f80ee97bfd3e828569bee43fd89c07aedb4e3cf343dc59c04f4c0d7749a",
+          "assumptions": "7ee174e4aa2d98b3e8f1c1b51305090f6d74d013aa1dc1c3143aad3c2b191a66"
+        },
+        "columns": {
+          "thursday_lift_key": {
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "source": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "signal_family": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "geo": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "study_year": {
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "release_day": {
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "baseline_value": {
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "f1596b9777151436bd4f45a13e5e76f3b1555a243d1726df0d04a78c3bfaf78e",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "af5246407d426f09f250368d4f2343e572b726a51c4fa269ac40a780e6a37211"
+          },
+          "release_value": {
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "5365f46f7f6e49a15be9b9ec3e6b9a59f37462a03abc641a391f01e5ee2164ad",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "af5246407d426f09f250368d4f2343e572b726a51c4fa269ac40a780e6a37211"
+          },
+          "is_baseline_available": {
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "is_release_available": {
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "lift": {
+            "description": "e585c11a97130be94c78f71dce8ce18b68abc25f0d0045bce3ca88463a5f4263",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "305def90ae3cd9249016965ef5ad8bd120ff20fb7bbc33330c0193870f7122aa",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "239094bb2e2c37df236512cacff08f7f2524a6f9098e494218e6e47181ec2381"
+          },
+          "is_index_component": {
+            "description": "a09eab09b795ff5eefef53e4069c2ff5960a7134d6875fdfb1bd9163da788c8e",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          }
+        }
+      },
+      "metricflow_time_spine": {
+        "path": "models/marts/metricflow_time_spine.yml",
+        "fields": {
+          "description": "c0e06902e6c8282df931d2406624f45f6c0513e2d7e0d029949b813957cb41ff",
+          "grain": "8721f5843b05eea366367de4ba6832fdb2c95f3f262a47472a7329ec431a1ce4",
+          "population": "7f697f65a45892ee8e14a4443a8dbdaecb8ee2aba2fe3c5309c0655750f4ef71",
+          "assumptions": "0ca5d7129ef440e0c2f81a7fa303ea30ff1319ae5b9906e6491992e8287cab99"
+        },
+        "columns": {
+          "date_day": {
+            "description": "17ce4934ff79f190678bac496518923f3eada7ff70babdfad44ee7568aee4ed6",
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          }
+        }
+      },
+      "stg_bluesky__daily_hits": {
+        "path": "models/staging/stg_bluesky__daily_hits.yml",
+        "fields": {
+          "description": "d1810edfd996bb0c52d8540cb06cf45a0579ff050e23968f9f77c97d7fbf5dad",
+          "grain": "e2d425ac527c810226ab37dcb8c21423cc81d191fe518b35d26c769302384751",
+          "population": "daa8b8ab8371b5939b2480915ddcca3271fe8fc074324204dddef24d1bdf2de4",
+          "assumptions": "20a9c0506923db3831c5d2a668a939cc44a19e8e46e695cdb868d4e66a4c6d67"
+        },
+        "columns": {
+          "hit_date": {
+            "description": "492b84161b54c0d700857c4bbdbb0d2dfeb71b668e2add400e935e0d8885d774",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "seed": {
+            "description": "5256e287672d154dd34cb4cfbd4e09ea5c5e2ebbce25a097766678f061b13c66",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "gta_filter": {
+            "description": "bfa1803cfd4b4ff02fc77cef1a604ce34474eac39ec3e1fe3099908f4c558d5a",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "query": {
+            "description": "14a12b41b380c844f17289abebbba5e4eee797997d61911a1e3796d33fcbc095",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
+          },
+          "hits_total": {
+            "description": "4ebed9f67d005436369c3c20e070fbd5e22614a99f9d264f5e952a0aee051c66",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "dd671ce548970418c7d0eb877b715c67059b6c45127fae9bb6298442cb17adf4",
+            "aggregation": "4482ea0ae0ce3742ddbdc1953682872957da22ba1fd100977e444012ed63572c",
+            "additivity": "9b5fa6f9217c165c470d2d6b816f7edd3810e0fb98e0cb451ac2e1b214264b3a",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "is_available": {
+            "description": "2cf3d731d80f3ef119666eb2560d4bc397b1005755c7efdc31d2baec6f57dd96",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "observed_at": {
+            "description": "4c4e733430c0b44a1094d4dbd484f48004c068ae313708791f4181005b350163",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
+          }
+        }
+      },
+      "stg_hn__daily_hits": {
+        "path": "models/staging/stg_hn__daily_hits.yml",
+        "fields": {
+          "description": "51e7abb49a6ecc4326d1ced37e5209176a2b3e88c06c778742a6b829d9e47f03",
+          "grain": "e2d425ac527c810226ab37dcb8c21423cc81d191fe518b35d26c769302384751",
+          "population": "daa8b8ab8371b5939b2480915ddcca3271fe8fc074324204dddef24d1bdf2de4",
+          "assumptions": "7ae1785462dd81fe68b70c665e9d5eb1e4cc154e226cf18582b257c94f58a5bf"
+        },
+        "columns": {
+          "hit_date": {
+            "description": "492b84161b54c0d700857c4bbdbb0d2dfeb71b668e2add400e935e0d8885d774",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "seed": {
+            "description": "5256e287672d154dd34cb4cfbd4e09ea5c5e2ebbce25a097766678f061b13c66",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "gta_filter": {
+            "description": "bfa1803cfd4b4ff02fc77cef1a604ce34474eac39ec3e1fe3099908f4c558d5a",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "query": {
+            "description": "14a12b41b380c844f17289abebbba5e4eee797997d61911a1e3796d33fcbc095",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
+          },
+          "hits_total": {
+            "description": "83f7d315bc140416d58312d5b1c4e7e96364475f5486272c591beead1dce2066",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "e6117b0476aaf463ce9efa8e9642e70cf83e8b422714fd8f8a7157eccf6b20cd",
+            "aggregation": "4482ea0ae0ce3742ddbdc1953682872957da22ba1fd100977e444012ed63572c",
+            "additivity": "9b5fa6f9217c165c470d2d6b816f7edd3810e0fb98e0cb451ac2e1b214264b3a",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "is_available": {
+            "description": "2cf3d731d80f3ef119666eb2560d4bc397b1005755c7efdc31d2baec6f57dd96",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "observed_at": {
+            "description": "4c4e733430c0b44a1094d4dbd484f48004c068ae313708791f4181005b350163",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
+          }
+        }
+      },
+      "stg_trends__interest": {
+        "path": "models/staging/stg_trends__interest.yml",
+        "fields": {
+          "description": "57b799a503be479d4ed610e8daca5e00e006c4503cfd1ebd7bb01ac7091e19aa",
+          "grain": "06177e473e0752eccdf3996054c91c405755119f5dad19854d94838b383f14cf",
+          "population": "a789cc45e562c11c9dc168efb215e42409923947317fb8e49aff04c876f25226",
+          "assumptions": "ec165afa7f58f09b65a20e5af747f27edad73555e66e63caf2b827a3683279e4"
+        },
+        "columns": {
+          "request_id": {
+            "description": "885ecfdba4a697381a8f23c489d81cd0dd956d637a431218ad07f61a98abab78",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "study_year": {
+            "description": "9286693a270f6278154c285e25a5d4417d13035c9bbcc7f5e705135d753067c9",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "term_group": {
+            "description": "8a2ab86cc63f5c34d3a459820aba781831a6378424d58327dc58f7b36eebc857",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "geo": {
+            "description": "b5ffbd6817155a5aa4366e1fcb5681bc285ef3989f65d400f0a73d1235141a64",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "term": {
+            "description": "c3310b23943edcbf6c7acc3ddf4179362958216f55b8b09a0bd2c353d3dc492b",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "interest_date": {
+            "description": "284ba45cb025adce702d2846d5cc41b591768439210086b742cd72063ff97900",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "interest": {
+            "description": "b619cf71d06d41562ea1f3235e6bfe9407266135f1d21dfc6f7bcf856de4f47b",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "485ba236b58f34b73b4d20d72b0bdfe5f8114d110d5062a01a2b234f25385030"
+          },
+          "is_partial": {
+            "description": "2b7f43c164dba2f08a63a8ee18c4a9d72d129964d7baf29da8ca2e8f786ed602",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          }
+        }
+      },
+      "stg_wiki__pageviews": {
+        "path": "models/staging/stg_wiki__pageviews.yml",
+        "fields": {
+          "description": "f3d5a187ad85d3bea1faebd8c969622e5e1787ad1aca7a75b0927e18394b2041",
+          "grain": "3e2d349d17b92753847813485da35211c79fe75285b2870d0e371454542f3a94",
+          "population": "d832f9446cebdc96c6e11e4ea4d547ec80cbd6c76281474ff5b282c45e9397b3",
+          "assumptions": "bf0cb65452eddddacf6f8a001e8671c7dd782d64d55cebe64bd1118253222668"
+        },
+        "columns": {
+          "article": {
+            "description": "a04a968be637ca2facc45485caec1f180b7e9f1a296f9c348159f5d81299b776",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "view_date": {
+            "description": "df33097453157f16c89badabfb6866717b142f33c54730d4b70dd8ffcc0832fb",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "views": {
+            "description": "6eeb74889319ef0177cb2a74dc5c44daec98e73b3cba930129df08e57fa32865",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "4482ea0ae0ce3742ddbdc1953682872957da22ba1fd100977e444012ed63572c",
+            "additivity": "9b5fa6f9217c165c470d2d6b816f7edd3810e0fb98e0cb451ac2e1b214264b3a",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          }
+        }
+      }
+    },
+    "versions": [],
+    "notes": []
+  },
+  "semantic_layer": {
+    "semantic_models": [
+      {
+        "name": "fct_day_off_index",
+        "path": "models/marts/semantic/day_off_index.yml",
+        "content_sha256": "71f7e005ae69578d6d2302b29a8e0f1d5ae6b3a7badf0d115814fdbf9ed0dea8",
+        "model_ref": "fct_day_off_index",
+        "relation": null,
+        "entities": {
+          "index_year": "study_year"
+        },
+        "dimensions": {
+          "study_year": "study_year",
+          "release_day": "release_day"
+        },
+        "categorical_dimensions": {
+          "study_year": "study_year"
+        },
+        "measures": {
+          "day_off_index_measure": "day_off_index",
+          "google_trends_lift": "google_trends_lift",
+          "bluesky_lift": "bluesky_lift",
+          "reddit_lift": "reddit_lift"
+        },
+        "keys": [],
+        "key_claims": null
+      },
+      {
+        "name": "fct_signal_daily",
+        "path": "models/marts/semantic/signal_daily.yml",
+        "content_sha256": "d7d5a348d0d43bb955398f91c7e8cd0d5717ed2ee9beb0b11067faa63da2423a",
+        "model_ref": "fct_signal_daily",
+        "relation": null,
+        "entities": {
+          "signal_day": "signal_day_key"
+        },
+        "dimensions": {
+          "source": "source",
+          "signal": "signal",
+          "signal_family": "signal_family",
+          "geo": "geo",
+          "signal_date": "signal_date",
+          "study_year": "study_year",
+          "days_from_release": "days_from_release",
+          "iso_day_of_week": "iso_day_of_week",
+          "comparison_role": "comparison_role"
+        },
+        "categorical_dimensions": {
+          "source": "source",
+          "signal": "signal",
+          "signal_family": "signal_family",
+          "geo": "geo",
+          "study_year": "study_year",
+          "days_from_release": "days_from_release",
+          "iso_day_of_week": "iso_day_of_week",
+          "comparison_role": "comparison_role"
+        },
+        "measures": {
+          "signal_value_measure": "signal_value"
+        },
+        "keys": [],
+        "key_claims": null
+      },
+      {
+        "name": "fct_thursday_lift",
+        "path": "models/marts/semantic/thursday_lift.yml",
+        "content_sha256": "234f1b8d97a4bcc4ca131607d3a482b04731c2cf019e046d6ba1f2816d459d62",
+        "model_ref": "fct_thursday_lift",
+        "relation": null,
+        "entities": {
+          "thursday_lift": "thursday_lift_key"
+        },
+        "dimensions": {
+          "source": "source",
+          "signal": "signal",
+          "signal_family": "signal_family",
+          "geo": "geo",
+          "study_year": "study_year",
+          "release_day": "release_day",
+          "is_index_component": "is_index_component"
+        },
+        "categorical_dimensions": {
+          "source": "source",
+          "signal": "signal",
+          "signal_family": "signal_family",
+          "geo": "geo",
+          "study_year": "study_year",
+          "is_index_component": "is_index_component"
+        },
+        "measures": {
+          "baseline_value": "baseline_value",
+          "release_value": "release_value",
+          "lift": "lift"
+        },
+        "keys": [],
+        "key_claims": null
+      }
+    ],
+    "metrics": [
+      {
+        "name": "day_off_index",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "8402ab7922a805ebe2111a776171c9ed7f63aa138946d8b5dd0e6c879d0b8f39",
+        "input_measures": [
+          "day_off_index_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "day_off_index_2026",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "8903e6aab7102d029abf5bb800aa2dd9b49d24379446ad641681123a65958c0f",
+        "input_measures": [
+          "day_off_index_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "day_off_index_2025",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "6aed82e4a8b320edd8fbc8cfe480b68e43f96cd319df0f95c4c32e25e929b219",
+        "input_measures": [
+          "day_off_index_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "day_off_index_gta_effect",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "ab91259ab39cd217a4c9b0d0198309fa18d84f38d91a6d8f317ef6b98d07ac4e",
+        "input_measures": [],
+        "input_metrics": [
+          "day_off_index_2026",
+          "day_off_index_2025"
+        ]
+      },
+      {
+        "name": "thursday_lift",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "fee09cde5823eee73fc3a1e0cdd577a672a6668624330b95b45b472eb75c826b",
+        "input_measures": [
+          "lift"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "signal_value",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "a583e2546f0acb7a81df8d0fddc47d5f29b50c0c6be0428c6e815821944e9cbc",
+        "input_measures": [
+          "signal_value_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "signal_value_prior_week_ratio",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "9d6c5b0bba8e84173881ea1768b1da08237f1b0bda4799b91a270066ad60a74b",
+        "input_measures": [],
+        "input_metrics": [
+          "signal_value",
+          "signal_value"
+        ]
+      },
+      {
+        "name": "day_off_mentions",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "b96bdefc6bb32a6bf6d51b337b29af0a2f89c26abfc70235faa49be9edf25730",
+        "input_measures": [
+          "signal_value_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "day_off_mentions_gta",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "c98bafe859c7de2e9d1c73ac9609c286a3d1b1c9e0539aa3d383556353c28124",
+        "input_measures": [
+          "signal_value_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "gta_share_of_day_off_talk",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "706bcbd433ed283520ecaaeabb1973ba8fec9b6bfbe77bbaed1dcafb1537c4f3",
+        "input_measures": [],
+        "input_metrics": [
+          "day_off_mentions_gta",
+          "day_off_mentions"
+        ]
+      },
+      {
+        "name": "gta_wiki_pageviews",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "72e2b84fd9b1920b862f225d934c80b563a9cf2d38d55a7341f117ddcf5f58a9",
+        "input_measures": [
+          "signal_value_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "search_interest",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "d6ac24752962e9a92b1ce8aad1a5b1bcb329a85f777c53820d5c89f8bc54e6f5",
+        "input_measures": [
+          "signal_value_measure"
+        ],
+        "input_metrics": []
+      }
+    ],
+    "relationships": [],
+    "relationships_and_keys_captured": false,
+    "relationship_cardinality_captured": false,
+    "vendor": "dbt",
+    "vendor_release": null,
+    "format_version": null,
+    "definition_versions": null,
+    "opaque_definitions": [],
+    "opaque_captured": false,
+    "declarations": null,
+    "notes": []
+  }
+}

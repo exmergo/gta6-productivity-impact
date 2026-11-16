@@ -1,0 +1,35 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+
+# dbt output (the warehouse itself IS committed: warehouse/gta6.duckdb)
+target/
+logs/
+dbt_packages/
+.user.yml
+*.duckdb.wal
+warehouse/*.tmp
+
+# Dex: query ledgers and field reports stay local
+.dex/*.jsonl
+dex-field-reports/
+
+# Rendered scratch
+out/scratch/
+*.log
+
+# Secrets: never commit
+.env
+.env.*
+!.env.example
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+.dex/cache.lock

@@ -1,0 +1,10 @@
+gta6_impact:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('GTA6_WAREHOUSE', 'warehouse/gta6.duckdb') }}"
+      schema: main
+      threads: 1
+      settings:
+        TimeZone: UTC

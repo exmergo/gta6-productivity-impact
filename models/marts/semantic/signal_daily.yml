@@ -1,0 +1,105 @@
+version: 2
+
+semantic_models:
+  - name: fct_signal_daily
+    description: 'One row per signal per UTC day inside the study and control windows, with its place relative to release. Population: Signal-days whose date falls in dim_date; days outside the spine are dropped by the inner join.'
+    model: ref('fct_signal_daily')
+    defaults:
+      agg_time_dimension: signal_date
+    entities:
+      - name: signal_day
+        type: primary
+        expr: signal_day_key
+        config:
+          meta:
+            dex:
+              null_rule: never
+    dimensions:
+      - name: source
+        type: categorical
+        description: google_trends, bluesky, reddit, hacker_news or wikipedia.
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: signal
+        type: categorical
+        description: What is counted, e.g. search:pto, posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi.
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: signal_family
+        type: categorical
+        description: day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference.
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: geo
+        type: categorical
+        description: US or WORLD. Only Google Trends has a US slice.
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: signal_date
+        type: time
+        type_params:
+          time_granularity: day
+        description: UTC day (Google's own day for Trends).
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: study_year
+        type: categorical
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: days_from_release
+        type: categorical
+        config:
+          meta:
+            dex:
+              unit: days
+              null_rule: never
+      - name: iso_day_of_week
+        type: categorical
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: comparison_role
+        type: categorical
+        config:
+          meta:
+            dex:
+              null_rule: NULL except on the two compared Thursdays
+    measures:
+      - name: signal_value_measure
+        agg: sum
+        expr: signal_value
+        description: Daily value of a signal. Counts for posts and pageviews, 0-100 relative interest for Trends. Only meaningful grouped by source, signal and geo; never add across signals.
+        config:
+          meta:
+            dex:
+              unit: count or index (see signal)
+              additivity: non_additive
+              null_rule: NULL when the value could not be read
+    config:
+      meta:
+        dex:
+          population:
+            rule: Signal-days whose date falls in dim_date; days outside the spine are dropped by the inner join.
+          assumptions:
+            - decision: Days outside the window
+              chosen: dropped
+              evidence: request
+              detail: the study compares Thursdays in Oct-Nov 2026 against the same weeks of 2025; the inner join to dim_date keeps only that spine
+              column: signal_date
+            - decision: Surrogate key
+              chosen: md5 of the natural grain
+              evidence: default
+              detail: the key is md5 of the composite Dex drafts as the grain, so the two describe the same rows; MetricFlow needs a single-column primary entity

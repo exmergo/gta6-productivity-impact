@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: metricflow_time_spine
+    description: One row per calendar day, 2025-2027. MetricFlow's time spine.
+    time_spine:
+      standard_granularity_column: date_day
+    config:
+      meta:
+        dex:
+          grain:
+            - date_day
+          population:
+            rule: Every calendar day from 2025-01-01 to 2027-12-30.
+          assumptions:
+            - decision: Spine range
+              chosen: 2025-2027
+              evidence: default
+              detail: covers the control year, the study year and the recovery tail
+    columns:
+      - name: date_day
+        description: Calendar day.
+        granularity: day
+        config:
+          meta:
+            dex:
+              role: key
+              null_rule: never
+        data_tests:
+          - unique
+          - not_null

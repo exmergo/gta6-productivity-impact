@@ -1,0 +1,23 @@
+GTA 6 Productivity Impact
+Copyright 2026 Exmergo
+
+This product includes software developed by Exmergo (Dex, exmergo-dex-core),
+licensed under the Apache License, Version 2.0. https://trydex.ai
+
+It depends on, and is built with:
+- DuckDB (MIT License)
+- dbt-core and dbt-duckdb (Apache License 2.0)
+- MetricFlow (Apache License 2.0)
+- trendspy (MIT License)
+
+Fonts: IBM Plex Sans and IBM Plex Mono, Copyright IBM Corp., licensed under the
+SIL Open Font License 1.1. See brand/fonts/IBM-Plex-LICENSE.txt.
+
+Trademarks: the Dex and Exmergo names and logos (brand/assets/) are trademarks
+of Exmergo and are not licensed under the Apache License. "Grand Theft Auto",
+"GTA" and Rockstar Games are trademarks of Take-Two Interactive Software, Inc.
+This project is not affiliated with or endorsed by Rockstar Games or Take-Two.
+
+Data: Wikimedia pageviews (CC0), Bluesky public search, Hacker News via Algolia,
+Reddit via the Arctic Shift archive, and Google Trends. Only aggregate counts
+and non-identifying flags are stored; no post text, handles or usernames.

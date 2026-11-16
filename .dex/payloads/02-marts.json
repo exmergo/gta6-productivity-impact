@@ -1,0 +1,439 @@
+{
+ "edits": [
+  {
+   "path": "models/intermediate/int_signals__daily.sql",
+   "kind": "model_sql",
+   "content": "-- Every signal as one daily value per (source, signal, geo, UTC day).\n-- A value that could not be read is NULL with is_available = false: unavailable, never zero.\nwith trends as (\n    select\n        'google_trends' as source,\n        'search:' || lower(term) as signal,\n        case term_group when 'day_off' then 'day_off_intent' else 'hype' end as signal_family,\n        geo,\n        interest_date as signal_date,\n        case when not is_partial then cast(interest as double) end as signal_value,\n        not is_partial as is_available\n    from {{ ref('stg_trends__interest') }}\n),\n\nbluesky as (\n    select\n        'bluesky' as source,\n        case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,\n        case gta_filter when 'gta' then 'day_off_gta' else 'day_off_intent' end as signal_family,\n        'WORLD' as geo,\n        hit_date as signal_date,\n        case when bool_and(is_available) then cast(sum(hits_total) as double) end as signal_value,\n        bool_and(is_available) as is_available\n    from {{ ref('stg_bluesky__daily_hits') }}\n    group by gta_filter, hit_date\n),\n\nhacker_news as (\n    select\n        'hacker_news' as source,\n        case gta_filter when 'gta' then 'posts:day_off_gta' else 'posts:day_off' end as signal,\n        case gta_filter when 'gta' then 'day_off_gta' else 'day_off_intent' end as signal_family,\n        'WORLD' as geo,\n        hit_date as signal_date,\n        case when bool_and(is_available) then cast(sum(hits_total) as double) end as signal_value,\n        bool_and(is_available) as is_available\n    from {{ ref('stg_hn__daily_hits') }}\n    group by gta_filter, hit_date\n),\n\nwikipedia as (\n    select\n        'wikipedia' as source,\n        'pageviews:' || lower(article) as signal,\n        case when article = 'Grand_Theft_Auto_VI' then 'hype' else 'reference' end as signal_family,\n        'WORLD' as geo,\n        view_date as signal_date,\n        cast(views as double) as signal_value,\n        true as is_available\n    from {{ ref('stg_wiki__pageviews') }}\n)\n\nselect * from trends\nunion all\nselect * from bluesky\nunion all\nselect * from hacker_news\nunion all\nselect * from wikipedia\n"
+  },
+  {
+   "path": "models/marts/dim_date.sql",
+   "kind": "model_sql",
+   "content": "-- One row per UTC day of the study window and its control year, with its place relative\n-- to that year's release Thursday.\nwith spine as (\n    select cast(range as date) as date_day\n    from range(date '2025-10-01', date '2027-01-01', interval 1 day)\n),\n\nyears as (\n    select\n        date_day,\n        case when date_day >= date '2026-01-01' then 2026 else 2025 end as study_year\n    from spine\n),\n\nanchored as (\n    select\n        date_day,\n        study_year,\n        case study_year when 2026 then date '2026-11-19' else date '2025-11-20' end as release_day\n    from years\n)\n\nselect\n    date_day,\n    study_year,\n    release_day,\n    cast(date_day - release_day as integer) as days_from_release,\n    isodow(date_day) as iso_day_of_week,\n    dayname(date_day) as day_name,\n    case cast(date_day - release_day as integer)\n        when 0 then 'release'\n        when -7 then 'baseline'\n    end as comparison_role,\n    study_year = 2026 and date_day = release_day as is_gta_release_day\nfrom anchored\n"
+  },
+  {
+   "path": "models/marts/fct_signal_daily.sql",
+   "kind": "model_sql",
+   "content": "select\n    md5(\n        signals.source || '|' || signals.signal || '|' || signals.geo || '|'\n        || cast(signals.signal_date as varchar)\n    ) as signal_day_key,\n    signals.source,\n    signals.signal,\n    signals.signal_family,\n    signals.geo,\n    signals.signal_date,\n    signals.signal_value,\n    signals.is_available,\n    dates.study_year,\n    dates.days_from_release,\n    dates.iso_day_of_week,\n    dates.comparison_role\nfrom {{ ref('int_signals__daily') }} as signals\ninner join {{ ref('dim_date') }} as dates\n    on signals.signal_date = dates.date_day\n"
+  },
+  {
+   "path": "models/marts/fct_thursday_lift.sql",
+   "kind": "model_sql",
+   "content": "-- Release Thursday over the Thursday before, per signal and study year.\nwith pairs as (\n    select\n        source,\n        signal,\n        signal_family,\n        geo,\n        study_year,\n        max(signal_value) filter (where comparison_role = 'baseline') as baseline_value,\n        max(signal_value) filter (where comparison_role = 'release') as release_value,\n        coalesce(bool_or(is_available) filter (where comparison_role = 'baseline'), false)\n            as is_baseline_available,\n        coalesce(bool_or(is_available) filter (where comparison_role = 'release'), false)\n            as is_release_available\n    from {{ ref('fct_signal_daily') }}\n    where comparison_role is not null\n    group by source, signal, signal_family, geo, study_year\n)\n\nselect\n    md5(source || '|' || signal || '|' || geo || '|' || cast(study_year as varchar))\n        as thursday_lift_key,\n    source,\n    signal,\n    signal_family,\n    geo,\n    study_year,\n    case study_year when 2026 then date '2026-11-19' else date '2025-11-20' end as release_day,\n    baseline_value,\n    release_value,\n    is_baseline_available,\n    is_release_available,\n    case\n        when is_baseline_available and is_release_available and baseline_value > 0\n            then release_value / baseline_value\n    end as lift,\n    signal_family = 'day_off_intent'\n    and source in ('google_trends', 'bluesky', 'reddit')\n    and (source <> 'google_trends' or baseline_value >= 5) as is_index_component\nfrom pairs\n"
+  },
+  {
+   "path": "models/marts/fct_day_off_index.sql",
+   "kind": "model_sql",
+   "content": "-- The Day-Off Index: geometric mean of per-source lifts (each source the geometric mean of\n-- its own component signals), x 100. 100 is a normal week.\nwith components as (\n    select * from {{ ref('fct_thursday_lift') }}\n    where is_index_component\n),\n\nby_source as (\n    select\n        study_year,\n        source,\n        count(*) as signals_total,\n        count(lift) as signals_with_lift,\n        case\n            when count(lift) = count(*) then exp(avg(ln(greatest(lift, 0.01))))\n        end as source_lift\n    from components\n    group by study_year, source\n)\n\nselect\n    study_year,\n    case study_year when 2026 then date '2026-11-19' else date '2025-11-20' end as release_day,\n    count(*) as sources_total,\n    count(source_lift) as sources_with_lift,\n    case\n        when count(source_lift) = count(*) then 100 * exp(avg(ln(source_lift)))\n    end as day_off_index,\n    max(case when source = 'google_trends' then source_lift end) as google_trends_lift,\n    max(case when source = 'bluesky' then source_lift end) as bluesky_lift,\n    max(case when source = 'reddit' then source_lift end) as reddit_lift\nfrom by_source\ngroup by study_year\n"
+  },
+  {
+   "path": "data_tests/assert_int_signals_grain.sql",
+   "kind": "test_sql",
+   "content": "-- int_signals__daily: the natural grain behind the surrogate key is unique.\nselect source, signal, geo, signal_date, count(*) as rows_per_key\nfrom {{ ref('int_signals__daily') }}\ngroup by source, signal, geo, signal_date\nhaving count(*) > 1\n"
+  },
+  {
+   "path": "data_tests/assert_thursday_lift_grain.sql",
+   "kind": "test_sql",
+   "content": "-- fct_thursday_lift: the natural grain behind the surrogate key is unique.\nselect source, signal, geo, study_year, count(*) as rows_per_key\nfrom {{ ref('fct_thursday_lift') }}\ngroup by source, signal, geo, study_year\nhaving count(*) > 1\n"
+  },
+  {
+   "path": "data_tests/assert_no_lift_from_unavailable.sql",
+   "kind": "test_sql",
+   "content": "-- A lift is only computed when both Thursdays were actually read.\nselect *\nfrom {{ ref('fct_thursday_lift') }}\nwhere lift is not null\n  and not (is_baseline_available and is_release_available)\n"
+  },
+  {
+   "path": "data_tests/assert_control_year_present.sql",
+   "kind": "test_sql",
+   "content": "-- Every index component signal of the study year has its 2025 control.\nselect study.source, study.signal, study.geo\nfrom {{ ref('fct_thursday_lift') }} as study\nleft join {{ ref('fct_thursday_lift') }} as control\n    on study.source = control.source\n    and study.signal = control.signal\n    and study.geo = control.geo\n    and control.study_year = 2025\nwhere study.study_year = 2026\n  and study.signal_family = 'day_off_intent'\n  and study.source in ('google_trends', 'bluesky', 'reddit')\n  and control.signal is null\n"
+  }
+ ],
+ "declarations": [
+  {
+   "model": "int_signals__daily",
+   "description": "One row per signal per day: every source's daily value in one shape.",
+   "grain": [
+    "source",
+    "signal",
+    "geo",
+    "signal_date"
+   ],
+   "population": {
+    "rule": "Every staged day of every source; Bluesky and Hacker News seeds are summed per day and filter."
+   },
+   "columns": {
+    "source": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "google_trends, bluesky, reddit, hacker_news or wikipedia."
+    },
+    "signal": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "What is counted, e.g. search:pto, posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi."
+    },
+    "signal_family": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference."
+    },
+    "geo": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "US or WORLD. Only Google Trends has a US slice."
+    },
+    "signal_date": {
+     "role": "time",
+     "null_rule": "never",
+     "description": "UTC day (Google's own day for Trends)."
+    },
+    "signal_value": {
+     "role": "measure",
+     "aggregation": "sum",
+     "additivity": "non_additive",
+     "unit": "count or index (see signal)",
+     "null_rule": "NULL when the value could not be read: unavailable, never zero.",
+     "description": "Counts for posts and pageviews; relative 0-100 interest for Trends. Never add across signals or sources."
+    },
+    "is_available": {
+     "role": "attribute",
+     "null_rule": "never",
+     "description": "False when any part of the day's value failed to load or was partial."
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Combining seed phrases",
+     "chosen": "sum hits across seeds per day",
+     "evidence": "default",
+     "detail": "a post matching two seeds counts twice; the double count is the same on both Thursdays, so the lift is unaffected in expectation"
+    },
+    {
+     "decision": "A partial or failed day",
+     "chosen": "signal_value NULL, is_available false",
+     "evidence": "request",
+     "detail": "docs/methodology.md: missing is unavailable, never zero"
+    },
+    {
+     "decision": "Trends partial days",
+     "chosen": "treated as unavailable",
+     "evidence": "default",
+     "detail": "Google flags the latest day isPartial while it fills in"
+    }
+   ]
+  },
+  {
+   "model": "dim_date",
+   "description": "One row per UTC day from 2025-10-01 to 2026-12-31, placed relative to that year's release Thursday.",
+   "grain": [
+    "date_day"
+   ],
+   "population": {
+    "rule": "Every calendar day in the spine; 2025 days belong to the control year (anchor Thu 20 Nov 2025), 2026 days to the study (anchor Thu 19 Nov 2026)."
+   },
+   "columns": {
+    "date_day": {
+     "role": "key",
+     "null_rule": "never"
+    },
+    "study_year": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "2026 = GTA 6 release year; 2025 = seasonality control."
+    },
+    "release_day": {
+     "role": "attribute",
+     "null_rule": "never",
+     "description": "That year's anchor Thursday."
+    },
+    "days_from_release": {
+     "role": "dimension",
+     "null_rule": "never",
+     "unit": "days",
+     "description": "0 on the anchor Thursday, -7 on the baseline Thursday."
+    },
+    "iso_day_of_week": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "1 = Monday ... 7 = Sunday."
+    },
+    "day_name": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "comparison_role": {
+     "role": "dimension",
+     "null_rule": "NULL on days that are neither Thursday of the comparison",
+     "description": "'release' or 'baseline'."
+    },
+    "is_gta_release_day": {
+     "role": "dimension",
+     "null_rule": "never"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Control anchor",
+     "chosen": "Thu 20 Nov 2025 vs Thu 13 Nov 2025",
+     "evidence": "request",
+     "detail": "same week of November, one year earlier, both a week before US Thanksgiving week"
+    }
+   ]
+  },
+  {
+   "model": "fct_signal_daily",
+   "description": "One row per signal per UTC day inside the study and control windows, with its place relative to release.",
+   "grain": [
+    "signal_day_key"
+   ],
+   "population": {
+    "rule": "Signal-days whose date falls in dim_date; days outside the spine are dropped by the inner join."
+   },
+   "columns": {
+    "source": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "google_trends, bluesky, reddit, hacker_news or wikipedia."
+    },
+    "signal": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "What is counted, e.g. search:pto, posts:day_off, posts:day_off_gta, pageviews:grand_theft_auto_vi."
+    },
+    "signal_family": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "day_off_intent (people saying or searching they are off), day_off_gta (the same, mentioning GTA), hype (interest in GTA itself), reference."
+    },
+    "geo": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "US or WORLD. Only Google Trends has a US slice."
+    },
+    "signal_date": {
+     "role": "time",
+     "null_rule": "never",
+     "description": "UTC day (Google's own day for Trends)."
+    },
+    "signal_value": {
+     "role": "measure",
+     "aggregation": "sum",
+     "additivity": "non_additive",
+     "unit": "count or index (see signal)",
+     "null_rule": "NULL when the value could not be read: unavailable, never zero.",
+     "description": "Counts for posts and pageviews; relative 0-100 interest for Trends. Never add across signals or sources."
+    },
+    "is_available": {
+     "role": "attribute",
+     "null_rule": "never",
+     "description": "False when any part of the day's value failed to load or was partial."
+    },
+    "signal_day_key": {
+     "role": "key",
+     "null_rule": "never",
+     "description": "md5 of source|signal|geo|signal_date."
+    },
+    "study_year": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "days_from_release": {
+     "role": "dimension",
+     "null_rule": "never",
+     "unit": "days"
+    },
+    "iso_day_of_week": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "comparison_role": {
+     "role": "dimension",
+     "null_rule": "NULL except on the two compared Thursdays"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Days outside the window",
+     "chosen": "dropped",
+     "evidence": "request",
+     "column": "signal_date",
+     "detail": "the study compares Thursdays in Oct-Nov 2026 against the same weeks of 2025; the inner join to dim_date keeps only that spine"
+    },
+    {
+     "decision": "Surrogate key",
+     "chosen": "md5 of the natural grain",
+     "evidence": "default",
+     "detail": "the key is md5 of the composite Dex drafts as the grain, so the two describe the same rows; MetricFlow needs a single-column primary entity"
+    }
+   ]
+  },
+  {
+   "model": "fct_thursday_lift",
+   "description": "One row per signal per study year: the release Thursday's value over the Thursday before.",
+   "grain": [
+    "thursday_lift_key"
+   ],
+   "population": {
+    "rule": "Every (source, signal, geo, study year) that has a row on either compared Thursday."
+   },
+   "columns": {
+    "thursday_lift_key": {
+     "role": "key",
+     "null_rule": "never"
+    },
+    "source": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "signal": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "signal_family": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "geo": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "study_year": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "release_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "baseline_value": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count or index",
+     "null_rule": "NULL when the baseline Thursday is not available"
+    },
+    "release_value": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count or index",
+     "null_rule": "NULL until the release Thursday has closed and loaded"
+    },
+    "is_baseline_available": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "is_release_available": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "lift": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "ratio",
+     "null_rule": "NULL unless both Thursdays are available and the baseline is above zero",
+     "description": "release_value / baseline_value. 1.0 = a normal week."
+    },
+    "is_index_component": {
+     "role": "dimension",
+     "null_rule": "never",
+     "description": "True for the day-off intent signals of Google Trends (baseline >= 5), Bluesky and Reddit."
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Index components",
+     "chosen": "day_off_intent signals of google_trends, bluesky and reddit",
+     "evidence": "request",
+     "detail": "Hacker News is too sparse (334 hits in 107 days, .dex/review/05); Wikipedia is hype or reference only"
+    },
+    {
+     "decision": "Low-resolution Trends terms",
+     "chosen": "excluded from the index when the baseline is below 5",
+     "evidence": "data",
+     "detail": "Trends rounds to integers; a baseline of 1-4 turns a one-point wobble into a 25-100% lift"
+    },
+    {
+     "decision": "Surrogate key",
+     "chosen": "md5 of the natural grain",
+     "evidence": "default",
+     "detail": "the key is md5 of the composite Dex drafts as the grain, so the two describe the same rows; MetricFlow needs a single-column primary entity"
+    }
+   ]
+  },
+  {
+   "model": "fct_day_off_index",
+   "description": "One row per study year: the Day-Off Index and each source's lift.",
+   "grain": [
+    "study_year"
+   ],
+   "population": {
+    "rule": "Study years with at least one index component."
+   },
+   "columns": {
+    "study_year": {
+     "role": "key",
+     "null_rule": "never"
+    },
+    "release_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "sources_total": {
+     "role": "attribute",
+     "null_rule": "never",
+     "unit": "count"
+    },
+    "sources_with_lift": {
+     "role": "attribute",
+     "null_rule": "never",
+     "unit": "count"
+    },
+    "day_off_index": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "index (100 = normal week)",
+     "null_rule": "NULL until every component source has a lift"
+    },
+    "google_trends_lift": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "ratio"
+    },
+    "bluesky_lift": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "ratio"
+    },
+    "reddit_lift": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "ratio"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "How lifts combine",
+     "chosen": "geometric mean within each source, then across sources, equal weights",
+     "evidence": "default",
+     "detail": "lifts are ratios; the geometric mean keeps one noisy source from dominating"
+    },
+    {
+     "decision": "A zero lift",
+     "chosen": "floored at 0.01 before the log",
+     "evidence": "default",
+     "detail": "ln(0) is undefined; a component that fell to zero still pulls the index down hard"
+    },
+    {
+     "decision": "Incomplete index",
+     "chosen": "NULL until every component source has a lift",
+     "evidence": "request",
+     "detail": "missing is unavailable, never zero"
+    }
+   ]
+  }
+ ]
+}

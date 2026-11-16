@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-theme="dex-site">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thursday lifts</title>
+<link rel="stylesheet" href="../brand/dex-site.css">
+<link rel="stylesheet" href="../brand/charts.css">
+<script>
+  const t = new URLSearchParams(location.search).get('theme');
+  if (t === 'dark') document.documentElement.dataset.theme = 'dex-site-dark';
+</script>
+</head>
+<body>
+<div class="card" style="width:1200px;height:630px">
+  <div class="mast">
+    <div class="brand"><img alt="Dex" src="../brand/assets/dex-logo-black.png"></div>
+    <div class="meta">GTA 6 · T-minus 3 days</div>
+  </div>
+  <div class="main">
+    <h1>Thursday over Thursday, <em>signal by signal</em>.</h1>
+    <p class="lede">Each bar is release Thursday over the Thursday before. The line is a normal
+    week (1.0×). Grey is the same pair of Thursdays in 2025.</p>
+    <div class="legend"><span><i class="study"></i>2026 (19 vs 12 Nov)</span>
+    <span><i class="control"></i>2025 control (20 vs 13 Nov)</span></div>
+    <div class="bars"><div class="bar-row" title="2026: Thu → · 2025: 1.06×"><div class="name">bluesky · day_off</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:53.1%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div><div class="bar-row" title="2026: Thu → · 2025: 1.20×"><div class="name">google trends · call in sick · US</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:60.0%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div><div class="bar-row" title="2026: Thu → · 2025: 1.20×"><div class="name">google trends · call in sick · WORLD</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:60.0%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div><div class="bar-row" title="2026: Thu → · 2025: 1.11×"><div class="name">google trends · day off work · US</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:55.6%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div><div class="bar-row" title="2026: Thu → · 2025: 0.89×"><div class="name">google trends · day off work · WORLD</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:44.4%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div><div class="bar-row" title="2026: Thu → · 2025: 1.06×"><div class="name">google trends · pto · US</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:53.2%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div><div class="bar-row" title="2026: Thu → · 2025: 1.04×"><div class="name">google trends · pto · WORLD</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:52.1%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div><div class="bar-row" title="2026: Thu → · 2025: 1.22×"><div class="name">google trends · sick day · US</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:61.1%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div><div class="bar-row" title="2026: Thu → · 2025: 1.10×"><div class="name">google trends · sick day · WORLD</div><div class="track"><div class="fill pending" style="width:50.0%"></div><div class="fill control" style="width:55.0%"></div><div class="par" style="left:50.0%"></div></div><div class="val">Thu →</div></div></div>
+  </div>
+  <div class="foot"><span>Index components only · UTC days · Trends values relative within request</span><span>Built with <b>Dex</b> · trydex.ai</span></div>
+</div>
+<script>
+  if (document.documentElement.dataset.theme === 'dex-site-dark') {
+    document.querySelector('.brand img').src = '../brand/assets/dex-logo-white.png';
+  }
+</script>
+</body>
+</html>

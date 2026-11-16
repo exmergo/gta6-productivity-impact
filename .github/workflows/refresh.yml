@@ -1,0 +1,65 @@
+name: refresh
+
+# Pull the public signals, rebuild the warehouse with Dex, check for drift, redraw the charts,
+# and commit the result. No secrets beyond the built-in GITHUB_TOKEN.
+on:
+  schedule:
+    - cron: "15 6 * * *"          # daily, after the UTC day has closed
+    - cron: "0 12,18 19-21 11 *"  # extra runs around release day
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: "Sources to ingest (space separated, empty = all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.13.5"
+      - run: uv sync --locked
+      - name: Ingest, load, build with Dex, check drift, draw
+        run: uv run gta6 refresh ${{ inputs.sources }}
+      - name: Commit the refreshed warehouse, evidence and charts
+        run: |
+          git config user.name "gta6-refresh-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/raw warehouse .dex charts site
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -m "refresh: $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
+      - name: Open an issue when the refresh fails
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue list --label refresh-failure --state open --json number --jq '.[0].number' > n.txt
+          if [ -s n.txt ]; then
+            gh issue comment "$(cat n.txt)" --body "Failed again: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            gh issue create --label refresh-failure --title "Refresh is failing" \
+              --body "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
+
+  pages:
+    needs: refresh
+    uses: ./.github/workflows/pages.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

@@ -1,0 +1,503 @@
+{
+ "status": "ok",
+ "data": {
+  "cache_path": "./.dex/cache.json",
+  "object_count": 14,
+  "profiled_count": 5,
+  "cache_hit_count": 9,
+  "skipped_count": 0,
+  "skipped": {
+   "count": 0,
+   "by_namespace": [],
+   "objects": [],
+   "elided": 0,
+   "elided_namespaces": 0
+  },
+  "carried_forward_count": 0,
+  "out_of_scope_carried_count": 0,
+  "dropped_count": 0,
+  "carried_relationship_count": 0,
+  "relationship_count": 0,
+  "pii_column_count": 6,
+  "data_quality_note_count": 3,
+  "top_objects": [
+   {
+    "identifier": "gta6.main.fct_signal_daily",
+    "rank_score": 0.67
+   },
+   {
+    "identifier": "gta6.main.dim_date",
+    "rank_score": 0.6033
+   },
+   {
+    "identifier": "gta6.raw.bluesky_daily_hits",
+    "rank_score": 0.581
+   },
+   {
+    "identifier": "gta6.raw.hn_daily_hits",
+    "rank_score": 0.581
+   },
+   {
+    "identifier": "gta6.raw.trends_interest",
+    "rank_score": 0.573
+   }
+  ],
+  "objects": [
+   {
+    "identifier": "gta6.main.fct_signal_daily",
+    "object_type": "table",
+    "row_count": 1936,
+    "rank_score": 0.67,
+    "profiled_at": "2026-11-16T16:42:13.729550+00:00",
+    "grain": [
+     "signal_day_key"
+    ],
+    "candidate_key": [
+     "signal_day_key"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "signal_day_key",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "geo",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "location",
+       "confidence": 0.3
+      }
+     }
+    ],
+    "elided_column_count": 10,
+    "pii_column_count": 1,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.dim_date",
+    "object_type": "table",
+    "row_count": 457,
+    "rank_score": 0.6033,
+    "profiled_at": "2026-11-16T16:42:13.890748+00:00",
+    "grain": [
+     "date_day"
+    ],
+    "candidate_key": [
+     "date_day"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "date_day",
+      "data_type": "DATE",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "day_name",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "name",
+       "confidence": 0.6
+      }
+     }
+    ],
+    "elided_column_count": 6,
+    "pii_column_count": 1,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.raw.bluesky_daily_hits",
+    "object_type": "table",
+    "row_count": 1284,
+    "rank_score": 0.581,
+    "profiled_at": "2026-11-16T16:34:55.873806+00:00",
+    "grain": [
+     "observed_at"
+    ],
+    "candidate_key": [
+     "observed_at"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "observed_at",
+      "data_type": "TIMESTAMP WITH TIME ZONE",
+      "role": "grain",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 6,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.raw.hn_daily_hits",
+    "object_type": "table",
+    "row_count": 1284,
+    "rank_score": 0.581,
+    "profiled_at": "2026-11-16T16:35:00.412516+00:00",
+    "grain": [
+     "observed_at"
+    ],
+    "candidate_key": [
+     "observed_at"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "observed_at",
+      "data_type": "TIMESTAMP WITH TIME ZONE",
+      "role": "grain",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 6,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.raw.trends_interest",
+    "object_type": "table",
+    "row_count": 1080,
+    "rank_score": 0.573,
+    "profiled_at": "2026-11-16T16:14:58.982814+00:00",
+    "grain": null,
+    "candidate_key": null,
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "geo",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "location",
+       "confidence": 0.3
+      }
+     }
+    ],
+    "elided_column_count": 7,
+    "pii_column_count": 1,
+    "data_quality": [
+     "no candidate key detected; grain unknown"
+    ],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.raw.wiki_pageviews",
+    "object_type": "table",
+    "row_count": 428,
+    "rank_score": 0.5303,
+    "profiled_at": "2026-11-16T16:14:59.079316+00:00",
+    "grain": [
+     "ts",
+     "article"
+    ],
+    "candidate_key": [
+     "ts",
+     "article"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "article",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "ts",
+      "data_type": "TIMESTAMP WITH TIME ZONE",
+      "role": "grain",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 3,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.fct_thursday_lift",
+    "object_type": "table",
+    "row_count": 36,
+    "rank_score": 0.487,
+    "profiled_at": "2026-11-16T16:37:48.665890+00:00",
+    "grain": [
+     "thursday_lift_key"
+    ],
+    "candidate_key": [
+     "thursday_lift_key"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "thursday_lift_key",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "geo",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "location",
+       "confidence": 0.3
+      }
+     }
+    ],
+    "elided_column_count": 11,
+    "pii_column_count": 1,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.metricflow_time_spine",
+    "object_type": "table",
+    "row_count": 1094,
+    "rank_score": 0.4836,
+    "profiled_at": "2026-11-16T16:45:56.602330+00:00",
+    "grain": [
+     "date_day"
+    ],
+    "candidate_key": [
+     "date_day"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "date_day",
+      "data_type": "DATE",
+      "role": "grain",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 0,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.fct_day_off_index",
+    "object_type": "table",
+    "row_count": 2,
+    "rank_score": 0.3708,
+    "profiled_at": "2026-11-16T16:37:49.011936+00:00",
+    "grain": [
+     "study_year"
+    ],
+    "candidate_key": [
+     "study_year"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "study_year",
+      "data_type": "INTEGER",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "release_day",
+      "data_type": "DATE",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "sources_with_lift",
+      "data_type": "BIGINT",
+      "role": "key",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 5,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.stg_bluesky__daily_hits",
+    "object_type": "view",
+    "row_count": 1284,
+    "rank_score": 0.32,
+    "profiled_at": "2026-11-16T16:45:56.711455+00:00",
+    "grain": [
+     "observed_at"
+    ],
+    "candidate_key": [
+     "observed_at"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "observed_at",
+      "data_type": "TIMESTAMP WITH TIME ZONE",
+      "role": "grain",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 6,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.stg_hn__daily_hits",
+    "object_type": "view",
+    "row_count": 1284,
+    "rank_score": 0.32,
+    "profiled_at": "2026-11-16T16:45:56.825322+00:00",
+    "grain": [
+     "observed_at"
+    ],
+    "candidate_key": [
+     "observed_at"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "observed_at",
+      "data_type": "TIMESTAMP WITH TIME ZONE",
+      "role": "grain",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 6,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.stg_trends__interest",
+    "object_type": "view",
+    "row_count": 1080,
+    "rank_score": 0.32,
+    "profiled_at": "2026-11-16T16:45:56.921836+00:00",
+    "grain": null,
+    "candidate_key": null,
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "geo",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "location",
+       "confidence": 0.3
+      }
+     }
+    ],
+    "elided_column_count": 7,
+    "pii_column_count": 1,
+    "data_quality": [
+     "no candidate key detected; grain unknown"
+    ],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.stg_wiki__pageviews",
+    "object_type": "view",
+    "row_count": 428,
+    "rank_score": 0.32,
+    "profiled_at": "2026-11-16T16:45:56.954351+00:00",
+    "grain": [
+     "view_date",
+     "article"
+    ],
+    "candidate_key": [
+     "view_date",
+     "article"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "article",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "view_date",
+      "data_type": "DATE",
+      "role": "grain",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 1,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.int_signals__daily",
+    "object_type": "view",
+    "row_count": 1936,
+    "rank_score": 0.25,
+    "profiled_at": "2026-11-16T16:42:13.832543+00:00",
+    "grain": null,
+    "candidate_key": null,
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "geo",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "location",
+       "confidence": 0.3
+      }
+     }
+    ],
+    "elided_column_count": 6,
+    "pii_column_count": 1,
+    "data_quality": [
+     "no candidate key detected; grain unknown"
+    ],
+    "elided_data_quality_count": 0
+   }
+  ],
+  "edges": [],
+  "conflicts": [],
+  "elided_object_count": 0,
+  "elided_column_count": 80,
+  "elided_edge_count": 0,
+  "updated_at": "2026-11-16T16:45:56.551805+00:00",
+  "notes": [
+   "inference examined 8 id-shaped column(s) across 14 profiled object(s)",
+   "no declared relationships (dbt project present but unused)",
+   "no id-shaped column matched a parent table by name; joins may exist that name-based inference cannot see",
+   "a dbt project is present but unused; pass --use-project to fold its declared joins, grain, and metric definitions into exploration",
+   "reused 9 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
+   "value-overlap join inference not run; pass --infer-by-overlap to probe key-shaped columns whose names matched nothing for measured value containment",
+   "80 column(s) are not described. The default keeps grain, key, join and PII-flagged columns, at most 12 per object; --detail widens the selection to every column, and the per-object cap still binds"
+  ]
+ },
+ "connection": {
+  "connector": "duckdb",
+  "target": {
+   "path": "./warehouse/gta6.duckdb"
+  },
+  "source": ".dex/config.yml"
+ },
+ "cost": {
+  "paradigm": "free_local",
+  "estimate": null,
+  "ceiling": null,
+  "estimate_quality": null,
+  "unit": null
+ },
+ "warnings": [],
+ "diffs": [],
+ "errors": [],
+ "reason": null
+}

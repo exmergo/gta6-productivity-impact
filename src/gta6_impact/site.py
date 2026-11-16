@@ -52,7 +52,7 @@ PAGE = """<!doctype html>
   header img {{ height: 30px; }}
   .meta {{ font: 14px var(--font-mono); color: var(--dex-line); text-transform: uppercase; letter-spacing: 1px; }}
   h1 {{ font-size: clamp(32px, 6vw, 60px); line-height: 1.04; letter-spacing: -1.5px; margin: 36px 0 12px; }}
-  h1 em {{ font-style: normal; color: var(--dex-redline); }}
+  h1 em {{ font-style: normal; color: var(--dex-line); }}
   .lede {{ font-size: clamp(18px, 2.4vw, 22px); line-height: 1.45; color: var(--dex-ink-muted); max-width: 860px; }}
   .countdown {{ font: 15px var(--font-mono); color: var(--dex-ink); border: 1px solid var(--dex-line); background: var(--dex-paper-raised); display: inline-block; padding: 10px 14px; margin-top: 8px; }}
   figure {{ margin: 36px 0 0; }}

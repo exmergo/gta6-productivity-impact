@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-11-16T19:31:20.477651+00:00",
+  "created_at": "2026-11-16T19:35:13.787593+00:00",
   "connector": "duckdb",
   "tool_version": "1.18.0",
   "warehouse": {
@@ -4253,7 +4253,7 @@
   "transform_layer": {
     "files": {
       "models/intermediate/int_signals__daily.sql": "cb216555bdd3b6537d57a3ace9e535aae9b6392a10420c95c11671ef3fbcedae",
-      "models/intermediate/int_signals__daily.yml": "b7b18aedb5e47e8c9094ff2725739d18ee161186e9a2508efaddb8c9f24395f3",
+      "models/intermediate/int_signals__daily.yml": "5c3ad0a45d97be4fcbee5cf2344d13b82249d6b74fd078f4dee31c98981e6756",
       "models/marts/dim_date.sql": "2128c3068e799ea66f10e04780a0279297f2e5dae7602f14be5a88c5698171da",
       "models/marts/dim_date.yml": "d5651ee4a78359c402214836f81b00a84c7eadb9c9a6b45e8706eb4937e6147c",
       "models/marts/dim_date_semantic.yml": "dc157b25cba57fc09b635948edb695085da1e91c0c96b717e32e2d5ccdf0a9b2",
@@ -4262,13 +4262,13 @@
       "models/marts/fct_day_off_index_terms.sql": "069c9fb97c736714a29c3f2f33b0edd5339a354adfbcf8324482b1553706486c",
       "models/marts/fct_day_off_index_terms.yml": "973fbbc3ed91793286e82f25dffd83d65035ed649b566f1985ffe1bd0e69e653",
       "models/marts/fct_signal_daily.sql": "0f7a8a7f031a8cf145b92244d83a2034f858cdc7b7ce42fea4f10fd9bcabfbfa",
-      "models/marts/fct_signal_daily.yml": "b40cf29c3844a26e3d02c91e7d9bdd6f9c5d90eb10b8e3d95040db87bad1bef1",
+      "models/marts/fct_signal_daily.yml": "e04b37443fa9372aba1bc4fc8bbadf4a8753d9be36cea12abc8be5b4960b3098",
       "models/marts/metricflow_time_spine.sql": "fa9fa9f664236f9af4e868eaf8b3fb300253d7b5677936d36bef66fd75049c01",
       "models/marts/metricflow_time_spine.yml": "3455df32cbd9525b0b5164becc1a9bc7909dce85d8f53784f4f8e3f154a93d5a",
       "models/marts/semantic/day_off_index.yml": "4677ed50ca02942c6b6c9d248f8e41a27abc13cae1041041b20b50d72d6800e6",
       "models/marts/semantic/metrics.yml": "9acb4b065264f2b07e4f5bf58d3038b832b8941eecc5b34151d3dc82daf9f8f9",
-      "models/marts/semantic/signal_daily.yml": "489f2f983a592f50cfee954c70bbf3584a93879fb091061f17fafb4b85836ad4",
-      "models/staging/_sources.yml": "8b4093fa40cb9b4bac6eee6be707aeb41d8f0b80a40fe8dd372c4d4ff8f3b579",
+      "models/marts/semantic/signal_daily.yml": "6b6595e3ebf439be4059cdce7b5e8a95838ff787eb5b27faa1aadf2107ce8656",
+      "models/staging/_sources.yml": "d96ee67f758584e8eee68dc90cfb3b187a245ce08d1af80d2cc99c85cda2b6f6",
       "models/staging/stg_bluesky__daily_hits.sql": "6bbd92a4c09bad5a8c9db4458bfb3c587854153870ac529400762195edc858b9",
       "models/staging/stg_bluesky__daily_hits.yml": "6d9fb352935fcd60fd36b457dd4051488bd44834e77f139d740043cea041f6f4",
       "models/staging/stg_hn__daily_hits.sql": "f61b6d745229d492facfc84bf5fedfdcd542593b564c1669f650772fac787781",
@@ -4279,8 +4279,8 @@
       "models/staging/stg_wiki__pageviews.yml": "9600a44e2fff8bca7b7d11a7c42ad27e429751a67f45981d55107c1327321b99",
       "data_tests/assert_day_off_index_has_breakdown.sql": "aadf3eb1a943c1bc14ba0b2c06fca2fae7bc1b64aa1e24f7922e3dc79652f53c",
       "data_tests/assert_int_signals_grain.sql": "ce01913fa81342fd9770b78d22706576f42bf36fe1c9711364d6963325b86349",
-      "profiles.yml": "be2450ec6c0b4a460844d1b73ce4245729ba6de8b4ea570dcd3a3886b7279a9d",
-      "dbt_project.yml": "546677f3d0c63bb182261766edac57e7c844f19a4af052f5a7efc0235badc06d"
+      "dbt_project.yml": "546677f3d0c63bb182261766edac57e7c844f19a4af052f5a7efc0235badc06d",
+      "profiles.yml": "be2450ec6c0b4a460844d1b73ce4245729ba6de8b4ea570dcd3a3886b7279a9d"
     },
     "models": [
       "dim_date",
@@ -4334,20 +4334,6 @@
         "table": "hn_daily_hits",
         "columns": [],
         "path": "models/staging/_sources.yml"
-      },
-      {
-        "source_name": "raw",
-        "schema_name": "raw",
-        "table": "reddit_items",
-        "columns": [],
-        "path": "models/staging/_sources.yml"
-      },
-      {
-        "source_name": "raw",
-        "schema_name": "raw",
-        "table": "reddit_coverage",
-        "columns": [],
-        "path": "models/staging/_sources.yml"
       }
     ],
     "model_sources": {
@@ -4392,7 +4378,7 @@
         },
         "columns": {
           "source": {
-            "description": "b27dc6f0d0ab8120a2debf2f749f2a3f03f4a1b2c93f5b9821ea9229c7efbf66",
+            "description": "fca20e90a2b3fcb59fff174ac7da4c893d7e9be1c43474d0eae361685e59b6cd",
             "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
           },
@@ -4655,7 +4641,7 @@
         },
         "columns": {
           "source": {
-            "description": "b27dc6f0d0ab8120a2debf2f749f2a3f03f4a1b2c93f5b9821ea9229c7efbf66",
+            "description": "fca20e90a2b3fcb59fff174ac7da4c893d7e9be1c43474d0eae361685e59b6cd",
             "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
           },
@@ -4997,7 +4983,7 @@
       {
         "name": "fct_signal_daily",
         "path": "models/marts/semantic/signal_daily.yml",
-        "content_sha256": "fbf96a96bdf44da9d71cc59c44e0e54f8a9a33e219f2ef2ab1c8c5486afb1ebb",
+        "content_sha256": "df41a9b0ff80dee5f62780438e057dba26d22559fadbbd586062be236179d9bc",
         "model_ref": "fct_signal_daily",
         "relation": null,
         "entities": {

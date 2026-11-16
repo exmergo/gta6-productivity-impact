@@ -12,7 +12,7 @@ from gta6_impact import store, warehouse
 from gta6_impact.config import ROOT
 from gta6_impact.http import Http
 
-SOURCES = ("wikipedia", "bluesky", "hn", "trends", "reddit")
+SOURCES = ("wikipedia", "bluesky", "hn", "trends")
 
 
 def ingest(sources: list[str]) -> None:
@@ -20,7 +20,6 @@ def ingest(sources: list[str]) -> None:
         min_interval={
             "api.bsky.app": 0.6,
             "hn.algolia.com": 0.25,
-            "arctic-shift.photon-reddit.com": 1.0,
             "wikimedia.org": 0.2,
         }
     )
@@ -38,11 +37,6 @@ def ingest(sources: list[str]) -> None:
             from gta6_impact.ingest import hn
 
             rows = hn.run(http, skip=warehouse.settled_keys("hn"))
-        elif source == "reddit":
-            from gta6_impact.ingest import reddit
-
-            rows, coverage = reddit.run(http)
-            store.write("reddit_coverage", coverage, tag="reddit_coverage", pulled=pulled)
         elif source == "trends":
             from gta6_impact.ingest import trends
 

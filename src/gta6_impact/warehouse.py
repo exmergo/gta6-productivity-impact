@@ -12,12 +12,6 @@ from gta6_impact.config import MANUAL_DIR, RAW_DIR, WAREHOUSE
 TABLES = {
     "bluesky": ("bluesky_daily_hits", "day, seed, gta_filter", "pull_id desc"),
     "hn": ("hn_daily_hits", "day, seed, gta_filter", "pull_id desc"),
-    "reddit": ("reddit_items", "kind, item_id", "pull_id desc"),
-    "reddit_coverage": (
-        "reddit_coverage",
-        "subreddit, kind, seed, slice_start",
-        "(status = 'complete') desc, pull_id desc",
-    ),
     "wikipedia": ("wiki_pageviews", "article, granularity, ts", "pull_id desc"),
     "trends": ("trends_interest", "request_id, geo, term, day", "pull_id desc"),
 }

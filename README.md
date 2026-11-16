@@ -78,7 +78,7 @@ summarised.
 
 ```mermaid
 flowchart LR
-  A[Trends · Bluesky · Reddit · HN · Wikipedia] -->|gta6 ingest| B[data/raw/*.parquet]
+  A[Trends · Bluesky · HN · Wikipedia] -->|gta6 ingest| B[data/raw/*.parquet]
   B -->|gta6 load| C[(DuckDB raw.*)]
   C -->|dex transform| D[staging → intermediate → marts]
   D -->|dex semantic| E[MetricFlow metrics]

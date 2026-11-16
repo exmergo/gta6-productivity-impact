@@ -56,18 +56,6 @@ GTA_TERMS = ("gta", "gta 6", "gta6", "gta vi", "grand theft auto")
 # no reliable OR, so we query each seed separately and classify the text ourselves.
 SEARCH_SEEDS = ("day off", "time off", "pto", "sick day", "call in sick", "calling in sick")
 
-REDDIT_SUBREDDITS = (
-    "GTA6",
-    "GTA",
-    "gaming",
-    "PS5",
-    "XboxSeriesX",
-    "antiwork",
-    "jobs",
-    "sysadmin",
-    "cscareerquestions",
-)
-
 WIKI_ARTICLES = ("Grand_Theft_Auto_VI", "Sick_leave", "Paid_time_off", "Presenteeism")
 
 # The Day-Off Index: US Google searches for these three phrases, compared year over year.

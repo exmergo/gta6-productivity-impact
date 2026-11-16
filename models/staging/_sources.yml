@@ -22,11 +22,3 @@ sources:
         description: >
           Hacker News (Algolia) nbHits for one quoted seed phrase (optionally plus "gta")
           over stories and comments in one UTC day. NULL when the call failed.
-      - name: reddit_items
-        description: >
-          Reddit posts and comments (Arctic Shift archive) that matched a day-off seed in a
-          tracked subreddit, with flags computed from the text at ingest. Text is discarded.
-      - name: reddit_coverage
-        description: >
-          One row per (subreddit, kind, seed, weekly slice) we asked Arctic Shift for, with
-          whether paging completed, was capped, or failed.

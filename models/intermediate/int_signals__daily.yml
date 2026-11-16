@@ -29,7 +29,7 @@ models:
               column: source
     columns:
       - name: source
-        description: bluesky, reddit, hacker_news or wikipedia.
+        description: bluesky, hacker_news or wikipedia.
         config:
           meta:
             dex:

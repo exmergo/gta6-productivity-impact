@@ -81,8 +81,8 @@ layer and every Dex command envelope. See [Ask it yourself](#ask-it-yourself).
 
 ## What Dex did here
 
-This repo is a [Dex](https://trydex.ai) showcase, so the evidence is committed, not
-summarised.
+Don't take our word for any of it: every command [Dex](https://trydex.ai) ran is committed,
+with its output.
 
 - **Explore.** Before any SQL was written, `dex explore` profiled every raw table and
   proved each grain with exact distinct counts. It caught that Wikipedia timestamps would

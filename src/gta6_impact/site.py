@@ -242,7 +242,7 @@ def build_site(summary: dict) -> None:
     description = (
         f"US Google searches for “call in sick”, “sick day” and “day off work”, "
         f"{summary['current_window']} vs {summary['prior_window']}: {summary['breakdown']}. "
-        "Open data, open method."
+        "An open, reproducible study built with Dex."
     )
     image_alt = (
         f"Day-Off Index {headline_text}: US Google searches for skipping work vs last year, "
@@ -286,7 +286,7 @@ def _crawlers(summary: dict, faq: list[tuple[str, str]]) -> None:
     (SITE / "llms.txt").write_text(
         "# GTA 6 vs. Productivity\n\n"
         "> An open, reproducible study of whether Americans search for ways to skip work more "
-        "in the run-up to GTA 6 (released 19 November 2026).\n\n"
+        "in the run-up to GTA 6 (released 19 November 2026). Built with Dex.\n\n"
         f"Updated {today}. Day-Off Index: {_pct(summary.get('day_off_index'))} "
         f"({summary['breakdown']}), {summary['current_window']} vs {summary['prior_window']}. "
         "Search interest, not a headcount; association, not causation.\n\n"

@@ -1,20 +1,20 @@
 {
- "day_off_index": 50.088081104001226,
+ "day_off_index": 50.08808110400124,
  "breakdown": "call in sick +40.4% \u00b7 day off work +73.4% \u00b7 sick day +36.4%",
  "current_window": "1\u201314 Nov 2026",
  "prior_window": "2\u201315 Nov 2025",
  "terms": [
   {
-   "day_off_index_term__term": "sick day",
-   "day_off_index_term_change": 36.42857142857143,
-   "day_off_index_term_current": 95.5,
-   "day_off_index_term_prior": 70.0
-  },
-  {
    "day_off_index_term__term": "call in sick",
    "day_off_index_term_change": 40.441176470588225,
    "day_off_index_term_current": 95.5,
    "day_off_index_term_prior": 68.0
+  },
+  {
+   "day_off_index_term__term": "sick day",
+   "day_off_index_term_change": 36.42857142857143,
+   "day_off_index_term_current": 95.5,
+   "day_off_index_term_prior": 70.0
   },
   {
    "day_off_index_term__term": "day off work",

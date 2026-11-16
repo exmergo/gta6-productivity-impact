@@ -12,7 +12,7 @@ from html import escape
 
 from gta6_impact.charts.capture import capture
 from gta6_impact.charts.semantic import query
-from gta6_impact.config import RELEASE_DAY, ROOT
+from gta6_impact.config import ROOT
 
 CHARTS = ROOT / "charts"
 THEMES = {"light": "dex-site", "dark": "dex-site-dark"}
@@ -34,9 +34,9 @@ PAGE = """<!doctype html>
 </head>
 <body>
 <div class="card" style="width:{w}px;height:{h}px">
+{aside}
   <div class="mast">
     <div class="brand"><img alt="Dex" src="../brand/assets/{logo}"></div>
-    <div class="meta">{meta}</div>
   </div>
   <div class="main">
 {body}
@@ -57,8 +57,8 @@ def _write(
     name: str,
     *,
     title: str,
-    meta: str,
     body: str,
+    aside: str = "",
     source: str,
     w: int,
     h: int,
@@ -75,7 +75,7 @@ def _write(
             w=w,
             h=h,
             logo=LOGO[theme],
-            meta=escape(meta),
+            aside=aside,
             body=body,
             source=source,
             foot_right=FOOT_RIGHT,
@@ -85,15 +85,6 @@ def _write(
         path.write_text(html)
         if png:
             capture(path, CHARTS / "png" / f"{name}-{theme_name}.png", w, h)
-
-
-def _today_meta() -> str:
-    days = (RELEASE_DAY - dt.datetime.now(dt.UTC).date()).days
-    if days > 0:
-        return f"GTA 6 · T-minus {days} day{'s' if days != 1 else ''}"
-    if days == 0:
-        return "GTA 6 · release day"
-    return f"GTA 6 · day +{-days}"
 
 
 def _day(value: str) -> dt.date:
@@ -106,6 +97,32 @@ def _span(first_week: dt.date, last_week: dt.date) -> str:
     if first_week.month == last_day.month:
         return f"{first_week.day}–{last_day.day} {last_day:%b %Y}"
     return f"{first_week.day} {first_week:%b} – {last_day.day} {last_day:%b %Y}"
+
+
+def _bars(terms: list[dict], prior_year: str, current_year: str) -> str:
+    """Per phrase, last year's interest above this year's (0-100 scale), the change at the end."""
+    rows = [
+        '<div class="yoy"><div></div><div class="key">'
+        f'<span><i class="prior"></i>{prior_year}</span>'
+        f'<span><i class="current"></i>{current_year}</span></div>'
+    ]
+    for r in terms:
+        change = r["day_off_index_term_change"]
+        bars = "".join(
+            f'<b class="{cls}" style="width:{value:.1f}%">{value:.1f}</b>'
+            for cls, value in (
+                ("prior", r["day_off_index_term_prior"]),
+                ("current", r["day_off_index_term_current"]),
+            )
+            if value is not None
+        )
+        rows.append(
+            f'<div class="term">“{escape(r["day_off_index_term__term"])}”</div>'
+            f'<div class="pair">{bars}</div>'
+            f'<div class="change">{f"{change:+.0f}%" if change is not None else "n/a"}</div>'
+        )
+    rows.append("</div>")
+    return "".join(rows)
 
 
 def index_card(png: bool) -> dict:
@@ -133,32 +150,19 @@ def index_card(png: bool) -> dict:
     )
     index = head["day_off_index"]
     big = f"{index:+.0f}<small>%</small>" if index is not None else "n/a"
-    rows = []
-    for r in sorted(terms, key=lambda r: -(r["day_off_index_term_change"] or 0)):
-        change = r["day_off_index_term_change"]
-        cell = f'<b class="red">{change:+.0f}%</b>' if change is not None else "<b>n/a</b>"
-        rows.append(
-            f'<div class="row"><span>“{escape(r["day_off_index_term__term"])}”'
-            f" · {r['day_off_index_term_prior']:.1f} → {r['day_off_index_term_current']:.1f}"
-            f"</span>{cell}</div>"
-        )
-    index_cell = f'<b class="red">{index:+.0f}%</b>' if index is not None else "<b>n/a</b>"
+    ordered = sorted(terms, key=lambda r: -(r["day_off_index_term_change"] or 0))
     body = f"""    <div class="hero">
       <div>
         <div class="big">{big}</div>
-        <h1 style="margin-top:22px">US Google searches for skipping work, vs last year.</h1>
-        <p class="lede">The Day-Off Index: the average change in searches for “call in sick”,
-        “sick day” and “day off work”, {escape(current)} against {escape(prior)}.
-        GTA 6 launches Thursday 19 November.</p>
+        <h1>US Google searches for skipping work (vs last year)</h1>
+        <p class="fine">Average change in searches for “call in sick”, “sick day” and
+        “day off work”, {escape(current)} vs {escape(prior)}.<br>GTA 6 launches 19 Nov.</p>
       </div>
-      <div class="box">
-        <div class="strip">Breakdown · 2025 → 2026</div>
-        <div class="rows">
-          {"".join(rows)}
-          <div class="row"><span>Day-Off Index (average)</span>{index_cell}</div>
-        </div>
-      </div>
+      {_bars(ordered, prior[-4:], current[-4:])}
     </div>"""
+    aside = """  <figure class="aside">
+    <img alt="Lucia and Jason, the two leads of GTA 6" src="../assets/gta-6-lucia-and-the-guy.jpg">
+  </figure>"""
     data = {
         "day_off_index": index,
         "breakdown": head[f"{window}breakdown"],
@@ -169,10 +173,9 @@ def index_card(png: bool) -> dict:
     _write(
         "day-off-index",
         title="Day-Off Index",
-        meta=_today_meta(),
         body=body,
-        source="Google Trends · US · weekly, one request per phrase across both years · "
-        "search interest, not headcount",
+        aside=aside,
+        source="Data source: Google Trends, US",
         w=1200,
         h=630,
         data=data,

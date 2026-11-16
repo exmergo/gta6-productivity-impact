@@ -1,0 +1,37 @@
+# GTA 6 vs. Productivity
+
+> An open, reproducible study of whether Americans search for ways to skip work more in the run-up to GTA 6 (released 19 November 2026). Built by Exmergo with Dex, an AI agent toolkit for dbt projects and semantic layers.
+
+Updated 2026-11-16. Day-Off Index: +50.1% (call in sick +40.4% · day off work +73.4% · sick day +36.4%), 1–14 Nov 2026 vs 2–15 Nov 2025. Search interest, not a headcount; association, not causation.
+
+## Questions
+
+### Are Americans searching for sick days more before GTA 6?
+
+Yes. US Google searches for skipping work were up 50% on average, 1–14 Nov 2026 against 2–15 Nov 2025: “day off work” +73.4%, “call in sick” +40.4%, “sick day” +36.4%. GTA 6 launches on Thursday 19 November 2026.
+
+### What is the Day-Off Index?
+
+The average year-over-year change in US Google searches for “call in sick”, “sick day” and “day off work”. Each phrase compares its average weekly Google Trends interest over two weeks with the same weeks a year earlier. It is always shown with its breakdown.
+
+### Did GTA 6 cause the rise?
+
+We can't say. The rise lines up with the run-up to GTA 6, but this is an association, not proof of cause. Search interest has other drivers too.
+
+### Is this how many people are taking the day off?
+
+No. It measures Google search interest (a 0–100 index), not a headcount. People who book time off in an HR system don't search for it.
+
+### How was it built?
+
+From public Google Trends data, with a dbt project and a MetricFlow semantic layer that Dex wrote, tested and verifies on every refresh. The repository is open source and every number can be reproduced from it.
+
+## Links
+
+- [Live scoreboard](https://exmergo.github.io/gta6-productivity-impact/)
+- [Source code and README](https://github.com/exmergo/gta6-productivity-impact)
+- [Methodology](https://github.com/exmergo/gta6-productivity-impact/blob/main/docs/methodology.md)
+- [Metric definitions](https://github.com/exmergo/gta6-productivity-impact/blob/main/docs/metrics.md)
+- [Data sources](https://github.com/exmergo/gta6-productivity-impact/blob/main/docs/sources.md)
+- [Chart data (JSON)](https://exmergo.github.io/gta6-productivity-impact/charts/data/day-off-index.json)
+- [Dex](https://trydex.ai)

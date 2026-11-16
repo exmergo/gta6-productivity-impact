@@ -5,6 +5,12 @@
  "prior_window": "2\u201315 Nov 2025",
  "terms": [
   {
+   "day_off_index_term__term": "day off work",
+   "day_off_index_term_change": 73.39449541284404,
+   "day_off_index_term_current": 94.5,
+   "day_off_index_term_prior": 54.5
+  },
+  {
    "day_off_index_term__term": "call in sick",
    "day_off_index_term_change": 40.441176470588225,
    "day_off_index_term_current": 95.5,
@@ -15,12 +21,6 @@
    "day_off_index_term_change": 36.42857142857143,
    "day_off_index_term_current": 95.5,
    "day_off_index_term_prior": 70.0
-  },
-  {
-   "day_off_index_term__term": "day off work",
-   "day_off_index_term_change": 73.39449541284404,
-   "day_off_index_term_current": 94.5,
-   "day_off_index_term_prior": 54.5
   }
  ]
 }

@@ -1,12 +1,16 @@
 # GTA 6 vs. Productivity
 
+**Are Americans skipping work for GTA 6? An open, reproducible study of US Google searches for
+"call in sick", "sick day" and "day off work", built with [Dex](https://trydex.ai) on dbt and a
+semantic layer.** Live scoreboard: **[exmergo.github.io/gta6-productivity-impact](https://exmergo.github.io/gta6-productivity-impact/)**
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/png/day-off-index-dark.png">
   <img alt="Day-Off Index: +50%. US Google searches for call in sick +40%, sick day +36%, day off work +73%, 1–14 Nov 2026 against 2–15 Nov 2025." src="charts/png/day-off-index-light.png">
 </picture>
 
 **GTA 6 comes out on Thursday 19 November 2026.** Twelve years after GTA V. Two delays. One
-trailer that broke YouTube's record for a game reveal. Somewhere, a calendar now reads
+trailer that set YouTube's 24-hour record for a non-music video. Somewhere, a calendar now reads
 "dentist (GTA)".
 
 Nobody publishes how many people booked that Thursday off. So we measured what people
@@ -26,10 +30,8 @@ tested and checks every day. The joke is GTA. The method is real.
 | "sick day" | 70.0 | 95.5 | **+36%** |
 | **Day-Off Index** (average) | | | **+50%** |
 
-Weekly Google Trends interest, one request per phrase covering both years, so both years
-sit on one scale.
-
-Live scoreboard: **https://exmergo.github.io/gta6-productivity-impact/**
+Weekly Google Trends interest (0–100), one request per phrase covering both years, so both
+years sit on one scale.
 
 ## How we measured a vibe
 
@@ -47,11 +49,35 @@ what we tried and dropped: [docs/sources.md](docs/sources.md).
 **Two honest limits.**
 
 1. This is search interest, not a headcount. People who quietly book PTO in an HR system
-   don't search for it. For an outside reference, BambooHR reportedly saw time-off requests for
-   19 November up 9–17%. That's their data, not ours.
+   don't search for it. For an outside reference, [BambooHR saw time-off requests for 19 November
+   up 9–17%](https://www.bamboohr.com/resources/data-at-work/data-stories/gta-pto) on its own
+   platform. That's their data, not ours.
 2. Google samples. Two pulls of the same Trends request differ by a point or two, so the
    published numbers come from one pinned pull (`day_off_index_batch` in `dbt_project.yml`),
    committed in `data/raw/trends/`.
+
+## FAQ
+
+**Are Americans searching for sick days more before GTA 6?**
+Yes. US Google searches for skipping work were up 50% on average, 1–14 Nov 2026 against 2–15
+Nov 2025: "day off work" +73%, "call in sick" +40%, "sick day" +36%. GTA 6 launches on
+Thursday 19 November 2026.
+
+**What is the Day-Off Index?**
+The average year-over-year change in US Google searches for "call in sick", "sick day" and
+"day off work", each compared over the same two weeks a year apart. It is always shown with its
+breakdown.
+
+**Did GTA 6 cause the rise?**
+We can't say. The rise lines up with the run-up to GTA 6, but it's an association, not proof of
+cause.
+
+**Is this how many people are taking the day off?**
+No. It's Google search interest, a 0–100 index, not a headcount.
+
+**Can I check the numbers?**
+Yes. Everything is committed: raw pulls, the DuckDB warehouse, the dbt models, the semantic
+layer and every Dex command envelope. See [Ask it yourself](#ask-it-yourself).
 
 ## What Dex did here
 

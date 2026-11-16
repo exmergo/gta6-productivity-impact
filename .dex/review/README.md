@@ -18,4 +18,13 @@ Raw command envelopes, in the order they ran. The payloads they were planned fro
 | 21 | `21-profile-marts.json` | Profiles of the built marts, for evidence-backed PII screening |
 | 22 | `22-maintain-verify.json` | Every declared grain proven (10 of 10) |
 | 23 | `23-maintain-snapshot.json` | The committed baseline in `../snapshot.json` |
+| 24–26 | `24-semantic-define-gta-posts.json` → `26-build-gta-posts.json` | A first headline metric (Bluesky day-off posts mentioning GTA, YoY): defined, applied, `validated` |
+| 27–29 | `27-semantic-plan-day-off-yoy.json` → `29-build-day-off-yoy.json` | Replaced by generic Bluesky day-off posts YoY: planned, applied, `validated` |
+| 30–34 | `30-plan-trends-single-term.json` → `34-build-trends.json` | Google Trends reworked: one phrase per request, US only. `32` is the comparison Dex ran before applying: `unexpected` (2,260 rows to 1,396, against the stated expectation). The build in `34` is `built_unverified`: the comparison for `stg_trends__interest` was not run |
+| 35–38 | `35-plan-day-off-index.json` → `38-build-day-off-index.json` | The Day-Off Index redefined as a YoY comparison of US Google searches. Planned twice, applied, and built `built_unverified` (comparisons not run for `dim_date`, `fct_day_off_index`, `fct_signal_daily`) |
+| 39 | `39-scaffold-terms.json` | `dex transform test --scaffold` refused `fct_day_off_index_terms`: the model's jinja `set` block can't be scaffolded, so the unit tests were written by hand and planned in `40` |
+| 40–43 | `40-plan-unit-tests.json` → `43-build-full.json` | Unit tests for the window settings, partial weeks, the average and the breakdown, then a full build: `validated` |
+| 44–52 | `44-maintain-verify.json` → `52-maintain-check.json` | Verify, snapshot and drift checks around the new index, including a re-map (`47`) and profiles of the changed tables (`50`) |
+| 53–55 | `53-plan-remove-reddit.json` → `55-build-remove-reddit.json` | Removing the unused Reddit sources: planned, applied, `validated` |
+| 56–58 | `56-maintain-check.json` → `58-maintain-check.json` | The drift baseline refreshed for the new index, then checked against it |
 | refresh/ | `refresh/*.json` | The latest scheduled run: build, map and `maintain check` |

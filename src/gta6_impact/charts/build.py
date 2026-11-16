@@ -18,6 +18,7 @@ CHARTS = ROOT / "charts"
 THEMES = {"light": "dex-site", "dark": "dex-site-dark"}
 LOGO = {"dex-site": "dex-logo-black.png", "dex-site-dark": "dex-logo-white.png"}
 FOOT_RIGHT = "Built with <b>Dex</b> · trydex.ai"
+SOURCE = "Data source: Google Trends, US <span class=\"unit\">· search interest, 0–100</span>"
 
 PAGE = """<!doctype html>
 <html lang="en" data-theme="{theme}">
@@ -33,7 +34,7 @@ PAGE = """<!doctype html>
 </script>
 </head>
 <body>
-<div class="card" style="width:{w}px;height:{h}px">
+<div class="card{variant}" style="width:{w}px;height:{h}px">
 {aside}
   <div class="mast">
     <div class="brand"><img alt="Dex" src="../brand/assets/{logo}"></div>
@@ -62,15 +63,18 @@ def _write(
     source: str,
     w: int,
     h: int,
-    data: dict,
+    data: dict | None,
     png: bool,
+    variant: str = "",
 ) -> None:
     CHARTS.mkdir(exist_ok=True)
-    (CHARTS / "data").mkdir(exist_ok=True)
-    (CHARTS / "data" / f"{name}.json").write_text(json.dumps(data, indent=1, default=str))
+    if data is not None:
+        (CHARTS / "data").mkdir(exist_ok=True)
+        (CHARTS / "data" / f"{name}.json").write_text(json.dumps(data, indent=1, default=str))
     for theme_name, theme in THEMES.items():
         html = PAGE.format(
             theme=theme,
+            variant=f" {variant}" if variant else "",
             title=escape(title),
             w=w,
             h=h,
@@ -156,7 +160,8 @@ def index_card(png: bool) -> dict:
         <div class="big">{big}</div>
         <h1>US Google searches for skipping work (vs last year)</h1>
         <p class="fine">Average change in searches for “call in sick”, “sick day” and
-        “day off work”, {escape(current)} vs {escape(prior)}.<br>GTA 6 launches 19 Nov.</p>
+        “day off work”, <span class="nw">{escape(current)}</span> vs
+        <span class="nw">{escape(prior)}</span>.<br>GTA 6 launches 19 Nov.</p>
       </div>
       {_bars(ordered, prior[-4:], current[-4:])}
     </div>"""
@@ -175,11 +180,24 @@ def index_card(png: bool) -> dict:
         title="Day-Off Index",
         body=body,
         aside=aside,
-        source="Data source: Google Trends, US",
+        source=SOURCE,
         w=1200,
         h=630,
         data=data,
         png=png,
+    )
+    # The same card at 4:5 for mobile feeds (LinkedIn, X): same data, stacked layout.
+    _write(
+        "day-off-index-portrait",
+        title="Day-Off Index",
+        body=body,
+        aside=aside,
+        source=SOURCE,
+        w=720,
+        h=900,
+        data=None,
+        png=png,
+        variant="portrait",
     )
     return data
 

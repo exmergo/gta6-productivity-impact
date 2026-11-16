@@ -90,3 +90,21 @@ h1 .red { color: var(--dex-redline); }
 .chart .direct, .chart .marker-label, .chart .note { paint-order: stroke; stroke: var(--dex-paper); stroke-width: 6px; stroke-linejoin: round; }
 .chart .note { fill: var(--dex-ink-muted); font: 14px var(--font-mono); }
 .chart .note-dot { fill: none; stroke: var(--dex-ink-muted); stroke-width: 1; }
+
+/* Footer unit: present but quiet */
+.foot .unit { color: var(--dex-ink-faint); }
+
+/* Portrait (4:5) variant of the hero card: number and art side by side, bars below */
+.card.portrait { padding: 40px 44px 28px; }
+.card.portrait .aside { top: 84px; right: 28px; width: 290px; height: 290px; }
+.card.portrait .main { padding-top: 40px; }
+.card.portrait .hero { justify-content: space-between; gap: 0; padding-bottom: 8px; }
+.card.portrait .big { font-size: 132px; margin-top: 58px; }
+.card.portrait .hero h1 { margin-top: 92px; font-size: 40px; line-height: 1.08; max-width: 620px; }
+.card.portrait .fine { margin-top: 14px; font-size: 13px; }
+.fine .nw { white-space: nowrap; }
+.card.portrait .yoy { grid-template-columns: 136px 1fr 70px; row-gap: 26px; }
+.card.portrait .yoy .term { font-size: 19px; }
+.card.portrait .yoy .pair b { height: 24px; }
+.card.portrait .yoy .change { font-size: 26px; }
+.card.portrait .foot { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 13px; }

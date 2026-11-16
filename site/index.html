@@ -3,12 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA 6 vs. Productivity</title>
-<meta name="description" content="US Google searches for skipping work, against last year, in the run-up to GTA 6. Built with Dex.">
-<meta property="og:title" content="GTA 6 vs. Productivity: the Day-Off Index">
-<meta property="og:description" content="US Google searches for skipping work, against last year. Built with Dex.">
-<meta property="og:image" content="charts/png/day-off-index-light.png">
+<title>GTA 6 vs. Productivity: the Day-Off Index</title>
+<meta name="description" content="US Google searches for “call in sick”, “sick day” and “day off work”, 1–14 Nov 2026 vs 2–15 Nov 2025: call in sick +40.4% · day off work +73.4% · sick day +36.4%. An open, reproducible study built with Dex.">
+<link rel="canonical" href="https://exmergo.github.io/gta6-productivity-impact/">
+<link rel="icon" type="image/png" href="brand/assets/exmergo-mark-black.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GTA 6 vs. Productivity">
+<meta property="og:url" content="https://exmergo.github.io/gta6-productivity-impact/">
+<meta property="og:title" content="Day-Off Index: +50%. Are Americans skipping work for GTA 6?">
+<meta property="og:description" content="US Google searches for “call in sick”, “sick day” and “day off work”, 1–14 Nov 2026 vs 2–15 Nov 2025: call in sick +40.4% · day off work +73.4% · sick day +36.4%. An open, reproducible study built with Dex.">
+<meta property="og:image" content="https://exmergo.github.io/gta6-productivity-impact/charts/png/day-off-index-light.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="Day-Off Index +50%: US Google searches for skipping work vs last year, call in sick +40.4% · day off work +73.4% · sick day +36.4%.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Day-Off Index: +50%. Are Americans skipping work for GTA 6?">
+<meta name="twitter:description" content="US Google searches for “call in sick”, “sick day” and “day off work”, 1–14 Nov 2026 vs 2–15 Nov 2025: call in sick +40.4% · day off work +73.4% · sick day +36.4%. An open, reproducible study built with Dex.">
+<meta name="twitter:image" content="https://exmergo.github.io/gta6-productivity-impact/charts/png/day-off-index-light.png">
+<meta name="twitter:image:alt" content="Day-Off Index +50%: US Google searches for skipping work vs last year, call in sick +40.4% · day off work +73.4% · sick day +36.4%.">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Dataset", "name": "GTA 6 vs. Productivity: the Day-Off Index", "description": "US Google searches for “call in sick”, “sick day” and “day off work”, 1–14 Nov 2026 vs 2–15 Nov 2025: call in sick +40.4% · day off work +73.4% · sick day +36.4%. An open, reproducible study built with Dex.", "url": "https://exmergo.github.io/gta6-productivity-impact/", "sameAs": "https://github.com/exmergo/gta6-productivity-impact", "license": "https://www.apache.org/licenses/LICENSE-2.0", "creator": {"@type": "Organization", "name": "Exmergo", "url": "https://trydex.ai"}, "isAccessibleForFree": true, "spatialCoverage": "United States", "temporalCoverage": "2025-11-01/2026-11-14", "keywords": ["GTA 6", "productivity", "sick day", "call in sick", "Google Trends", "dbt"], "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://exmergo.github.io/gta6-productivity-impact/charts/data/day-off-index.json"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Are Americans searching for sick days more before GTA 6?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. US Google searches for skipping work were up 50% on average, 1–14 Nov 2026 against 2–15 Nov 2025: “day off work” +73.4%, “call in sick” +40.4%, “sick day” +36.4%. GTA 6 launches on Thursday 19 November 2026."}}, {"@type": "Question", "name": "What is the Day-Off Index?", "acceptedAnswer": {"@type": "Answer", "text": "The average year-over-year change in US Google searches for “call in sick”, “sick day” and “day off work”. Each phrase compares its average weekly Google Trends interest over two weeks with the same weeks a year earlier. It is always shown with its breakdown."}}, {"@type": "Question", "name": "Did GTA 6 cause the rise?", "acceptedAnswer": {"@type": "Answer", "text": "We can't say. The rise lines up with the run-up to GTA 6, but this is an association, not proof of cause. Search interest has other drivers too."}}, {"@type": "Question", "name": "Is this how many people are taking the day off?", "acceptedAnswer": {"@type": "Answer", "text": "No. It measures Google search interest (a 0–100 index), not a headcount. People who book time off in an HR system don't search for it."}}, {"@type": "Question", "name": "How was it built?", "acceptedAnswer": {"@type": "Answer", "text": "From public Google Trends data, with a dbt project and a MetricFlow semantic layer that Dex wrote, tested and verifies on every refresh. The repository is open source and every number can be reproduced from it."}}]}]}</script>
 <link rel="stylesheet" href="brand/dex-site.css">
 <script>
   try {
@@ -41,6 +54,8 @@
   img { max-width: 100%; }
   pre { white-space: pre-wrap; font-family: var(--font-mono); font-size: 14px; background: var(--dex-paper-sunk); padding: 14px; overflow-x: auto; }
   a { color: var(--dex-line); }
+  dl dt { font-weight: 700; font-size: 18px; margin-top: 22px; }
+  dl dd { margin: 6px 0 0; font-size: 17px; line-height: 1.5; color: var(--dex-ink-muted); max-width: 860px; }
   footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--dex-line-soft); font: 13px var(--font-mono); color: var(--dex-ink-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 </style>
 </head>
@@ -48,7 +63,7 @@
 <main>
 <header>
   <img id="logo" alt="Dex" src="brand/assets/dex-logo-black.png">
-  <span class="meta">GTA 6 vs. productivity · updated 2026-11-16 19:29 UTC</span>
+  <span class="meta">GTA 6 vs. productivity · updated 2026-11-16 23:40 UTC</span>
 </header>
 <h1>Day-Off Index: <em>+50%</em>.</h1>
 <p class="lede">US Google searches for skipping work, 1–14 Nov 2026 against 2–15 Nov 2025: call in sick +40.4% · day off work +73.4% · sick day +36.4%. The index is the average of the three. GTA 6 comes out on Thursday 19 November.</p>
@@ -61,6 +76,8 @@
 </table></div>
 <p class="lede">Weekly Google Trends interest, one request per phrase spanning both years, so the
 two years share one scale. Search interest, not a headcount.</p>
+<h2>Questions people ask</h2>
+<dl><dt>Are Americans searching for sick days more before GTA 6?</dt><dd>Yes. US Google searches for skipping work were up 50% on average, 1–14 Nov 2026 against 2–15 Nov 2025: “day off work” +73.4%, “call in sick” +40.4%, “sick day” +36.4%. GTA 6 launches on Thursday 19 November 2026.</dd><dt>What is the Day-Off Index?</dt><dd>The average year-over-year change in US Google searches for “call in sick”, “sick day” and “day off work”. Each phrase compares its average weekly Google Trends interest over two weeks with the same weeks a year earlier. It is always shown with its breakdown.</dd><dt>Did GTA 6 cause the rise?</dt><dd>We can&#x27;t say. The rise lines up with the run-up to GTA 6, but this is an association, not proof of cause. Search interest has other drivers too.</dd><dt>Is this how many people are taking the day off?</dt><dd>No. It measures Google search interest (a 0–100 index), not a headcount. People who book time off in an HR system don&#x27;t search for it.</dd><dt>How was it built?</dt><dd>From public Google Trends data, with a dbt project and a MetricFlow semantic layer that Dex wrote, tested and verifies on every refresh. The repository is open source and every number can be reproduced from it.</dd></dl>
 <h2>Ask it yourself</h2>
 <p class="lede">Every number here is a governed metric in a dbt semantic layer that Dex wrote and verified. Clone the repo and ask:</p>
 <pre>uv sync
@@ -79,6 +96,8 @@ uv run dex explore semantic query day_off_index_term_change,day_off_index_term_p
   if (t > 0) {
     const d = Math.floor(t / 864e5), h = Math.floor(t % 864e5 / 36e5);
     el.textContent = `GTA 6 in ${d}d ${h}h (UTC midnight, Thu 19 Nov)`;
+  } else {
+    el.textContent = 'GTA 6 is out. We are counting.';
   }
 </script>
 </body>

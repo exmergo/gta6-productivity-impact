@@ -1,6 +1,6 @@
 # Agent instructions: GTA 6 vs. Productivity
 
-A public, meme-sized study of GTA 6's effect on productivity, built as a Dex showcase.
+A public, meme-sized study of GTA 6's effect on productivity.
 Every number must come out of the dbt project and its semantic layer.
 
 ## Answering a question about the data

@@ -1,7 +1,7 @@
 [project]
 name = "gta6-impact"
 version = "0.1.0"
-description = "Measuring GTA 6's impact on global productivity, one Thursday at a time. Built with Dex."
+description = "Measuring GTA 6's impact on global productivity, one Thursday at a time."
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.11,<3.13"

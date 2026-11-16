@@ -95,7 +95,10 @@ two years share one scale. Search interest, not a headcount.</p>
 {faq}
 <h2>Ask it yourself</h2>
 <p class="lede">Every number here is a governed metric in a dbt semantic layer that Dex wrote and verified. Clone the repo and ask:</p>
-<pre>uv sync
+<pre>git clone {repo}
+cd gta6-productivity-impact
+uv sync
+uv run dbt parse
 uv run dex explore semantic query day_off_index --group-by day_off_index_window__breakdown
 uv run dex explore semantic query day_off_index_term_change,day_off_index_term_prior,day_off_index_term_current --group-by day_off_index_term__term</pre>
 <footer><span>Public-signal proxy, not headcount · UTC days · association, not causation</span>

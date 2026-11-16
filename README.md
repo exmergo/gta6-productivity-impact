@@ -118,6 +118,7 @@ flowchart LR
 git clone https://github.com/exmergo/gta6-productivity-impact
 cd gta6-productivity-impact
 uv sync
+uv run dbt parse   # compile the semantic layer once (target/ isn't committed)
 
 # What does the layer know?
 uv run dex explore semantic list

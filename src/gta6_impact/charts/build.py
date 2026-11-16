@@ -173,7 +173,7 @@ def index_card(png: bool) -> dict:
         "breakdown": head[f"{window}breakdown"],
         "current_window": current,
         "prior_window": prior,
-        "terms": terms,
+        "terms": ordered,
     }
     _write(
         "day-off-index",

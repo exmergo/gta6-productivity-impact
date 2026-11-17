@@ -30,6 +30,8 @@ Every number must come out of the dbt project and its semantic layer.
   URIs: counts, ids, timestamps and boolean flags only.
 - Charts read only `dex explore semantic query` (`src/gta6_impact/charts/semantic.py`).
   Colours come from `brand/dex-site.css` tokens, never hex.
+- The README's chart `<picture>` is pinned to a commit SHA (GitHub's image cache serves stale
+  PNGs at a fixed path). After a deliberate chart redesign, push it, then bump that SHA.
 - This repo is public. Never commit secrets, personal data, or anything about Exmergo's
   commercial plans.
 

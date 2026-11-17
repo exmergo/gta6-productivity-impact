@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-theme="dex-site">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTA V to GTA 6</title>
+<link rel="stylesheet" href="../brand/dex-site.css">
+<link rel="stylesheet" href="../brand/charts.css">
+<script>
+  const t = new URLSearchParams(location.search).get('theme');
+  if (t === 'dark') document.documentElement.dataset.theme = 'dex-site-dark';
+</script>
+</head>
+<body>
+<div class="card" style="width:1200px;height:630px">
+
+  <div class="mast">
+    <div class="brand"><img alt="Dex" src="../brand/assets/dex-logo-black.png"></div>
+  </div>
+  <div class="main">
+    <div class="hero" style="flex-direction:row;align-items:center;gap:36px">
+      <div style="flex:0 0 400px">
+        <div class="big">+26<small>%</small></div>
+        <h1>How much more productive the world got between GTA&nbsp;V and GTA&nbsp;6</h1>
+        <p class="fine">World real GDP per person, 2013 to 2026.</p>
+      </div>
+      <div class="plot" style="flex:1;height:380px;margin:0"><svg class="chart" viewBox="0 0 620 380" role="img"><line class="grid" x1="52" x2="424" y1="340.0" y2="340.0"/><text class="tick" x="42" y="345.0" text-anchor="end">0%</text><line class="grid" x1="52" x2="424" y1="289.0" y2="289.0"/><text class="tick" x="42" y="294.0" text-anchor="end">5%</text><line class="grid" x1="52" x2="424" y1="238.0" y2="238.0"/><text class="tick" x="42" y="243.0" text-anchor="end">10%</text><line class="grid" x1="52" x2="424" y1="187.0" y2="187.0"/><text class="tick" x="42" y="192.0" text-anchor="end">15%</text><line class="grid" x1="52" x2="424" y1="136.0" y2="136.0"/><text class="tick" x="42" y="141.0" text-anchor="end">20%</text><line class="grid" x1="52" x2="424" y1="85.0" y2="85.0"/><text class="tick" x="42" y="90.0" text-anchor="end">25%</text><line class="grid" x1="52" x2="424" y1="34.0" y2="34.0"/><text class="tick" x="42" y="39.0" text-anchor="end">30%</text><line class="marker launch" x1="52.0" x2="52.0" y1="20" y2="340"/><text class="marker-label launch" x="52.0" y="14" text-anchor="middle">GTA V</text><text class="tick" x="52.0" y="364" text-anchor="middle">2013</text><line class="marker launch" x1="424.0" x2="424.0" y1="20" y2="340"/><text class="marker-label launch" x="424.0" y="14" text-anchor="middle">GTA 6</text><text class="tick" x="424.0" y="364" text-anchor="middle">2026</text><path class="line s-study" d="M52.0,340.0 L80.6,320.6 L109.2,300.2 L137.8,283.9 L166.5,258.4 L195.1,234.9 L223.7,216.6 L252.3,260.4 L280.9,199.2 L309.5,169.7 L338.2,146.2 L366.8,123.8 L395.4,99.3 L424.0,71.7"/><circle class="end s-study" cx="424.0" cy="71.7" r="5"/><path class="line s-control" d="M52.0,340.0 L80.6,316.5 L109.2,295.1 L137.8,272.7 L166.5,244.1 L195.1,217.6 L223.7,198.2 L252.3,207.4 L280.9,168.6 L309.5,154.4 L338.2,139.1 L366.8,113.6 L395.4,86.0"/><circle class="end s-control" cx="395.4" cy="86.0" r="5"/><text class="direct" x="438" y="77.7">+26%<tspan class="direct-name" x="438" dy="18">GDP per person, 2026</tspan></text><text class="direct" x="438" y="127.7">+25%<tspan class="direct-name" x="438" dy="18">GDP per worker, 2025</tspan></text></svg></div>
+    </div>
+  </div>
+  <div class="foot"><span>Data source: World Bank WDI, IMF WEO <span class="unit">· world, real terms</span></span><span>Built with <b>Dex</b> · trydex.ai</span></div>
+</div>
+<script>
+  if (document.documentElement.dataset.theme === 'dex-site-dark') {
+    document.querySelector('.brand img').src = '../brand/assets/dex-logo-white.png';
+  }
+</script>
+</body>
+</html>

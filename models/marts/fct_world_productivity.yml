@@ -1,0 +1,629 @@
+version: 2
+models:
+- name: fct_world_productivity
+  description: 'Metric 2, GTA V to GTA 6: world productivity per year from 2013 to 2026 and its real change
+    since GTA V''s launch year. One row per measure per year.'
+  config:
+    meta:
+      dex:
+        grain:
+        - world_productivity_key
+        population:
+          rule: Every year from var gta_v_year (2013) to var gta_6_year (2026) for both measures, published
+            or not; an unpublished, unestimated year keeps its row with a NULL value.
+        assumptions:
+        - decision: Measures of productivity
+          chosen: World Bank GDP per person employed and GDP per capita, world aggregate, real
+          evidence: request
+          detail: 'user: productivity measured by actual economic indexes (GDP per capita) for the whole
+            world, economic data only'
+          column: measure
+        - decision: Years covered
+          chosen: 2013 to 2026, every year
+          evidence: request
+          detail: 'user: bookended by the GTA V and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
+          column: data_year
+        - decision: Years the World Bank has not published
+          chosen: per capita carried by IMF WEO world real GDP growth less latest World Bank population
+            growth, flagged is_estimate; per worker left NULL
+          evidence: default
+          detail: the IMF WEO is the standard published source for the current year; no free published
+            world employment growth to carry output per worker
+          column: value
+  columns:
+  - name: world_productivity_key
+    description: md5 of measure|year.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+    - unique
+    - not_null
+  - name: measure
+    description: output_per_worker or output_per_person.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: data_year
+    description: Calendar year the value describes.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: year_start
+    description: '1 January of data_year: the time axis.'
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: launch
+    description: GTA V on 2013, GTA 6 on 2026, NULL in between.
+    config:
+      meta:
+        dex:
+          role: dimension
+  - name: value
+    description: Real output in the measure's unit.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: 'NULL when unpublished and not estimated: unavailable, never zero.'
+          aggregation: max
+          additivity: non_additive
+          unit: see unit column
+  - name: unit
+    description: The value's unit.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: source_indicator
+    description: World Bank indicator code.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: is_estimate
+    description: True when the value is carried by IMF growth, not published by the World Bank.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: is_latest
+    description: True on the measure's latest year with a value.
+    config:
+      meta:
+        dex:
+          role: attribute
+  - name: pct_change_since_gta_v
+    description: Real change since GTA V's launch year, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when the year's value is unavailable.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+unit_tests:
+- name: world_productivity_carries_unpublished_years_by_imf_growth
+  description: 2025 = 110 x 1.03/1.01 (+12.2% on 2013), 2026 = 2025 x 1.02/1.01 (+13.3%), both estimates;
+    the latest population growth (1.0) is used; output per worker stops at its last published year; other
+    geographies and providers are ignored.
+  model: fct_world_productivity
+  given:
+  - input: ref('stg_economy__indicators')
+    rows:
+    - &id001
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2013
+      value: 100.0
+    - &id002
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2014
+      value: 110.0
+    - &id003
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2015
+      value: 110.0
+    - &id004
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2016
+      value: 110.0
+    - &id005
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2017
+      value: 110.0
+    - &id006
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2018
+      value: 110.0
+    - &id007
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2019
+      value: 110.0
+    - &id008
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2020
+      value: 110.0
+    - &id009
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2021
+      value: 110.0
+    - &id010
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2022
+      value: 110.0
+    - &id011
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2023
+      value: 110.0
+    - &id012
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2024
+      value: 110.0
+    - &id013
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: USA
+      year: 2013
+      value: 999.0
+    - &id014
+      provider: world_bank
+      indicator: SP.POP.GROW
+      geo: WLD
+      year: 2023
+      value: 5.0
+    - &id015
+      provider: world_bank
+      indicator: SP.POP.GROW
+      geo: WLD
+      year: 2024
+      value: 1.0
+    - &id016
+      provider: imf_weo
+      indicator: NGDP_RPCH
+      geo: WLD
+      year: 2024
+      value: 9.0
+    - &id017
+      provider: imf_weo
+      indicator: NGDP_RPCH
+      geo: WLD
+      year: 2026
+      value: 2.0
+    - &id018
+      provider: world_bank
+      indicator: NGDP_RPCH
+      geo: WLD
+      year: 2025
+      value: 50.0
+    - &id019
+      provider: imf_weo
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2025
+      value: 1.0
+    - provider: world_bank
+      indicator: SL.GDP.PCAP.EM.KD
+      geo: WLD
+      year: 2013
+      value: 50.0
+    - provider: imf_weo
+      indicator: NGDP_RPCH
+      geo: WLD
+      year: 2025
+      value: 3.0
+  expect:
+    rows:
+    - measure: output_per_person
+      data_year: 2013
+      launch: GTA V
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 0.0
+    - measure: output_per_person
+      data_year: 2014
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2015
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2016
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2017
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2018
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2019
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2020
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2021
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2022
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2023
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2024
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2025
+      launch: null
+      is_estimate: true
+      is_latest: false
+      pct_change_since_gta_v: 12.2
+    - measure: output_per_person
+      data_year: 2026
+      launch: GTA 6
+      is_estimate: true
+      is_latest: true
+      pct_change_since_gta_v: 13.3
+    - measure: output_per_worker
+      data_year: 2013
+      launch: GTA V
+      is_estimate: false
+      is_latest: true
+      pct_change_since_gta_v: 0.0
+    - measure: output_per_worker
+      data_year: 2014
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2015
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2016
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2017
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2018
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2019
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2020
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2021
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2022
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2023
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2024
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2025
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2026
+      launch: GTA 6
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+- name: world_productivity_missing_imf_year_breaks_the_chain
+  description: 'With no IMF growth for 2025, 2025 and 2026 are both NULL (unavailable): a gap is never
+    skipped over, and the latest year is 2024. A measure with nothing published keeps every year, all
+    unavailable.'
+  model: fct_world_productivity
+  given:
+  - input: ref('stg_economy__indicators')
+    rows:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - *id006
+    - *id007
+    - *id008
+    - *id009
+    - *id010
+    - *id011
+    - *id012
+    - *id013
+    - *id014
+    - *id015
+    - *id016
+    - *id017
+    - *id018
+    - *id019
+  expect:
+    rows:
+    - measure: output_per_person
+      data_year: 2013
+      launch: GTA V
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 0.0
+    - measure: output_per_person
+      data_year: 2014
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2015
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2016
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2017
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2018
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2019
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2020
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2021
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2022
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2023
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2024
+      launch: null
+      is_estimate: false
+      is_latest: true
+      pct_change_since_gta_v: 10.0
+    - measure: output_per_person
+      data_year: 2025
+      launch: null
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_person
+      data_year: 2026
+      launch: GTA 6
+      is_estimate: false
+      is_latest: false
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2013
+      launch: GTA V
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2014
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2015
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2016
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2017
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2018
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2019
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2020
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2021
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2022
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2023
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2024
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2025
+      launch: null
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null
+    - measure: output_per_worker
+      data_year: 2026
+      launch: GTA 6
+      is_estimate: false
+      is_latest: null
+      pct_change_since_gta_v: null

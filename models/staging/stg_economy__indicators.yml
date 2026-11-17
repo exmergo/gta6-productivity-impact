@@ -1,0 +1,76 @@
+version: 2
+models:
+- name: stg_economy__indicators
+  description: 'One row per provider, indicator, geography and year: official economic data.'
+  config:
+    meta:
+      dex:
+        grain:
+          - provider
+          - indicator
+          - geo
+          - year
+        population:
+          rule: Every published value as landed; unpublished years are absent.
+        assumptions:
+          - decision: geo flagged as location PII
+            chosen: kept as is
+            evidence: data
+            detail: its only value is WLD, the world aggregate code; no person or place of a person
+            column: geo
+  columns:
+  - name: provider
+    description: world_bank (WDI) or imf_weo (World Economic Outlook).
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: indicator
+    description: The provider's indicator code, e.g. SL.GDP.PCAP.EM.KD or NGDP_RPCH.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: geo
+    description: 'WLD: the world aggregate.'
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: year
+    description: Calendar year the value describes.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+          unit: years
+    data_tests:
+      - not_null
+  - name: value
+    description: The published value, in the indicator's own unit.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: the indicator's own unit
+    data_tests:
+      - not_null
+  - name: last_updated
+    description: When the World Bank last updated the indicator; NULL for the IMF.
+    config:
+      meta:
+        dex:
+          role: attribute

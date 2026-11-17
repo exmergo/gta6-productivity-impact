@@ -26,3 +26,13 @@ between.
   for 2026 is 2025 grown by the IMF World Economic Outlook's 2026 world real GDP growth
   (`NGDP_RPCH`) less world population growth (`SP.POP.GROW`, last published year), and is
   labelled as an estimate. Output per worker stops at the last published year.
+
+| World, real | 2013 (GTA V) | Latest | Change |
+|---|---|---|---|
+| GDP per person (constant 2015 US$) | $9,811 | $12,394 (2026, estimate) | **+26.3%** |
+| GDP per worker (constant 2021 PPP $) | $40,581 | $50,672 (2025) | **+24.9%** |
+
+Ask it: `uv run dex explore semantic query world_productivity_change_since_gta_v,world_productivity
+--group-by world_productivity_key__measure,world_productivity_key__data_year`. Model:
+`fct_world_productivity` (one row per measure per year; the IMF chain is unit-tested, including a
+missing IMF year leaving the value NULL). Chart: `charts/png/gta-v-to-gta-6-{light,dark}.png`.

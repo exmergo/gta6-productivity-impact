@@ -4191,6 +4191,549 @@
       "profiled_at": "2026-11-16T19:31:20.070609+00:00",
       "semantic_models": [],
       "values_withheld": false
+    },
+    {
+      "identifier": "gta6.raw.economy_indicators",
+      "object_type": "table",
+      "row_count": 53,
+      "byte_size": null,
+      "columns": [
+        {
+          "name": "provider",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "world_bank",
+                "count": 39
+              },
+              {
+                "value": "imf_weo",
+                "count": 14
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "indicator",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 4,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "geo",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": {
+            "category": "location",
+            "confidence": 0.3
+          },
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "year",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 14,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 2013,
+          "max_value": 2026,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "value",
+          "data_type": "DOUBLE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 50,
+          "distinct_count_exact": true,
+          "is_unique": false,
+          "min_value": -2.7,
+          "max_value": 50671.7228169014,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "last_updated",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.26415094339622647,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "2026-11-11",
+                "count": 39
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "pull_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "20261117T104654Z",
+                "count": 53
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        }
+      ],
+      "candidate_keys": [
+        [
+          "year",
+          "indicator"
+        ],
+        [
+          "value",
+          "year"
+        ]
+      ],
+      "grain": [
+        "year",
+        "indicator"
+      ],
+      "composite_keys": [
+        [
+          "year",
+          "indicator"
+        ],
+        [
+          "value",
+          "year"
+        ]
+      ],
+      "key_evidence": [
+        {
+          "columns": [
+            "year",
+            "indicator"
+          ],
+          "status": "reported",
+          "reason": "year, indicator is unique as a combination on all 53 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
+        },
+        {
+          "columns": [
+            "value",
+            "year"
+          ],
+          "status": "reported",
+          "reason": "value, year is unique as a combination on all 53 rows, proven by an exact distinct-combination probe, and ranks behind year, indicator, which is proven at a smaller cardinality"
+        }
+      ],
+      "rank_score": null,
+      "data_quality": [
+        "last_updated is declared VARCHAR but 100% of values match the %Y-%m-%d date format; consider casting with that format"
+      ],
+      "findings": [
+        {
+          "column": "year",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "year participates in the detected grain but the warehouse still allows it to be NULL"
+        },
+        {
+          "column": "indicator",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "indicator participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-17T10:52:22.821697+00:00",
+      "semantic_models": [],
+      "values_withheld": false
+    },
+    {
+      "identifier": "gta6.main.fct_world_productivity",
+      "object_type": "table",
+      "row_count": 28,
+      "byte_size": null,
+      "columns": [
+        {
+          "name": "world_productivity_key",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 28,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "measure",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "output_per_person",
+                "count": 14
+              },
+              {
+                "value": "output_per_worker",
+                "count": 14
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "data_year",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 14,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 2013,
+          "max_value": 2026,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "year_start",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 14,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2013-01-01",
+          "max_value": "2026-01-01",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "month",
+          "temporal_span": 157,
+          "temporal_distinct_periods": 14,
+          "temporal_missing_periods": 143,
+          "temporal_largest_gap": 11
+        },
+        {
+          "name": "launch",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.8571428571428572,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "value",
+          "data_type": "DOUBLE",
+          "nullable": true,
+          "null_fraction": 0.0357142857142857,
+          "distinct_count": 27,
+          "distinct_count_exact": true,
+          "is_unique": false,
+          "min_value": 9811.02619687608,
+          "max_value": 50671.7228169014,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "unit",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "constant 2015 US$ per person",
+                "count": 14
+              },
+              {
+                "value": "constant 2021 PPP $ per person employed",
+                "count": 14
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "source_indicator",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "NY.GDP.PCAP.KD",
+                "count": 14
+              },
+              {
+                "value": "SL.GDP.PCAP.EM.KD",
+                "count": 14
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "is_estimate",
+          "data_type": "BOOLEAN",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": false,
+          "max_value": true,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": false,
+                "count": 27
+              },
+              {
+                "value": true,
+                "count": 1
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "is_latest",
+          "data_type": "BOOLEAN",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": false,
+          "max_value": true,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": false,
+                "count": 26
+              },
+              {
+                "value": true,
+                "count": 2
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "pct_change_since_gta_v",
+          "data_type": "DOUBLE",
+          "nullable": true,
+          "null_fraction": 0.0357142857142857,
+          "distinct_count": 26,
+          "distinct_count_exact": true,
+          "is_unique": false,
+          "min_value": 0.0,
+          "max_value": 26.3,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        }
+      ],
+      "candidate_keys": [
+        [
+          "world_productivity_key"
+        ]
+      ],
+      "grain": [
+        "world_productivity_key"
+      ],
+      "composite_keys": [],
+      "key_evidence": [
+        {
+          "columns": [
+            "world_productivity_key"
+          ],
+          "status": "reported",
+          "reason": "world_productivity_key is unique and non-null on all 28 rows, proven by an exact distinct count"
+        }
+      ],
+      "rank_score": null,
+      "data_quality": [],
+      "findings": [
+        {
+          "column": "world_productivity_key",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "world_productivity_key participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-17T10:54:22.687692+00:00",
+      "semantic_models": [],
+      "values_withheld": false
     }
   ],
   "relationships": [
@@ -4246,7 +4789,7 @@
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-17T06:28:11.306785+00:00",
+    "updated_at": "2026-11-17T10:54:22.532183+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

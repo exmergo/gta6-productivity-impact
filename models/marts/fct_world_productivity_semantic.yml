@@ -1,0 +1,85 @@
+version: 2
+
+semantic_models:
+  - name: fct_world_productivity
+    description: 'Metric 2, GTA V to GTA 6: world productivity per year from 2013 to 2026 and its real change since GTA V''s launch year. One row per measure per year. Population: Every year from var gta_v_year (2013) to var gta_6_year (2026) for both measures, published or not; an unpublished, unestimated year keeps its row with a NULL value.'
+    model: ref('fct_world_productivity')
+    defaults:
+      agg_time_dimension: year_start
+    entities:
+      - name: world_productivity_key
+        type: primary
+        expr: world_productivity_key
+        config:
+          meta:
+            dex:
+              null_rule: never
+    dimensions:
+      - name: measure
+        type: categorical
+        description: output_per_worker or output_per_person.
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: data_year
+        type: categorical
+        description: Calendar year the value describes.
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: year_start
+        type: time
+        type_params:
+          time_granularity: day
+        description: '1 January of data_year: the time axis.'
+        config:
+          meta:
+            dex:
+              null_rule: never
+      - name: launch
+        type: categorical
+        description: GTA V on 2013, GTA 6 on 2026, NULL in between.
+    measures:
+      - name: value
+        agg: max
+        expr: value
+        description: Real output in the measure's unit.
+        config:
+          meta:
+            dex:
+              unit: see unit column
+              null_rule: 'NULL when unpublished and not estimated: unavailable, never zero.'
+              additivity: non_additive
+      - name: pct_change_since_gta_v
+        agg: max
+        expr: pct_change_since_gta_v
+        description: Real change since GTA V's launch year, in percent.
+        config:
+          meta:
+            dex:
+              unit: percent
+              null_rule: NULL when the year's value is unavailable.
+              additivity: non_additive
+    config:
+      meta:
+        dex:
+          population:
+            rule: Every year from var gta_v_year (2013) to var gta_6_year (2026) for both measures, published or not; an unpublished, unestimated year keeps its row with a NULL value.
+          assumptions:
+            - decision: Measures of productivity
+              chosen: World Bank GDP per person employed and GDP per capita, world aggregate, real
+              evidence: request
+              detail: 'user: productivity measured by actual economic indexes (GDP per capita) for the whole world, economic data only'
+              column: measure
+            - decision: Years covered
+              chosen: 2013 to 2026, every year
+              evidence: request
+              detail: 'user: bookended by the GTA V and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
+              column: data_year
+            - decision: Years the World Bank has not published
+              chosen: per capita carried by IMF WEO world real GDP growth less latest World Bank population growth, flagged is_estimate; per worker left NULL
+              evidence: default
+              detail: the IMF WEO is the standard published source for the current year; no free published world employment growth to carry output per worker
+              column: value

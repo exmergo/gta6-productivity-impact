@@ -18,7 +18,7 @@ CHARTS = ROOT / "charts"
 THEMES = {"light": "dex-site", "dark": "dex-site-dark"}
 LOGO = {"dex-site": "dex-logo-black.png", "dex-site-dark": "dex-logo-white.png"}
 FOOT_RIGHT = "Built with <b>Dex</b> · trydex.ai"
-SOURCE = "Data source: Google Trends, US <span class=\"unit\">· search interest, 0–100</span>"
+SOURCE = 'Data source: Google Trends, US <span class="unit">· search interest, 0–100</span>'
 
 PAGE = """<!doctype html>
 <html lang="en" data-theme="{theme}">
@@ -202,7 +202,122 @@ def index_card(png: bool) -> dict:
     return data
 
 
+PRODUCTIVITY_SOURCE = (
+    'Data source: World Bank WDI, IMF WEO <span class="unit">· world, real terms</span>'
+)
+MEASURES = {
+    "output_per_person": ("GDP per person", "s-study"),
+    "output_per_worker": ("GDP per worker", "s-control"),
+}
+
+
+def _productivity_plot(rows: list[dict], w: int = 620, h: int = 380) -> str:
+    """Both measures' change since GTA V, year by year, with the two launches marked."""
+    years = sorted({r["world_productivity_key__data_year"] for r in rows})
+    first, last = years[0], years[-1]
+    top = max(r["world_productivity_change_since_gta_v"] or 0 for r in rows)
+    ymax = 5 * (int(top) // 5 + 1)
+    left, right, top_pad, bottom = 52, 196, 34, 40
+
+    def x(year: int) -> float:
+        return left + (year - first) / (last - first) * (w - left - right)
+
+    def y(pct: float) -> float:
+        return top_pad + (1 - pct / ymax) * (h - top_pad - bottom)
+
+    parts = [f'<svg class="chart" viewBox="0 0 {w} {h}" role="img">']
+    for tick in range(0, ymax + 1, 5 if ymax <= 30 else 10):
+        ty = y(tick)
+        parts.append(
+            f'<line class="grid" x1="{left}" x2="{w - right}" y1="{ty:.1f}" y2="{ty:.1f}"/>'
+        )
+        parts.append(
+            f'<text class="tick" x="{left - 10}" y="{ty + 5:.1f}" text-anchor="end">{tick}%</text>'
+        )
+    for year, label in ((first, "GTA V"), (last, "GTA 6")):
+        mx = f"{x(year):.1f}"
+        parts.append(
+            f'<line class="marker launch" x1="{mx}" x2="{mx}" '
+            f'y1="{top_pad - 14}" y2="{h - bottom}"/>'
+        )
+        parts.append(
+            f'<text class="marker-label launch" x="{mx}" y="{top_pad - 20}" '
+            f'text-anchor="middle">{label}</text>'
+        )
+        parts.append(
+            f'<text class="tick" x="{mx}" y="{h - bottom + 24}" text-anchor="middle">{year}</text>'
+        )
+    labels = []
+    for measure, (name, cls) in MEASURES.items():
+        points = [
+            (r["world_productivity_key__data_year"], r["world_productivity_change_since_gta_v"])
+            for r in sorted(rows, key=lambda r: r["world_productivity_key__data_year"])
+            if r["world_productivity_key__measure"] == measure
+            and r["world_productivity_change_since_gta_v"] is not None
+        ]
+        if not points:
+            continue
+        path = " ".join(
+            f"{'M' if i == 0 else 'L'}{x(a):.1f},{y(b):.1f}" for i, (a, b) in enumerate(points)
+        )
+        parts.append(f'<path class="line {cls}" d="{path}"/>')
+        end_year, end_pct = points[-1]
+        parts.append(
+            f'<circle class="end {cls}" cx="{x(end_year):.1f}" cy="{y(end_pct):.1f}" r="5"/>'
+        )
+        labels.append((y(end_pct), end_year, end_pct, name))
+    # Direct labels at the right edge, nudged apart when the two ends sit close.
+    labels.sort()
+    for i in range(1, len(labels)):
+        if labels[i][0] - labels[i - 1][0] < 50:
+            labels[i] = (labels[i - 1][0] + 50, *labels[i][1:])
+    lx = w - right + 14
+    for ly, end_year, end_pct, name in labels:
+        parts.append(
+            f'<text class="direct" x="{lx}" y="{ly + 6:.1f}">{end_pct:+.0f}%'
+            f'<tspan class="direct-name" x="{lx}" dy="18">{name}, {end_year}</tspan></text>'
+        )
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def productivity_card(png: bool) -> dict:
+    """Metric 2, GTA V to GTA 6: how much more productive the world got between the launches."""
+    rows = query(
+        ["world_productivity_change_since_gta_v", "world_productivity"],
+        ["world_productivity_key__measure", "world_productivity_key__data_year"],
+    )
+    by = {
+        (r["world_productivity_key__measure"], r["world_productivity_key__data_year"]): r
+        for r in rows
+    }
+    last = max(r["world_productivity_key__data_year"] for r in rows)
+    head = by[("output_per_person", last)]["world_productivity_change_since_gta_v"]
+    big = f"{head:+.0f}<small>%</small>" if head is not None else "n/a"
+    body = f"""    <div class="hero" style="flex-direction:row;align-items:center;gap:36px">
+      <div style="flex:0 0 400px">
+        <div class="big">{big}</div>
+        <h1>How much more productive the world got between GTA&nbsp;V and GTA&nbsp;6</h1>
+        <p class="fine">World real GDP per person, 2013 to {last}.</p>
+      </div>
+      <div class="plot" style="flex:1;height:380px;margin:0">{_productivity_plot(rows)}</div>
+    </div>"""
+    data = {"rows": rows}
+    _write(
+        "gta-v-to-gta-6",
+        title="GTA V to GTA 6",
+        body=body,
+        source=PRODUCTIVITY_SOURCE,
+        w=1200,
+        h=630,
+        data=data,
+        png=png,
+    )
+    return data
+
+
 def build(png: bool = True) -> dict:
+    productivity_card(png)
     return index_card(png)
 
 

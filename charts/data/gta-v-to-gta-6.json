@@ -1,0 +1,172 @@
+{
+ "rows": [
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2015,
+   "world_productivity_change_since_gta_v": 3.9,
+   "world_productivity": 10191.9752512662
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2023,
+   "world_productivity_change_since_gta_v": 19.0,
+   "world_productivity": 11670.8224680822
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2016,
+   "world_productivity_change_since_gta_v": 6.6,
+   "world_productivity": 43258.7754102838
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2017,
+   "world_productivity_change_since_gta_v": 9.4,
+   "world_productivity": 44409.8012692093
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2019,
+   "world_productivity_change_since_gta_v": 13.9,
+   "world_productivity": 46212.2280678673
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2025,
+   "world_productivity_change_since_gta_v": 24.9,
+   "world_productivity": 50671.7228169014
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2026,
+   "world_productivity_change_since_gta_v": 26.3,
+   "world_productivity": 12393.769008742398
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2014,
+   "world_productivity_change_since_gta_v": 1.9,
+   "world_productivity": 10000.5832738734
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2020,
+   "world_productivity_change_since_gta_v": 7.8,
+   "world_productivity": 10575.2194883029
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2021,
+   "world_productivity_change_since_gta_v": 13.8,
+   "world_productivity": 11167.6044923385
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2013,
+   "world_productivity_change_since_gta_v": 0.0,
+   "world_productivity": 40581.0456603224
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2018,
+   "world_productivity_change_since_gta_v": 12.0,
+   "world_productivity": 45464.0463798317
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2022,
+   "world_productivity_change_since_gta_v": 18.2,
+   "world_productivity": 47984.6244521612
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2024,
+   "world_productivity_change_since_gta_v": 22.2,
+   "world_productivity": 49572.5987251651
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2016,
+   "world_productivity_change_since_gta_v": 5.5,
+   "world_productivity": 10355.0449873521
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2017,
+   "world_productivity_change_since_gta_v": 8.0,
+   "world_productivity": 10591.5550846784
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2019,
+   "world_productivity_change_since_gta_v": 12.1,
+   "world_productivity": 10996.909518407
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2025,
+   "world_productivity_change_since_gta_v": 23.6,
+   "world_productivity": 12130.6633214662
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2015,
+   "world_productivity_change_since_gta_v": 4.4,
+   "world_productivity": 42386.2466841334
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2023,
+   "world_productivity_change_since_gta_v": 19.7,
+   "world_productivity": 48571.1283070888
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2013,
+   "world_productivity_change_since_gta_v": 0.0,
+   "world_productivity": 9811.02619687608
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2018,
+   "world_productivity_change_since_gta_v": 10.3,
+   "world_productivity": 10822.5745320636
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2022,
+   "world_productivity_change_since_gta_v": 16.7,
+   "world_productivity": 11452.0202124616
+  },
+  {
+   "world_productivity_key__measure": "output_per_person",
+   "world_productivity_key__data_year": 2024,
+   "world_productivity_change_since_gta_v": 21.2,
+   "world_productivity": 11894.2521505051
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2026,
+   "world_productivity_change_since_gta_v": null,
+   "world_productivity": null
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2014,
+   "world_productivity_change_since_gta_v": 2.3,
+   "world_productivity": 41496.1343254215
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2020,
+   "world_productivity_change_since_gta_v": 13.0,
+   "world_productivity": 45843.1312417016
+  },
+  {
+   "world_productivity_key__measure": "output_per_worker",
+   "world_productivity_key__data_year": 2021,
+   "world_productivity_change_since_gta_v": 16.8,
+   "world_productivity": 47409.9214709267
+  }
+ ]
+}

@@ -10,6 +10,8 @@ All sources are free and public, and no API keys are needed. The ingesters are i
 | Google Trends | `trendspy` (unofficial), one US request per Day-Off Index phrase over `TRENDS_SPAN` | weekly, relative 0–100 per request | `raw.trends_interest` |
 | Bluesky | `api.bsky.app/xrpc/app.bsky.feed.searchPosts`, one UTC day per call, `hitsTotal` | daily count | `raw.bluesky_daily_hits` |
 | Hacker News | `hn.algolia.com/api/v1/search_by_date`, `nbHits`, typo tolerance off | daily count | `raw.hn_daily_hits` |
+| World Bank WDI | `api.worldbank.org/v2/country/WLD/indicator/<code>`: `SL.GDP.PCAP.EM.KD`, `NY.GDP.PCAP.KD`, `SP.POP.GROW` | yearly, world | `raw.economy_indicators` |
+| IMF World Economic Outlook | `imf.org/external/datamapper/api/v1/NGDP_RPCH/WEOWORLD` | yearly, world | `raw.economy_indicators` |
 
 ## What we tried and dropped
 

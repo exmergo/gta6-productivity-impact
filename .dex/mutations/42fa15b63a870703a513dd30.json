@@ -1,0 +1,33 @@
+{
+  "cap": {
+    "elided": 10,
+    "generated": 20,
+    "limit": 20
+  },
+  "complete": true,
+  "connector": "duckdb",
+  "counts": {
+    "caught_downstream": 0,
+    "generated": 20,
+    "killed": 18,
+    "not_run": 0,
+    "rejected": 0,
+    "survived": 2
+  },
+  "downstream": false,
+  "downstream_tests": {},
+  "engine_version": "1.18.0",
+  "equivalence_checked": true,
+  "incremental_counts": null,
+  "incremental_score": null,
+  "model": "fct_world_productivity",
+  "model_id": "model.gta6_impact.fct_world_productivity",
+  "not_run": 0,
+  "recorded_at": "2026-11-17T10:59:39+00:00",
+  "score": 0.9,
+  "score_with_downstream": null,
+  "sql_digest": "eaecf85d13ffa60c",
+  "survivors": 2,
+  "tests_digest": "8494ffc64c1894df",
+  "unsupported_sites": 0
+}

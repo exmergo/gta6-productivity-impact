@@ -34,6 +34,24 @@ tested and checks every day. The joke is GTA. The method is real.
 Weekly Google Trends interest (0–100), one request per phrase covering both years, so both
 years sit on one scale.
 
+## GTA V to GTA 6: the world got 26% more productive
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/2ee5c2f1dad4a7d63f299564213318fb5891173e/charts/png/gta-v-to-gta-6-dark.png">
+  <img alt="GTA V to GTA 6: world real GDP per person +26% from 2013 to 2026, GDP per worker +25% from 2013 to 2025." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/2ee5c2f1dad4a7d63f299564213318fb5891173e/charts/png/gta-v-to-gta-6-light.png">
+</picture>
+
+GTA V came out in September 2013. GTA 6 comes out in November 2026. In between, the world's
+real output grew by a quarter:
+
+| World, real terms | 2013 (GTA V) | Latest | Change |
+|---|---|---|---|
+| GDP per person | $9,811 | $12,394 (2026) | **+26%** |
+| GDP per worker | $40,581 | $50,672 (2025) | **+25%** |
+
+World Bank WDI. 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world growth
+forecast. Details in [docs/metrics.md](docs/metrics.md#2-gta-v-to-gta-6).
+
 ## How we measured a vibe
 
 The **Day-Off Index** is the average year-over-year change in US Google searches for "call

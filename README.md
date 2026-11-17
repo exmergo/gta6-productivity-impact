@@ -1,7 +1,7 @@
 # GTA 6 vs. Productivity
 
 Is everyone **skipping work for GTA 6?** An open, reproducible study of US Google searches for
-**"call in sick", "sick day" and "day off work"**, built with **[Dex](https://trydex.ai)** on dbt and a
+**"call in sick", "sick day" and "day off work"**, built with **[Dex](https://github.com/exmergo/dex)** on dbt and a
 semantic layer.  
 Live scoreboard: **[exmergo.github.io/gta6-productivity-impact](https://exmergo.github.io/gta6-productivity-impact/)**
 

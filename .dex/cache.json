@@ -230,7 +230,7 @@
           "reason": "date_day is unique and non-null on all 457 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5806,
+      "rank_score": 0.5792,
       "data_quality": [],
       "findings": [
         {
@@ -578,7 +578,7 @@
           "reason": "breakdown is unique and non-null on all 1 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
         }
       ],
-      "rank_score": 0.6495,
+      "rank_score": 0.6493,
       "data_quality": [],
       "findings": [
         {
@@ -925,7 +925,7 @@
           "reason": "pct_change is unique and non-null on all 3 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.479,
+      "rank_score": 0.4787,
       "data_quality": [],
       "findings": [
         {
@@ -1292,7 +1292,7 @@
           "reason": "signal_day_key is unique and non-null on all 856 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.6073,
+      "rank_score": 0.6061,
       "data_quality": [],
       "findings": [
         {
@@ -1637,7 +1637,7 @@
           "reason": "thursday_lift_key is unique and non-null on all 26 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.4602,
+      "rank_score": 0.4595,
       "data_quality": [],
       "findings": [
         {
@@ -1923,7 +1923,7 @@
           "reason": "date_day is unique and non-null on all 1094 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.4577,
+      "rank_score": 0.4561,
       "data_quality": [],
       "findings": [
         {
@@ -3362,7 +3362,7 @@
           "reason": "observed_at is unique and non-null on all 1284 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5545,
+      "rank_score": 0.5533,
       "data_quality": [],
       "findings": [
         {
@@ -3674,7 +3674,7 @@
           "reason": "observed_at is unique and non-null on all 1284 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5545,
+      "rank_score": 0.5533,
       "data_quality": [],
       "findings": [
         {
@@ -4172,7 +4172,7 @@
           "reason": "ts, article is unique as a combination on all 428 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
         }
       ],
-      "rank_score": 0.5078,
+      "rank_score": 0.5069,
       "data_quality": [],
       "findings": [
         {
@@ -4246,7 +4246,7 @@
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-16T23:46:14.861661+00:00",
+    "updated_at": "2026-11-17T06:28:11.306785+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

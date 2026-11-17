@@ -130,529 +130,529 @@
     "name": "dim_date",
     "unique_id": "model.gta6_impact.dim_date",
     "status": "success",
-    "execution_time": 0.12495207786560059
+    "execution_time": 0.10683703422546387
    },
    {
     "name": "metricflow_time_spine",
     "unique_id": "model.gta6_impact.metricflow_time_spine",
     "status": "success",
-    "execution_time": 0.03601264953613281
+    "execution_time": 0.02933335304260254
    },
    {
     "name": "stg_bluesky__daily_hits",
     "unique_id": "model.gta6_impact.stg_bluesky__daily_hits",
     "status": "success",
-    "execution_time": 0.04583573341369629
+    "execution_time": 0.037429094314575195
    },
    {
     "name": "stg_hn__daily_hits",
     "unique_id": "model.gta6_impact.stg_hn__daily_hits",
     "status": "success",
-    "execution_time": 0.03344321250915527
+    "execution_time": 0.026743173599243164
    },
    {
     "name": "stg_trends__weekly",
     "unique_id": "model.gta6_impact.stg_trends__weekly",
     "status": "success",
-    "execution_time": 0.03448748588562012
+    "execution_time": 0.02806544303894043
    },
    {
     "name": "stg_wiki__pageviews",
     "unique_id": "model.gta6_impact.stg_wiki__pageviews",
     "status": "success",
-    "execution_time": 0.03313732147216797
+    "execution_time": 0.02825784683227539
    },
    {
     "name": "not_null_dim_date_date_day",
     "unique_id": "test.gta6_impact.not_null_dim_date_date_day.e3f312efb2",
     "status": "pass",
-    "execution_time": 0.04300284385681152
+    "execution_time": 0.03486466407775879
    },
    {
     "name": "not_null_dim_date_day_name",
     "unique_id": "test.gta6_impact.not_null_dim_date_day_name.3a968349a4",
     "status": "pass",
-    "execution_time": 0.018525123596191406
+    "execution_time": 0.01428079605102539
    },
    {
     "name": "not_null_dim_date_days_from_release",
     "unique_id": "test.gta6_impact.not_null_dim_date_days_from_release.b42f6c8e0a",
     "status": "pass",
-    "execution_time": 0.08879923820495605
+    "execution_time": 0.06470990180969238
    },
    {
     "name": "not_null_dim_date_is_gta_release_day",
     "unique_id": "test.gta6_impact.not_null_dim_date_is_gta_release_day.9830f12a58",
     "status": "pass",
-    "execution_time": 0.01874709129333496
+    "execution_time": 0.013997554779052734
    },
    {
     "name": "not_null_dim_date_iso_day_of_week",
     "unique_id": "test.gta6_impact.not_null_dim_date_iso_day_of_week.af59f4565b",
     "status": "pass",
-    "execution_time": 0.018082857131958008
+    "execution_time": 0.01387643814086914
    },
    {
     "name": "not_null_dim_date_release_day",
     "unique_id": "test.gta6_impact.not_null_dim_date_release_day.23663d7497",
     "status": "pass",
-    "execution_time": 0.01796126365661621
+    "execution_time": 0.01467752456665039
    },
    {
     "name": "not_null_dim_date_study_year",
     "unique_id": "test.gta6_impact.not_null_dim_date_study_year.cb8eedee8a",
     "status": "pass",
-    "execution_time": 0.018462419509887695
+    "execution_time": 0.014004230499267578
    },
    {
     "name": "unique_dim_date_date_day",
     "unique_id": "test.gta6_impact.unique_dim_date_date_day.d56fd19199",
     "status": "pass",
-    "execution_time": 0.020823001861572266
+    "execution_time": 0.015786170959472656
    },
    {
     "name": "not_null_metricflow_time_spine_date_day",
     "unique_id": "test.gta6_impact.not_null_metricflow_time_spine_date_day.54acf49e8d",
     "status": "pass",
-    "execution_time": 0.018401145935058594
+    "execution_time": 0.014551639556884766
    },
    {
     "name": "unique_metricflow_time_spine_date_day",
     "unique_id": "test.gta6_impact.unique_metricflow_time_spine_date_day.ddb41ceac8",
     "status": "pass",
-    "execution_time": 0.019508838653564453
+    "execution_time": 0.014184236526489258
    },
    {
     "name": "not_null_stg_bluesky__daily_hits_gta_filter",
     "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_gta_filter.cd59a07611",
     "status": "pass",
-    "execution_time": 0.01827716827392578
+    "execution_time": 0.014491081237792969
    },
    {
     "name": "not_null_stg_bluesky__daily_hits_hit_date",
     "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_hit_date.964800a65a",
     "status": "pass",
-    "execution_time": 0.01804065704345703
+    "execution_time": 0.014605998992919922
    },
    {
     "name": "not_null_stg_bluesky__daily_hits_is_available",
     "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_is_available.50557f9c49",
     "status": "pass",
-    "execution_time": 0.018373489379882812
+    "execution_time": 0.01410055160522461
    },
    {
     "name": "not_null_stg_bluesky__daily_hits_seed",
     "unique_id": "test.gta6_impact.not_null_stg_bluesky__daily_hits_seed.e5980925d8",
     "status": "pass",
-    "execution_time": 0.018082380294799805
+    "execution_time": 0.014119148254394531
    },
    {
     "name": "not_null_stg_hn__daily_hits_gta_filter",
     "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_gta_filter.949ad46fd7",
     "status": "pass",
-    "execution_time": 0.018539905548095703
+    "execution_time": 0.014535903930664062
    },
    {
     "name": "not_null_stg_hn__daily_hits_hit_date",
     "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_hit_date.793804f46c",
     "status": "pass",
-    "execution_time": 0.018259286880493164
+    "execution_time": 0.014138936996459961
    },
    {
     "name": "not_null_stg_hn__daily_hits_is_available",
     "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_is_available.bbf8f6cadd",
     "status": "pass",
-    "execution_time": 0.018309354782104492
+    "execution_time": 0.014127731323242188
    },
    {
     "name": "not_null_stg_hn__daily_hits_seed",
     "unique_id": "test.gta6_impact.not_null_stg_hn__daily_hits_seed.e56498a4ac",
     "status": "pass",
-    "execution_time": 0.018091678619384766
+    "execution_time": 0.013839960098266602
    },
    {
     "name": "not_null_stg_trends__weekly_batch_id",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_batch_id.f0a7b6dfd9",
     "status": "pass",
-    "execution_time": 0.020383119583129883
+    "execution_time": 0.016410350799560547
    },
    {
     "name": "not_null_stg_trends__weekly_geo",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_geo.a0d8d28ffd",
     "status": "pass",
-    "execution_time": 0.019932270050048828
+    "execution_time": 0.015319347381591797
    },
    {
     "name": "not_null_stg_trends__weekly_interest",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_interest.8d9461e741",
     "status": "pass",
-    "execution_time": 0.020068883895874023
+    "execution_time": 0.01556396484375
    },
    {
     "name": "not_null_stg_trends__weekly_is_partial",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_is_partial.c00bd362a5",
     "status": "pass",
-    "execution_time": 0.020091772079467773
+    "execution_time": 0.015557289123535156
    },
    {
     "name": "not_null_stg_trends__weekly_request_id",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_request_id.68d2dea0f1",
     "status": "pass",
-    "execution_time": 0.019942760467529297
+    "execution_time": 0.01578974723815918
    },
    {
     "name": "not_null_stg_trends__weekly_span_end",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_span_end.830f0daf40",
     "status": "pass",
-    "execution_time": 0.019926786422729492
+    "execution_time": 0.01497793197631836
    },
    {
     "name": "not_null_stg_trends__weekly_span_start",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_span_start.87e4b2f6d8",
     "status": "pass",
-    "execution_time": 0.019709348678588867
+    "execution_time": 0.01504969596862793
    },
    {
     "name": "not_null_stg_trends__weekly_term",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_term.fb9ae2a00c",
     "status": "pass",
-    "execution_time": 0.01968669891357422
+    "execution_time": 0.01528024673461914
    },
    {
     "name": "not_null_stg_trends__weekly_week_start",
     "unique_id": "test.gta6_impact.not_null_stg_trends__weekly_week_start.ad2c97f3d8",
     "status": "pass",
-    "execution_time": 0.019921541213989258
+    "execution_time": 0.015504598617553711
    },
    {
     "name": "not_null_stg_wiki__pageviews_article",
     "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_article.98a92521cf",
     "status": "pass",
-    "execution_time": 0.018616199493408203
+    "execution_time": 0.01453852653503418
    },
    {
     "name": "not_null_stg_wiki__pageviews_view_date",
     "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_view_date.51cacd7a24",
     "status": "pass",
-    "execution_time": 0.01858353614807129
+    "execution_time": 0.014199256896972656
    },
    {
     "name": "not_null_stg_wiki__pageviews_views",
     "unique_id": "test.gta6_impact.not_null_stg_wiki__pageviews_views.49e7cd1be2",
     "status": "pass",
-    "execution_time": 0.01798701286315918
-   },
-   {
-    "name": "terms_start_and_number_of_weeks",
-    "unique_id": "unit_test.gta6_impact.fct_day_off_index_terms.terms_start_and_number_of_weeks",
-    "status": "pass",
-    "execution_time": 0.17249774932861328
+    "execution_time": 0.01450204849243164
    },
    {
     "name": "terms_partial_week_is_unavailable",
     "unique_id": "unit_test.gta6_impact.fct_day_off_index_terms.terms_partial_week_is_unavailable",
     "status": "pass",
-    "execution_time": 0.09569811820983887
+    "execution_time": 0.12772178649902344
+   },
+   {
+    "name": "terms_start_and_number_of_weeks",
+    "unique_id": "unit_test.gta6_impact.fct_day_off_index_terms.terms_start_and_number_of_weeks",
+    "status": "pass",
+    "execution_time": 0.0913991928100586
    },
    {
     "name": "terms_start_and_end_week",
     "unique_id": "unit_test.gta6_impact.fct_day_off_index_terms.terms_start_and_end_week",
     "status": "pass",
-    "execution_time": 0.11170148849487305
+    "execution_time": 0.09032344818115234
    },
    {
     "name": "fct_day_off_index_terms",
     "unique_id": "model.gta6_impact.fct_day_off_index_terms",
     "status": "success",
-    "execution_time": 0.055940866470336914
+    "execution_time": 0.03989434242248535
    },
    {
     "name": "int_signals__daily",
     "unique_id": "model.gta6_impact.int_signals__daily",
     "status": "success",
-    "execution_time": 0.03806447982788086
+    "execution_time": 0.029183626174926758
    },
    {
     "name": "not_null_fct_day_off_index_terms_batch_id",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_batch_id.5ddd21cb2d",
     "status": "pass",
-    "execution_time": 0.01939225196838379
+    "execution_time": 0.015410184860229492
    },
    {
     "name": "not_null_fct_day_off_index_terms_current_end_week",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_current_end_week.baf907e73c",
     "status": "pass",
-    "execution_time": 0.01830315589904785
+    "execution_time": 0.014558792114257812
    },
    {
     "name": "not_null_fct_day_off_index_terms_current_start_week",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_current_start_week.ff80c36891",
     "status": "pass",
-    "execution_time": 0.02919745445251465
+    "execution_time": 0.015088796615600586
    },
    {
     "name": "not_null_fct_day_off_index_terms_current_weeks_found",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_current_weeks_found.16b91f225a",
     "status": "pass",
-    "execution_time": 0.01860213279724121
+    "execution_time": 0.015419483184814453
    },
    {
     "name": "not_null_fct_day_off_index_terms_geo",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_geo.5ab6007919",
     "status": "pass",
-    "execution_time": 0.0180208683013916
+    "execution_time": 0.014980792999267578
    },
    {
     "name": "not_null_fct_day_off_index_terms_prior_end_week",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_prior_end_week.eb0e822599",
     "status": "pass",
-    "execution_time": 0.018450498580932617
+    "execution_time": 0.014217376708984375
    },
    {
     "name": "not_null_fct_day_off_index_terms_prior_start_week",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_prior_start_week.a55f9e2900",
     "status": "pass",
-    "execution_time": 0.01873493194580078
+    "execution_time": 0.014602422714233398
    },
    {
     "name": "not_null_fct_day_off_index_terms_prior_weeks_found",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_prior_weeks_found.7cd696e429",
     "status": "pass",
-    "execution_time": 0.018181562423706055
+    "execution_time": 0.013975858688354492
    },
    {
     "name": "not_null_fct_day_off_index_terms_span_end",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_span_end.92dc8006dc",
     "status": "pass",
-    "execution_time": 0.01817464828491211
+    "execution_time": 0.014551639556884766
    },
    {
     "name": "not_null_fct_day_off_index_terms_span_start",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_span_start.1595334c66",
     "status": "pass",
-    "execution_time": 0.01828765869140625
+    "execution_time": 0.014096975326538086
    },
    {
     "name": "not_null_fct_day_off_index_terms_term",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_term.fb907cef7a",
     "status": "pass",
-    "execution_time": 0.018051624298095703
+    "execution_time": 0.01441049575805664
    },
    {
     "name": "not_null_fct_day_off_index_terms_weeks",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_terms_weeks.d337eb3539",
     "status": "pass",
-    "execution_time": 0.018124818801879883
+    "execution_time": 0.014348030090332031
    },
    {
     "name": "unique_fct_day_off_index_terms_term",
     "unique_id": "test.gta6_impact.unique_fct_day_off_index_terms_term.dbd232634d",
     "status": "pass",
-    "execution_time": 0.019425630569458008
+    "execution_time": 0.014547348022460938
    },
    {
     "name": "assert_int_signals_grain",
     "unique_id": "test.gta6_impact.assert_int_signals_grain",
     "status": "pass",
-    "execution_time": 0.01738286018371582
+    "execution_time": 0.013644218444824219
    },
    {
     "name": "not_null_int_signals__daily_geo",
     "unique_id": "test.gta6_impact.not_null_int_signals__daily_geo.c4442ee3ad",
     "status": "pass",
-    "execution_time": 0.019553184509277344
+    "execution_time": 0.015291213989257812
    },
    {
     "name": "not_null_int_signals__daily_is_available",
     "unique_id": "test.gta6_impact.not_null_int_signals__daily_is_available.18bcff0704",
     "status": "pass",
-    "execution_time": 0.020188570022583008
+    "execution_time": 0.015540122985839844
    },
    {
     "name": "not_null_int_signals__daily_signal",
     "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal.d79f91186c",
     "status": "pass",
-    "execution_time": 0.01970219612121582
+    "execution_time": 0.015872478485107422
    },
    {
     "name": "not_null_int_signals__daily_signal_date",
     "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal_date.772fce9435",
     "status": "pass",
-    "execution_time": 0.019708871841430664
+    "execution_time": 0.015612363815307617
    },
    {
     "name": "not_null_int_signals__daily_signal_family",
     "unique_id": "test.gta6_impact.not_null_int_signals__daily_signal_family.cab0f22b41",
     "status": "pass",
-    "execution_time": 0.019458770751953125
+    "execution_time": 0.015296697616577148
    },
    {
     "name": "not_null_int_signals__daily_source",
     "unique_id": "test.gta6_impact.not_null_int_signals__daily_source.465454d4d6",
     "status": "pass",
-    "execution_time": 0.01927018165588379
+    "execution_time": 0.01504373550415039
    },
    {
     "name": "index_unavailable_when_a_phrase_is",
     "unique_id": "unit_test.gta6_impact.fct_day_off_index.index_unavailable_when_a_phrase_is",
     "status": "pass",
-    "execution_time": 0.066070556640625
+    "execution_time": 0.05289816856384277
    },
    {
     "name": "index_is_average_with_breakdown",
     "unique_id": "unit_test.gta6_impact.fct_day_off_index.index_is_average_with_breakdown",
     "status": "pass",
-    "execution_time": 0.06757903099060059
+    "execution_time": 0.054387807846069336
    },
    {
     "name": "fct_day_off_index",
     "unique_id": "model.gta6_impact.fct_day_off_index",
     "status": "success",
-    "execution_time": 0.04669642448425293
+    "execution_time": 0.03747105598449707
    },
    {
     "name": "fct_signal_daily",
     "unique_id": "model.gta6_impact.fct_signal_daily",
     "status": "success",
-    "execution_time": 0.04528617858886719
+    "execution_time": 0.03688764572143555
    },
    {
     "name": "assert_day_off_index_has_breakdown",
     "unique_id": "test.gta6_impact.assert_day_off_index_has_breakdown",
     "status": "pass",
-    "execution_time": 0.013755321502685547
+    "execution_time": 0.011786222457885742
    },
    {
     "name": "not_null_fct_day_off_index_batch_id",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_batch_id.ffad613cea",
     "status": "pass",
-    "execution_time": 0.017626285552978516
+    "execution_time": 0.013826608657836914
    },
    {
     "name": "not_null_fct_day_off_index_breakdown",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_breakdown.b1ed7125fc",
     "status": "pass",
-    "execution_time": 0.018786907196044922
+    "execution_time": 0.014578819274902344
    },
    {
     "name": "not_null_fct_day_off_index_current_end_week",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_current_end_week.3dd5100d02",
     "status": "pass",
-    "execution_time": 0.01787734031677246
+    "execution_time": 0.013947248458862305
    },
    {
     "name": "not_null_fct_day_off_index_current_start_week",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_current_start_week.ecd0a2b6d2",
     "status": "pass",
-    "execution_time": 0.017821788787841797
+    "execution_time": 0.014064550399780273
    },
    {
     "name": "not_null_fct_day_off_index_index_window",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_index_window.225d2aa4e7",
     "status": "pass",
-    "execution_time": 0.017791271209716797
+    "execution_time": 0.01410365104675293
    },
    {
     "name": "not_null_fct_day_off_index_phrase_count",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_phrase_count.57f59cf1a4",
     "status": "pass",
-    "execution_time": 0.01790928840637207
+    "execution_time": 0.013860702514648438
    },
    {
     "name": "not_null_fct_day_off_index_phrases_available",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_phrases_available.082c47484b",
     "status": "pass",
-    "execution_time": 0.017742395401000977
+    "execution_time": 0.01400303840637207
    },
    {
     "name": "not_null_fct_day_off_index_prior_end_week",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_prior_end_week.a43b30122d",
     "status": "pass",
-    "execution_time": 0.01910114288330078
+    "execution_time": 0.014421701431274414
    },
    {
     "name": "not_null_fct_day_off_index_prior_start_week",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_prior_start_week.b49db09830",
     "status": "pass",
-    "execution_time": 0.01783609390258789
+    "execution_time": 0.013988971710205078
    },
    {
     "name": "not_null_fct_day_off_index_weeks",
     "unique_id": "test.gta6_impact.not_null_fct_day_off_index_weeks.0fdf42c816",
     "status": "pass",
-    "execution_time": 0.017510175704956055
+    "execution_time": 0.014198541641235352
    },
    {
     "name": "unique_fct_day_off_index_index_window",
     "unique_id": "test.gta6_impact.unique_fct_day_off_index_index_window.ab0498a377",
     "status": "pass",
-    "execution_time": 0.017931222915649414
+    "execution_time": 0.014215230941772461
    },
    {
     "name": "not_null_fct_signal_daily_days_from_release",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_days_from_release.b9d84e34b1",
     "status": "pass",
-    "execution_time": 0.01783156394958496
+    "execution_time": 0.014444828033447266
    },
    {
     "name": "not_null_fct_signal_daily_geo",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_geo.eb520153f0",
     "status": "pass",
-    "execution_time": 0.017322063446044922
+    "execution_time": 0.014042139053344727
    },
    {
     "name": "not_null_fct_signal_daily_is_available",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_is_available.ff4f6a77d9",
     "status": "pass",
-    "execution_time": 0.01805853843688965
+    "execution_time": 0.01410818099975586
    },
    {
     "name": "not_null_fct_signal_daily_iso_day_of_week",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_iso_day_of_week.ff74ec14f9",
     "status": "pass",
-    "execution_time": 0.017981290817260742
+    "execution_time": 0.013903617858886719
    },
    {
     "name": "not_null_fct_signal_daily_signal",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal.42281514c2",
     "status": "pass",
-    "execution_time": 0.01787400245666504
+    "execution_time": 0.013955354690551758
    },
    {
     "name": "not_null_fct_signal_daily_signal_date",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_date.789a10b16b",
     "status": "pass",
-    "execution_time": 0.017261743545532227
+    "execution_time": 0.014074563980102539
    },
    {
     "name": "not_null_fct_signal_daily_signal_day_key",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_day_key.c75da9e519",
     "status": "pass",
-    "execution_time": 0.017889738082885742
+    "execution_time": 0.014025688171386719
    },
    {
     "name": "not_null_fct_signal_daily_signal_family",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_signal_family.67f7b1c054",
     "status": "pass",
-    "execution_time": 0.018001079559326172
+    "execution_time": 0.014158010482788086
    },
    {
     "name": "not_null_fct_signal_daily_source",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_source.792ce64ba8",
     "status": "pass",
-    "execution_time": 0.017754077911376953
+    "execution_time": 0.014251232147216797
    },
    {
     "name": "not_null_fct_signal_daily_study_year",
     "unique_id": "test.gta6_impact.not_null_fct_signal_daily_study_year.117c2c1b34",
     "status": "pass",
-    "execution_time": 0.018007755279541016
+    "execution_time": 0.01431894302368164
    },
    {
     "name": "unique_fct_signal_daily_signal_day_key",
     "unique_id": "test.gta6_impact.unique_fct_signal_daily_signal_day_key.b33b4e6988",
     "status": "pass",
-    "execution_time": 0.018219709396362305
+    "execution_time": 0.014311552047729492
    }
   ],
   "counts": {
@@ -663,9 +663,9 @@
   "evidence": {
    "outcome": "validated",
    "invocation": {
-    "invocation_id": "d7b2723f-59f8-4783-a4b7-e68a23fc8352",
-    "generated_at": "2026-11-16T23:46:06.986554Z",
-    "started_at": "2026-11-16T23:46:03.197679Z",
+    "invocation_id": "9aaab0f9-a8ac-4135-b026-4ba9ae74c853",
+    "generated_at": "2026-11-17T06:28:04.789615Z",
+    "started_at": "2026-11-17T06:28:01.741269Z",
     "dbt_version": "1.12.7",
     "command": "build",
     "target": "dev",
@@ -677,9 +677,9 @@
      "project": "gta6_impact",
      "target": "dev",
      "artifact_directory": "target/dex/dbt-1.12.7",
-     "invocation_id": "d7b2723f-59f8-4783-a4b7-e68a23fc8352"
+     "invocation_id": "9aaab0f9-a8ac-4135-b026-4ba9ae74c853"
     },
-    "elapsed_seconds": 2.8529739379882812
+    "elapsed_seconds": 2.2614896297454834
    },
    "selection": {
     "requested": null,
@@ -720,8 +720,8 @@
      "not_null_stg_wiki__pageviews_article",
      "not_null_stg_wiki__pageviews_view_date",
      "not_null_stg_wiki__pageviews_views",
-     "terms_start_and_number_of_weeks",
      "terms_partial_week_is_unavailable",
+     "terms_start_and_number_of_weeks",
      "terms_start_and_end_week",
      "fct_day_off_index_terms",
      "int_signals__daily",
@@ -778,8 +778,8 @@
     "unmatched": []
    },
    "digests": {
-    "manifest_sha256": "sha256:c0cc97238a56666f960128ae7e08acbb57dd26d3a1d5d6d16755f160e9aa564d",
-    "run_results_sha256": "sha256:516a9838222e770735ce3a70c11f1a1213d6ef9ea20974b22197c511252c5203",
+    "manifest_sha256": "sha256:50db75d48f73b834fc5b3a9f40deeb51a11065133050bf8dc2c1edf7964598e3",
+    "run_results_sha256": "sha256:a328d38b358ab731ffef7dfe1bb15c0cbc43e754bd46647c31887d5b422f248f",
     "source_digest": "sha256:b6b04a5d23ac0dc1c0f9089f81eddabb4ea8ecd79698068d16709e9c311086c1",
     "plan_digest": null
    },
@@ -804,7 +804,7 @@
      "name": "dim_date",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.12495207786560059,
+     "execution_time": 0.10683703422546387,
      "materialization": "table",
      "relation": "gta6.main.dim_date",
      "message": "OK"
@@ -814,7 +814,7 @@
      "name": "metricflow_time_spine",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.03601264953613281,
+     "execution_time": 0.02933335304260254,
      "materialization": "table",
      "relation": "gta6.main.metricflow_time_spine",
      "message": "OK"
@@ -824,7 +824,7 @@
      "name": "stg_bluesky__daily_hits",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.04583573341369629,
+     "execution_time": 0.037429094314575195,
      "materialization": "view",
      "relation": "gta6.main.stg_bluesky__daily_hits",
      "message": "OK"
@@ -834,7 +834,7 @@
      "name": "stg_hn__daily_hits",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.03344321250915527,
+     "execution_time": 0.026743173599243164,
      "materialization": "view",
      "relation": "gta6.main.stg_hn__daily_hits",
      "message": "OK"
@@ -844,7 +844,7 @@
      "name": "stg_trends__weekly",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.03448748588562012,
+     "execution_time": 0.02806544303894043,
      "materialization": "view",
      "relation": "gta6.main.stg_trends__weekly",
      "message": "OK"
@@ -854,7 +854,7 @@
      "name": "stg_wiki__pageviews",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.03313732147216797,
+     "execution_time": 0.02825784683227539,
      "materialization": "view",
      "relation": "gta6.main.stg_wiki__pageviews",
      "message": "OK"
@@ -864,7 +864,7 @@
      "name": "not_null_dim_date_date_day",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.04300284385681152,
+     "execution_time": 0.03486466407775879,
      "materialization": "test"
     },
     {
@@ -872,7 +872,7 @@
      "name": "not_null_dim_date_day_name",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018525123596191406,
+     "execution_time": 0.01428079605102539,
      "materialization": "test"
     },
     {
@@ -880,7 +880,7 @@
      "name": "not_null_dim_date_days_from_release",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.08879923820495605,
+     "execution_time": 0.06470990180969238,
      "materialization": "test"
     },
     {
@@ -888,7 +888,7 @@
      "name": "not_null_dim_date_is_gta_release_day",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01874709129333496,
+     "execution_time": 0.013997554779052734,
      "materialization": "test"
     },
     {
@@ -896,7 +896,7 @@
      "name": "not_null_dim_date_iso_day_of_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018082857131958008,
+     "execution_time": 0.01387643814086914,
      "materialization": "test"
     },
     {
@@ -904,7 +904,7 @@
      "name": "not_null_dim_date_release_day",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01796126365661621,
+     "execution_time": 0.01467752456665039,
      "materialization": "test"
     },
     {
@@ -912,7 +912,7 @@
      "name": "not_null_dim_date_study_year",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018462419509887695,
+     "execution_time": 0.014004230499267578,
      "materialization": "test"
     },
     {
@@ -920,7 +920,7 @@
      "name": "unique_dim_date_date_day",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.020823001861572266,
+     "execution_time": 0.015786170959472656,
      "materialization": "test"
     },
     {
@@ -928,7 +928,7 @@
      "name": "not_null_metricflow_time_spine_date_day",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018401145935058594,
+     "execution_time": 0.014551639556884766,
      "materialization": "test"
     },
     {
@@ -936,7 +936,7 @@
      "name": "unique_metricflow_time_spine_date_day",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019508838653564453,
+     "execution_time": 0.014184236526489258,
      "materialization": "test"
     },
     {
@@ -944,7 +944,7 @@
      "name": "not_null_stg_bluesky__daily_hits_gta_filter",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01827716827392578,
+     "execution_time": 0.014491081237792969,
      "materialization": "test"
     },
     {
@@ -952,7 +952,7 @@
      "name": "not_null_stg_bluesky__daily_hits_hit_date",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01804065704345703,
+     "execution_time": 0.014605998992919922,
      "materialization": "test"
     },
     {
@@ -960,7 +960,7 @@
      "name": "not_null_stg_bluesky__daily_hits_is_available",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018373489379882812,
+     "execution_time": 0.01410055160522461,
      "materialization": "test"
     },
     {
@@ -968,7 +968,7 @@
      "name": "not_null_stg_bluesky__daily_hits_seed",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018082380294799805,
+     "execution_time": 0.014119148254394531,
      "materialization": "test"
     },
     {
@@ -976,7 +976,7 @@
      "name": "not_null_stg_hn__daily_hits_gta_filter",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018539905548095703,
+     "execution_time": 0.014535903930664062,
      "materialization": "test"
     },
     {
@@ -984,7 +984,7 @@
      "name": "not_null_stg_hn__daily_hits_hit_date",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018259286880493164,
+     "execution_time": 0.014138936996459961,
      "materialization": "test"
     },
     {
@@ -992,7 +992,7 @@
      "name": "not_null_stg_hn__daily_hits_is_available",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018309354782104492,
+     "execution_time": 0.014127731323242188,
      "materialization": "test"
     },
     {
@@ -1000,7 +1000,7 @@
      "name": "not_null_stg_hn__daily_hits_seed",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018091678619384766,
+     "execution_time": 0.013839960098266602,
      "materialization": "test"
     },
     {
@@ -1008,7 +1008,7 @@
      "name": "not_null_stg_trends__weekly_batch_id",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.020383119583129883,
+     "execution_time": 0.016410350799560547,
      "materialization": "test"
     },
     {
@@ -1016,7 +1016,7 @@
      "name": "not_null_stg_trends__weekly_geo",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019932270050048828,
+     "execution_time": 0.015319347381591797,
      "materialization": "test"
     },
     {
@@ -1024,7 +1024,7 @@
      "name": "not_null_stg_trends__weekly_interest",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.020068883895874023,
+     "execution_time": 0.01556396484375,
      "materialization": "test"
     },
     {
@@ -1032,7 +1032,7 @@
      "name": "not_null_stg_trends__weekly_is_partial",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.020091772079467773,
+     "execution_time": 0.015557289123535156,
      "materialization": "test"
     },
     {
@@ -1040,7 +1040,7 @@
      "name": "not_null_stg_trends__weekly_request_id",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019942760467529297,
+     "execution_time": 0.01578974723815918,
      "materialization": "test"
     },
     {
@@ -1048,7 +1048,7 @@
      "name": "not_null_stg_trends__weekly_span_end",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019926786422729492,
+     "execution_time": 0.01497793197631836,
      "materialization": "test"
     },
     {
@@ -1056,7 +1056,7 @@
      "name": "not_null_stg_trends__weekly_span_start",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019709348678588867,
+     "execution_time": 0.01504969596862793,
      "materialization": "test"
     },
     {
@@ -1064,7 +1064,7 @@
      "name": "not_null_stg_trends__weekly_term",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01968669891357422,
+     "execution_time": 0.01528024673461914,
      "materialization": "test"
     },
     {
@@ -1072,7 +1072,7 @@
      "name": "not_null_stg_trends__weekly_week_start",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019921541213989258,
+     "execution_time": 0.015504598617553711,
      "materialization": "test"
     },
     {
@@ -1080,7 +1080,7 @@
      "name": "not_null_stg_wiki__pageviews_article",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018616199493408203,
+     "execution_time": 0.01453852653503418,
      "materialization": "test"
     },
     {
@@ -1088,7 +1088,7 @@
      "name": "not_null_stg_wiki__pageviews_view_date",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01858353614807129,
+     "execution_time": 0.014199256896972656,
      "materialization": "test"
     },
     {
@@ -1096,36 +1096,36 @@
      "name": "not_null_stg_wiki__pageviews_views",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01798701286315918,
+     "execution_time": 0.01450204849243164,
      "materialization": "test"
-    },
-    {
-     "unique_id": "unit_test.gta6_impact.fct_day_off_index_terms.terms_start_and_number_of_weeks",
-     "name": "terms_start_and_number_of_weeks",
-     "resource_type": "unit_test",
-     "status": "pass",
-     "execution_time": 0.17249774932861328
     },
     {
      "unique_id": "unit_test.gta6_impact.fct_day_off_index_terms.terms_partial_week_is_unavailable",
      "name": "terms_partial_week_is_unavailable",
      "resource_type": "unit_test",
      "status": "pass",
-     "execution_time": 0.09569811820983887
+     "execution_time": 0.12772178649902344
+    },
+    {
+     "unique_id": "unit_test.gta6_impact.fct_day_off_index_terms.terms_start_and_number_of_weeks",
+     "name": "terms_start_and_number_of_weeks",
+     "resource_type": "unit_test",
+     "status": "pass",
+     "execution_time": 0.0913991928100586
     },
     {
      "unique_id": "unit_test.gta6_impact.fct_day_off_index_terms.terms_start_and_end_week",
      "name": "terms_start_and_end_week",
      "resource_type": "unit_test",
      "status": "pass",
-     "execution_time": 0.11170148849487305
+     "execution_time": 0.09032344818115234
     },
     {
      "unique_id": "model.gta6_impact.fct_day_off_index_terms",
      "name": "fct_day_off_index_terms",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.055940866470336914,
+     "execution_time": 0.03989434242248535,
      "materialization": "table",
      "relation": "gta6.main.fct_day_off_index_terms",
      "message": "OK"
@@ -1135,7 +1135,7 @@
      "name": "int_signals__daily",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.03806447982788086,
+     "execution_time": 0.029183626174926758,
      "materialization": "view",
      "relation": "gta6.main.int_signals__daily",
      "message": "OK"
@@ -1145,7 +1145,7 @@
      "name": "not_null_fct_day_off_index_terms_batch_id",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01939225196838379,
+     "execution_time": 0.015410184860229492,
      "materialization": "test"
     },
     {
@@ -1153,7 +1153,7 @@
      "name": "not_null_fct_day_off_index_terms_current_end_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01830315589904785,
+     "execution_time": 0.014558792114257812,
      "materialization": "test"
     },
     {
@@ -1161,7 +1161,7 @@
      "name": "not_null_fct_day_off_index_terms_current_start_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.02919745445251465,
+     "execution_time": 0.015088796615600586,
      "materialization": "test"
     },
     {
@@ -1169,7 +1169,7 @@
      "name": "not_null_fct_day_off_index_terms_current_weeks_found",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01860213279724121,
+     "execution_time": 0.015419483184814453,
      "materialization": "test"
     },
     {
@@ -1177,7 +1177,7 @@
      "name": "not_null_fct_day_off_index_terms_geo",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.0180208683013916,
+     "execution_time": 0.014980792999267578,
      "materialization": "test"
     },
     {
@@ -1185,7 +1185,7 @@
      "name": "not_null_fct_day_off_index_terms_prior_end_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018450498580932617,
+     "execution_time": 0.014217376708984375,
      "materialization": "test"
     },
     {
@@ -1193,7 +1193,7 @@
      "name": "not_null_fct_day_off_index_terms_prior_start_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01873493194580078,
+     "execution_time": 0.014602422714233398,
      "materialization": "test"
     },
     {
@@ -1201,7 +1201,7 @@
      "name": "not_null_fct_day_off_index_terms_prior_weeks_found",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018181562423706055,
+     "execution_time": 0.013975858688354492,
      "materialization": "test"
     },
     {
@@ -1209,7 +1209,7 @@
      "name": "not_null_fct_day_off_index_terms_span_end",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01817464828491211,
+     "execution_time": 0.014551639556884766,
      "materialization": "test"
     },
     {
@@ -1217,7 +1217,7 @@
      "name": "not_null_fct_day_off_index_terms_span_start",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01828765869140625,
+     "execution_time": 0.014096975326538086,
      "materialization": "test"
     },
     {
@@ -1225,7 +1225,7 @@
      "name": "not_null_fct_day_off_index_terms_term",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018051624298095703,
+     "execution_time": 0.01441049575805664,
      "materialization": "test"
     },
     {
@@ -1233,7 +1233,7 @@
      "name": "not_null_fct_day_off_index_terms_weeks",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018124818801879883,
+     "execution_time": 0.014348030090332031,
      "materialization": "test"
     },
     {
@@ -1241,7 +1241,7 @@
      "name": "unique_fct_day_off_index_terms_term",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019425630569458008,
+     "execution_time": 0.014547348022460938,
      "materialization": "test"
     },
     {
@@ -1249,7 +1249,7 @@
      "name": "assert_int_signals_grain",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01738286018371582,
+     "execution_time": 0.013644218444824219,
      "materialization": "test"
     },
     {
@@ -1257,7 +1257,7 @@
      "name": "not_null_int_signals__daily_geo",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019553184509277344,
+     "execution_time": 0.015291213989257812,
      "materialization": "test"
     },
     {
@@ -1265,7 +1265,7 @@
      "name": "not_null_int_signals__daily_is_available",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.020188570022583008,
+     "execution_time": 0.015540122985839844,
      "materialization": "test"
     },
     {
@@ -1273,7 +1273,7 @@
      "name": "not_null_int_signals__daily_signal",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01970219612121582,
+     "execution_time": 0.015872478485107422,
      "materialization": "test"
     },
     {
@@ -1281,7 +1281,7 @@
      "name": "not_null_int_signals__daily_signal_date",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019708871841430664,
+     "execution_time": 0.015612363815307617,
      "materialization": "test"
     },
     {
@@ -1289,7 +1289,7 @@
      "name": "not_null_int_signals__daily_signal_family",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.019458770751953125,
+     "execution_time": 0.015296697616577148,
      "materialization": "test"
     },
     {
@@ -1297,7 +1297,7 @@
      "name": "not_null_int_signals__daily_source",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01927018165588379,
+     "execution_time": 0.01504373550415039,
      "materialization": "test"
     },
     {
@@ -1305,21 +1305,21 @@
      "name": "index_unavailable_when_a_phrase_is",
      "resource_type": "unit_test",
      "status": "pass",
-     "execution_time": 0.066070556640625
+     "execution_time": 0.05289816856384277
     },
     {
      "unique_id": "unit_test.gta6_impact.fct_day_off_index.index_is_average_with_breakdown",
      "name": "index_is_average_with_breakdown",
      "resource_type": "unit_test",
      "status": "pass",
-     "execution_time": 0.06757903099060059
+     "execution_time": 0.054387807846069336
     },
     {
      "unique_id": "model.gta6_impact.fct_day_off_index",
      "name": "fct_day_off_index",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.04669642448425293,
+     "execution_time": 0.03747105598449707,
      "materialization": "table",
      "relation": "gta6.main.fct_day_off_index",
      "message": "OK"
@@ -1329,7 +1329,7 @@
      "name": "fct_signal_daily",
      "resource_type": "model",
      "status": "success",
-     "execution_time": 0.04528617858886719,
+     "execution_time": 0.03688764572143555,
      "materialization": "table",
      "relation": "gta6.main.fct_signal_daily",
      "message": "OK"
@@ -1339,7 +1339,7 @@
      "name": "assert_day_off_index_has_breakdown",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.013755321502685547,
+     "execution_time": 0.011786222457885742,
      "materialization": "test"
     },
     {
@@ -1347,7 +1347,7 @@
      "name": "not_null_fct_day_off_index_batch_id",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017626285552978516,
+     "execution_time": 0.013826608657836914,
      "materialization": "test"
     },
     {
@@ -1355,7 +1355,7 @@
      "name": "not_null_fct_day_off_index_breakdown",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018786907196044922,
+     "execution_time": 0.014578819274902344,
      "materialization": "test"
     },
     {
@@ -1363,7 +1363,7 @@
      "name": "not_null_fct_day_off_index_current_end_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01787734031677246,
+     "execution_time": 0.013947248458862305,
      "materialization": "test"
     },
     {
@@ -1371,7 +1371,7 @@
      "name": "not_null_fct_day_off_index_current_start_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017821788787841797,
+     "execution_time": 0.014064550399780273,
      "materialization": "test"
     },
     {
@@ -1379,7 +1379,7 @@
      "name": "not_null_fct_day_off_index_index_window",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017791271209716797,
+     "execution_time": 0.01410365104675293,
      "materialization": "test"
     },
     {
@@ -1387,7 +1387,7 @@
      "name": "not_null_fct_day_off_index_phrase_count",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01790928840637207,
+     "execution_time": 0.013860702514648438,
      "materialization": "test"
     },
     {
@@ -1395,7 +1395,7 @@
      "name": "not_null_fct_day_off_index_phrases_available",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017742395401000977,
+     "execution_time": 0.01400303840637207,
      "materialization": "test"
     },
     {
@@ -1403,7 +1403,7 @@
      "name": "not_null_fct_day_off_index_prior_end_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01910114288330078,
+     "execution_time": 0.014421701431274414,
      "materialization": "test"
     },
     {
@@ -1411,7 +1411,7 @@
      "name": "not_null_fct_day_off_index_prior_start_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01783609390258789,
+     "execution_time": 0.013988971710205078,
      "materialization": "test"
     },
     {
@@ -1419,7 +1419,7 @@
      "name": "not_null_fct_day_off_index_weeks",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017510175704956055,
+     "execution_time": 0.014198541641235352,
      "materialization": "test"
     },
     {
@@ -1427,7 +1427,7 @@
      "name": "unique_fct_day_off_index_index_window",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017931222915649414,
+     "execution_time": 0.014215230941772461,
      "materialization": "test"
     },
     {
@@ -1435,7 +1435,7 @@
      "name": "not_null_fct_signal_daily_days_from_release",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01783156394958496,
+     "execution_time": 0.014444828033447266,
      "materialization": "test"
     },
     {
@@ -1443,7 +1443,7 @@
      "name": "not_null_fct_signal_daily_geo",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017322063446044922,
+     "execution_time": 0.014042139053344727,
      "materialization": "test"
     },
     {
@@ -1451,7 +1451,7 @@
      "name": "not_null_fct_signal_daily_is_available",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01805853843688965,
+     "execution_time": 0.01410818099975586,
      "materialization": "test"
     },
     {
@@ -1459,7 +1459,7 @@
      "name": "not_null_fct_signal_daily_iso_day_of_week",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017981290817260742,
+     "execution_time": 0.013903617858886719,
      "materialization": "test"
     },
     {
@@ -1467,7 +1467,7 @@
      "name": "not_null_fct_signal_daily_signal",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.01787400245666504,
+     "execution_time": 0.013955354690551758,
      "materialization": "test"
     },
     {
@@ -1475,7 +1475,7 @@
      "name": "not_null_fct_signal_daily_signal_date",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017261743545532227,
+     "execution_time": 0.014074563980102539,
      "materialization": "test"
     },
     {
@@ -1483,7 +1483,7 @@
      "name": "not_null_fct_signal_daily_signal_day_key",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017889738082885742,
+     "execution_time": 0.014025688171386719,
      "materialization": "test"
     },
     {
@@ -1491,7 +1491,7 @@
      "name": "not_null_fct_signal_daily_signal_family",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018001079559326172,
+     "execution_time": 0.014158010482788086,
      "materialization": "test"
     },
     {
@@ -1499,7 +1499,7 @@
      "name": "not_null_fct_signal_daily_source",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.017754077911376953,
+     "execution_time": 0.014251232147216797,
      "materialization": "test"
     },
     {
@@ -1507,7 +1507,7 @@
      "name": "not_null_fct_signal_daily_study_year",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018007755279541016,
+     "execution_time": 0.01431894302368164,
      "materialization": "test"
     },
     {
@@ -1515,7 +1515,7 @@
      "name": "unique_fct_signal_daily_signal_day_key",
      "resource_type": "test",
      "status": "pass",
-     "execution_time": 0.018219709396362305,
+     "execution_time": 0.014311552047729492,
      "materialization": "test"
     }
    ]
@@ -1582,13 +1582,13 @@
       ]
      },
      "measured": {
-      "rows": 856,
+      "rows": 864,
       "null_key_rows": 0,
-      "eligible_rows": 856,
-      "matched_rows": 856,
+      "eligible_rows": 864,
+      "matched_rows": 864,
       "unmatched_rows": 0,
-      "eligible_keys": 107,
-      "matched_keys": 107,
+      "eligible_keys": 108,
+      "matched_keys": 108,
       "unmatched_keys": 0
      },
      "coverage": {
@@ -1663,13 +1663,13 @@
      "parent_relation": "gta6.main.stg_hn__daily_hits",
      "status": "satisfied",
      "measured": {
-      "output_rows": 1284,
-      "output_keys": 1284,
+      "output_rows": 1296,
+      "output_keys": 1296,
       "output_null_key_rows": 0,
-      "parent_keys": 1284,
-      "eligible_parent_keys": 1284,
+      "parent_keys": 1296,
+      "eligible_parent_keys": 1296,
       "excluded_by_filters": 0,
-      "parents_present": 1284,
+      "parents_present": 1296,
       "missing_parents": 0,
       "orphan_keys": 0,
       "empty_rows": null,
@@ -1710,13 +1710,13 @@
      "parent_relation": "gta6.main.stg_bluesky__daily_hits",
      "status": "satisfied",
      "measured": {
-      "output_rows": 1284,
-      "output_keys": 1284,
+      "output_rows": 1296,
+      "output_keys": 1296,
       "output_null_key_rows": 0,
-      "parent_keys": 1284,
-      "eligible_parent_keys": 1284,
+      "parent_keys": 1296,
+      "eligible_parent_keys": 1296,
       "excluded_by_filters": 0,
-      "parents_present": 1284,
+      "parents_present": 1296,
       "missing_parents": 0,
       "orphan_keys": 0,
       "empty_rows": null,

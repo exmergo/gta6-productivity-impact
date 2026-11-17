@@ -26,19 +26,19 @@
   ],
   "axes": {
    "schema": {
-    "run_at": "2026-11-16T23:46:16.393918+00:00",
+    "run_at": "2026-11-17T06:28:12.617472+00:00",
     "scope": null,
     "findings": [],
     "finding_count": 0
    },
    "volume": {
-    "run_at": "2026-11-16T23:46:16.393918+00:00",
+    "run_at": "2026-11-17T06:28:12.617472+00:00",
     "scope": null,
     "findings": [],
     "finding_count": 0
    },
    "grain": {
-    "run_at": "2026-11-16T23:46:16.393918+00:00",
+    "run_at": "2026-11-17T06:28:12.617472+00:00",
     "scope": null,
     "findings": [
      {
@@ -59,7 +59,7 @@
     "finding_count": 1
    },
    "semantic": {
-    "run_at": "2026-11-16T23:46:16.393918+00:00",
+    "run_at": "2026-11-17T06:28:12.617472+00:00",
     "scope": null,
     "findings": [],
     "finding_count": 0

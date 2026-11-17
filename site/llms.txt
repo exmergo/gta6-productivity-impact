@@ -2,7 +2,7 @@
 
 > An open, reproducible study of whether Americans search for ways to skip work more in the run-up to GTA 6 (released 19 November 2026). Built with Dex.
 
-Updated 2026-11-16. Day-Off Index: +50.1% (call in sick +40.4% · day off work +73.4% · sick day +36.4%), 1–14 Nov 2026 vs 2–15 Nov 2025. Search interest, not a headcount; association, not causation.
+Updated 2026-11-17. Day-Off Index: +50.1% (call in sick +40.4% · day off work +73.4% · sick day +36.4%), 1–14 Nov 2026 vs 2–15 Nov 2025. Search interest, not a headcount; association, not causation.
 
 ## Questions
 

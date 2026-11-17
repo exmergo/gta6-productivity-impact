@@ -19,19 +19,19 @@ html, body { margin: 0; background: var(--dex-paper); }
 h1 { margin: 0; font-size: 40px; line-height: 1.06; letter-spacing: -1.4px; font-weight: 700; }
 h1 em { font-style: normal; color: var(--dex-line); }
 h1 .red { color: var(--dex-redline); }
-.lede { margin: 10px 0 0; font-size: 20px; line-height: 1.35; color: var(--dex-ink-muted); max-width: 980px; }
+.lede { margin: 10px 0 0; font-size: 20px; line-height: 1.35; color: var(--dex-ink); max-width: 980px; }
 .plot { margin-top: 14px; flex: 1; min-height: 0; }
 .plot svg { width: 100%; height: 100%; }
 .foot { display: flex; justify-content: space-between; align-items: center; gap: 20px;
   padding-top: 13px; margin-top: 14px; border-top: 1px solid var(--dex-line-soft);
-  font: 14px var(--font-mono); color: var(--dex-ink-muted); position: relative; }
+  font: 14px var(--font-mono); color: var(--dex-ink); position: relative; }
 .foot b { color: var(--dex-ink); font-weight: 400; }
 
 /* Marks */
 .chart { display: block; overflow: visible; font-family: var(--font-sans); }
 .chart .grid { stroke: var(--dex-rule); stroke-width: 1; }
 .chart .axis { stroke: var(--dex-ink-faint); stroke-width: 1; }
-.chart .tick { fill: var(--dex-ink-muted); font: 14px var(--font-mono); }
+.chart .tick { fill: var(--dex-ink); font: 14px var(--font-mono); }
 .chart .line { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
 .chart .line.s-study { stroke: var(--dex-line); }
 .chart .line.s-control { stroke: var(--dex-ink-faint); stroke-dasharray: 6 5; }
@@ -43,14 +43,14 @@ h1 .red { color: var(--dex-redline); }
 .chart .marker { stroke: var(--dex-redline); stroke-width: 1.5; stroke-dasharray: 3 4; }
 .chart .marker-label { fill: var(--dex-redline); font: 14px var(--font-mono); text-transform: uppercase; letter-spacing: 1px; }
 .chart .direct { fill: var(--dex-ink); font-size: 17px; font-weight: 700; }
-.chart .direct-name { fill: var(--dex-ink-muted); font-weight: 400; }
+.chart .direct-name { fill: var(--dex-ink); font-weight: 400; }
 
 /* Hero: the number, the headline, then the breakdown */
 .hero { display: flex; flex-direction: column; justify-content: center; gap: 40px; flex: 1; }
 .big { font-size: 112px; line-height: .8; letter-spacing: -5px; font-weight: 700; color: var(--accent); }
 .big small { font-size: 54px; letter-spacing: 0; margin-left: 6px; }
 .hero h1 { margin-top: 18px; font-size: 32px; letter-spacing: -0.9px; }
-.fine { margin: 8px 0 0; font: 12px/1.45 var(--font-mono); color: var(--dex-ink-faint); }
+.fine { margin: 8px 0 0; font: 12px/1.45 var(--font-mono); color: var(--dex-ink); }
 
 /* Image bubble: a round crop in the top right that fades into the paper */
 .aside { position: absolute; top: 36px; right: 58px; width: 310px; height: 310px; margin: 0;
@@ -61,7 +61,7 @@ h1 .red { color: var(--dex-redline); }
 
 /* Year-on-year bars: per phrase, last year above this year, the change at the end */
 .yoy { display: grid; grid-template-columns: 132px 1fr 76px; column-gap: 14px; row-gap: 18px; align-items: center; }
-.yoy .key { grid-column: 2 / 4; margin-bottom: -6px; display: flex; gap: 16px; font: 12px var(--font-mono); color: var(--dex-ink-muted); }
+.yoy .key { grid-column: 2 / 4; margin-bottom: -6px; display: flex; gap: 16px; font: 12px var(--font-mono); color: var(--dex-ink); }
 .yoy .key i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
 .yoy .term { font-size: 18px; color: var(--dex-ink); white-space: nowrap; }
 .yoy .pair { display: grid; gap: 3px; }
@@ -74,7 +74,7 @@ h1 .red { color: var(--dex-redline); }
 /* Lift bars */
 .bars { display: grid; gap: 10px; margin-top: 8px; }
 .bar-row { display: grid; grid-template-columns: 300px 1fr 92px; gap: 16px; align-items: center; font-size: 18px; }
-.bar-row .name { color: var(--dex-ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-row .name { color: var(--dex-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bar-row .track { position: relative; height: 22px; }
 .bar-row .fill { position: absolute; top: 2px; height: 8px; border-radius: 0 4px 4px 0; }
 .bar-row .fill.study { background: var(--dex-line); top: 0; height: 10px; }
@@ -82,17 +82,15 @@ h1 .red { color: var(--dex-redline); }
 .bar-row .fill.pending { background: none; border: 1px dashed var(--dex-line-soft); top: 0; height: 10px; }
 .bar-row .par { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1px solid var(--dex-ink); }
 .bar-row .val { font: 16px var(--font-mono); text-align: right; }
-.legend { display: flex; gap: 22px; font: 14px var(--font-mono); color: var(--dex-ink-muted); margin-top: 6px; }
+.legend { display: flex; gap: 22px; font: 14px var(--font-mono); color: var(--dex-ink); margin-top: 6px; }
 .legend i { display: inline-block; width: 18px; height: 8px; margin-right: 8px; vertical-align: middle; }
 .legend .study { background: var(--dex-line); }
 .legend .control { background: var(--dex-ink-faint); }
 .legend .red { background: var(--dex-redline); height: 2px; }
 .chart .direct, .chart .marker-label, .chart .note { paint-order: stroke; stroke: var(--dex-paper); stroke-width: 6px; stroke-linejoin: round; }
-.chart .note { fill: var(--dex-ink-muted); font: 14px var(--font-mono); }
+.chart .note { fill: var(--dex-ink); font: 14px var(--font-mono); }
 .chart .note-dot { fill: none; stroke: var(--dex-ink-muted); stroke-width: 1; }
 
-/* Footer unit: present but quiet */
-.foot .unit { color: var(--dex-ink-faint); }
 
 /* Portrait (4:5) variant of the hero card: number and art side by side, bars below */
 .card.portrait { padding: 40px 44px 28px; }

@@ -166,8 +166,8 @@ npx skills add exmergo/dex
 | # | Metric | Question | When |
 |---|---|---|---|
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | live |
-| 2 | **PRs opened on GitHub** | Did GitHub go quiet on Thursday? | Fri 20 Nov |
-| 3 | **Stack Overflow silence** | Did developers stop asking questions? | after release |
+| 2 | **GTA V to GTA 6** | How much more productive did the world get between the two launches? | Wed 18 Nov |
+| 3 | **PRs opened on GitHub** | Did GitHub go quiet on Thursday? | Fri 20 Nov |
 | 4 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | after release |
 | 5 | **The recovery curve** | How many working days until output is back to normal? | 30 Nov |
 

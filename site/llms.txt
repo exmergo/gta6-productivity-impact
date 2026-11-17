@@ -10,6 +10,10 @@ Updated 2026-11-17. Day-Off Index: +50.1% (call in sick +40.4% · day off work +
 
 Yes. US Google searches for skipping work were up 50% on average, 1–14 Nov 2026 against 2–15 Nov 2025: “day off work” +73.4%, “call in sick” +40.4%, “sick day” +36.4%. GTA 6 launches on Thursday 19 November 2026.
 
+### How much more productive did the world get between GTA V and GTA 6?
+
+World real output grew by about a quarter between GTA V (2013) and GTA 6 (2026): GDP per person (constant 2015 US$) +26.3% (2013 to 2026); GDP per worker (constant 2021 PPP $) +24.9% (2013 to 2025). World Bank data; 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world growth forecast.
+
 ### What is the Day-Off Index?
 
 The average year-over-year change in US Google searches for “call in sick”, “sick day” and “day off work”. Each phrase compares its average weekly Google Trends interest over two weeks with the same weeks a year earlier. It is always shown with its breakdown.
@@ -34,4 +38,5 @@ From public Google Trends data, with a dbt project and a MetricFlow semantic lay
 - [Metric definitions](https://github.com/exmergo/gta6-productivity-impact/blob/main/docs/metrics.md)
 - [Data sources](https://github.com/exmergo/gta6-productivity-impact/blob/main/docs/sources.md)
 - [Chart data (JSON)](https://exmergo.github.io/gta6-productivity-impact/charts/data/day-off-index.json)
+- [GTA V to GTA 6 chart data (JSON)](https://exmergo.github.io/gta6-productivity-impact/charts/data/gta-v-to-gta-6.json)
 - [Dex](https://trydex.ai)

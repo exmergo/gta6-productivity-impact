@@ -283,9 +283,16 @@ def _productivity_plot(rows: list[dict], w: int = 620, h: int = 380) -> str:
 
 def productivity_card(png: bool) -> dict:
     """Metric 2, GTA V to GTA 6: how much more productive the world got between the launches."""
-    rows = query(
-        ["world_productivity_change_since_gta_v", "world_productivity"],
-        ["world_productivity_key__measure", "world_productivity_key__data_year"],
+    # Sorted, so the committed chart data does not churn on every refresh.
+    rows = sorted(
+        query(
+            ["world_productivity_change_since_gta_v", "world_productivity"],
+            ["world_productivity_key__measure", "world_productivity_key__data_year"],
+        ),
+        key=lambda r: (
+            r["world_productivity_key__measure"],
+            r["world_productivity_key__data_year"],
+        ),
     )
     by = {
         (r["world_productivity_key__measure"], r["world_productivity_key__data_year"]): r
@@ -317,8 +324,10 @@ def productivity_card(png: bool) -> dict:
 
 
 def build(png: bool = True) -> dict:
-    productivity_card(png)
-    return index_card(png)
+    productivity = productivity_card(png)
+    summary = index_card(png)
+    summary["productivity"] = productivity["rows"]
+    return summary
 
 
 if __name__ == "__main__":

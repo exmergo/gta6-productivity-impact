@@ -7,7 +7,7 @@ semantic query.
 | # | Metric | Question | Source | Status |
 |---|---|---|---|---|
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | Google Trends, US, weekly | live |
-| 2 | **GTA V to GTA 6** | How much more productive did the world get between the two launches? | World Bank WDI (world GDP per person employed and per capita, real), IMF WEO for 2026 | Wed 18 Nov |
+| 2 | **GTA V to GTA 6** | How much more productive did the world get between the two launches? | World Bank WDI (world GDP per person employed and per capita, real), IMF WEO for 2026 | live |
 | 3 | **PRs opened** | Did GitHub go quiet? | GitHub Search API, `is:pr created:<day>` | after release |
 | 4 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | Wikimedia `edits/aggregate` | after release |
 | 5 | **The recovery curve** | How many working days until output is back to normal? | Metrics 3–4, daily for two weeks | 30 Nov |
@@ -35,4 +35,4 @@ between.
 Ask it: `uv run dex explore semantic query world_productivity_change_since_gta_v,world_productivity
 --group-by world_productivity_key__measure,world_productivity_key__data_year`. Model:
 `fct_world_productivity` (one row per measure per year; the IMF chain is unit-tested, including a
-missing IMF year leaving the value NULL). Chart: `charts/png/gta-v-to-gta-6-{light,dark}.png`.
+missing IMF year leaving the value NULL). Charts: `charts/png/gta-v-to-gta-6-{light,dark}.png` and the 4:5 `gta-v-to-gta-6-portrait-{light,dark}.png`.

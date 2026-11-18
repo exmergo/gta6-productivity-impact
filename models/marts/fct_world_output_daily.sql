@@ -1,6 +1,6 @@
 -- Metric 3, everything humanity made while waiting for GTA 6: one row per UTC day of the
--- wait, from GTA V's release (var gta_v_date) to the day before GTA 6's (var gta_6_date),
--- with that day's world real output and the running total since GTA V.
+-- wait, from GTA 5's release (var gta_v_date) to the day before GTA 6's (var gta_6_date),
+-- with that day's world real output and the running total since GTA 5.
 -- Days are generated here: the wait (2013 to 2026) is wider than the semantic time spine.
 -- A day whose year has no output reads NULL, and so does every running total from it on.
 with days as (

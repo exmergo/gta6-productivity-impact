@@ -1,7 +1,7 @@
 version: 2
 models:
 - name: fct_wait_milestones
-  description: 'Metric 3: the milestones of the wait between GTA V and GTA 6, each with the world real output made since GTA V by the day before it. One row per milestone.'
+  description: 'Metric 3: the milestones of the wait between GTA 5 and GTA 6, each with the world real output made since GTA 5 by the day before it. One row per milestone.'
   config:
     meta:
       dex:
@@ -19,13 +19,13 @@ models:
             evidence: request
             detail: 'user: Metric 3 plan; avoids arguing about events late in the UTC day'
             column: output_by_then
-          - decision: GTA V's own release day
+          - decision: GTA 5's own release day
             chosen: output_by_then = 0, not NULL
             evidence: request
-            detail: 'user: Metric 3 plan; the day before GTA V lies outside the wait, and nothing has been made since GTA V yet'
+            detail: 'user: Metric 3 plan; the day before GTA 5 lies outside the wait, and nothing has been made since GTA 5 yet'
             column: output_by_then
           - decision: Which milestones the chart draws
-            chosen: 'the nine flagged is_editorial: comet, AlphaGo, RDR2, black hole, vaccine, ChatGPT, GTA VI trailer, Claude Code, Artemis II'
+            chosen: 'the nine flagged is_editorial: comet, AlphaGo, RDR2, black hole, vaccine, ChatGPT, GTA 6 trailer, Claude Code, Artemis II'
             evidence: request
             detail: user named the milestones to keep on the chart and asked for Claude Code
             column: is_editorial
@@ -108,7 +108,7 @@ models:
       data_tests:
         - not_null
     - name: output_by_then
-      description: World real output made from GTA V's release through the day before the event, constant 2015 US$.
+      description: World real output made from GTA 5's release through the day before the event, constant 2015 US$.
       config:
         meta:
           dex:

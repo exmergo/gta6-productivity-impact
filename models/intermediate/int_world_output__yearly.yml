@@ -1,7 +1,7 @@
 version: 2
 models:
 - name: int_world_output__yearly
-  description: 'Metric 3: world real output (GDP, constant 2015 US$) in every year from GTA V''s launch year to GTA 6''s, and its even daily and per-second rates. One row per year.'
+  description: 'Metric 3: world real output (GDP, constant 2015 US$) in every year from GTA 5''s launch year to GTA 6''s, and its even daily and per-second rates. One row per year.'
   config:
     meta:
       dex:
@@ -13,12 +13,12 @@ models:
           - decision: What 'everything humanity made' measures
             chosen: World Bank world real GDP, NY.GDP.MKTP.KD, constant 2015 US$
             evidence: request
-            detail: 'user: Metric 3 plan, world output between GTA V and GTA 6; same price basis as Metric 2''s per-capita series'
+            detail: 'user: Metric 3 plan, world output between GTA 5 and GTA 6; same price basis as Metric 2''s per-capita series'
             column: annual_output
           - decision: Years covered
             chosen: 2013 to 2026, every year
             evidence: request
-            detail: 'user: bookended by the GTA V and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
+            detail: 'user: bookended by the GTA 5 and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
             column: data_year
           - decision: Years the World Bank has not published
             chosen: last published GDP grown by IMF WEO world real GDP growth, no population adjustment, flagged is_estimate

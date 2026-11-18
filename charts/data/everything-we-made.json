@@ -647,8 +647,8 @@
   {
    "milestone__event_date__day": "2013-09-17T00:00:00",
    "milestone__milestone_id": "gta_v",
-   "milestone__title": "GTA V released",
-   "milestone__chart_label": "GTA V",
+   "milestone__title": "GTA 5 released",
+   "milestone__chart_label": "GTA 5",
    "milestone__category": "rockstar",
    "milestone__tier": "anchor",
    "milestone__is_editorial": false,
@@ -1039,8 +1039,8 @@
   {
    "milestone__event_date__day": "2023-12-04T00:00:00",
    "milestone__milestone_id": "gta_vi_trailer_1",
-   "milestone__title": "GTA VI Trailer 1",
-   "milestone__chart_label": "GTA VI trailer",
+   "milestone__title": "GTA 6 Trailer 1",
+   "milestone__chart_label": "GTA 6 trailer",
    "milestone__category": "rockstar",
    "milestone__tier": "hero",
    "milestone__is_editorial": true,

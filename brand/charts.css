@@ -111,7 +111,7 @@ h1 .red { color: var(--dex-redline); }
 .chart .marker.launch { stroke: var(--dex-ink-faint); }
 .chart .marker-label.launch { fill: var(--dex-ink); }
 
-/* Metric 2 as a glow-up: GTA V's faded 2013 on the left, GTA 6's sunset on the right,
+/* Metric 2 as a glow-up: GTA 5's faded 2013 on the left, GTA 6's sunset on the right,
    one diagonal cut, logo and number side by side, the line below, the Dex strip under it. */
 .gcard { display: flex; flex-direction: column; overflow: hidden; background: var(--dex-paper); }
 .glowup { position: relative; flex: none; overflow: hidden; font-family: var(--font-sans);

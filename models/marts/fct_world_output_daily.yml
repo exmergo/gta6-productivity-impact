@@ -1,14 +1,14 @@
 version: 2
 models:
 - name: fct_world_output_daily
-  description: 'Metric 3, everything humanity made while waiting for GTA 6: world real output on each UTC day from GTA V''s release to the day before GTA 6''s, and the running total since GTA V. One row per day.'
+  description: 'Metric 3, everything humanity made while waiting for GTA 6: world real output on each UTC day from GTA 5''s release to the day before GTA 6''s, and the running total since GTA 5. One row per day.'
   config:
     meta:
       dex:
         grain:
           - output_day
         population:
-          rule: 'Every UTC day from var gta_v_date (2013-09-17, GTA V''s release) to the day before var gta_6_date (2026-11-19, GTA 6''s release): 4,811 days.'
+          rule: 'Every UTC day from var gta_v_date (2013-09-17, GTA 5''s release) to the day before var gta_6_date (2026-11-19, GTA 6''s release): 4,811 days.'
         assumptions:
           - decision: Which days the wait holds
             chosen: 2013-09-17 through 2026-11-18, every UTC day
@@ -62,7 +62,7 @@ models:
           dex:
             role: attribute
     - name: cumulative_output
-      description: Running total of daily_output from GTA V's release through the day. Never sum it across days.
+      description: Running total of daily_output from GTA 5's release through the day. Never sum it across days.
       config:
         meta:
           dex:
@@ -72,7 +72,7 @@ models:
             additivity: semi_additive
             unit: currency:USD
     - name: days_since_gta_v
-      description: 1 on GTA V's release day, 4,811 on 18 Nov 2026.
+      description: 1 on GTA 5's release day, 4,811 on 18 Nov 2026.
       config:
         meta:
           dex:

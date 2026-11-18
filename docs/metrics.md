@@ -7,16 +7,16 @@ semantic query.
 | # | Metric | Question | Source | Status |
 |---|---|---|---|---|
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | Google Trends, US, weekly | live |
-| 2 | **GTA V to GTA 6** | How much more productive did the world get between the two launches? | World Bank WDI (world GDP per person employed and per capita, real), IMF WEO for 2026 | live |
-| 3 | **Everything humanity made while waiting** | How much did the world make between GTA V and GTA 6? | World Bank WDI (world GDP, real), IMF WEO for 2026, a seed of milestones | live (release day, Thu 19 Nov) |
+| 2 | **GTA 5 to GTA 6** | How much more productive did the world get between the two launches? | World Bank WDI (world GDP per person employed and per capita, real), IMF WEO for 2026 | live |
+| 3 | **Everything humanity made while waiting** | How much did the world make between GTA 5 and GTA 6? | World Bank WDI (world GDP, real), IMF WEO for 2026, a seed of milestones | live (release day, Thu 19 Nov) |
 | 4 | **PRs opened** | Did GitHub go quiet? | GitHub Search API, `is:pr created:<day>` | Fri 20 Nov |
 | 5 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | Wikimedia `edits/aggregate` | after release |
 | 6 | **The recovery curve** | How many working days until output is back to normal? | Metrics 4–5, daily for two weeks | 30 Nov |
 
-## 2. GTA V to GTA 6
+## 2. GTA 5 to GTA 6
 
 World productivity between the two launches, from official economic data only:
-GTA V came out in 2013, GTA 6 comes out in 2026, and the metric is the real change in
+GTA 5 came out in 2013, GTA 6 comes out in 2026, and the metric is the real change in
 between.
 
 - **Output per worker**: world GDP per person employed, constant 2021 PPP dollars
@@ -28,7 +28,7 @@ between.
   (`NGDP_RPCH`) less world population growth (`SP.POP.GROW`, last published year), and is
   labelled as an estimate. Output per worker stops at the last published year.
 
-| World, real | 2013 (GTA V) | Latest | Change |
+| World, real | 2013 (GTA 5) | Latest | Change |
 |---|---|---|---|
 | GDP per person (constant 2015 US$) | $9,811 | $12,394 (2026, estimate) | **+26.3%** |
 | GDP per worker (constant 2021 PPP $) | $40,581 | $50,672 (2025) | **+24.9%** |
@@ -40,10 +40,10 @@ missing IMF year leaving the value NULL). Charts: `charts/png/gta-v-to-gta-6-{li
 
 ## 3. Everything humanity made while waiting
 
-Everything the world made between GTA V and GTA 6, as real output, with the moments in between
+Everything the world made between GTA 5 and GTA 6, as real output, with the moments in between
 placed on the running total.
 
-- **The wait**: every UTC day from GTA V's release (17 Sep 2013, inclusive) to the day before
+- **The wait**: every UTC day from GTA 5's release (17 Sep 2013, inclusive) to the day before
   GTA 6 (18 Nov 2026, inclusive): 4,811 days. GTA 6 unlocks at 19 Nov 2026 00:00 UTC, the
   moment the scoreboard's countdown and ticker use. dbt vars `gta_v_date` and `gta_6_date`.
 - **World output**: world GDP, constant 2015 US dollars at market exchange rates (World Bank
@@ -57,16 +57,16 @@ placed on the running total.
   summed across days; `world_output_produced` with no group-by is the headline.
 - **Milestones**: not a ranking (`seeds/wait_milestones.csv`, 46 rows). Each is
   dated to a UTC day against one public source, and reads the running total through the day
-  *before* it ("by the time it happened, the world had made $X since GTA V"). GTA V's own day
+  *before* it ("by the time it happened, the world had made $X since GTA 5"). GTA 5's own day
   reads $0. The nine `is_editorial` rows are on the chart as picture cards (filter
   `milestone__is_editorial = true`), every row is on the scoreboard table, and the two Rockstar
-  nods (Red Dead Redemption 2, GTA VI Trailer 1) are drawn as stars with ink cards. Each card
+  nods (Red Dead Redemption 2, GTA 6 Trailer 1) are drawn as stars with ink cards. Each card
   carries its picture (`brand/milestones/`), the year and the chart label.
 
 **$1.14 quadrillion** ($1,141.7T) in 4,811 days. In 2026 the world makes about $3.3 million a
 second, or $282 billion a day.
 
-| Year | Made in the wait | Running total since GTA V |
+| Year | Made in the wait | Running total since GTA 5 |
 |---|---|---|
 | 2013 | $20.7T | $20.7T |
 | 2014 | $73.5T | $94.2T |

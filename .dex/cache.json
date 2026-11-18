@@ -4580,7 +4580,7 @@
     {
       "identifier": "gta6.main.wait_milestones",
       "object_type": "table",
-      "row_count": 45,
+      "row_count": 46,
       "byte_size": null,
       "columns": [
         {
@@ -4588,7 +4588,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 45,
+          "distinct_count": 46,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": null,
@@ -4607,7 +4607,7 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 45,
+          "distinct_count": 46,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": "2013-09-17",
@@ -4617,8 +4617,8 @@
           "value_domain": null,
           "temporal_granularity": "day",
           "temporal_span": 4812,
-          "temporal_distinct_periods": 45,
-          "temporal_missing_periods": 4767,
+          "temporal_distinct_periods": 46,
+          "temporal_missing_periods": 4766,
           "temporal_largest_gap": 420
         },
         {
@@ -4637,7 +4637,7 @@
             "values": [
               {
                 "value": "day",
-                "count": 43
+                "count": 44
               },
               {
                 "value": "month",
@@ -4691,7 +4691,7 @@
               },
               {
                 "value": "hero",
-                "count": 14
+                "count": 15
               },
               {
                 "value": "anchor",
@@ -4707,11 +4707,42 @@
           "temporal_largest_gap": null
         },
         {
+          "name": "is_editorial",
+          "data_type": "BOOLEAN",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": false,
+          "max_value": true,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": false,
+                "count": 37
+              },
+              {
+                "value": true,
+                "count": 9
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
           "name": "title",
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 45,
+          "distinct_count": 46,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": null,
@@ -4730,7 +4761,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 45,
+          "distinct_count": 46,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": null,
@@ -4749,7 +4780,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 45,
+          "distinct_count": 46,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": null,
@@ -4768,7 +4799,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 43,
+          "distinct_count": 44,
           "distinct_count_exact": true,
           "is_unique": false,
           "min_value": null,
@@ -4810,35 +4841,35 @@
             "milestone_id"
           ],
           "status": "reported",
-          "reason": "milestone_id is unique and non-null on all 45 rows, proven by an exact distinct count"
+          "reason": "milestone_id is unique and non-null on all 46 rows, proven by an exact distinct count"
         },
         {
           "columns": [
             "event_date"
           ],
           "status": "reported",
-          "reason": "event_date is unique and non-null on all 45 rows, proven by an exact distinct count"
+          "reason": "event_date is unique and non-null on all 46 rows, proven by an exact distinct count"
         },
         {
           "columns": [
             "title"
           ],
           "status": "reported",
-          "reason": "title is unique and non-null on all 45 rows, proven by an exact distinct count"
+          "reason": "title is unique and non-null on all 46 rows, proven by an exact distinct count"
         },
         {
           "columns": [
             "chart_label"
           ],
           "status": "reported",
-          "reason": "chart_label is unique and non-null on all 45 rows, proven by an exact distinct count"
+          "reason": "chart_label is unique and non-null on all 46 rows, proven by an exact distinct count"
         },
         {
           "columns": [
             "why"
           ],
           "status": "reported",
-          "reason": "why is unique and non-null on all 45 rows, proven by an exact distinct count"
+          "reason": "why is unique and non-null on all 46 rows, proven by an exact distinct count"
         }
       ],
       "rank_score": 0.608,
@@ -4851,7 +4882,7 @@
           "detail": "milestone_id participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T14:24:12.574655+00:00",
+      "profiled_at": "2026-11-18T18:41:15.776641+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -6312,7 +6343,7 @@
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-18T15:59:17.489107+00:00",
+    "updated_at": "2026-11-18T18:41:15.653783+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

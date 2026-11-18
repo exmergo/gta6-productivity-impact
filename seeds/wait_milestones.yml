@@ -1,7 +1,7 @@
 version: 2
 seeds:
 - name: wait_milestones
-  description: 'Metric 3: moments between GTA V and GTA 6, one row per milestone, each dated to a UTC
+  description: 'Metric 3: moments between GTA 5 and GTA 6, one row per milestone, each dated to a UTC
     day and carrying one public source. is_editorial marks the ones the chart draws.'
   config:
     column_types:

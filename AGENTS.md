@@ -9,7 +9,7 @@ Every number must come out of the dbt project and its semantic layer.
    `day_off_index` (average YoY change in US Google searches for "call in sick", "sick day"
    and "day off work"); its breakdown is `day_off_index_term_change` by
    `day_off_index_term__term`. Also `gta_share_of_day_off_talk`, `signal_value` and
-   `gta_wiki_pageviews`. Metric 2 (GTA V to GTA 6) is `world_productivity_change_since_gta_v`
+   `gta_wiki_pageviews`. Metric 2 (GTA 5 to GTA 6) is `world_productivity_change_since_gta_v`
    and `world_productivity`, grouped by `world_productivity_key__measure` and
    `world_productivity_key__data_year`. Metric 3 (everything humanity made while waiting) is
    `world_output_produced` (no group-by: the headline, 17 Sep 2013 to 18 Nov 2026),

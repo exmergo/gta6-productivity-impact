@@ -125,7 +125,7 @@ uv run dex explore semantic query day_off_index_term_change,day_off_index_term_p
     document.getElementById('logo').src = 'brand/assets/dex-logo-white.png';
     document.querySelectorAll('img[data-dark]').forEach(i => i.src = i.dataset.dark);
   }}
-  // The ticker: world output since GTA V, at the rate the semantic layer gives for the last
+  // The ticker: world output since GTA 5, at the rate the semantic layer gives for the last
   // day of the wait. It stops at GTA 6's release; a second line counts on from there.
   const tk = document.getElementById('wait-ticker');
   if (tk) {{
@@ -229,10 +229,10 @@ def _wait_section(summary: dict) -> str:
         for r in w["rows"]
     )
     alt = _wait_alt(w)
-    return f"""<p class="ticker" id="wait-ticker" data-anchor-total="{anchor_total:.0f}" data-anchor-time="{w["last_day"]}T00:00:00Z" data-rate="{w["rate"]:.1f}" data-release="{release}"><span class="total">{_quadrillions(w["total"])}</span><span class="since"></span><small>made by the world since GTA V, live at ${w["rate"] / 1e6:.1f} million a second, until GTA 6 (00:00 UTC, {w["release"]:%-d %b})</small></p>
+    return f"""<p class="ticker" id="wait-ticker" data-anchor-total="{anchor_total:.0f}" data-anchor-time="{w["last_day"]}T00:00:00Z" data-rate="{w["rate"]:.1f}" data-release="{release}"><span class="total">{_quadrillions(w["total"])}</span><span class="since"></span><small>made by the world since GTA 5, live at ${w["rate"] / 1e6:.1f} million a second, until GTA 6 (00:00 UTC, {w["release"]:%-d %b})</small></p>
 <figure><img src="charts/png/everything-we-made-light.png" data-dark="charts/png/everything-we-made-dark.png" alt="{escape(alt)}"><figcaption>{escape(alt)} · <a href="charts/data/everything-we-made.json">data</a></figcaption></figure>
 <div class="wrap"><table>
-<thead><tr><th class="num">Date (UTC)</th><th>Meanwhile, humanity…</th><th class="num">Made since GTA V</th><th>Source</th></tr></thead>
+<thead><tr><th class="num">Date (UTC)</th><th>Meanwhile, humanity…</th><th class="num">Made since GTA 5</th><th>Source</th></tr></thead>
 <tbody>{body}</tbody>
 </table></div>
 <p class="lede">World real GDP (World Bank WDI, constant 2015 US$), each year spread evenly over its
@@ -247,7 +247,7 @@ PRODUCTIVITY_MEASURES = (
 
 
 def _productivity_rows(summary: dict) -> list[dict]:
-    """Per measure: the GTA V year, the latest year with a value, and the change between."""
+    """Per measure: the GTA 5 year, the latest year with a value, and the change between."""
     rows = summary.get("productivity") or []
     out = []
     for measure, label in PRODUCTIVITY_MEASURES:
@@ -313,7 +313,7 @@ def _productivity_section(summary: dict) -> str:
     )
     head = rows[0]
     alt = (
-        f"GTA V to GTA 6: world GDP per person ${head['first']:,.0f} in {head['first_year']} "
+        f"GTA 5 to GTA 6: world GDP per person ${head['first']:,.0f} in {head['first_year']} "
         f"and ${head['last']:,.0f} in {head['last_year']}, {_pct(head['change'])}"
     )
     bridge = (
@@ -325,7 +325,7 @@ def _productivity_section(summary: dict) -> str:
 <p class="lede">{escape(bridge)} {escape(_streak_line(summary))}</p>
 <figure><img loading="lazy" src="charts/png/gta-v-to-gta-6-light.png" data-dark="charts/png/gta-v-to-gta-6-dark.png" alt="{alt}"><figcaption>{alt} · <a href="charts/data/gta-v-to-gta-6.json">data</a></figcaption></figure>
 <div class="wrap"><table>
-<thead><tr><th>World, real terms</th><th class="num">2013 (GTA V)</th><th class="num">Latest</th><th class="num">Change</th></tr></thead>
+<thead><tr><th>World, real terms</th><th class="num">2013 (GTA 5)</th><th class="num">Latest</th><th class="num">Change</th></tr></thead>
 <tbody>{body}</tbody>
 </table></div>
 <p class="lede">World Bank WDI. 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world
@@ -387,8 +387,8 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
         faq.insert(
             0,
             (
-                "How much more productive did the world get between GTA V and GTA 6?",
-                f"World real output grew by about a quarter between GTA V (2013) and GTA 6 "
+                "How much more productive did the world get between GTA 5 and GTA 6?",
+                f"World real output grew by about a quarter between GTA 5 (2013) and GTA 6 "
                 f"(2026): {parts}. {_streak_line(summary)} World Bank data; 2026 is the World "
                 "Bank's 2025 figure grown by the IMF's 2026 world growth forecast.",
             ),
@@ -402,9 +402,9 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
         )
         faq[0:0] = [
             (
-                "How much did the world produce between GTA V and GTA 6?",
+                "How much did the world produce between GTA 5 and GTA 6?",
                 f"About {_quadrillions(w['total'])} of goods and services in real terms "
-                f"(constant 2015 US$), over the {w['days']:,} days from GTA V's release "
+                f"(constant 2015 US$), over the {w['days']:,} days from GTA 5's release "
                 f"({w['start']:%-d %B %Y}) to the day before GTA 6 ({w['last_day']:%-d %B %Y}). "
                 f"In 2026 the world makes about ${w['rate'] / 1e6:.1f} million a second, or "
                 f"${w['per_day'] / 1e9:,.0f} billion a day. World Bank world GDP; 2026 is the "
@@ -420,7 +420,7 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
                 "Why these milestones?",
                 "They're moments most people remember, not a ranking, each dated to "
                 "a UTC day and backed by one public source, listed on the scoreboard. Each one "
-                "reads what the world had made since GTA V by the day before it. "
+                "reads what the world had made since GTA 5 by the day before it. "
                 f"For example, {examples}.",
             ),
         ]
@@ -441,6 +441,7 @@ def _jsonld(summary: dict, faq: list[tuple[str, str]], description: str) -> str:
         "temporalCoverage": "2013/2026",
         "keywords": [
             "GTA 6",
+            "GTA 5",
             "GTA V",
             "productivity",
             "GDP per person",
@@ -486,7 +487,7 @@ def build_site(summary: dict) -> None:
     w = _wait(summary)
     if w:
         headline = (
-            f"Between GTA V and GTA 6, humanity made <em>{escape(_quadrillions(w['total']))}</em> "
+            f"Between GTA 5 and GTA 6, humanity made <em>{escape(_quadrillions(w['total']))}</em> "
             "of stuff."
         )
         beats = ". ".join(w["beats"])
@@ -496,7 +497,7 @@ def build_site(summary: dict) -> None:
         )
     elif head and head["change"] is not None:
         headline = (
-            f"Between GTA V and GTA 6, the world got <em>{head['change']:.0f}%</em> more "
+            f"Between GTA 5 and GTA 6, the world got <em>{head['change']:.0f}%</em> more "
             "productive."
         )
         lede = (
@@ -533,7 +534,7 @@ def build_site(summary: dict) -> None:
         og_title = f"Everything humanity made while waiting for GTA 6: {_quadrillions(w['total'])}"
         image_alt = _wait_alt(w)
         streak_text = (
-            f"Between GTA V and GTA 6 the world made {_quadrillions(w['total'])} of real "
+            f"Between GTA 5 and GTA 6 the world made {_quadrillions(w['total'])} of real "
             f"output in {w['days']:,} days. "
             + (
                 f"World GDP per person rose {_pct(head['change'])}. {_streak_line(summary)} "
@@ -543,21 +544,21 @@ def build_site(summary: dict) -> None:
         )
     elif head and head["change"] is not None:
         og_title = (
-            f"GTA V to GTA 6: the world got {head['change']:.0f}% more productive. "
+            f"GTA 5 to GTA 6: the world got {head['change']:.0f}% more productive. "
             "Is GTA 6 the combo breaker?"
         )
         image_alt = (
-            f"GTA V to GTA 6: world GDP per person ${head['first']:,.0f} in "
+            f"GTA 5 to GTA 6: world GDP per person ${head['first']:,.0f} in "
             f"{head['first_year']} and ${head['last']:,.0f} in {head['last_year']}, "
             f"{_pct(head['change'])}."
         )
         streak_text = (
-            f"World GDP per person rose {_pct(head['change'])} between GTA V "
+            f"World GDP per person rose {_pct(head['change'])} between GTA 5 "
             f"({head['first_year']}) and GTA 6 ({head['last_year']}). {_streak_line(summary)} "
         )
     else:
         og_title = "GTA 6 vs. Productivity"
-        image_alt = "GTA V to GTA 6: world GDP per person"
+        image_alt = "GTA 5 to GTA 6: world GDP per person"
         streak_text = ""
     description = (
         f"{streak_text}The combo breaker? US Google searches for skipping work "
@@ -604,7 +605,7 @@ def _crawlers(summary: dict, faq: list[tuple[str, str]], description: str) -> No
     qa = "\n\n".join(f"### {q}\n\n{a}" for q, a in faq)
     (SITE / "llms.txt").write_text(
         "# GTA 6 vs. Productivity\n\n"
-        "> An open, reproducible study of what the world made between GTA V and GTA 6, how "
+        "> An open, reproducible study of what the world made between GTA 5 and GTA 6, how "
         "much more productive it got, and whether GTA 6 (released 19 November 2026) breaks "
         "the streak. Built with Dex.\n\n"
         f"Updated {today}. {description} "
@@ -617,7 +618,7 @@ def _crawlers(summary: dict, faq: list[tuple[str, str]], description: str) -> No
         f"- [Metric definitions]({REPO}/blob/main/docs/metrics.md)\n"
         f"- [Data sources]({REPO}/blob/main/docs/sources.md)\n"
         f"- [Everything we made chart data (JSON)]({BASE}charts/data/everything-we-made.json)\n"
-        f"- [GTA V to GTA 6 chart data (JSON)]({BASE}charts/data/gta-v-to-gta-6.json)\n"
+        f"- [GTA 5 to GTA 6 chart data (JSON)]({BASE}charts/data/gta-v-to-gta-6.json)\n"
         f"- [Day-Off Index chart data (JSON)]({BASE}charts/data/day-off-index.json)\n"
         "- [Dex](https://trydex.ai)\n"
     )

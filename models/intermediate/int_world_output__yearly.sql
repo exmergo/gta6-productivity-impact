@@ -1,5 +1,5 @@
 -- Metric 3, everything humanity made while waiting for GTA 6: world real output in every
--- year from GTA V's launch year to GTA 6's. One row per year.
+-- year from GTA 5's launch year to GTA 6's. One row per year.
 -- World Bank WDI GDP (NY.GDP.MKTP.KD, constant 2015 US$, world aggregate). A year the World
 -- Bank has not published is its last published value grown by the IMF WEO world real GDP
 -- growth for each later year (total output: no population adjustment), flagged is_estimate.

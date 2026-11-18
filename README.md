@@ -5,7 +5,7 @@
   <img alt="Everything that happened before GTA 6: 4,811 days of waiting, from 17 Sep 2013 to 19 Nov 2026, from the comet landing and AlphaGo to ChatGPT, Claude Code and Artemis II, on the running total of world output." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-light.png">
 </picture>
 
-**Between GTA V and GTA 6, humanity made $1.14 quadrillion of stuff.** 4,811 days. We landed
+**Between GTA 5 and GTA 6, humanity made $1.14 quadrillion of stuff.** 4,811 days. We landed
 on a comet, photographed a black hole and caught a spaceship. Now we play GTA.
 
 An open, reproducible study, built with **[Dex](https://github.com/exmergo/dex)** on dbt and a
@@ -14,28 +14,28 @@ Live scoreboard, with a ticker that stops at GTA 6: **[exmergo.github.io/gta6-pr
 
 ## Everything we made while waiting
 
-GTA V came out on 17 September 2013. GTA 6 unlocks at 00:00 UTC on Thursday 19 November 2026.
+GTA 5 came out on 17 September 2013. GTA 6 unlocks at 00:00 UTC on Thursday 19 November 2026.
 In between, the world made this much, in real terms:
 
-| GTA V to GTA 6 | |
+| GTA 5 to GTA 6 | |
 |---|---|
 | Made (world real GDP, constant 2015 US$) | **$1.14 quadrillion** |
 | Days waited | 4,811 (17 Sep 2013 to 18 Nov 2026) |
 | Per day, in 2026 | $282 billion |
 | Per second, in 2026 | $3.3 million |
 
-And what we did with the time, with what the world had made since GTA V by the day before:
+And what we did with the time, with what the world had made since GTA 5 by the day before:
 
-| Date | Meanwhile, humanity… | Made since GTA V |
+| Date | Meanwhile, humanity… | Made since GTA 5 |
 |---|---|---|
 | 12 Nov 2014 | landed on a comet | $84T |
 | 10 Apr 2019 | photographed a black hole | $435T |
 | 8 Dec 2020 | gave the first COVID vaccine shot outside a trial (halfway through the wait's output) | $575T |
 | 30 Nov 2022 | met ChatGPT | $752T |
-| 4 Dec 2023 | watched GTA VI Trailer 1 | $847T |
+| 4 Dec 2023 | watched GTA 6 Trailer 1 | $847T |
 | 14 Nov 2026 | caught a spaceship, 5 days before GTA 6 | $1,140T |
 
-By the first GTA VI trailer, 74% of the wait's output was already made. Fans then waited out the
+By the first GTA 6 trailer, 74% of the wait's output was already made. Fans then waited out the
 last $294T.
 
 World Bank world GDP, each year spread evenly over its days; 2026 is the World Bank's 2025 figure
@@ -45,24 +45,24 @@ Details in [docs/metrics.md](docs/metrics.md#3-everything-humanity-made-while-wa
 
 It didn't just make more because there were more of us. Each person made more, too.
 
-## The streak: GTA V to GTA 6
+## The streak: GTA 5 to GTA 6
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1f235b8e7a86f2839c966f5a73e7828dea522abc/charts/png/gta-v-to-gta-6-dark.png">
-  <img alt="GTA V to GTA 6: world GDP per person $9,811 in 2013 and $12,394 in 2026, +26%, up every year except 2020." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1f235b8e7a86f2839c966f5a73e7828dea522abc/charts/png/gta-v-to-gta-6-light.png">
+  <img alt="GTA 5 to GTA 6: world GDP per person $9,811 in 2013 and $12,394 in 2026, +26%, up every year except 2020." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1f235b8e7a86f2839c966f5a73e7828dea522abc/charts/png/gta-v-to-gta-6-light.png">
 </picture>
 
-**Between GTA V and GTA 6, the world got 26% more productive.** Thirteen years, two delays and
+**Between GTA 5 and GTA 6, the world got 26% more productive.** Thirteen years, two delays and
 one record-breaking trailer later, the world's real output per person grew by a quarter, and it
 fell only once: in 2020.
 
-| World, real terms | 2013 (GTA V) | Latest | Change |
+| World, real terms | 2013 (GTA 5) | Latest | Change |
 |---|---|---|---|
 | GDP per person | $9,811 | $12,394 (2026) | **+26%** |
 | GDP per worker | $40,581 | $50,672 (2025) | **+25%** |
 
 World Bank WDI. 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world growth
-forecast. Details in [docs/metrics.md](docs/metrics.md#2-gta-v-to-gta-6).
+forecast. Details in [docs/metrics.md](docs/metrics.md#2-gta-5-to-gta-6).
 
 GTA 6 comes out on **Thursday 19 November 2026**. Is it the combo breaker?
 
@@ -104,7 +104,7 @@ same weeks a year earlier. The window is configurable: start week, end week or n
 weeks. The index is always shown with its breakdown.
 
 Supporting numbers, outside the index: the GTA share of Bluesky day-off talk, Wikipedia
-readers of the GTA VI article, and Hacker News (334 day-off posts in 107 days, so it's in
+readers of the GTA 6 article, and Hacker News (334 day-off posts in 107 days, so it's in
 here for the joke). Full method: [docs/methodology.md](docs/methodology.md). Sources and
 what we tried and dropped: [docs/sources.md](docs/sources.md).
 
@@ -120,9 +120,9 @@ what we tried and dropped: [docs/sources.md](docs/sources.md).
 
 ## FAQ
 
-**How much did the world produce between GTA V and GTA 6?**
+**How much did the world produce between GTA 5 and GTA 6?**
 About $1.14 quadrillion of goods and services in real terms (constant 2015 US$), over the 4,811
-days from GTA V's release (17 September 2013) to the day before GTA 6 (18 November 2026). In
+days from GTA 5's release (17 September 2013) to the day before GTA 6 (18 November 2026). In
 2026 the world makes about $3.3 million a second, or $282 billion a day.
 
 **Is that in today's dollars?**
@@ -133,9 +133,9 @@ second.
 **Why these milestones?**
 They're moments most people remember, not a ranking, each dated to a UTC day and
 backed by one public source (`seeds/wait_milestones.csv`). Each one reads what the world had made
-since GTA V by the day before it.
+since GTA 5 by the day before it.
 
-**Did the world get more productive between GTA V and GTA 6?**
+**Did the world get more productive between GTA 5 and GTA 6?**
 Yes. World real GDP per person rose 26%, from $9,811 in 2013 to $12,394 in 2026 (2026 is an
 estimate from the IMF's growth forecast). It rose every year except 2020.
 
@@ -253,8 +253,8 @@ The streak holds or breaks over the next two weeks, one metric at a time:
 | # | Metric | Question | When |
 |---|---|---|---|
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | live |
-| 2 | **GTA V to GTA 6** | How much more productive did the world get between the two launches? | live |
-| 3 | **Everything humanity made while waiting** | How much did the world make between GTA V and GTA 6? | **live, Thu 19 Nov (release day)** |
+| 2 | **GTA 5 to GTA 6** | How much more productive did the world get between the two launches? | live |
+| 3 | **Everything humanity made while waiting** | How much did the world make between GTA 5 and GTA 6? | **live, Thu 19 Nov (release day)** |
 | 4 | **PRs opened on GitHub** | Did GitHub go quiet on Thursday? | Fri 20 Nov |
 | 5 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | after release |
 | 6 | **The recovery curve** | How many working days until output is back to normal? | 30 Nov |

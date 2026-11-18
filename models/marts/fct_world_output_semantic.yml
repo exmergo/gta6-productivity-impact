@@ -2,8 +2,8 @@ version: 2
 semantic_models:
 - name: fct_world_output_daily
   description: 'Metric 3, everything humanity made while waiting for GTA 6: world real output on each
-    UTC day from GTA V''s release (2013-09-17) to the day before GTA 6''s (2026-11-18), and the running
-    total since GTA V. One row per day. Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative
+    UTC day from GTA 5''s release (2013-09-17) to the day before GTA 6''s (2026-11-18), and the running
+    total since GTA 5. One row per day. Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative
     output across days.'
   model: ref('fct_world_output_daily')
   defaults:
@@ -46,7 +46,7 @@ semantic_models:
   - name: cumulative_output
     agg: max
     expr: cumulative_output
-    description: Running total of world real output since GTA V's release, through the day. Never sum
+    description: Running total of world real output since GTA 5's release, through the day. Never sum
       it across days.
     non_additive_dimension:
       name: output_day
@@ -58,8 +58,8 @@ semantic_models:
           additivity: semi_additive
           null_rule: NULL from the first unavailable day on.
 - name: fct_wait_milestones
-  description: 'Metric 3: the milestones of the wait between GTA V and GTA 6 (editorial picks, one public
-    source each), each with the world real output made since GTA V by the day before it. One row per milestone.
+  description: 'Metric 3: the milestones of the wait between GTA 5 and GTA 6 (editorial picks, one public
+    source each), each with the world real output made since GTA 5 by the day before it. One row per milestone.
     Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative output across days.'
   model: ref('fct_wait_milestones')
   defaults:
@@ -106,7 +106,7 @@ semantic_models:
   - name: output_by_then
     agg: max
     expr: output_by_then
-    description: World real output made from GTA V's release through the day before the event, constant
+    description: World real output made from GTA 5's release through the day before the event, constant
       2015 US$.
     config:
       meta:

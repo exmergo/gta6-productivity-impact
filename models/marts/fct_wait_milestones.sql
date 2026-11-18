@@ -1,7 +1,7 @@
 -- Metric 3: each milestone of the wait, placed on the running total of world real output.
 -- output_by_then is the running total through the day before the event: "by the time it
--- happened, the world had made $X since GTA V". GTA V's own release day has made nothing yet
--- since GTA V, so it reads 0; any other milestone outside the wait reads NULL.
+-- happened, the world had made $X since GTA 5". GTA 5's own release day has made nothing yet
+-- since GTA 5, so it reads 0; any other milestone outside the wait reads NULL.
 with milestones as (
     select * from {{ ref('wait_milestones') }}
 ),

@@ -210,7 +210,7 @@ PRODUCTIVITY_SOURCE = (
 # and used only when present; without them the card falls back to a plain type lockup.
 GAME_LOGOS = {
     "v": ("gta-v-logo.png", "GTA V"),
-    "vi": ("gta-6-logo.svg", "GTA 6"),
+    "vi": ("gta-6-logo.svg", "GTA VI"),
 }
 
 GLOWUP_PAGE = """<!doctype html>
@@ -426,7 +426,7 @@ GLOWUP_SIZES = {
 
 
 def productivity_card(png: bool) -> dict:
-    """Metric 2, GTA V to GTA 6, as a glow-up over the Dex footer: 2013 left, 2026 right."""
+    """Metric 2, GTA 5 to GTA 6, as a glow-up over the Dex footer: 2013 left, 2026 right."""
     # Sorted, so the committed chart data does not churn on every refresh.
     rows = sorted(
         query(
@@ -476,7 +476,7 @@ def productivity_card(png: bool) -> dict:
         )
         for theme_name, theme in THEMES.items():
             html = GLOWUP_PAGE.format(
-                title="GTA V to GTA 6",
+                title="GTA 5 to GTA 6",
                 theme=theme,
                 variant=f" {variant}" if variant else "",
                 w=w,
@@ -742,7 +742,7 @@ def _wait_line(
 
 def wait_card(png: bool) -> dict:
     """Metric 3, everything that happened before GTA 6: the running total of world output from
-    GTA V to GTA 6, with the editorial milestones as picture cards on the line."""
+    GTA 5 to GTA 6, with the editorial milestones as picture cards on the line."""
     headline = query(["world_output_produced"])[0]["world_output_produced"]
     months = sorted(
         query(["world_output_cumulative"], ["metric_time__month"]),

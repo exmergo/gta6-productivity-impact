@@ -9,7 +9,9 @@ Every number must come out of the dbt project and its semantic layer.
    `day_off_index` (average YoY change in US Google searches for "call in sick", "sick day"
    and "day off work"); its breakdown is `day_off_index_term_change` by
    `day_off_index_term__term`. Also `gta_share_of_day_off_talk`, `signal_value` and
-   `gta_wiki_pageviews`.
+   `gta_wiki_pageviews`. Metric 2 (GTA V to GTA 6) is `world_productivity_change_since_gta_v`
+   and `world_productivity`, grouped by `world_productivity_key__measure` and
+   `world_productivity_key__data_year`.
 2. Query it with `uv run dex explore semantic query <metrics> --group-by ...`. Never answer
    from raw SQL when a metric exists, and never add `signal_value` across signals or sources.
 3. **Never report `day_off_index` without its breakdown**: group it by

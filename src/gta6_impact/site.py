@@ -12,13 +12,14 @@ SITE = ROOT / "site"
 REPO = "https://github.com/exmergo/gta6-productivity-impact"
 BASE = "https://exmergo.github.io/gta6-productivity-impact/"
 CARDS = (("day-off-index", "The Day-Off Index and its breakdown"),)
+HERO = "gta-v-to-gta-6"
 
 PAGE = """<!doctype html>
 <html lang="en" data-theme="dex-site">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA 6 vs. Productivity: the Day-Off Index</title>
+<title>{og_title}</title>
 <meta name="description" content="{description}">
 <link rel="canonical" href="{base}">
 <link rel="icon" type="image/png" href="brand/assets/exmergo-mark-black.png">
@@ -27,14 +28,14 @@ PAGE = """<!doctype html>
 <meta property="og:url" content="{base}">
 <meta property="og:title" content="{og_title}">
 <meta property="og:description" content="{description}">
-<meta property="og:image" content="{base}charts/png/day-off-index-light.png">
+<meta property="og:image" content="{base}charts/png/{hero}-light.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="{image_alt}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{og_title}">
 <meta name="twitter:description" content="{description}">
-<meta name="twitter:image" content="{base}charts/png/day-off-index-light.png">
+<meta name="twitter:image" content="{base}charts/png/{hero}-light.png">
 <meta name="twitter:image:alt" content="{image_alt}">
 <script type="application/ld+json">{jsonld}</script>
 <link rel="stylesheet" href="brand/dex-site.css">
@@ -52,7 +53,8 @@ PAGE = """<!doctype html>
   header img {{ height: 30px; }}
   .meta {{ font: 14px var(--font-mono); color: var(--dex-line); text-transform: uppercase; letter-spacing: 1px; }}
   h1 {{ font-size: clamp(32px, 6vw, 60px); line-height: 1.04; letter-spacing: -1.5px; margin: 36px 0 12px; }}
-  h1 em {{ font-style: normal; color: var(--dex-line); }}
+  h1 em, h2 em {{ font-style: normal; color: var(--dex-line); }}
+  figure + .wrap {{ margin-top: 20px; }}
   .lede {{ font-size: clamp(18px, 2.4vw, 22px); line-height: 1.45; color: var(--dex-ink-muted); max-width: 860px; }}
   .countdown {{ font: 15px var(--font-mono); color: var(--dex-ink); border: 1px solid var(--dex-line); background: var(--dex-paper-raised); display: inline-block; padding: 10px 14px; margin-top: 8px; }}
   figure {{ margin: 36px 0 0; }}
@@ -83,14 +85,20 @@ PAGE = """<!doctype html>
 <h1>{headline}</h1>
 <p class="lede">{lede}</p>
 <p class="countdown" id="countdown" data-release="2026-11-19T00:00:00Z">{countdown}</p>
+{productivity}
+<h2>The combo breaker: people are already planning the day off</h2>
+<p class="lede">Nobody publishes how many people booked that Thursday off. So we measured what
+people <em>search</em> for when they're planning to skip work, against the same weeks last year.
+{day_off_lede}</p>
 {figures}
-<h2>The breakdown, as the semantic layer returns it</h2>
 <div class="wrap"><table>
 <thead><tr><th>Search (US)</th><th class="num">{prior}</th><th class="num">{current}</th><th class="num">Change</th></tr></thead>
 <tbody>{rows}</tbody>
 </table></div>
 <p class="lede">Weekly Google Trends interest, one request per phrase spanning both years, so the
 two years share one scale. Search interest, not a headcount.</p>
+<p class="lede">Whether the streak actually breaks shows up after release: GitHub pull requests,
+Wikipedia edits and the recovery curve are next in <a href="{repo}#the-series">the series</a>.</p>
 <h2>Questions people ask</h2>
 {faq}
 <h2>Ask it yourself</h2>
@@ -99,6 +107,7 @@ two years share one scale. Search interest, not a headcount.</p>
 cd gta6-productivity-impact
 uv sync
 uv run dbt parse
+uv run dex explore semantic query world_productivity_change_since_gta_v,world_productivity --group-by world_productivity_key__measure,world_productivity_key__data_year
 uv run dex explore semantic query day_off_index --group-by day_off_index_window__breakdown
 uv run dex explore semantic query day_off_index_term_change,day_off_index_term_prior,day_off_index_term_current --group-by day_off_index_term__term</pre>
 <footer><span>Public-signal proxy, not headcount · UTC days · association, not causation</span>
@@ -123,6 +132,91 @@ uv run dex explore semantic query day_off_index_term_change,day_off_index_term_p
 """
 
 
+PRODUCTIVITY_MEASURES = (
+    ("output_per_person", "GDP per person (constant 2015 US$)"),
+    ("output_per_worker", "GDP per worker (constant 2021 PPP $)"),
+)
+
+
+def _productivity_rows(summary: dict) -> list[dict]:
+    """Per measure: the GTA V year, the latest year with a value, and the change between."""
+    rows = summary.get("productivity") or []
+    out = []
+    for measure, label in PRODUCTIVITY_MEASURES:
+        series = sorted(
+            (r for r in rows if r["world_productivity_key__measure"] == measure),
+            key=lambda r: r["world_productivity_key__data_year"],
+        )
+        valued = [r for r in series if r["world_productivity"] is not None]
+        if not valued:
+            continue
+        first, last = valued[0], valued[-1]
+        out.append(
+            {
+                "label": label,
+                "first_year": first["world_productivity_key__data_year"],
+                "first": first["world_productivity"],
+                "last_year": last["world_productivity_key__data_year"],
+                "last": last["world_productivity"],
+                "change": last["world_productivity_change_since_gta_v"],
+            }
+        )
+    return out
+
+
+def _down_years(summary: dict, measure: str = "output_per_person") -> list[int]:
+    """Years in which the measure fell against the year before: the breaks in the streak."""
+    series = sorted(
+        (
+            r
+            for r in summary.get("productivity") or []
+            if r["world_productivity_key__measure"] == measure
+            and r["world_productivity"] is not None
+        ),
+        key=lambda r: r["world_productivity_key__data_year"],
+    )
+    return [
+        b["world_productivity_key__data_year"]
+        for a, b in zip(series, series[1:], strict=False)
+        if b["world_productivity"] < a["world_productivity"]
+    ]
+
+
+def _streak_line(summary: dict) -> str:
+    down = _down_years(summary)
+    if not down:
+        return "It went up every single year."
+    if len(down) == 1:
+        return f"It went up every year except {down[0]}."
+    return "It fell only in " + ", ".join(str(y) for y in down) + "."
+
+
+def _productivity_section(summary: dict) -> str:
+    """The hero: the glow-up chart and its table, under the streak headline."""
+    rows = _productivity_rows(summary)
+    if not rows:
+        return ""
+    body = "".join(
+        f"<tr><td>{escape(r['label'])}</td>"
+        f"<td class='num'>${r['first']:,.0f}</td>"
+        f"<td class='num'>${r['last']:,.0f} ({r['last_year']})</td>"
+        f"<td class='num'>{_pct(r['change'])}</td></tr>"
+        for r in rows
+    )
+    head = rows[0]
+    alt = (
+        f"GTA V to GTA 6: world GDP per person ${head['first']:,.0f} in {head['first_year']} "
+        f"and ${head['last']:,.0f} in {head['last_year']}, {_pct(head['change'])}"
+    )
+    return f"""<figure><img src="charts/png/gta-v-to-gta-6-light.png" data-dark="charts/png/gta-v-to-gta-6-dark.png" alt="{alt}"><figcaption>{alt} · <a href="charts/data/gta-v-to-gta-6.json">data</a></figcaption></figure>
+<div class="wrap"><table>
+<thead><tr><th>World, real terms</th><th class="num">2013 (GTA V)</th><th class="num">Latest</th><th class="num">Change</th></tr></thead>
+<tbody>{body}</tbody>
+</table></div>
+<p class="lede">World Bank WDI. 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world
+growth forecast.</p>"""
+
+
 def _pct(value: float | None) -> str:
     return f"{value:+.1f}%" if value is not None else "not yet available"
 
@@ -137,7 +231,7 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
         f"“{r['day_off_index_term__term']}” {_pct(r['day_off_index_term_change'])}"
         for r in sorted(summary["terms"], key=lambda r: -(r["day_off_index_term_change"] or 0))
     )
-    return [
+    faq = [
         (
             "Are Americans searching for sick days more before GTA 6?",
             f"{'Yes' if index > 0 else 'No'}. US Google searches for skipping work were "
@@ -168,26 +262,54 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
             "source and every number can be reproduced from it.",
         ),
     ]
+    productivity = _productivity_rows(summary)
+    if productivity:
+        parts = "; ".join(
+            f"{r['label']} {_pct(r['change'])} ({r['first_year']} to {r['last_year']})"
+            for r in productivity
+        )
+        faq.insert(
+            0,
+            (
+                "How much more productive did the world get between GTA V and GTA 6?",
+                f"World real output grew by about a quarter between GTA V (2013) and GTA 6 "
+                f"(2026): {parts}. {_streak_line(summary)} World Bank data; 2026 is the World "
+                "Bank's 2025 figure grown by the IMF's 2026 world growth forecast.",
+            ),
+        )
+    return faq
 
 
 def _jsonld(summary: dict, faq: list[tuple[str, str]], description: str) -> str:
     dataset = {
         "@type": "Dataset",
-        "name": "GTA 6 vs. Productivity: the Day-Off Index",
+        "name": "GTA 6 vs. Productivity",
         "description": description,
         "url": BASE,
         "sameAs": REPO,
         "license": "https://www.apache.org/licenses/LICENSE-2.0",
         "creator": {"@type": "Organization", "name": "Exmergo", "url": "https://trydex.ai"},
         "isAccessibleForFree": True,
-        "spatialCoverage": "United States",
-        "temporalCoverage": "2025-11-01/2026-11-14",
-        "keywords": ["GTA 6", "productivity", "sick day", "call in sick", "Google Trends", "dbt"],
-        "distribution": {
-            "@type": "DataDownload",
-            "encodingFormat": "application/json",
-            "contentUrl": f"{BASE}charts/data/day-off-index.json",
-        },
+        "spatialCoverage": ["World", "United States"],
+        "temporalCoverage": "2013/2026",
+        "keywords": [
+            "GTA 6",
+            "GTA V",
+            "productivity",
+            "GDP per person",
+            "sick day",
+            "call in sick",
+            "Google Trends",
+            "dbt",
+        ],
+        "distribution": [
+            {
+                "@type": "DataDownload",
+                "encodingFormat": "application/json",
+                "contentUrl": f"{BASE}charts/data/{name}.json",
+            }
+            for name in (HERO, "day-off-index")
+        ],
     }
     graph = [dataset]
     if faq:
@@ -211,14 +333,25 @@ def _jsonld(summary: dict, faq: list[tuple[str, str]], description: str) -> str:
 def build_site(summary: dict) -> None:
     SITE.mkdir(exist_ok=True)
     index = summary.get("day_off_index")
-    if index is not None:
-        headline = f"Day-Off Index: <em>{index:+.0f}%</em>."
+    streak = _productivity_rows(summary)
+    head = streak[0] if streak else None
+    if head and head["change"] is not None:
+        headline = (
+            f"Between GTA V and GTA 6, the world got <em>{head['change']:.0f}%</em> more "
+            "productive."
+        )
+        lede = (
+            f"World GDP per person, {head['first_year']} to {head['last_year']}: "
+            f"${head['first']:,.0f} to ${head['last']:,.0f}. {_streak_line(summary)} GTA 6 "
+            "comes out on Thursday 19 November 2026. Is it the combo breaker?"
+        )
     else:
-        headline = "Day-Off Index: <em>not yet available</em>."
-    lede = (
+        headline = "GTA 6 vs. Productivity"
+        lede = "GTA 6 comes out on Thursday 19 November 2026. Is it the combo breaker?"
+    day_off_lede = (
         f"US Google searches for skipping work, {summary['current_window']} against "
-        f"{summary['prior_window']}: {summary['breakdown']}. The index is the average of the "
-        "three. GTA 6 comes out on Thursday 19 November."
+        f"{summary['prior_window']}: {summary['breakdown']}. The Day-Off Index, the average of "
+        f"the three: {_pct(index)}."
     )
     figures = "\n".join(
         f'<figure><img src="charts/png/{name}-light.png" data-dark="charts/png/{name}-dark.png" '
@@ -237,16 +370,28 @@ def build_site(summary: dict) -> None:
         f"<td class='num'><b>{_pct(index)}</b></td></tr>"
     )
     faq = _faq(summary)
-    headline_text = f"{index:+.0f}%" if index is not None else "not yet available"
-    og_title = f"Day-Off Index: {headline_text}. Are Americans skipping work for GTA 6?"
+    if head and head["change"] is not None:
+        og_title = (
+            f"GTA V to GTA 6: the world got {head['change']:.0f}% more productive. "
+            "Is GTA 6 the combo breaker?"
+        )
+        image_alt = (
+            f"GTA V to GTA 6: world GDP per person ${head['first']:,.0f} in "
+            f"{head['first_year']} and ${head['last']:,.0f} in {head['last_year']}, "
+            f"{_pct(head['change'])}."
+        )
+        streak_text = (
+            f"World GDP per person rose {_pct(head['change'])} between GTA V "
+            f"({head['first_year']}) and GTA 6 ({head['last_year']}). {_streak_line(summary)} "
+        )
+    else:
+        og_title = "GTA 6 vs. Productivity"
+        image_alt = "GTA V to GTA 6: world GDP per person"
+        streak_text = ""
     description = (
-        f"US Google searches for “call in sick”, “sick day” and “day off work”, "
-        f"{summary['current_window']} vs {summary['prior_window']}: {summary['breakdown']}. "
-        "An open, reproducible study built with Dex."
-    )
-    image_alt = (
-        f"Day-Off Index {headline_text}: US Google searches for skipping work vs last year, "
-        f"{summary['breakdown']}."
+        f"{streak_text}The combo breaker? US Google searches for skipping work "
+        f"{summary['current_window']} vs {summary['prior_window']}: Day-Off Index {_pct(index)} "
+        f"({summary['breakdown']}). An open, reproducible study built with Dex."
     )
     html = PAGE.format(
         updated=dt.datetime.now(dt.UTC).strftime("%Y-%m-%d %H:%M UTC"),
@@ -254,6 +399,9 @@ def build_site(summary: dict) -> None:
         lede=escape(lede),
         countdown="GTA 6: Thursday 19 November",
         figures=figures,
+        day_off_lede=escape(day_off_lede),
+        hero=HERO,
+        productivity=_productivity_section(summary),
         rows=rows,
         prior=escape(summary["prior_window"]),
         current=escape(summary["current_window"]),
@@ -263,15 +411,13 @@ def build_site(summary: dict) -> None:
         og_title=escape(og_title),
         image_alt=escape(image_alt),
         jsonld=_jsonld(summary, faq, description),
-        faq="<dl>"
-        + "".join(f"<dt>{escape(q)}</dt><dd>{escape(a)}</dd>" for q, a in faq)
-        + "</dl>",
+        faq="<dl>" + "".join(f"<dt>{escape(q)}</dt><dd>{escape(a)}</dd>" for q, a in faq) + "</dl>",
     )
     (SITE / "index.html").write_text(html)
-    _crawlers(summary, faq)
+    _crawlers(summary, faq, description)
 
 
-def _crawlers(summary: dict, faq: list[tuple[str, str]]) -> None:
+def _crawlers(summary: dict, faq: list[tuple[str, str]], description: str) -> None:
     """robots.txt, sitemap.xml and llms.txt: what search engines and answer engines read."""
     today = dt.datetime.now(dt.UTC).date().isoformat()
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}sitemap.xml\n")
@@ -285,10 +431,9 @@ def _crawlers(summary: dict, faq: list[tuple[str, str]]) -> None:
     qa = "\n\n".join(f"### {q}\n\n{a}" for q, a in faq)
     (SITE / "llms.txt").write_text(
         "# GTA 6 vs. Productivity\n\n"
-        "> An open, reproducible study of whether Americans search for ways to skip work more "
-        "in the run-up to GTA 6 (released 19 November 2026). Built with Dex.\n\n"
-        f"Updated {today}. Day-Off Index: {_pct(summary.get('day_off_index'))} "
-        f"({summary['breakdown']}), {summary['current_window']} vs {summary['prior_window']}. "
+        "> An open, reproducible study of world productivity between GTA V and GTA 6, and "
+        "whether GTA 6 (released 19 November 2026) breaks the streak. Built with Dex.\n\n"
+        f"Updated {today}. {description} "
         "Search interest, not a headcount; association, not causation.\n\n"
         f"## Questions\n\n{qa}\n\n"
         "## Links\n\n"
@@ -297,6 +442,7 @@ def _crawlers(summary: dict, faq: list[tuple[str, str]]) -> None:
         f"- [Methodology]({REPO}/blob/main/docs/methodology.md)\n"
         f"- [Metric definitions]({REPO}/blob/main/docs/metrics.md)\n"
         f"- [Data sources]({REPO}/blob/main/docs/sources.md)\n"
-        f"- [Chart data (JSON)]({BASE}charts/data/day-off-index.json)\n"
+        f"- [GTA V to GTA 6 chart data (JSON)]({BASE}charts/data/gta-v-to-gta-6.json)\n"
+        f"- [Day-Off Index chart data (JSON)]({BASE}charts/data/day-off-index.json)\n"
         "- [Dex](https://trydex.ai)\n"
     )

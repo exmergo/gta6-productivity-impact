@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "plan_id": "p24022be22c",
+  "created_at": "2026-11-17T10:53:40.980341+00:00",
+  "intent": "Metric 2, GTA V to GTA 6: world productivity 2013-2026 from World Bank and IMF data",
+  "project_dir": ".",
+  "edit_target": "project",
+  "edits": [
+    {
+      "path": "models/staging/_sources.yml",
+      "new_content": "version: 2\nsources:\n- name: raw\n  schema: raw\n  description: 'Public signals landed by `gta6 ingest` as Parquet under data/raw/ and loaded by `gta6\n    load`. Every table is rebuilt from the files on each load; the newest pull wins per key. No post text,\n    handles or usernames are stored.\n\n    '\n  tables:\n  - name: wiki_pageviews\n    description: Daily English Wikipedia pageviews by users (all access) per article.\n  - name: trends_interest\n    description: 'Google Trends relative interest (0-100) per term and day. Values only compare within\n      one request_id; Google rescales every request to its own peak.\n\n      '\n  - name: bluesky_daily_hits\n    description: 'Bluesky public search hitsTotal for one quoted seed phrase (optionally plus \"gta\") bounded\n      to one UTC day. hits_total is NULL when the call failed.\n\n      '\n  - name: hn_daily_hits\n    description: 'Hacker News (Algolia) nbHits for one quoted seed phrase (optionally plus \"gta\") over\n      stories and comments in one UTC day. NULL when the call failed.\n\n      '\n  - name: economy_indicators\n    description: 'Official economic data, one value per provider, indicator, geography and year: World\n      Bank WDI world aggregates (WLD) and the IMF World Economic Outlook world series (WEOWORLD). A year\n      a provider has not published is absent, never zero.'\n",
+      "old_content_hash": "d96ee67f758584e8eee68dc90cfb3b187a245ce08d1af80d2cc99c85cda2b6f6",
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/staging/stg_economy__indicators.sql",
+      "new_content": "-- One row per provider, indicator, geography and year of official economic data.\nwith source as (\n    select * from {{ source('raw', 'economy_indicators') }}\n)\n\nselect\n    provider,\n    indicator,\n    geo,\n    cast(year as integer) as year,\n    cast(value as double) as value,\n    cast(last_updated as date) as last_updated\nfrom source\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/staging/stg_economy__indicators.yml",
+      "new_content": "version: 2\nmodels:\n- name: stg_economy__indicators\n  description: 'One row per provider, indicator, geography and year: official economic data.'\n  config:\n    meta:\n      dex:\n        grain:\n          - provider\n          - indicator\n          - geo\n          - year\n        population:\n          rule: Every published value as landed; unpublished years are absent.\n        assumptions:\n          - decision: geo flagged as location PII\n            chosen: kept as is\n            evidence: data\n            detail: its only value is WLD, the world aggregate code; no person or place of a person\n            column: geo\n  columns:\n  - name: provider\n    description: world_bank (WDI) or imf_weo (World Economic Outlook).\n    config:\n      meta:\n        dex:\n          role: dimension\n          null_rule: never\n    data_tests:\n      - not_null\n  - name: indicator\n    description: The provider's indicator code, e.g. SL.GDP.PCAP.EM.KD or NGDP_RPCH.\n    config:\n      meta:\n        dex:\n          role: dimension\n          null_rule: never\n    data_tests:\n      - not_null\n  - name: geo\n    description: 'WLD: the world aggregate.'\n    config:\n      meta:\n        dex:\n          role: dimension\n          null_rule: never\n    data_tests:\n      - not_null\n  - name: year\n    description: Calendar year the value describes.\n    config:\n      meta:\n        dex:\n          role: time\n          null_rule: never\n          unit: years\n    data_tests:\n      - not_null\n  - name: value\n    description: The published value, in the indicator's own unit.\n    config:\n      meta:\n        dex:\n          role: measure\n          null_rule: never\n          aggregation: max\n          additivity: non_additive\n          unit: the indicator's own unit\n    data_tests:\n      - not_null\n  - name: last_updated\n    description: When the World Bank last updated the indicator; NULL for the IMF.\n    config:\n      meta:\n        dex:\n          role: attribute\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "models/marts/fct_world_productivity.sql",
+      "new_content": "-- Metric 2, GTA V to GTA 6: world productivity in every year from GTA V's launch year to\n-- GTA 6's, and its real change since GTA V. One row per measure per year.\n--   output_per_worker: World Bank GDP per person employed (constant 2021 PPP $).\n--   output_per_person: World Bank GDP per capita (constant 2015 US$).\n-- A year the World Bank has not published is estimated for output_per_person only: its last\n-- published value grown by the IMF's world real GDP growth for each later year, less the\n-- World Bank's latest world population growth. output_per_worker stays NULL there\n-- (unavailable): no published world employment growth to carry it.\n{%- set gta_v = var('gta_v_year', 2013) %}\n{%- set gta_6 = var('gta_6_year', 2026) %}\nwith indicators as (\n    select * from {{ ref('stg_economy__indicators') }}\n    where geo = 'WLD'\n),\n\nmeasures as (\n    select * from (\n        values\n            ('output_per_worker', 'SL.GDP.PCAP.EM.KD', 'constant 2021 PPP $ per person employed', false),\n            ('output_per_person', 'NY.GDP.PCAP.KD', 'constant 2015 US$ per person', true)\n    ) as m (measure, source_indicator, unit, carried_by_imf)\n),\n\nyears as (\n    select cast(unnest(range({{ gta_v }}, {{ gta_6 }} + 1)) as integer) as year\n),\n\nactuals as (\n    select indicator, year, value\n    from indicators\n    where provider = 'world_bank'\n),\n\nlast_actual as (\n    select indicator, max(year) as last_year, arg_max(value, year) as last_value\n    from actuals\n    group by indicator\n),\n\ngdp_growth as (\n    select year, value as gdp_growth_pct\n    from indicators\n    where provider = 'imf_weo' and indicator = 'NGDP_RPCH'\n),\n\npop_growth as (\n    select arg_max(value, year) as pop_growth_pct\n    from indicators\n    where provider = 'world_bank' and indicator = 'SP.POP.GROW'\n),\n\nspine as (\n    select\n        measures.measure,\n        measures.source_indicator,\n        measures.unit,\n        measures.carried_by_imf,\n        years.year,\n        actuals.value as actual_value,\n        last_actual.last_year,\n        last_actual.last_value,\n        gdp_growth.gdp_growth_pct,\n        pop_growth.pop_growth_pct\n    from measures\n    cross join years\n    cross join pop_growth\n    left join actuals\n        on actuals.indicator = measures.source_indicator and actuals.year = years.year\n    left join last_actual\n        on last_actual.indicator = measures.source_indicator\n    left join gdp_growth\n        on gdp_growth.year = years.year\n),\n\ncarried as (\n    select\n        *,\n        -- Per-capita growth factor for a year past the last published one; NULL if the IMF\n        -- has no growth for it, and a NULL anywhere in the chain keeps the rest NULL.\n        case\n            when carried_by_imf and year > last_year\n                then (1 + gdp_growth_pct / 100) / (1 + pop_growth_pct / 100)\n        end as growth_factor\n    from spine\n),\n\nvalued as (\n    select\n        *,\n        case\n            when actual_value is not null then actual_value\n            when growth_factor is not null and bool_and(growth_factor is not null) over chain\n                then last_value * exp(sum(ln(growth_factor)) over chain)\n        end as value\n    from carried\n    window chain as (\n        partition by measure, year > last_year\n        order by year\n        rows between unbounded preceding and current row\n    )\n),\n\nbased as (\n    select\n        valued.*,\n        max(case when year = {{ gta_v }} then value end) over (partition by measure) as gta_v_value,\n        max(case when value is not null then year end) over (partition by measure) as latest_year\n    from valued\n)\n\nselect\n    md5(measure || '|' || cast(year as varchar)) as world_productivity_key,\n    measure,\n    year,\n    case year when {{ gta_v }} then 'GTA V' when {{ gta_6 }} then 'GTA 6' end as launch,\n    value,\n    unit,\n    source_indicator,\n    actual_value is null and value is not null as is_estimate,\n    year = latest_year as is_latest,\n    round(100 * (value / gta_v_value - 1), 1) as pct_change_since_gta_v\nfrom based\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/fct_world_productivity.yml",
+      "new_content": "version: 2\nmodels:\n- name: fct_world_productivity\n  description: 'Metric 2, GTA V to GTA 6: world productivity per year from 2013 to 2026 and its real change since GTA V''s launch year. One row per measure per year.'\n  config:\n    meta:\n      dex:\n        grain:\n          - world_productivity_key\n        population:\n          rule: Every year from var gta_v_year (2013) to var gta_6_year (2026) for both measures, published or not; an unpublished, unestimated year keeps its row with a NULL value.\n        assumptions:\n          - decision: Measures of productivity\n            chosen: World Bank GDP per person employed and GDP per capita, world aggregate, real\n            evidence: request\n            detail: 'user: productivity measured by actual economic indexes (GDP per capita) for the whole world, economic data only'\n            column: measure\n          - decision: Years covered\n            chosen: 2013 to 2026, every year\n            evidence: request\n            detail: 'user: bookended by the GTA V and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'\n            column: year\n          - decision: Years the World Bank has not published\n            chosen: per capita carried by IMF WEO world real GDP growth less latest World Bank population growth, flagged is_estimate; per worker left NULL\n            evidence: default\n            detail: the IMF WEO is the standard published source for the current year; no free published world employment growth to carry output per worker\n            column: value\n  columns:\n    - name: world_productivity_key\n      description: md5 of measure|year.\n      config:\n        meta:\n          dex:\n            role: key\n            null_rule: never\n      data_tests:\n        - unique\n        - not_null\n    - name: measure\n      description: output_per_worker or output_per_person.\n      config:\n        meta:\n          dex:\n            role: dimension\n            null_rule: never\n      data_tests:\n        - not_null\n    - name: year\n      description: Calendar year.\n      config:\n        meta:\n          dex:\n            role: dimension\n            null_rule: never\n      data_tests:\n        - not_null\n    - name: launch\n      description: GTA V on 2013, GTA 6 on 2026, NULL in between.\n      config:\n        meta:\n          dex:\n            role: dimension\n    - name: value\n      description: Real output in the measure's unit.\n      config:\n        meta:\n          dex:\n            role: measure\n            null_rule: 'NULL when unpublished and not estimated: unavailable, never zero.'\n            aggregation: max\n            additivity: non_additive\n            unit: see unit column\n    - name: unit\n      description: The value's unit.\n      config:\n        meta:\n          dex:\n            role: attribute\n            null_rule: never\n      data_tests:\n        - not_null\n    - name: source_indicator\n      description: World Bank indicator code.\n      config:\n        meta:\n          dex:\n            role: attribute\n            null_rule: never\n      data_tests:\n        - not_null\n    - name: is_estimate\n      description: True when the value is carried by IMF growth, not published by the World Bank.\n      config:\n        meta:\n          dex:\n            role: attribute\n            null_rule: never\n      data_tests:\n        - not_null\n    - name: is_latest\n      description: True on the measure's latest year with a value.\n      config:\n        meta:\n          dex:\n            role: attribute\n    - name: pct_change_since_gta_v\n      description: Real change since GTA V's launch year, in percent.\n      config:\n        meta:\n          dex:\n            role: measure\n            null_rule: NULL when the year's value is unavailable.\n            aggregation: max\n            additivity: non_additive\n            unit: percent\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "schema_yml"
+    },
+    {
+      "path": "data_tests/assert_world_productivity_has_gta_v_year.sql",
+      "new_content": "-- Metric 2 is measured from GTA V's launch year: every measure needs its bookend value, or\n-- every change since GTA V would read NULL.\nselect measure\nfrom {{ ref('fct_world_productivity') }}\ngroup by measure\nhaving max(case when year = {{ var('gta_v_year', 2013) }} then value end) is null\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "test_sql"
+    }
+  ],
+  "applied_at": null,
+  "refactor_models": null,
+  "refactor_baseline_ready": null,
+  "comparisons": {},
+  "identifier_conversions": {
+    "stg_economy__indicators": [
+      {
+        "column": "year",
+        "authored": "CAST(year AS INT)",
+        "status": "lossless"
+      }
+    ]
+  },
+  "change_scope": null,
+  "population_acceptance": null,
+  "repair": null,
+  "baseline_sources": null,
+  "retirement": null,
+  "toggle": null
+}

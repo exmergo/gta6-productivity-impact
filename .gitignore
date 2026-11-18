@@ -33,3 +33,6 @@ out/scratch/
 .vscode/
 .DS_Store
 .dex/cache.lock
+
+# Third-party trademark logos: local only, never committed
+brand/third-party/

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-11-16T19:35:13.787593+00:00",
+  "created_at": "2026-11-17T11:01:53.157344+00:00",
   "connector": "duckdb",
   "tool_version": "1.18.0",
   "warehouse": {
@@ -234,7 +234,7 @@
             "reason": "date_day is unique and non-null on all 457 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.5821,
+        "rank_score": 0.5792,
         "data_quality": [],
         "findings": [
           {
@@ -582,7 +582,7 @@
             "reason": "breakdown is unique and non-null on all 1 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
           }
         ],
-        "rank_score": 0.6496,
+        "rank_score": 0.6493,
         "data_quality": [],
         "findings": [
           {
@@ -929,7 +929,7 @@
             "reason": "pct_change is unique and non-null on all 3 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.4793,
+        "rank_score": 0.4787,
         "data_quality": [],
         "findings": [
           {
@@ -1296,7 +1296,7 @@
             "reason": "signal_day_key is unique and non-null on all 856 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.6089,
+        "rank_score": 0.6061,
         "data_quality": [],
         "findings": [
           {
@@ -1641,7 +1641,7 @@
             "reason": "thursday_lift_key is unique and non-null on all 26 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.461,
+        "rank_score": 0.4595,
         "data_quality": [],
         "findings": [
           {
@@ -1927,7 +1927,7 @@
             "reason": "date_day is unique and non-null on all 1094 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.4594,
+        "rank_score": 0.4561,
         "data_quality": [],
         "findings": [
           {
@@ -3366,7 +3366,7 @@
             "reason": "observed_at is unique and non-null on all 1284 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.5562,
+        "rank_score": 0.5533,
         "data_quality": [],
         "findings": [
           {
@@ -3678,7 +3678,7 @@
             "reason": "observed_at is unique and non-null on all 1284 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.5562,
+        "rank_score": 0.5533,
         "data_quality": [],
         "findings": [
           {
@@ -4176,7 +4176,7 @@
             "reason": "ts, article is unique as a combination on all 428 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
           }
         ],
-        "rank_score": 0.5093,
+        "rank_score": 0.5069,
         "data_quality": [],
         "findings": [
           {
@@ -4195,25 +4195,552 @@
         "profiled_at": "2026-11-16T19:31:20.070609+00:00",
         "semantic_models": [],
         "values_withheld": false
+      },
+      {
+        "identifier": "gta6.raw.economy_indicators",
+        "object_type": "table",
+        "row_count": 53,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "provider",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "world_bank",
+                  "count": 39
+                },
+                {
+                  "value": "imf_weo",
+                  "count": 14
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "indicator",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 4,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "geo",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": {
+              "category": "location",
+              "confidence": 0.3
+            },
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "year",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 14,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 2013,
+            "max_value": 2026,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "value",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 50,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": -2.7,
+            "max_value": 50671.7228169014,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "last_updated",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.26415094339622647,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "2026-11-11",
+                  "count": 39
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "pull_id",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "20261117T104654Z",
+                  "count": 53
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "year",
+            "indicator"
+          ],
+          [
+            "value",
+            "year"
+          ]
+        ],
+        "grain": [
+          "year",
+          "indicator"
+        ],
+        "composite_keys": [
+          [
+            "year",
+            "indicator"
+          ],
+          [
+            "value",
+            "year"
+          ]
+        ],
+        "key_evidence": [
+          {
+            "columns": [
+              "year",
+              "indicator"
+            ],
+            "status": "reported",
+            "reason": "year, indicator is unique as a combination on all 53 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
+          },
+          {
+            "columns": [
+              "value",
+              "year"
+            ],
+            "status": "reported",
+            "reason": "value, year is unique as a combination on all 53 rows, proven by an exact distinct-combination probe, and ranks behind year, indicator, which is proven at a smaller cardinality"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [
+          "last_updated is declared VARCHAR but 100% of values match the %Y-%m-%d date format; consider casting with that format"
+        ],
+        "findings": [
+          {
+            "column": "year",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "year participates in the detected grain but the warehouse still allows it to be NULL"
+          },
+          {
+            "column": "indicator",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "indicator participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-17T10:52:22.821697+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_world_productivity",
+        "object_type": "table",
+        "row_count": 28,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "world_productivity_key",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 28,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "measure",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "output_per_person",
+                  "count": 14
+                },
+                {
+                  "value": "output_per_worker",
+                  "count": 14
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "data_year",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 14,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 2013,
+            "max_value": 2026,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "year_start",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 14,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2013-01-01",
+            "max_value": "2026-01-01",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "month",
+            "temporal_span": 157,
+            "temporal_distinct_periods": 14,
+            "temporal_missing_periods": 143,
+            "temporal_largest_gap": 11
+          },
+          {
+            "name": "launch",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.8571428571428572,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "value",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0357142857142857,
+            "distinct_count": 27,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 9811.02619687608,
+            "max_value": 50671.7228169014,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "unit",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "constant 2015 US$ per person",
+                  "count": 14
+                },
+                {
+                  "value": "constant 2021 PPP $ per person employed",
+                  "count": 14
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "source_indicator",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "NY.GDP.PCAP.KD",
+                  "count": 14
+                },
+                {
+                  "value": "SL.GDP.PCAP.EM.KD",
+                  "count": 14
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_estimate",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 27
+                },
+                {
+                  "value": true,
+                  "count": 1
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_latest",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 26
+                },
+                {
+                  "value": true,
+                  "count": 2
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "pct_change_since_gta_v",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0357142857142857,
+            "distinct_count": 26,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 0.0,
+            "max_value": 26.3,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "world_productivity_key"
+          ]
+        ],
+        "grain": [
+          "world_productivity_key"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "world_productivity_key"
+            ],
+            "status": "reported",
+            "reason": "world_productivity_key is unique and non-null on all 28 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "world_productivity_key",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "world_productivity_key participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-17T10:54:22.687692+00:00",
+        "semantic_models": [],
+        "values_withheld": false
       }
     ],
     "relationships": [
-      {
-        "from_dataset": "gta6.raw.trends_interest",
-        "from_columns": [
-          "batch_id"
-        ],
-        "to_dataset": "gta6.main.fct_day_off_index",
-        "to_columns": [
-          "batch_id"
-        ],
-        "kind": "inferred",
-        "confidence": 0.45,
-        "verified": false,
-        "orphan_fraction": null,
-        "declared_by": null,
-        "declaration_sources": []
-      },
       {
         "from_dataset": "gta6.main.fct_day_off_index_terms",
         "from_columns": [
@@ -4245,11 +4772,27 @@
         "orphan_fraction": null,
         "declared_by": null,
         "declaration_sources": []
+      },
+      {
+        "from_dataset": "gta6.raw.trends_interest",
+        "from_columns": [
+          "batch_id"
+        ],
+        "to_dataset": "gta6.main.fct_day_off_index",
+        "to_columns": [
+          "batch_id"
+        ],
+        "kind": "inferred",
+        "confidence": 0.45,
+        "verified": false,
+        "orphan_fraction": null,
+        "declared_by": null,
+        "declaration_sources": []
       }
     ]
   },
   "warehouse_from": "cache",
-  "cache_updated_at": "2026-11-16T19:31:18.837231+00:00",
+  "cache_updated_at": "2026-11-17T10:54:22.532183+00:00",
   "transform_layer": {
     "files": {
       "models/intermediate/int_signals__daily.sql": "cb216555bdd3b6537d57a3ace9e535aae9b6392a10420c95c11671ef3fbcedae",
@@ -4263,14 +4806,19 @@
       "models/marts/fct_day_off_index_terms.yml": "973fbbc3ed91793286e82f25dffd83d65035ed649b566f1985ffe1bd0e69e653",
       "models/marts/fct_signal_daily.sql": "0f7a8a7f031a8cf145b92244d83a2034f858cdc7b7ce42fea4f10fd9bcabfbfa",
       "models/marts/fct_signal_daily.yml": "e04b37443fa9372aba1bc4fc8bbadf4a8753d9be36cea12abc8be5b4960b3098",
+      "models/marts/fct_world_productivity.sql": "8c5ea9cf8cec5effced4d1f5bdb0a55bc38b4c9c4d37ee05035479cf7cc1b99e",
+      "models/marts/fct_world_productivity.yml": "73e8afc2d9045e8769df3982eaef5c61fd12f480c2e6283e38dcb77b67d13243",
+      "models/marts/fct_world_productivity_semantic.yml": "3aada3c2213f095f3daf38ed2cb2a3e86f102978afff01a8f0ede28e525e1301",
       "models/marts/metricflow_time_spine.sql": "fa9fa9f664236f9af4e868eaf8b3fb300253d7b5677936d36bef66fd75049c01",
       "models/marts/metricflow_time_spine.yml": "3455df32cbd9525b0b5164becc1a9bc7909dce85d8f53784f4f8e3f154a93d5a",
       "models/marts/semantic/day_off_index.yml": "4677ed50ca02942c6b6c9d248f8e41a27abc13cae1041041b20b50d72d6800e6",
-      "models/marts/semantic/metrics.yml": "9acb4b065264f2b07e4f5bf58d3038b832b8941eecc5b34151d3dc82daf9f8f9",
+      "models/marts/semantic/metrics.yml": "715eb362b5891debfc76dddb301e7c29ea0655f29f0c5a86695209043a46f6c4",
       "models/marts/semantic/signal_daily.yml": "6b6595e3ebf439be4059cdce7b5e8a95838ff787eb5b27faa1aadf2107ce8656",
-      "models/staging/_sources.yml": "d96ee67f758584e8eee68dc90cfb3b187a245ce08d1af80d2cc99c85cda2b6f6",
+      "models/staging/_sources.yml": "931262c1305c36b311421dcd392c7a720c26d7b63fb7c333b33a55d0468c1c0b",
       "models/staging/stg_bluesky__daily_hits.sql": "6bbd92a4c09bad5a8c9db4458bfb3c587854153870ac529400762195edc858b9",
       "models/staging/stg_bluesky__daily_hits.yml": "6d9fb352935fcd60fd36b457dd4051488bd44834e77f139d740043cea041f6f4",
+      "models/staging/stg_economy__indicators.sql": "83aa8f099fd71d64ff3cd0f5d7059a98a853f19f0dea9ca27ef39aeff2574d77",
+      "models/staging/stg_economy__indicators.yml": "7042bbf35def4aa642b23c72c80a29c3319321c2fdc1ab4020a5399cf7d9c895",
       "models/staging/stg_hn__daily_hits.sql": "f61b6d745229d492facfc84bf5fedfdcd542593b564c1669f650772fac787781",
       "models/staging/stg_hn__daily_hits.yml": "5a00fd93b31ce089672b511a3e4a9bdf541f146a2cd5ba7f1330f6825802d3d0",
       "models/staging/stg_trends__weekly.sql": "c2806560d533b5c339072ded15866491b3e281f3a1a743a53a736cadc3c27ad0",
@@ -4279,6 +4827,7 @@
       "models/staging/stg_wiki__pageviews.yml": "9600a44e2fff8bca7b7d11a7c42ad27e429751a67f45981d55107c1327321b99",
       "data_tests/assert_day_off_index_has_breakdown.sql": "aadf3eb1a943c1bc14ba0b2c06fca2fae7bc1b64aa1e24f7922e3dc79652f53c",
       "data_tests/assert_int_signals_grain.sql": "ce01913fa81342fd9770b78d22706576f42bf36fe1c9711364d6963325b86349",
+      "data_tests/assert_world_productivity_has_gta_v_year.sql": "d78da9bf846fd01a20dcb6cac2c8f9fa78830aa87bd08d8a80356ab11694ba83",
       "dbt_project.yml": "546677f3d0c63bb182261766edac57e7c844f19a4af052f5a7efc0235badc06d",
       "profiles.yml": "be2450ec6c0b4a460844d1b73ce4245729ba6de8b4ea570dcd3a3886b7279a9d"
     },
@@ -4287,9 +4836,11 @@
       "fct_day_off_index",
       "fct_day_off_index_terms",
       "fct_signal_daily",
+      "fct_world_productivity",
       "int_signals__daily",
       "metricflow_time_spine",
       "stg_bluesky__daily_hits",
+      "stg_economy__indicators",
       "stg_hn__daily_hits",
       "stg_trends__weekly",
       "stg_wiki__pageviews"
@@ -4300,8 +4851,10 @@
       "fct_day_off_index": "models/marts/fct_day_off_index.sql",
       "fct_day_off_index_terms": "models/marts/fct_day_off_index_terms.sql",
       "fct_signal_daily": "models/marts/fct_signal_daily.sql",
+      "fct_world_productivity": "models/marts/fct_world_productivity.sql",
       "metricflow_time_spine": "models/marts/metricflow_time_spine.sql",
       "stg_bluesky__daily_hits": "models/staging/stg_bluesky__daily_hits.sql",
+      "stg_economy__indicators": "models/staging/stg_economy__indicators.sql",
       "stg_hn__daily_hits": "models/staging/stg_hn__daily_hits.sql",
       "stg_trends__weekly": "models/staging/stg_trends__weekly.sql",
       "stg_wiki__pageviews": "models/staging/stg_wiki__pageviews.sql"
@@ -4334,11 +4887,21 @@
         "table": "hn_daily_hits",
         "columns": [],
         "path": "models/staging/_sources.yml"
+      },
+      {
+        "source_name": "raw",
+        "schema_name": "raw",
+        "table": "economy_indicators",
+        "columns": [],
+        "path": "models/staging/_sources.yml"
       }
     ],
     "model_sources": {
       "stg_bluesky__daily_hits": [
         "raw.bluesky_daily_hits"
+      ],
+      "stg_economy__indicators": [
+        "raw.economy_indicators"
       ],
       "stg_hn__daily_hits": [
         "raw.hn_daily_hits"
@@ -4365,6 +4928,9 @@
       "fct_signal_daily": [
         "dim_date",
         "int_signals__daily"
+      ],
+      "fct_world_productivity": [
+        "stg_economy__indicators"
       ]
     },
     "declarations": {
@@ -4698,6 +5264,76 @@
           }
         }
       },
+      "fct_world_productivity": {
+        "path": "models/marts/fct_world_productivity.yml",
+        "fields": {
+          "description": "fa2ac7cdf6902d2ff294e8e7e764d1780f8f65ad337e29505a543708ec317c66",
+          "grain": "30983c67a79a49aa091662aa8278387d4169471d1b07e640bb635286c2aa3e5e",
+          "population": "3528e8af9ce416d94817dcd225d1eb85a64bb88dd1acaebbccfeabae248d8a82",
+          "assumptions": "3910daa8174d64c2c0d16647229635958b36ebb3ba1ed0c1e25d97f7e50e19a9"
+        },
+        "columns": {
+          "world_productivity_key": {
+            "description": "604778f7f2d8c36945157c44adc5febcf2382131e09c4aef90424cc90139b503",
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "measure": {
+            "description": "c42b89ac144f2ff6b481705c5e73dbcf4f42a475ee7a0f762462fc59cd247173",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "data_year": {
+            "description": "911f7c32fa24c6e9f6bba9c80d763e86f3c64bfb44bef920cd6f02f2ac98df26",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "year_start": {
+            "description": "8194862040f13d434a00faa7f29bc1dd323695cf9f4392ac8c2ac9e99678354a",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "launch": {
+            "description": "b6b32829251218c8095e1ed80a38019845cdfba84dc46571435a5f37e9710de9",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a"
+          },
+          "value": {
+            "description": "738036f2ebfe993fa094bcca2492b059b8215be892653811645e388db9bb8e9e",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "ef68b35b18e77f6c9fac35eeec20b8fe9e261cb59224ef92a9ad7fec652aa55b",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "a97a69bc12578e420d1d062329c24178f990cee96e827bc126b481d3b6884fa1"
+          },
+          "unit": {
+            "description": "b8c06070a481b635b3f119ecb1d568758a42942d95397b05b1aa31c51cd94306",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "source_indicator": {
+            "description": "920f428d1ec72f73e698407b32e8427761fc5eddeef1e6e7fe36abc14f234ea4",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "is_estimate": {
+            "description": "25866c03fbc303f356e4bae9a2967e04c1e21bf1d3c6fa10fa0fa7e5da42ac65",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "is_latest": {
+            "description": "482da6133518c12bd739a63baa253e6fbececc0de8d2b9fe1501c79ae74c2097",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
+          },
+          "pct_change_since_gta_v": {
+            "description": "e0978010cfe7fa5dd5f6d71a7858a0516abb37e04bd99984693a36ef02817f5c",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "fb72d439f2d1038174b8e783310aa16c9c42af06da12f8aa0360e1f8a2343c2c",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          }
+        }
+      },
       "metricflow_time_spine": {
         "path": "models/marts/metricflow_time_spine.yml",
         "fields": {
@@ -4757,6 +5393,50 @@
           },
           "observed_at": {
             "description": "4c4e733430c0b44a1094d4dbd484f48004c068ae313708791f4181005b350163",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
+          }
+        }
+      },
+      "stg_economy__indicators": {
+        "path": "models/staging/stg_economy__indicators.yml",
+        "fields": {
+          "description": "8509af62aa13c41e6c75733f51769ce4971e410cf61c382aff042f4278146d49",
+          "grain": "88848df8cecb19427ccde956e309704bd587bb0c69110d390d162dce17374309",
+          "population": "2c1105a0053f0f40c35230c9a4c96b2cadd3e34c5fa13ede2751859fd8bf0149",
+          "assumptions": "3aa7baad92085c3fd1c248db09e744c76e2dae051d5119396f24e6493b73d0d1"
+        },
+        "columns": {
+          "provider": {
+            "description": "13d72f18e0f2fd878e565d19365dcfda4191a8f061755777082c2608c21ed06b",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "indicator": {
+            "description": "3cbff3836e677b1dd1a7fd398213258eb9edab88aa4396bcb670356ef4e3a7cf",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "geo": {
+            "description": "8d6feafba60e3a0e8dc48934960c7b6b797c608cf3b3094427ccf9f4612ef436",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "year": {
+            "description": "911f7c32fa24c6e9f6bba9c80d763e86f3c64bfb44bef920cd6f02f2ac98df26",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "unit": "a45cc62d46b178904e3e6932fa974aa398f561e8ef99bc34c26d099ca7ab68ad"
+          },
+          "value": {
+            "description": "c7233f505bc9a33676d7eba49994ad4a3393c53cb35e633c147c644b106a346d",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "22b087d06d9c6583e31c03e0fe8644162be846d4f64fce9c6f948aa642c3ae5b"
+          },
+          "last_updated": {
+            "description": "932d80950f6a4a5587299bda426891333c9ec2166e0b4d6f3f0c2713bd78e02f",
             "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
           }
         }
@@ -4928,6 +5608,33 @@
         "key_claims": null
       },
       {
+        "name": "fct_world_productivity",
+        "path": "models/marts/fct_world_productivity_semantic.yml",
+        "content_sha256": "4bbf472016ff1aac6ddaea9a9c18cf61293c30ef9d3de95ec02e8b121361856c",
+        "model_ref": "fct_world_productivity",
+        "relation": null,
+        "entities": {
+          "world_productivity_key": "world_productivity_key"
+        },
+        "dimensions": {
+          "measure": "measure",
+          "data_year": "data_year",
+          "year_start": "year_start",
+          "launch": "launch"
+        },
+        "categorical_dimensions": {
+          "measure": "measure",
+          "data_year": "data_year",
+          "launch": "launch"
+        },
+        "measures": {
+          "value": "value",
+          "pct_change_since_gta_v": "pct_change_since_gta_v"
+        },
+        "keys": [],
+        "key_claims": null
+      },
+      {
         "name": "fct_day_off_index",
         "path": "models/marts/semantic/day_off_index.yml",
         "content_sha256": "b9e31a70b776a4eba9810f993a567cc3b5b156022a6cdc405e057449f0904153",
@@ -5095,6 +5802,24 @@
         "content_sha256": "72e2b84fd9b1920b862f225d934c80b563a9cf2d38d55a7341f117ddcf5f58a9",
         "input_measures": [
           "signal_value_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "world_productivity",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "a3f36fe0b93fbfd7ee93bd9bb5d061d31b9b54a095486738d21665b50653a4b1",
+        "input_measures": [
+          "value"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "world_productivity_change_since_gta_v",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "3fb6470f7fd1b42ab07f85551c94f8ff7846487b619da750085c600bf1929170",
+        "input_measures": [
+          "pct_change_since_gta_v"
         ],
         "input_metrics": []
       }

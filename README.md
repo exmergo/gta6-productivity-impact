@@ -1,25 +1,41 @@
 # GTA 6 vs. Productivity
 
-Is everyone **skipping work for GTA 6?** An open, reproducible study of US Google searches for
-**"call in sick", "sick day" and "day off work"**, built with **[Dex](https://github.com/exmergo/dex)** on dbt and a
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1f235b8e7a86f2839c966f5a73e7828dea522abc/charts/png/gta-v-to-gta-6-dark.png">
+  <img alt="GTA V to GTA 6: world GDP per person $9,811 in 2013 and $12,394 in 2026, +26%, up every year except 2020." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1f235b8e7a86f2839c966f5a73e7828dea522abc/charts/png/gta-v-to-gta-6-light.png">
+</picture>
+
+**Between GTA V and GTA 6, the world got 26% more productive.** Every year but one went up.
+GTA 6 comes out on **Thursday 19 November 2026**. Is it the combo breaker?
+
+An open, reproducible study, built with **[Dex](https://github.com/exmergo/dex)** on dbt and a
 semantic layer.  
 Live scoreboard: **[exmergo.github.io/gta6-productivity-impact](https://exmergo.github.io/gta6-productivity-impact/)**
+
+## The streak: GTA V to GTA 6
+
+GTA V came out in September 2013. Thirteen years, two delays and one record-breaking trailer
+later, GTA 6 is out on Thursday. In between, the world's real output per person grew by a
+quarter, and it fell only once: in 2020.
+
+| World, real terms | 2013 (GTA V) | Latest | Change |
+|---|---|---|---|
+| GDP per person | $9,811 | $12,394 (2026) | **+26%** |
+| GDP per worker | $40,581 | $50,672 (2025) | **+25%** |
+
+World Bank WDI. 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world growth
+forecast. Details in [docs/metrics.md](docs/metrics.md#2-gta-v-to-gta-6).
+
+## The combo breaker: people are already planning the day off
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/e5d0db84f376b56b2472d936ac408e9b14640f95/charts/png/day-off-index-dark.png">
   <img alt="Day-Off Index: +50%. US Google searches for call in sick +40%, sick day +36%, day off work +73%, 1–14 Nov 2026 against 2–15 Nov 2025." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/e5d0db84f376b56b2472d936ac408e9b14640f95/charts/png/day-off-index-light.png">
 </picture>
 
-**GTA 6 comes out on Thursday 19 November 2026.** Twelve years after GTA V. Two delays. One
-trailer that set YouTube's 24-hour record for a non-music video. Somewhere, a calendar now reads
-"dentist (GTA)".
-
-Nobody publishes how many people booked that Thursday off. So we measured what people
-*search* for when they're planning to skip work, against the same weeks last year. Every number in this
-repo comes out of a dbt project and a semantic layer that [Dex](https://trydex.ai) wrote,
-tested and checks every day. The joke is GTA. The method is real.
-
-## The numbers so far
+Nobody publishes how many people booked that Thursday off. Somewhere, a calendar now reads
+"dentist (GTA)". So we measured what people *search* for when they're planning to skip work,
+against the same weeks last year.
 
 **The Day-Off Index: +50%.** US Google searches for skipping work, 1–14 Nov 2026 against
 2–15 Nov 2025:
@@ -33,6 +49,11 @@ tested and checks every day. The joke is GTA. The method is real.
 
 Weekly Google Trends interest (0–100), one request per phrase covering both years, so both
 years sit on one scale.
+
+Whether the streak actually breaks shows up after release: GitHub pull requests, Wikipedia
+edits and the recovery curve are next in [the series](#the-series). Every number in this repo
+comes out of a dbt project and a semantic layer that [Dex](https://trydex.ai) wrote, tested
+and checks every day. The joke is GTA. The method is real.
 
 ## How we measured a vibe
 
@@ -58,6 +79,10 @@ what we tried and dropped: [docs/sources.md](docs/sources.md).
    committed in `data/raw/trends/`.
 
 ## FAQ
+
+**Did the world get more productive between GTA V and GTA 6?**
+Yes. World real GDP per person rose 26%, from $9,811 in 2013 to $12,394 in 2026 (2026 is an
+estimate from the IMF's growth forecast). It rose every year except 2020.
 
 **Are Americans searching for sick days more before GTA 6?**
 Yes. US Google searches for skipping work were up 50% on average, 1–14 Nov 2026 against 2–15
@@ -163,10 +188,12 @@ npx skills add exmergo/dex
 
 ## The series
 
+The streak holds or breaks over the next two weeks, one metric at a time:
+
 | # | Metric | Question | When |
 |---|---|---|---|
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | live |
-| 2 | **GTA V to GTA 6** | How much more productive did the world get between the two launches? | Wed 18 Nov |
+| 2 | **GTA V to GTA 6** | How much more productive did the world get between the two launches? | live |
 | 3 | **PRs opened on GitHub** | Did GitHub go quiet on Thursday? | Fri 20 Nov |
 | 4 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | after release |
 | 5 | **The recovery curve** | How many working days until output is back to normal? | 30 Nov |

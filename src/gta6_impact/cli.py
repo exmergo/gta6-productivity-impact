@@ -12,7 +12,7 @@ from gta6_impact import store, warehouse
 from gta6_impact.config import ROOT
 from gta6_impact.http import Http
 
-SOURCES = ("wikipedia", "bluesky", "hn", "trends")
+SOURCES = ("wikipedia", "bluesky", "hn", "trends", "economy")
 
 
 def ingest(sources: list[str]) -> None:
@@ -21,6 +21,8 @@ def ingest(sources: list[str]) -> None:
             "api.bsky.app": 0.6,
             "hn.algolia.com": 0.25,
             "wikimedia.org": 0.2,
+            "api.worldbank.org": 0.5,
+            "www.imf.org": 0.5,
         }
     )
     pulled = store.pull_id()
@@ -52,6 +54,10 @@ def _ingest_one(source: str, http: Http, pulled: str) -> None:
         from gta6_impact.ingest import trends
 
         rows = trends.run()
+    elif source == "economy":
+        from gta6_impact.ingest import economy
+
+        rows = economy.run(http)
     else:
         raise SystemExit(f"unknown source {source}")
     path = store.write(source, rows, tag=source, pulled=pulled)

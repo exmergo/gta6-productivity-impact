@@ -14,6 +14,7 @@ TABLES = {
     "hn": ("hn_daily_hits", "day, seed, gta_filter", "pull_id desc"),
     "wikipedia": ("wiki_pageviews", "article, granularity, ts", "pull_id desc"),
     "trends": ("trends_interest", "request_id, geo, term, day", "pull_id desc"),
+    "economy": ("economy_indicators", "provider, indicator, geo, year", "pull_id desc"),
 }
 
 

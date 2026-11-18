@@ -206,9 +206,9 @@ def _wait(summary: dict) -> dict | None:
 
 def _wait_alt(w: dict) -> str:
     return (
-        f"Everything that happened before GTA 6: {_quadrillions(w['total'])} of real world "
-        f"output from {w['start']:%-d %b %Y} to {w['last_day']:%-d %b %Y}, {w['days']:,} days, "
-        "from the comet landing and AlphaGo to ChatGPT, Claude Code and humans back at the Moon."
+        f"Everything that happened before GTA 6: {w['days']:,} days of waiting, from "
+        f"{w['start']:%-d %b %Y} to {w['release']:%-d %b %Y}, from the comet landing and AlphaGo "
+        "to ChatGPT, Claude Code and Artemis II, on the running total of world output."
     )
 
 

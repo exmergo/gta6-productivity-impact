@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-dark.png">
-  <img alt="Everything that happened before GTA 6: $1.14 quadrillion of real world output from 17 Sep 2013 to 18 Nov 2026, 4,811 days, from the comet landing and AlphaGo to ChatGPT, Claude Code and humans back at the Moon." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-light.png">
+  <img alt="Everything that happened before GTA 6: 4,811 days of waiting, from 17 Sep 2013 to 19 Nov 2026, from the comet landing and AlphaGo to ChatGPT, Claude Code and Artemis II, on the running total of world output." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-light.png">
 </picture>
 
 **Between GTA V and GTA 6, humanity made $1.14 quadrillion of stuff.** 4,811 days. We landed

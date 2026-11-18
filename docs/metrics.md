@@ -60,7 +60,8 @@ placed on the running total.
   *before* it ("by the time it happened, the world had made $X since GTA V"). GTA V's own day
   reads $0. The nine `is_editorial` rows are on the chart as picture cards (filter
   `milestone__is_editorial = true`), every row is on the scoreboard table, and the two Rockstar
-  nods (Red Dead Redemption 2, GTA VI Trailer 1) are drawn as stars with ink cards.
+  nods (Red Dead Redemption 2, GTA VI Trailer 1) are drawn as stars with ink cards. Each card
+  carries its picture (`brand/milestones/`), the year and the chart label.
 
 **$1.14 quadrillion** ($1,141.7T) in 4,811 days. In 2026 the world makes about $3.3 million a
 second, or $282 billion a day.

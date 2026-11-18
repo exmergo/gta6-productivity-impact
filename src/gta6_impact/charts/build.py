@@ -511,24 +511,21 @@ WAIT_SIZES = {
         "alternate",
     ),
 }
-# One picture per editorial milestone (brand/milestones/). Logos sit whole on a
-# white tile; photos fill theirs.
+# One picture per editorial milestone (brand/milestones/): file, and how it fits its tile.
+# Logos sit whole on a white tile; photos fill theirs, cropped around the centre unless an
+# alignment says otherwise (the RDR2 cover is tall: its top holds Arthur and the revolver).
 MILESTONE_IMAGES = {
-    "comet_landing": ("comet_landing.jpg", "photo"),
-    "alphago": ("alphago.jpg", "photo"),
-    "red_dead_redemption_2": ("red_dead_redemption_2.jpg", "photo"),
-    "black_hole_image": ("black_hole_image.jpg", "photo"),
-    "covid_vaccine": ("covid_vaccine.jpg", "photo"),
-    "chatgpt": ("chatgpt.png", "logo"),
-    "gta_vi_trailer_1": ("gta_vi_trailer_1.jpg", "photo"),
-    "claude_code": ("claude_code.png", "logo"),
-    "artemis_ii_flyby": ("artemis_ii_flyby.jpg", "photo"),
+    "comet_landing": ("comet_landing.jpg", "xMidYMid slice"),
+    "alphago": ("alphago.jpg", "xMidYMid slice"),
+    "red_dead_redemption_2": ("red_dead_redemption_2.jpg", "xMidYMin slice"),
+    "black_hole_image": ("black_hole_image.jpg", "xMidYMid slice"),
+    "covid_vaccine": ("covid_vaccine.jpg", "xMidYMid slice"),
+    "chatgpt": ("chatgpt.png", "xMidYMid meet"),
+    "gta_vi_trailer_1": ("gta_vi_trailer_1.jpg", "xMidYMid slice"),
+    "claude_code": ("claude_code.png", "xMidYMid meet"),
+    "artemis_ii_flyby": ("artemis_ii_flyby.jpg", "xMidYMid slice"),
 }
 MONO = 0.6  # IBM Plex Mono advance width, in em: label wraps are computed, not measured
-
-
-def _money(v: float) -> str:
-    return f"${v / 1e15:.2f} quadrillion" if v >= 1e15 else f"${v / 1e12:,.0f}T"
 
 
 def _trillions(v: float) -> str:
@@ -655,7 +652,7 @@ def _wait_line(
     gap, lead = cw + 6 * k, 20 * k
 
     dots = {m["id"]: (x(m["day"]), y(m["value"])) for m in marks}
-    need = pad + ih + 6 * k + 2 * lh + 3 * k + lead  # a two-line card and its leader
+    need = pad + ih + 6 * k + 3 * lh + 3 * k + lead  # a year, a two-line label, a leader
     sides: dict[str, list[dict]] = {"above": [], "below": []}
     for i, m in enumerate(sorted(marks, key=lambda m: m["day"])):
         _, py = dots[m["id"]]
@@ -680,7 +677,7 @@ def _wait_line(
             px, py = dots[m["id"]]
             x0, x1 = cx - cw / 2, cx + cw / 2
             lines = _wrap(m["label"], per_line)
-            chh = pad + ih + 6 * k + len(lines) * lh + 3 * k
+            chh = pad + ih + 6 * k + (1 + len(lines)) * lh + 3 * k
             if side == "above":
                 y1 = min(line_y(x0), line_y(x1), py) - lead
                 y0 = y1 - chh
@@ -705,7 +702,8 @@ def _wait_line(
                 glyphs.append(f'<polygon class="mark rockstar" points="{" ".join(pts)}"/>')
             else:
                 glyphs.append(f'<circle class="mark" cx="{px:.1f}" cy="{py:.1f}" r="{6 * k:.1f}"/>')
-            file, kind = MILESTONE_IMAGES.get(m["id"], (None, "photo"))
+            file, fit = MILESTONE_IMAGES.get(m["id"], (None, "xMidYMid slice"))
+            kind = "logo" if fit.endswith("meet") else "photo"
             ix, iy = x0 + pad, y0 + pad
             tile = (
                 f'<rect class="tile {kind}" x="{ix:.1f}" y="{iy:.1f}" '
@@ -713,15 +711,15 @@ def _wait_line(
             )
             if file:
                 inset = ih * 0.14 if kind == "logo" else 0
-                fit = "xMidYMid meet" if kind == "logo" else "xMidYMid slice"
                 tile += (
                     f'<image href="../brand/milestones/{file}" '
                     f'x="{ix + inset:.1f}" y="{iy + inset:.1f}" width="{iw - 2 * inset:.1f}" '
                     f'height="{ih - 2 * inset:.1f}" preserveAspectRatio="{fit}"/>'
                 )
             ty = iy + ih + 6 * k + lfs
-            label = "".join(
-                f'<tspan x="{cx:.1f}" y="{ty + i * lh:.1f}">{escape(t)}</tspan>'
+            label = f'<tspan class="year" x="{cx:.1f}" y="{ty:.1f}">{m["day"].year}</tspan>'
+            label += "".join(
+                f'<tspan x="{cx:.1f}" y="{ty + (i + 1) * lh:.1f}">{escape(t)}</tspan>'
                 for i, t in enumerate(lines)
             )
             cls = "card rockstar" if m["rockstar"] else "card"
@@ -821,12 +819,12 @@ def wait_card(png: bool) -> dict:
         {_lockup("vi")}
         <div class="num">
           <div class="when">{end:%d %b %Y}</div>
-          <div class="value">{days:,}</div>
-          <div class="what">days of waiting</div>
         </div>
       </div>
-      <div class="badge">{_money(headline)}</div>
-      <div class="headline">Everything that happened before GTA 6</div>
+      <div class="titles">
+        <div class="headline">Everything that happened before GTA 6</div>
+        <div class="subhead"><b>{days:,}</b> days of waiting</div>
+      </div>
     </div>"""
         for theme_name, theme in THEMES.items():
             html = GLOWUP_PAGE.format(

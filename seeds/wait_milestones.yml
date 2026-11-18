@@ -1,11 +1,12 @@
 version: 2
 seeds:
 - name: wait_milestones
-  description: 'Metric 3: editorially chosen moments between GTA V and GTA 6, one row per milestone, each
-    dated to a UTC day and carrying one public source. Our picks, not a ranking.'
+  description: 'Metric 3: moments between GTA V and GTA 6, one row per milestone, each dated to a UTC
+    day and carrying one public source. is_editorial marks the ones the chart draws.'
   config:
     column_types:
       event_date: date
+      is_editorial: boolean
   columns:
   - name: milestone_id
     description: Slug, e.g. black_hole_image.
@@ -41,7 +42,7 @@ seeds:
           - rockstar
           - space
   - name: tier
-    description: anchor (the two releases), hero (on the chart) or long (site table only).
+    description: anchor (the two releases), hero (headline moments) or long.
     data_tests:
     - accepted_values:
         arguments:
@@ -49,6 +50,10 @@ seeds:
           - anchor
           - hero
           - long
+  - name: is_editorial
+    description: 'True for the editorial milestones: the ones drawn on the Metric 3 chart.'
+    data_tests:
+    - not_null
   - name: title
     description: What happened, in a sentence.
   - name: chart_label

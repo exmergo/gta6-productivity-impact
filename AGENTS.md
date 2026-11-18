@@ -15,8 +15,8 @@ Every number must come out of the dbt project and its semantic layer.
    `world_output_produced` (no group-by: the headline, 17 Sep 2013 to 18 Nov 2026),
    `world_output_cumulative` (by `metric_time` or `world_output_day__output_day`; never sum it
    across days), `world_output_per_second` (by day only) and `wait_milestone_output` by
-   `milestone__title` and `milestone__event_date`. Constant 2015 US$; 2026 is an IMF-based
-   estimate.
+   `milestone__title` and `milestone__event_date` (the chart filters
+   `milestone__is_editorial = true`). Constant 2015 US$; 2026 is an IMF-based estimate.
 2. Query it with `uv run dex explore semantic query <metrics> --group-by ...`. Never answer
    from raw SQL when a metric exists, and never add `signal_value` across signals or sources.
 3. **Never report `day_off_index` without its breakdown**: group it by

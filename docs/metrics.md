@@ -55,11 +55,12 @@ placed on the running total.
   adjustment. A missing IMF year would leave that year and every later one NULL (unit-tested).
 - **Running total**: the sum of daily output from 17 Sep 2013 through the day. It is never
   summed across days; `world_output_produced` with no group-by is the headline.
-- **Milestones**: our picks, not a ranking (`seeds/wait_milestones.csv`, 45 rows). Each is
+- **Milestones**: not a ranking (`seeds/wait_milestones.csv`, 46 rows). Each is
   dated to a UTC day against one public source, and reads the running total through the day
   *before* it ("by the time it happened, the world had made $X since GTA V"). GTA V's own day
-  reads $0. `hero` rows are on the chart, `long` rows on the scoreboard table, and the two
-  Rockstar nods (Red Dead Redemption 2, GTA VI Trailer 1) are drawn as stars under the line.
+  reads $0. The nine `is_editorial` rows are on the chart as picture cards (filter
+  `milestone__is_editorial = true`), every row is on the scoreboard table, and the two Rockstar
+  nods (Red Dead Redemption 2, GTA VI Trailer 1) are drawn as stars with ink cards.
 
 **$1.14 quadrillion** ($1,141.7T) in 4,811 days. In 2026 the world makes about $3.3 million a
 second, or $282 billion a day.

@@ -24,6 +24,16 @@ models:
             evidence: request
             detail: 'user: Metric 3 plan; the day before GTA V lies outside the wait, and nothing has been made since GTA V yet'
             column: output_by_then
+          - decision: Which milestones the chart draws
+            chosen: 'the nine flagged is_editorial: comet, AlphaGo, RDR2, black hole, vaccine, ChatGPT, GTA VI trailer, Claude Code, Artemis II'
+            evidence: request
+            detail: user named the milestones to keep on the chart and asked for Claude Code
+            column: is_editorial
+          - decision: Claude Code's date
+            chosen: 2025-02-24, the research-preview launch beside Claude 3.7 Sonnet
+            evidence: default
+            detail: first public release; general availability (2025-05-22) is kept in why
+            column: milestone_id
   columns:
     - name: milestone_id
       config:
@@ -60,7 +70,7 @@ models:
       data_tests:
         - not_null
     - name: tier
-      description: anchor, hero (on the chart) or long (site table only).
+      description: anchor (the two releases), hero (headline moments) or long.
       config:
         meta:
           dex:
@@ -133,5 +143,14 @@ models:
             role: attribute
             null_rule: never
             unit: days
+      data_tests:
+        - not_null
+    - name: is_editorial
+      description: 'True for the editorial milestones: the ones drawn on the Metric 3 chart.'
+      config:
+        meta:
+          dex:
+            role: dimension
+            null_rule: never
       data_tests:
         - not_null

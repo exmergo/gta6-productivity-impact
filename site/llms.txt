@@ -16,7 +16,7 @@ No. It's real output at 2015 prices (constant 2015 US$), so years compare fairly
 
 ### Why these milestones?
 
-They're our picks, not a ranking: moments most people remember, each dated to a UTC day and backed by one public source, listed on the scoreboard. Each one reads what the world had made since GTA V by the day before it. For example, First image of a black hole: $435T; First COVID-19 vaccine shot outside a trial: $575T; Starship upper stage caught by the tower: $1,140T.
+They're moments most people remember, not a ranking, each dated to a UTC day and backed by one public source, listed on the scoreboard. Each one reads what the world had made since GTA V by the day before it. For example, First image of a black hole: $435T; First COVID-19 vaccine shot outside a trial: $575T; Starship upper stage caught by the tower: $1,140T.
 
 ### How much more productive did the world get between GTA V and GTA 6?
 

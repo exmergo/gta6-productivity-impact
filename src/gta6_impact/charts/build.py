@@ -494,58 +494,37 @@ def productivity_card(png: bool) -> dict:
     return {"rows": rows}
 
 
-WAIT_SOURCE = (
-    "Data source: World Bank WDI, IMF WEO · world real GDP, constant 2015 US$ · "
-    "milestones: our picks"
-)
-# Per size: card (w, h), art (w, h), scale, where the chart starts, CSS variant, and the hero
-# milestones that get a label (the rest keep their dot; every one is in the site's table).
+WAIT_SOURCE = "Data source: World Bank WDI, IMF WEO · world real GDP, constant 2015 US$"
+# Per size: card (w, h), art (w, h), scale, where the chart starts, CSS variant, the milestone
+# card's width before scaling, and how cards pick a side of the line: "room" puts each where
+# there is more space (the shallow landscape line), "alternate" takes turns in date order so
+# no side crowds (the steep portrait line).
 WAIT_SIZES = {
-    "everything-we-made": ((1200, 630), (1200, 576), 1.0, 178, "", None),
+    "everything-we-made": ((1200, 630), (1200, 576), 1.0, 200, "", 112, "room"),
     "everything-we-made-portrait": (
         (1080, 1350),
         (1080, 1270),
         1.45,
-        430,
+        470,
         "portrait",
-        None,
+        96,
+        "alternate",
     ),
 }
-# A few chips also carry what the world had made by then (the vaccine lands at about half
-# the wait's output); more would clutter the line.
-WAIT_PRICED = {"black_hole_image", "covid_vaccine", "chatgpt", "ship_catch"}
-# The landscape card's labels, placed by hand (side, leader length, slide along the line) so
-# the chips stack cleanly; a collision is still detected and logged. The rocket landing and
-# booster catch keep their dots: the ship catch tells that story. A size without a layout
-# places its labels greedily.
-WAIT_LAYOUT = {
-    "everything-we-made": {
-        "comet_landing": ("above", 30, 0),
-        "alphago": ("below", 16, 0),
-        "red_dead_redemption_2": ("below", 30, 0),
-        "black_hole_image": ("above", 60, 0),
-        "covid_vaccine": ("below", 30, 0),
-        "webb_first_images": ("above", 40, 0),
-        "chatgpt": ("below", 40, 0),
-        "crispr_therapy": ("above", 50, 0),
-        "gta_vi_trailer_1": ("below", 28, -60),
-        "renewables_beat_coal": ("above", 40, 0),
-        "artemis_ii_flyby": ("below", 64, 0),
-        "ship_catch": ("above", 40, 0),
-    },
-    "everything-we-made-portrait": {
-        "comet_landing": ("above", 115, 0),
-        "alphago": ("below", 28, 0),
-        "red_dead_redemption_2": ("below", 28, 0),
-        "black_hole_image": ("above", 40, 0),
-        "covid_vaccine": ("below", 28, 0),
-        "chatgpt": ("below", 30, 0),
-        "gta_vi_trailer_1": ("below", 28, 0),
-        "artemis_ii_flyby": ("above", 37, 0),
-        "ship_catch": ("above", 40, 0),
-    },
+# One picture per editorial milestone (brand/milestones/). Logos sit whole on a
+# white tile; photos fill theirs.
+MILESTONE_IMAGES = {
+    "comet_landing": ("comet_landing.jpg", "photo"),
+    "alphago": ("alphago.jpg", "photo"),
+    "red_dead_redemption_2": ("red_dead_redemption_2.jpg", "photo"),
+    "black_hole_image": ("black_hole_image.jpg", "photo"),
+    "covid_vaccine": ("covid_vaccine.jpg", "photo"),
+    "chatgpt": ("chatgpt.png", "logo"),
+    "gta_vi_trailer_1": ("gta_vi_trailer_1.jpg", "photo"),
+    "claude_code": ("claude_code.png", "logo"),
+    "artemis_ii_flyby": ("artemis_ii_flyby.jpg", "photo"),
 }
-MONO = 0.6  # IBM Plex Mono advance width, in em: chip widths are computed, not measured
+MONO = 0.6  # IBM Plex Mono advance width, in em: label wraps are computed, not measured
 
 
 def _money(v: float) -> str:
@@ -556,18 +535,52 @@ def _trillions(v: float) -> str:
     return f"${v / 1e12:,.0f}T"
 
 
+def _wrap(text: str, width: int) -> list[str]:
+    """Greedy wrap to `width` characters; two lines are rebalanced so neither is left a stub."""
+    lines: list[str] = []
+    for word in text.split():
+        if lines and len(lines[-1]) + 1 + len(word) <= width:
+            lines[-1] += " " + word
+        else:
+            lines.append(word)
+    if len(lines) == 2:
+        words = text.split()
+        splits = [(" ".join(words[:i]), " ".join(words[i:])) for i in range(1, len(words))]
+        lines = list(min(splits, key=lambda ab: max(len(ab[0]), len(ab[1]))))
+    return lines
+
+
+def _spread(targets: list[float], gap: float, lo: float, hi: float) -> list[float]:
+    """Card centres as close to their dots as possible, at least `gap` apart, inside [lo, hi]:
+    neighbours that would overlap merge into a block centred on their dots."""
+    blocks: list[list[float]] = []  # [first index, count, sum of target - offset]
+    for i, t in enumerate(targets):
+        blocks.append([i, 1, t])
+        while len(blocks) > 1:
+            (_, n0, s0), (_, n1, s1) = blocks[-2], blocks[-1]
+            if s0 / n0 + n0 * gap <= s1 / n1:
+                break
+            blocks[-2:] = [[blocks[-2][0], n0 + n1, s0 + s1 - n1 * n0 * gap]]
+    pos = [b[2] / b[1] + j * gap for b in blocks for j in range(int(b[1]))]
+    for i in range(len(pos)):
+        pos[i] = max(pos[i], lo, pos[i - 1] + gap if i else lo)
+    for i in reversed(range(len(pos))):
+        pos[i] = min(pos[i], hi, pos[i + 1] - gap if i + 1 < len(pos) else hi)
+    return pos
+
+
 def _wait_line(
     points: list[tuple[dt.date, float]],
     marks: list[dict],
-    labelled: set[str] | None,
-    layout: dict | None,
+    card_w: float,
+    placement: str,
     w: int,
     a: int,
     k: float,
     band_top: float,
 ) -> str:
-    """Cumulative world output over the wait, milestones as dots on it, labels placed greedily
-    in the open space: above-left of the rising line or below-right, never over it."""
+    """Cumulative world output over the wait, each editorial milestone as a picture card tied to
+    its dot: above the line where there is more room above it (early), below it otherwise."""
     left, right, bottom = 78 * k, 34 * k, 34 * k
     band_bot = a - bottom
     first, last = points[0][0], points[-1][0]
@@ -626,148 +639,101 @@ def _wait_line(
     d = " ".join(f"{'M' if i == 0 else 'L'}{px:.1f},{py:.1f}" for i, (px, py) in enumerate(xy))
     parts.append(f'<path class="halo" d="{d}"/><path class="stroke" d="{d}"/>')
 
-    # Label placement: every rectangle a chip may not touch.
-    def hits_line(r: tuple[float, float, float, float]) -> bool:
-        x0, y0, x1, y1 = r
+    def line_y(px: float) -> float:
+        """The line's height at px (it rises left to right, so a span's extremes are its ends)."""
         for (ax, ay), (bx, by) in zip(xy, xy[1:], strict=False):
-            if bx < x0 or ax > x1:
-                continue
-            for t in (0.0, 0.25, 0.5, 0.75, 1.0):
-                px, py = ax + (bx - ax) * t, ay + (by - ay) * t
-                if x0 <= px <= x1 and y0 <= py <= y1:
-                    return True
-        return False
+            if ax <= px <= bx:
+                return ay + (by - ay) * (px - ax) / (bx - ax) if bx > ax else ay
+        return xy[0][1] if px < xy[0][0] else xy[-1][1]
 
-    def overlaps(r, others, pad: float) -> bool:
-        return any(
-            r[0] < o[2] + pad and r[2] > o[0] - pad and r[1] < o[3] + pad and r[3] > o[1] - pad
-            for o in others
-        )
+    # The card: picture on top, the label wrapped under it.
+    cw, pad, lfs = card_w * k, 5 * k, 11 * k
+    iw = cw - 2 * pad
+    ih = iw * 0.56
+    per_line = int(iw / (MONO * lfs))
+    lh = lfs * 1.25
+    gap, lead = cw + 6 * k, 20 * k
 
-    dots = [(x(m["day"]), y(m["value"])) for m in marks]
-    dot_boxes = [(px - 8 * k, py - 8 * k, px + 8 * k, py + 8 * k) for px, py in dots]
-    placed: list[tuple[float, float, float, float]] = []
-    segs: list[tuple[float, float, float, float]] = []
-
-    def crosses(sg, r, pad: float) -> bool:
-        """Does the leader segment sg pass through rectangle r (sampled; leaders are short)?"""
-        ax, ay, bx, by = sg
-        return any(
-            r[0] - pad <= ax + (bx - ax) * t / 24 <= r[2] + pad
-            and r[1] - pad <= ay + (by - ay) * t / 24 <= r[3] + pad
-            for t in range(1, 24)
-        )
-
-    chips, leaders, glyphs = [], [], []
-    cfs, pad_x, ch = 13 * k, 9 * k, 26 * k
-    # Rockstar's nods go first (they only fit under the line), then the priced chips (the
-    # story beats: black hole, vaccine, ChatGPT, ship catch), then the rest in date order, so
-    # the few that cannot fit are never the headline ones.
-    order = sorted(
-        range(len(marks)),
-        key=lambda i: (not marks[i]["rockstar"], marks[i]["id"] not in WAIT_PRICED, i),
-    )
-    for i in order:
-        m, (px, py) = marks[i], dots[i]
-        rockstar = m["rockstar"]
-        if rockstar:
-            r_, pts = 9 * k, []
-            for j in range(10):
-                ang = -math.pi / 2 + j * math.pi / 5
-                rad = r_ if j % 2 == 0 else r_ * 0.45
-                pts.append(f"{px + rad * math.cos(ang):.1f},{py + rad * math.sin(ang):.1f}")
-            glyphs.append(f'<polygon class="mark rockstar" points="{" ".join(pts)}"/>')
+    dots = {m["id"]: (x(m["day"]), y(m["value"])) for m in marks}
+    need = pad + ih + 6 * k + 2 * lh + 3 * k + lead  # a two-line card and its leader
+    sides: dict[str, list[dict]] = {"above": [], "below": []}
+    for i, m in enumerate(sorted(marks, key=lambda m: m["day"])):
+        _, py = dots[m["id"]]
+        if placement == "alternate":
+            # Take turns, unless the turn's side has no room for a card there.
+            above = i % 2 == 0
+            if not above and band_bot - py < need:
+                above = True
+            elif above and py - band_top < need:
+                above = False
         else:
-            glyphs.append(f'<circle class="mark" cx="{px:.1f}" cy="{py:.1f}" r="{6 * k:.1f}"/>')
-        if layout is not None:
-            if m["id"] not in layout:
-                continue
-        elif labelled is not None and m["id"] not in labelled:
-            continue
-        text = m["label"] + (f" · {_trillions(m['value'])}" if m["id"] in WAIT_PRICED else "")
-        cw = len(text) * MONO * cfs + 2 * pad_x
-        # Rockstar nods sit under the line; achievements alternate, starting above.
-        sides = (
-            ("below",) if rockstar else (("above", "below") if i % 2 == 0 else ("below", "above"))
+            above = py - band_top > band_bot - py
+        sides["above" if above else "below"].append(m)
+
+    leaders, glyphs, cards = [], [], []
+    for side, ms in sides.items():
+        ms.sort(key=lambda m: m["day"])
+        centres = _spread(
+            [dots[m["id"]][0] for m in ms], gap, left + cw / 2 + 4 * k, w - right - cw / 2
         )
-        spot = None
-        if layout is not None:
-            hand_side, hand_lead, hand_slide = layout[m["id"]]
-            sides = (hand_side,)
-        leads = (hand_lead,) if layout is not None else (28, 52, 76, 100, 124, 150, 178, 206, 236)
-        slides = (hand_slide,) if layout is not None else (0, 40, 90, 150, 220, -40, -90, -150)
-        for side in sides:
-            for lead in leads:
-                for slide in slides:
-                    lead_k, slide_k = lead * k, slide * k
-                    if side == "above":
-                        x0, y1 = px + 14 * k - cw - slide_k, py - lead_k
-                        y0 = y1 - ch
-                    else:
-                        x0, y0 = px - 14 * k + slide_k, py + lead_k
-                        y1 = y0 + ch
-                    x0 = min(max(x0, left + 4 * k), w - right - cw)
-                    box = (x0, y0, x0 + cw, y1)
-                    seg = (
-                        px,
-                        py,
-                        min(max(px, x0 + 6 * k), x0 + cw - 6 * k),
-                        y1 if side == "above" else y0,
-                    )
-                    clash = (
-                        y0 < band_top - 46 * k
-                        or y1 > band_bot - 6 * k
-                        or abs(seg[2] - seg[0]) > 60 * k  # leaders stay near vertical
-                    )
-                    if layout is not None:
-                        if (
-                            clash
-                            or hits_line(box)
-                            or overlaps(box, placed, 4 * k)
-                            or any(crosses(seg, o, 1 * k) for o in placed)
-                        ):
-                            print(
-                                json.dumps({"chart": "everything-we-made", "collision": m["id"]}),
-                                flush=True,
-                            )
-                        spot = (side, box, seg)
-                        break
-                    if clash:
-                        continue
-                    if (
-                        hits_line(box)
-                        or overlaps(box, placed, 6 * k)
-                        or overlaps(box, dot_boxes, 2 * k)
-                        or any(crosses(sg, box, 3 * k) for sg in segs)
-                        or any(crosses(seg, o, 2 * k) for o in placed)
-                    ):
-                        continue
-                    spot = (side, box, seg)
-                    break
-                if spot:
-                    break
-            if spot:
-                break
-        if spot is None:
-            print(json.dumps({"chart": "everything-we-made", "unlabelled": m["id"]}), flush=True)
-            continue
-        side, (x0, y0, x1, y1), seg = spot
-        placed.append((x0, y0, x1, y1))
-        segs.append(seg)
-        leaders.append(
-            f'<line class="leader" x1="{seg[0]:.1f}" y1="{seg[1]:.1f}" '
-            f'x2="{seg[2]:.1f}" y2="{seg[3]:.1f}"/>'
-        )
-        cls = "chip rockstar" if rockstar else "chip"
-        label = escape(m["label"])
-        if m["id"] in WAIT_PRICED:
-            label += f' <tspan class="price">· {escape(_trillions(m["value"]))}</tspan>'
-        chips.append(
-            f'<g class="{cls}"><rect x="{x0:.1f}" y="{y0:.1f}" width="{cw:.1f}" height="{ch:.1f}" '
-            f'rx="{3 * k:.1f}"/><text x="{x0 + pad_x:.1f}" y="{y0 + ch / 2 + cfs * 0.36:.1f}" '
-            f'font-size="{cfs:.1f}">{label}</text></g>'
-        )
-    parts += leaders + glyphs + chips
+        for m, cx in zip(ms, centres, strict=True):
+            px, py = dots[m["id"]]
+            x0, x1 = cx - cw / 2, cx + cw / 2
+            lines = _wrap(m["label"], per_line)
+            chh = pad + ih + 6 * k + len(lines) * lh + 3 * k
+            if side == "above":
+                y1 = min(line_y(x0), line_y(x1), py) - lead
+                y0 = y1 - chh
+                ok = y0 >= band_top - 70 * k  # may rise into the headroom, not the headline
+            else:
+                y0 = max(line_y(x0), line_y(x1), py) + lead
+                y1 = y0 + chh
+                ok = y1 <= band_bot - 4 * k
+            if not ok:
+                print(json.dumps({"chart": "everything-we-made", "overflow": m["id"]}), flush=True)
+            ex = min(max(px, x0 + 10 * k), x1 - 10 * k)
+            leaders.append(
+                f'<line class="leader" x1="{px:.1f}" y1="{py:.1f}" '
+                f'x2="{ex:.1f}" y2="{y1 if side == "above" else y0:.1f}"/>'
+            )
+            if m["rockstar"]:
+                r_, pts = 9 * k, []
+                for j in range(10):
+                    ang = -math.pi / 2 + j * math.pi / 5
+                    rad = r_ if j % 2 == 0 else r_ * 0.45
+                    pts.append(f"{px + rad * math.cos(ang):.1f},{py + rad * math.sin(ang):.1f}")
+                glyphs.append(f'<polygon class="mark rockstar" points="{" ".join(pts)}"/>')
+            else:
+                glyphs.append(f'<circle class="mark" cx="{px:.1f}" cy="{py:.1f}" r="{6 * k:.1f}"/>')
+            file, kind = MILESTONE_IMAGES.get(m["id"], (None, "photo"))
+            ix, iy = x0 + pad, y0 + pad
+            tile = (
+                f'<rect class="tile {kind}" x="{ix:.1f}" y="{iy:.1f}" '
+                f'width="{iw:.1f}" height="{ih:.1f}"/>'
+            )
+            if file:
+                inset = ih * 0.14 if kind == "logo" else 0
+                fit = "xMidYMid meet" if kind == "logo" else "xMidYMid slice"
+                tile += (
+                    f'<image href="../brand/milestones/{file}" '
+                    f'x="{ix + inset:.1f}" y="{iy + inset:.1f}" width="{iw - 2 * inset:.1f}" '
+                    f'height="{ih - 2 * inset:.1f}" preserveAspectRatio="{fit}"/>'
+                )
+            ty = iy + ih + 6 * k + lfs
+            label = "".join(
+                f'<tspan x="{cx:.1f}" y="{ty + i * lh:.1f}">{escape(t)}</tspan>'
+                for i, t in enumerate(lines)
+            )
+            cls = "card rockstar" if m["rockstar"] else "card"
+            cards.append(
+                f'<g class="{cls}">'
+                f'<rect class="shadow" x="{x0 + 4 * k:.1f}" y="{y0 + 4 * k:.1f}" '
+                f'width="{cw:.1f}" height="{chh:.1f}" rx="{3 * k:.1f}"/>'
+                f'<rect class="frame" x="{x0:.1f}" y="{y0:.1f}" width="{cw:.1f}" '
+                f'height="{chh:.1f}" rx="{3 * k:.1f}"/>{tile}'
+                f'<text text-anchor="middle" font-size="{lfs:.1f}">{label}</text></g>'
+            )
+    parts += leaders + glyphs + cards
     parts.append(
         f'<circle class="dot start" cx="{xy[0][0]:.1f}" cy="{xy[0][1]:.1f}" r="{7 * k:.1f}"/>'
         f'<circle class="dot end" cx="{xy[-1][0]:.1f}" cy="{xy[-1][1]:.1f}" r="{10 * k:.1f}"/>'
@@ -777,8 +743,8 @@ def _wait_line(
 
 
 def wait_card(png: bool) -> dict:
-    """Metric 3, everything humanity made while waiting for GTA 6: the running total of world
-    output from GTA V to GTA 6, with humanity's big moments on the line."""
+    """Metric 3, everything that happened before GTA 6: the running total of world output from
+    GTA V to GTA 6, with the editorial milestones as picture cards on the line."""
     headline = query(["world_output_produced"])[0]["world_output_produced"]
     months = sorted(
         query(["world_output_cumulative"], ["metric_time__month"]),
@@ -794,6 +760,7 @@ def wait_card(png: bool) -> dict:
                 "milestone__title",
                 "milestone__category",
                 "milestone__tier",
+                "milestone__is_editorial",
                 "milestone__date_precision",
                 "milestone__source_url",
             ],
@@ -822,6 +789,13 @@ def wait_card(png: bool) -> dict:
         if r["world_output_cumulative"] is not None and start < month_end < last_day:
             points.append((month_end, r["world_output_cumulative"]))
     points.append((last_day, headline))
+    # The chart draws the editorial milestones: the layer's own filter picks them.
+    editorial = query(
+        ["wait_milestone_output"],
+        ["milestone__milestone_id"],
+        where="{{ Dimension('milestone__is_editorial') }} = true",
+    )
+    picked = {r["milestone__milestone_id"] for r in editorial}
     marks = [
         {
             "id": r["milestone__milestone_id"],
@@ -831,19 +805,16 @@ def wait_card(png: bool) -> dict:
             "rockstar": r["milestone__category"] == "rockstar",
         }
         for r in milestones
-        if r["milestone__tier"] == "hero" and r["wait_milestone_output"] is not None
+        if r["milestone__milestone_id"] in picked and r["wait_milestone_output"] is not None
     ]
-    for name, ((w, h), (aw, ah), k, band_top, variant, labelled) in WAIT_SIZES.items():
-        layout = WAIT_LAYOUT.get(name)
+    for name, ((w, h), (aw, ah), k, band_top, variant, card_w, placement) in WAIT_SIZES.items():
         body = f"""    <div class="glowup wait" style="width:{aw}px;height:{ah}px;--k:{k}">
 {_backdrop(aw, ah, k)}
-{_wait_line(points, marks, labelled, layout, aw, ah, k, band_top)}
+{_wait_line(points, marks, card_w, placement, aw, ah, k, band_top)}
       <div class="era v">
         {_lockup("v")}
         <div class="num">
           <div class="when">{start:%d %b %Y}</div>
-          <div class="value">$0</div>
-          <div class="what">made so far</div>
         </div>
       </div>
       <div class="era vi">
@@ -855,11 +826,11 @@ def wait_card(png: bool) -> dict:
         </div>
       </div>
       <div class="badge">{_money(headline)}</div>
-      <div class="sub">everything the world made while waiting for GTA 6</div>
+      <div class="headline">Everything that happened before GTA 6</div>
     </div>"""
         for theme_name, theme in THEMES.items():
             html = GLOWUP_PAGE.format(
-                title="Everything we made",
+                title="Everything before GTA 6",
                 theme=theme,
                 variant=f" {variant}" if variant else "",
                 w=w,

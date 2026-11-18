@@ -183,7 +183,7 @@ def _wait(summary: dict) -> dict | None:
     rows = wait["milestones"]
     by_id = {r["milestone__milestone_id"]: r for r in rows}
     total, rate = wait["world_output_produced"], wait["world_output_per_second"]
-    chart = [r for r in rows if r["milestone__tier"] == "hero"]
+    chart = [r for r in rows if r["milestone__is_editorial"]]
     beats = [
         by_id[i]["milestone__chart_label"]
         for i in ("comet_landing", "black_hole_image", "ship_catch")
@@ -206,9 +206,9 @@ def _wait(summary: dict) -> dict | None:
 
 def _wait_alt(w: dict) -> str:
     return (
-        f"Everything humanity made while waiting for GTA 6: {_quadrillions(w['total'])} of real "
-        f"world output from {w['start']:%-d %b %Y} to {w['last_day']:%-d %b %Y}, "
-        f"{w['days']:,} days, with milestones from the comet landing to the Starship catch."
+        f"Everything that happened before GTA 6: {_quadrillions(w['total'])} of real world "
+        f"output from {w['start']:%-d %b %Y} to {w['last_day']:%-d %b %Y}, {w['days']:,} days, "
+        "from the comet landing and AlphaGo to ChatGPT, Claude Code and humans back at the Moon."
     )
 
 
@@ -237,8 +237,7 @@ def _wait_section(summary: dict) -> str:
 </table></div>
 <p class="lede">World real GDP (World Bank WDI, constant 2015 US$), each year spread evenly over its
 days; 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world growth forecast. Each
-milestone reads what the world had made by the day before it. The milestones are our picks, one
-public source each.</p>"""
+milestone reads what the world had made by the day before it, with one public source each.</p>"""
 
 
 PRODUCTIVITY_MEASURES = (
@@ -419,7 +418,7 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
             ),
             (
                 "Why these milestones?",
-                "They're our picks, not a ranking: moments most people remember, each dated to "
+                "They're moments most people remember, not a ranking, each dated to "
                 "a UTC day and backed by one public source, listed on the scoreboard. Each one "
                 "reads what the world had made since GTA V by the day before it. "
                 f"For example, {examples}.",

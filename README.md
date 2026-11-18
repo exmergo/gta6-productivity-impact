@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-dark.png">
-  <img alt="Everything humanity made while waiting for GTA 6: $1.14 quadrillion of real world output from 17 Sep 2013 to 18 Nov 2026, 4,811 days, with milestones from the comet landing to the Starship catch." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-light.png">
+  <img alt="Everything that happened before GTA 6: $1.14 quadrillion of real world output from 17 Sep 2013 to 18 Nov 2026, 4,811 days, from the comet landing and AlphaGo to ChatGPT, Claude Code and humans back at the Moon." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-light.png">
 </picture>
 
 **Between GTA V and GTA 6, humanity made $1.14 quadrillion of stuff.** 4,811 days. We landed
@@ -39,8 +39,8 @@ By the first GTA VI trailer, 74% of the wait's output was already made. Fans the
 last $294T.
 
 World Bank world GDP, each year spread evenly over its days; 2026 is the World Bank's 2025 figure
-grown by the IMF's 2026 world growth forecast. The milestones are our picks, one public source
-each; all 45 are on the [scoreboard](https://exmergo.github.io/gta6-productivity-impact/).
+grown by the IMF's 2026 world growth forecast. Each milestone has one public source; all 46 are
+on the [scoreboard](https://exmergo.github.io/gta6-productivity-impact/).
 Details in [docs/metrics.md](docs/metrics.md#3-everything-humanity-made-while-waiting).
 
 It didn't just make more because there were more of us. Each person made more, too.
@@ -131,7 +131,7 @@ be larger. The per-second rate is a yearly average spread evenly; nobody measure
 second.
 
 **Why these milestones?**
-They're our picks, not a ranking: moments most people remember, each dated to a UTC day and
+They're moments most people remember, not a ranking, each dated to a UTC day and
 backed by one public source (`seeds/wait_milestones.csv`). Each one reads what the world had made
 since GTA V by the day before it.
 

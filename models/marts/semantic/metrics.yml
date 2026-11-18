@@ -122,7 +122,7 @@ metrics:
 - name: wait_milestone_output
   label: World output made by each milestone
   description: Metric 3. World real output made since GTA V's release by the day before each milestone.
-    Group by milestone__title and milestone__event_date (milestone__tier = 'hero' for the chart). Milestones
+    Group by milestone__title and milestone__event_date (milestone__is_editorial = true for the chart). Milestones
     are editorial picks, not a ranking. Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative
     output across days.
   type: simple

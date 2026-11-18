@@ -21,6 +21,7 @@ select
     milestones.date_precision,
     milestones.category,
     milestones.tier,
+    milestones.is_editorial,
     milestones.title,
     milestones.chart_label,
     milestones.why,

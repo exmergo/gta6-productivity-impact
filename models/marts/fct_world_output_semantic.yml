@@ -92,7 +92,10 @@ semantic_models:
     description: Theme; rockstar marks the Rockstar nods.
   - name: tier
     type: categorical
-    description: anchor, hero (on the chart) or long (site table only).
+    description: anchor (the two releases), hero (headline moments) or long.
+  - name: is_editorial
+    type: categorical
+    description: True for the editorial milestones, the ones the Metric 3 chart draws.
   - name: date_precision
     type: categorical
     description: day, or month.

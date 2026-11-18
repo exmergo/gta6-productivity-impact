@@ -35,6 +35,21 @@
   font-style: normal;
 }
 
+/* Era palettes for the GTA V to GTA 6 glow-up card: the same in both themes.
+   V is a sun-faded 2013 postcard; 6 is a saturated Vice City sunset. */
+:root {
+  --era-v-sky: #c9d8c5;
+  --era-v-haze: #e6dcc0;
+  --era-v-sage: #7f9a83;
+  --era-v-deep: #3f5a4c;
+  --era-vi-gold: #ffb25b;
+  --era-vi-pink: #ff4fa3;
+  --era-vi-violet: #8a3ad6;
+  --era-vi-deep: #2a0f4f;
+  --era-ink: #0a0a0f;
+  --era-white: #ffffff;
+}
+
 :root[data-theme="dex-site"] {
   /* The site's own tokens, by their names in dex-website's globals.css. */
   --dex-paper: #f5f4ef;

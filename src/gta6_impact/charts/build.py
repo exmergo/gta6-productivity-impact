@@ -613,9 +613,10 @@ def _wait_line(
         )
         if crowded:
             continue
+        anchor = "start" if year == first.year else "end" if year == last.year else "middle"
         axes.append(
             f'<text class="tick{" edge" if edge else ""}" x="{tx:.1f}" '
-            f'y="{band_bot + 24 * k:.1f}" text-anchor="{"start" if year == first.year else "end" if year == last.year else "middle"}" '
+            f'y="{band_bot + 24 * k:.1f}" text-anchor="{anchor}" '
             f'font-size="{fs:.1f}">{year if edge else f"’{year % 100:02d}"}</text>'
         )
     parts = [f'<svg class="trend" viewBox="0 0 {w} {a}">']
@@ -656,6 +657,7 @@ def _wait_line(
             and r[1] - pad <= ay + (by - ay) * t / 24 <= r[3] + pad
             for t in range(1, 24)
         )
+
     chips, leaders, glyphs = [], [], []
     cfs, pad_x, ch = 13 * k, 9 * k, 26 * k
     # Rockstar's nods go first (they only fit under the line), then the priced chips (the
@@ -685,15 +687,18 @@ def _wait_line(
         text = m["label"] + (f" · {_trillions(m['value'])}" if m["id"] in WAIT_PRICED else "")
         cw = len(text) * MONO * cfs + 2 * pad_x
         # Rockstar nods sit under the line; achievements alternate, starting above.
-        sides = ("below",) if rockstar else (("above", "below") if i % 2 == 0 else ("below", "above"))
+        sides = (
+            ("below",) if rockstar else (("above", "below") if i % 2 == 0 else ("below", "above"))
+        )
         spot = None
         if layout is not None:
-            side, lead, slide = layout[m["id"]]
-            sides = (side,)
+            hand_side, hand_lead, hand_slide = layout[m["id"]]
+            sides = (hand_side,)
+        leads = (hand_lead,) if layout is not None else (28, 52, 76, 100, 124, 150, 178, 206, 236)
+        slides = (hand_slide,) if layout is not None else (0, 40, 90, 150, 220, -40, -90, -150)
         for side in sides:
-            leads = (lead,) if layout is not None else (28, 52, 76, 100, 124, 150, 178, 206, 236)
             for lead in leads:
-                for slide in (slide,) if layout is not None else (0, 40, 90, 150, 220, -40, -90, -150):
+                for slide in slides:
                     lead_k, slide_k = lead * k, slide * k
                     if side == "above":
                         x0, y1 = px + 14 * k - cw - slide_k, py - lead_k
@@ -703,17 +708,28 @@ def _wait_line(
                         y1 = y0 + ch
                     x0 = min(max(x0, left + 4 * k), w - right - cw)
                     box = (x0, y0, x0 + cw, y1)
-                    seg = (px, py, min(max(px, x0 + 6 * k), x0 + cw - 6 * k), y1 if side == "above" else y0)
+                    seg = (
+                        px,
+                        py,
+                        min(max(px, x0 + 6 * k), x0 + cw - 6 * k),
+                        y1 if side == "above" else y0,
+                    )
                     clash = (
                         y0 < band_top - 46 * k
                         or y1 > band_bot - 6 * k
                         or abs(seg[2] - seg[0]) > 60 * k  # leaders stay near vertical
                     )
                     if layout is not None:
-                        if clash or hits_line(box) or overlaps(box, placed, 4 * k) or any(
-                            crosses(seg, o, 1 * k) for o in placed
+                        if (
+                            clash
+                            or hits_line(box)
+                            or overlaps(box, placed, 4 * k)
+                            or any(crosses(seg, o, 1 * k) for o in placed)
                         ):
-                            print(json.dumps({"chart": "everything-we-made", "collision": m["id"]}), flush=True)
+                            print(
+                                json.dumps({"chart": "everything-we-made", "collision": m["id"]}),
+                                flush=True,
+                            )
                         spot = (side, box, seg)
                         break
                     if clash:
@@ -739,7 +755,8 @@ def _wait_line(
         placed.append((x0, y0, x1, y1))
         segs.append(seg)
         leaders.append(
-            f'<line class="leader" x1="{seg[0]:.1f}" y1="{seg[1]:.1f}" x2="{seg[2]:.1f}" y2="{seg[3]:.1f}"/>'
+            f'<line class="leader" x1="{seg[0]:.1f}" y1="{seg[1]:.1f}" '
+            f'x2="{seg[2]:.1f}" y2="{seg[3]:.1f}"/>'
         )
         cls = "chip rockstar" if rockstar else "chip"
         label = escape(m["label"])
@@ -799,7 +816,9 @@ def wait_card(png: bool) -> dict:
     points = [(start, gta_v["wait_milestone_output"])]
     for r in months:
         month = _day(r["metric_time__month"])
-        month_end = (month.replace(day=28) + dt.timedelta(days=4)).replace(day=1) - dt.timedelta(days=1)
+        month_end = (month.replace(day=28) + dt.timedelta(days=4)).replace(day=1) - dt.timedelta(
+            days=1
+        )
         if r["world_output_cumulative"] is not None and start < month_end < last_day:
             points.append((month_end, r["world_output_cumulative"]))
     points.append((last_day, headline))

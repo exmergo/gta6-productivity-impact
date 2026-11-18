@@ -225,11 +225,11 @@ def _wait_section(summary: dict) -> str:
         f"<tr><td class='num'>{escape(_when(r))}</td>"
         f"<td>{escape(r['milestone__title'])}</td>"
         f"<td class='num'>{_trillions(r['wait_milestone_output']) if r['wait_milestone_output'] is not None else 'n/a'}</td>"
-        f"<td><a href=\"{escape(r['milestone__source_url'])}\">source</a></td></tr>"
+        f'<td><a href="{escape(r["milestone__source_url"])}">source</a></td></tr>'
         for r in w["rows"]
     )
     alt = _wait_alt(w)
-    return f"""<p class="ticker" id="wait-ticker" data-anchor-total="{anchor_total:.0f}" data-anchor-time="{w['last_day']}T00:00:00Z" data-rate="{w['rate']:.1f}" data-release="{release}"><span class="total">{_quadrillions(w['total'])}</span><span class="since"></span><small>made by the world since GTA V, live at ${w['rate'] / 1e6:.1f} million a second, until GTA 6 (00:00 UTC, {w['release']:%-d %b})</small></p>
+    return f"""<p class="ticker" id="wait-ticker" data-anchor-total="{anchor_total:.0f}" data-anchor-time="{w["last_day"]}T00:00:00Z" data-rate="{w["rate"]:.1f}" data-release="{release}"><span class="total">{_quadrillions(w["total"])}</span><span class="since"></span><small>made by the world since GTA V, live at ${w["rate"] / 1e6:.1f} million a second, until GTA 6 (00:00 UTC, {w["release"]:%-d %b})</small></p>
 <figure><img src="charts/png/everything-we-made-light.png" data-dark="charts/png/everything-we-made-dark.png" alt="{escape(alt)}"><figcaption>{escape(alt)} · <a href="charts/data/everything-we-made.json">data</a></figcaption></figure>
 <div class="wrap"><table>
 <thead><tr><th class="num">Date (UTC)</th><th>Meanwhile, humanity…</th><th class="num">Made since GTA V</th><th>Source</th></tr></thead>
@@ -322,7 +322,7 @@ def _productivity_section(summary: dict) -> str:
         if _wait(summary)
         else ""
     )
-    return f"""<h2>The streak: the world got {head['change']:.0f}% more productive while it waited</h2>
+    return f"""<h2>The streak: the world got {head["change"]:.0f}% more productive while it waited</h2>
 <p class="lede">{escape(bridge)} {escape(_streak_line(summary))}</p>
 <figure><img loading="lazy" src="charts/png/gta-v-to-gta-6-light.png" data-dark="charts/png/gta-v-to-gta-6-dark.png" alt="{alt}"><figcaption>{alt} · <a href="charts/data/gta-v-to-gta-6.json">data</a></figcaption></figure>
 <div class="wrap"><table>
@@ -531,9 +531,7 @@ def build_site(summary: dict) -> None:
     )
     faq = _faq(summary)
     if w:
-        og_title = (
-            f"Everything humanity made while waiting for GTA 6: {_quadrillions(w['total'])}"
-        )
+        og_title = f"Everything humanity made while waiting for GTA 6: {_quadrillions(w['total'])}"
         image_alt = _wait_alt(w)
         streak_text = (
             f"Between GTA V and GTA 6 the world made {_quadrillions(w['total'])} of real "

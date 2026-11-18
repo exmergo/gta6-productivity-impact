@@ -1,8 +1,8 @@
 # GTA 6 vs. Productivity
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/METRIC3_SHA/charts/png/everything-we-made-dark.png">
-  <img alt="Everything humanity made while waiting for GTA 6: $1.14 quadrillion of real world output from 17 Sep 2013 to 18 Nov 2026, 4,811 days, with milestones from the comet landing to the Starship catch." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/METRIC3_SHA/charts/png/everything-we-made-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-dark.png">
+  <img alt="Everything humanity made while waiting for GTA 6: $1.14 quadrillion of real world output from 17 Sep 2013 to 18 Nov 2026, 4,811 days, with milestones from the comet landing to the Starship catch." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-light.png">
 </picture>
 
 **Between GTA V and GTA 6, humanity made $1.14 quadrillion of stuff.** 4,811 days. We landed

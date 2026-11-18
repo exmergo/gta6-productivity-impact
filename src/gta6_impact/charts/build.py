@@ -218,7 +218,7 @@ GLOWUP_PAGE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA V to GTA 6</title>
+<title>{title}</title>
 <link rel="stylesheet" href="../brand/dex-site.css">
 <link rel="stylesheet" href="../brand/charts.css">
 <script>
@@ -476,6 +476,7 @@ def productivity_card(png: bool) -> dict:
         )
         for theme_name, theme in THEMES.items():
             html = GLOWUP_PAGE.format(
+                title="GTA V to GTA 6",
                 theme=theme,
                 variant=f" {variant}" if variant else "",
                 w=w,
@@ -493,10 +494,390 @@ def productivity_card(png: bool) -> dict:
     return {"rows": rows}
 
 
+WAIT_SOURCE = (
+    "Data source: World Bank WDI, IMF WEO · world real GDP, constant 2015 US$ · "
+    "milestones: our picks"
+)
+# Per size: card (w, h), art (w, h), scale, where the chart starts, CSS variant, and the hero
+# milestones that get a label (the rest keep their dot; every one is in the site's table).
+WAIT_SIZES = {
+    "everything-we-made": ((1200, 630), (1200, 576), 1.0, 178, "", None),
+    "everything-we-made-portrait": (
+        (1080, 1350),
+        (1080, 1270),
+        1.45,
+        430,
+        "portrait",
+        None,
+    ),
+}
+# A few chips also carry what the world had made by then (the vaccine lands at about half
+# the wait's output); more would clutter the line.
+WAIT_PRICED = {"black_hole_image", "covid_vaccine", "chatgpt", "ship_catch"}
+# The landscape card's labels, placed by hand (side, leader length, slide along the line) so
+# the chips stack cleanly; a collision is still detected and logged. The rocket landing and
+# booster catch keep their dots: the ship catch tells that story. A size without a layout
+# places its labels greedily.
+WAIT_LAYOUT = {
+    "everything-we-made": {
+        "comet_landing": ("above", 30, 0),
+        "alphago": ("below", 16, 0),
+        "red_dead_redemption_2": ("below", 30, 0),
+        "black_hole_image": ("above", 60, 0),
+        "covid_vaccine": ("below", 30, 0),
+        "webb_first_images": ("above", 40, 0),
+        "chatgpt": ("below", 40, 0),
+        "crispr_therapy": ("above", 50, 0),
+        "gta_vi_trailer_1": ("below", 28, -60),
+        "renewables_beat_coal": ("above", 40, 0),
+        "artemis_ii_flyby": ("below", 64, 0),
+        "ship_catch": ("above", 40, 0),
+    },
+    "everything-we-made-portrait": {
+        "comet_landing": ("above", 115, 0),
+        "alphago": ("below", 28, 0),
+        "red_dead_redemption_2": ("below", 28, 0),
+        "black_hole_image": ("above", 40, 0),
+        "covid_vaccine": ("below", 28, 0),
+        "chatgpt": ("below", 30, 0),
+        "gta_vi_trailer_1": ("below", 28, 0),
+        "artemis_ii_flyby": ("above", 37, 0),
+        "ship_catch": ("above", 40, 0),
+    },
+}
+MONO = 0.6  # IBM Plex Mono advance width, in em: chip widths are computed, not measured
+
+
+def _money(v: float) -> str:
+    return f"${v / 1e15:.2f} quadrillion" if v >= 1e15 else f"${v / 1e12:,.0f}T"
+
+
+def _trillions(v: float) -> str:
+    return f"${v / 1e12:,.0f}T"
+
+
+def _wait_line(
+    points: list[tuple[dt.date, float]],
+    marks: list[dict],
+    labelled: set[str] | None,
+    layout: dict | None,
+    w: int,
+    a: int,
+    k: float,
+    band_top: float,
+) -> str:
+    """Cumulative world output over the wait, milestones as dots on it, labels placed greedily
+    in the open space: above-left of the rising line or below-right, never over it."""
+    left, right, bottom = 78 * k, 34 * k, 34 * k
+    band_bot = a - bottom
+    first, last = points[0][0], points[-1][0]
+    span = (last - first).days
+    hi = math.ceil(max(v for _, v in points) / 250e12) * 250e12
+
+    def x(day: dt.date) -> float:
+        return left + (day - first).days / span * (w - left - right)
+
+    def y(v: float) -> float:
+        return band_bot - v / hi * (band_bot - band_top)
+
+    fs = 13 * k
+    axes: list[str] = []
+    step = 250e12
+    tick = 0.0
+    while tick <= hi + 1:
+        ty = y(tick)
+        if tick:
+            axes.append(
+                f'<line class="grid" x1="{left:.1f}" x2="{w - right:.1f}" '
+                f'y1="{ty:.1f}" y2="{ty:.1f}"/>'
+            )
+        axes.append(
+            f'<text class="tick" x="{left - 10 * k:.1f}" y="{ty + fs * 0.35:.1f}" '
+            f'text-anchor="end" font-size="{fs:.1f}">{_trillions(tick) if tick else "$0"}</text>'
+        )
+        tick += step
+    axes.append(
+        f'<line class="axis" x1="{left:.1f}" x2="{w - right:.1f}" '
+        f'y1="{band_bot:.1f}" y2="{band_bot:.1f}"/>'
+    )
+    for year in range(first.year, last.year + 1):
+        day = first if year == first.year else dt.date(year, 1, 1)
+        edge = year in (first.year, last.year)
+        if year == last.year:
+            day = last
+        tx = x(day)
+        crowded = year == first.year + 1 and (day - first).days < 200
+        axes.append(
+            f'<line class="axis" x1="{tx:.1f}" x2="{tx:.1f}" '
+            f'y1="{band_bot:.1f}" y2="{band_bot + 6 * k:.1f}"/>'
+        )
+        if crowded:
+            continue
+        axes.append(
+            f'<text class="tick{" edge" if edge else ""}" x="{tx:.1f}" '
+            f'y="{band_bot + 24 * k:.1f}" text-anchor="{"start" if year == first.year else "end" if year == last.year else "middle"}" '
+            f'font-size="{fs:.1f}">{year if edge else f"’{year % 100:02d}"}</text>'
+        )
+    parts = [f'<svg class="trend" viewBox="0 0 {w} {a}">']
+    for era in ("v", "vi"):
+        parts.append(f'<g class="axes {era}" clip-path="url(#c{era})">{"".join(axes)}</g>')
+    xy = [(x(d), y(v)) for d, v in points]
+    d = " ".join(f"{'M' if i == 0 else 'L'}{px:.1f},{py:.1f}" for i, (px, py) in enumerate(xy))
+    parts.append(f'<path class="halo" d="{d}"/><path class="stroke" d="{d}"/>')
+
+    # Label placement: every rectangle a chip may not touch.
+    def hits_line(r: tuple[float, float, float, float]) -> bool:
+        x0, y0, x1, y1 = r
+        for (ax, ay), (bx, by) in zip(xy, xy[1:], strict=False):
+            if bx < x0 or ax > x1:
+                continue
+            for t in (0.0, 0.25, 0.5, 0.75, 1.0):
+                px, py = ax + (bx - ax) * t, ay + (by - ay) * t
+                if x0 <= px <= x1 and y0 <= py <= y1:
+                    return True
+        return False
+
+    def overlaps(r, others, pad: float) -> bool:
+        return any(
+            r[0] < o[2] + pad and r[2] > o[0] - pad and r[1] < o[3] + pad and r[3] > o[1] - pad
+            for o in others
+        )
+
+    dots = [(x(m["day"]), y(m["value"])) for m in marks]
+    dot_boxes = [(px - 8 * k, py - 8 * k, px + 8 * k, py + 8 * k) for px, py in dots]
+    placed: list[tuple[float, float, float, float]] = []
+    segs: list[tuple[float, float, float, float]] = []
+
+    def crosses(sg, r, pad: float) -> bool:
+        """Does the leader segment sg pass through rectangle r (sampled; leaders are short)?"""
+        ax, ay, bx, by = sg
+        return any(
+            r[0] - pad <= ax + (bx - ax) * t / 24 <= r[2] + pad
+            and r[1] - pad <= ay + (by - ay) * t / 24 <= r[3] + pad
+            for t in range(1, 24)
+        )
+    chips, leaders, glyphs = [], [], []
+    cfs, pad_x, ch = 13 * k, 9 * k, 26 * k
+    # Rockstar's nods go first (they only fit under the line), then the priced chips (the
+    # story beats: black hole, vaccine, ChatGPT, ship catch), then the rest in date order, so
+    # the few that cannot fit are never the headline ones.
+    order = sorted(
+        range(len(marks)),
+        key=lambda i: (not marks[i]["rockstar"], marks[i]["id"] not in WAIT_PRICED, i),
+    )
+    for i in order:
+        m, (px, py) = marks[i], dots[i]
+        rockstar = m["rockstar"]
+        if rockstar:
+            r_, pts = 9 * k, []
+            for j in range(10):
+                ang = -math.pi / 2 + j * math.pi / 5
+                rad = r_ if j % 2 == 0 else r_ * 0.45
+                pts.append(f"{px + rad * math.cos(ang):.1f},{py + rad * math.sin(ang):.1f}")
+            glyphs.append(f'<polygon class="mark rockstar" points="{" ".join(pts)}"/>')
+        else:
+            glyphs.append(f'<circle class="mark" cx="{px:.1f}" cy="{py:.1f}" r="{6 * k:.1f}"/>')
+        if layout is not None:
+            if m["id"] not in layout:
+                continue
+        elif labelled is not None and m["id"] not in labelled:
+            continue
+        text = m["label"] + (f" · {_trillions(m['value'])}" if m["id"] in WAIT_PRICED else "")
+        cw = len(text) * MONO * cfs + 2 * pad_x
+        # Rockstar nods sit under the line; achievements alternate, starting above.
+        sides = ("below",) if rockstar else (("above", "below") if i % 2 == 0 else ("below", "above"))
+        spot = None
+        if layout is not None:
+            side, lead, slide = layout[m["id"]]
+            sides = (side,)
+        for side in sides:
+            leads = (lead,) if layout is not None else (28, 52, 76, 100, 124, 150, 178, 206, 236)
+            for lead in leads:
+                for slide in (slide,) if layout is not None else (0, 40, 90, 150, 220, -40, -90, -150):
+                    lead_k, slide_k = lead * k, slide * k
+                    if side == "above":
+                        x0, y1 = px + 14 * k - cw - slide_k, py - lead_k
+                        y0 = y1 - ch
+                    else:
+                        x0, y0 = px - 14 * k + slide_k, py + lead_k
+                        y1 = y0 + ch
+                    x0 = min(max(x0, left + 4 * k), w - right - cw)
+                    box = (x0, y0, x0 + cw, y1)
+                    seg = (px, py, min(max(px, x0 + 6 * k), x0 + cw - 6 * k), y1 if side == "above" else y0)
+                    clash = (
+                        y0 < band_top - 46 * k
+                        or y1 > band_bot - 6 * k
+                        or abs(seg[2] - seg[0]) > 60 * k  # leaders stay near vertical
+                    )
+                    if layout is not None:
+                        if clash or hits_line(box) or overlaps(box, placed, 4 * k) or any(
+                            crosses(seg, o, 1 * k) for o in placed
+                        ):
+                            print(json.dumps({"chart": "everything-we-made", "collision": m["id"]}), flush=True)
+                        spot = (side, box, seg)
+                        break
+                    if clash:
+                        continue
+                    if (
+                        hits_line(box)
+                        or overlaps(box, placed, 6 * k)
+                        or overlaps(box, dot_boxes, 2 * k)
+                        or any(crosses(sg, box, 3 * k) for sg in segs)
+                        or any(crosses(seg, o, 2 * k) for o in placed)
+                    ):
+                        continue
+                    spot = (side, box, seg)
+                    break
+                if spot:
+                    break
+            if spot:
+                break
+        if spot is None:
+            print(json.dumps({"chart": "everything-we-made", "unlabelled": m["id"]}), flush=True)
+            continue
+        side, (x0, y0, x1, y1), seg = spot
+        placed.append((x0, y0, x1, y1))
+        segs.append(seg)
+        leaders.append(
+            f'<line class="leader" x1="{seg[0]:.1f}" y1="{seg[1]:.1f}" x2="{seg[2]:.1f}" y2="{seg[3]:.1f}"/>'
+        )
+        cls = "chip rockstar" if rockstar else "chip"
+        label = escape(m["label"])
+        if m["id"] in WAIT_PRICED:
+            label += f' <tspan class="price">· {escape(_trillions(m["value"]))}</tspan>'
+        chips.append(
+            f'<g class="{cls}"><rect x="{x0:.1f}" y="{y0:.1f}" width="{cw:.1f}" height="{ch:.1f}" '
+            f'rx="{3 * k:.1f}"/><text x="{x0 + pad_x:.1f}" y="{y0 + ch / 2 + cfs * 0.36:.1f}" '
+            f'font-size="{cfs:.1f}">{label}</text></g>'
+        )
+    parts += leaders + glyphs + chips
+    parts.append(
+        f'<circle class="dot start" cx="{xy[0][0]:.1f}" cy="{xy[0][1]:.1f}" r="{7 * k:.1f}"/>'
+        f'<circle class="dot end" cx="{xy[-1][0]:.1f}" cy="{xy[-1][1]:.1f}" r="{10 * k:.1f}"/>'
+    )
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def wait_card(png: bool) -> dict:
+    """Metric 3, everything humanity made while waiting for GTA 6: the running total of world
+    output from GTA V to GTA 6, with humanity's big moments on the line."""
+    headline = query(["world_output_produced"])[0]["world_output_produced"]
+    months = sorted(
+        query(["world_output_cumulative"], ["metric_time__month"]),
+        key=lambda r: r["metric_time__month"],
+    )
+    milestones = sorted(
+        query(
+            ["wait_milestone_output", "wait_milestone_share", "wait_milestone_days_to_gta_6"],
+            [
+                "milestone__milestone_id",
+                "milestone__event_date",
+                "milestone__chart_label",
+                "milestone__title",
+                "milestone__category",
+                "milestone__tier",
+                "milestone__date_precision",
+                "milestone__source_url",
+            ],
+        ),
+        key=lambda r: (str(r["milestone__event_date__day"]), r["milestone__milestone_id"]),
+    )
+    by_id = {r["milestone__milestone_id"]: r for r in milestones}
+    gta_v, gta_6 = by_id["gta_v"], by_id["gta_6"]
+    start = _day(gta_v["milestone__event_date__day"])
+    end = _day(gta_6["milestone__event_date__day"])
+    last_day = end - dt.timedelta(days=1)
+    days = gta_v["wait_milestone_days_to_gta_6"]
+    # The release-day ticker's rate: the last day of the wait, by the second.
+    rate = query(
+        ["world_output_per_second"],
+        ["world_output_day__output_day"],
+        where=f"{{{{ Dimension('world_output_day__output_day') }}}} = '{last_day}'",
+    )[0]["world_output_per_second"]
+    # Each month's running total is its last day's (a running total is never summed).
+    points = [(start, gta_v["wait_milestone_output"])]
+    for r in months:
+        month = _day(r["metric_time__month"])
+        month_end = (month.replace(day=28) + dt.timedelta(days=4)).replace(day=1) - dt.timedelta(days=1)
+        if r["world_output_cumulative"] is not None and start < month_end < last_day:
+            points.append((month_end, r["world_output_cumulative"]))
+    points.append((last_day, headline))
+    marks = [
+        {
+            "id": r["milestone__milestone_id"],
+            "day": _day(r["milestone__event_date__day"]),
+            "label": r["milestone__chart_label"],
+            "value": r["wait_milestone_output"],
+            "rockstar": r["milestone__category"] == "rockstar",
+        }
+        for r in milestones
+        if r["milestone__tier"] == "hero" and r["wait_milestone_output"] is not None
+    ]
+    for name, ((w, h), (aw, ah), k, band_top, variant, labelled) in WAIT_SIZES.items():
+        layout = WAIT_LAYOUT.get(name)
+        body = f"""    <div class="glowup wait" style="width:{aw}px;height:{ah}px;--k:{k}">
+{_backdrop(aw, ah, k)}
+{_wait_line(points, marks, labelled, layout, aw, ah, k, band_top)}
+      <div class="era v">
+        {_lockup("v")}
+        <div class="num">
+          <div class="when">{start:%d %b %Y}</div>
+          <div class="value">$0</div>
+          <div class="what">made so far</div>
+        </div>
+      </div>
+      <div class="era vi">
+        {_lockup("vi")}
+        <div class="num">
+          <div class="when">{end:%d %b %Y}</div>
+          <div class="value">{days:,}</div>
+          <div class="what">days of waiting</div>
+        </div>
+      </div>
+      <div class="badge">{_money(headline)}</div>
+      <div class="sub">everything the world made while waiting for GTA 6</div>
+    </div>"""
+        for theme_name, theme in THEMES.items():
+            html = GLOWUP_PAGE.format(
+                title="Everything we made",
+                theme=theme,
+                variant=f" {variant}" if variant else "",
+                w=w,
+                h=h,
+                logo=LOGO[theme],
+                body=body,
+                source=WAIT_SOURCE,
+                foot_right=FOOT_RIGHT,
+            )
+            suffix = "" if theme_name == "light" else "-dark"
+            path = CHARTS / f"{name}{suffix}.html"
+            path.write_text(html)
+            if png:
+                capture(path, CHARTS / "png" / f"{name}-{theme_name}.png", w, h)
+    data = {
+        "world_output_produced": headline,
+        "world_output_per_second": rate,
+        "wait_start": str(start),
+        "wait_last_day": str(last_day),
+        "gta_6_release": str(end),
+        "days": days,
+        "months": months,
+        "milestones": milestones,
+    }
+    (CHARTS / "data").mkdir(parents=True, exist_ok=True)
+    (CHARTS / "data" / "everything-we-made.json").write_text(
+        json.dumps(data, indent=1, default=str)
+    )
+    return data
+
+
 def build(png: bool = True) -> dict:
+    wait = wait_card(png)
     productivity = productivity_card(png)
     summary = index_card(png)
     summary["productivity"] = productivity["rows"]
+    summary["wait"] = wait
     return summary
 
 

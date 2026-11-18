@@ -1,10 +1,22 @@
 # GTA 6 vs. Productivity
 
-> An open, reproducible study of world productivity between GTA V and GTA 6, and whether GTA 6 (released 19 November 2026) breaks the streak. Built with Dex.
+> An open, reproducible study of what the world made between GTA V and GTA 6, how much more productive it got, and whether GTA 6 (released 19 November 2026) breaks the streak. Built with Dex.
 
-Updated 2026-11-18. World GDP per person rose +26.3% between GTA V (2013) and GTA 6 (2026). It went up every year except 2020. The combo breaker? US Google searches for skipping work 1–14 Nov 2026 vs 2–15 Nov 2025: Day-Off Index +50.1% (call in sick +40.4% · day off work +73.4% · sick day +36.4%). An open, reproducible study built with Dex. Search interest, not a headcount; association, not causation.
+Updated 2026-11-18. Between GTA V and GTA 6 the world made $1.14 quadrillion of real output in 4,811 days. World GDP per person rose +26.3%. It went up every year except 2020. The combo breaker? US Google searches for skipping work 1–14 Nov 2026 vs 2–15 Nov 2025: Day-Off Index +50.1% (call in sick +40.4% · day off work +73.4% · sick day +36.4%). An open, reproducible study built with Dex. Search interest, not a headcount; association, not causation.
 
 ## Questions
+
+### How much did the world produce between GTA V and GTA 6?
+
+About $1.14 quadrillion of goods and services in real terms (constant 2015 US$), over the 4,811 days from GTA V's release (17 September 2013) to the day before GTA 6 (18 November 2026). In 2026 the world makes about $3.3 million a second, or $282 billion a day. World Bank world GDP; 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world growth forecast.
+
+### Is that in today's dollars?
+
+No. It's real output at 2015 prices (constant 2015 US$), so years compare fairly. In today's prices the figure would be larger. The per-second rate is a yearly average spread evenly; nobody measures GDP by the second.
+
+### Why these milestones?
+
+They're our picks, not a ranking: moments most people remember, each dated to a UTC day and backed by one public source, listed on the scoreboard. Each one reads what the world had made since GTA V by the day before it. For example, First image of a black hole: $435T; First COVID-19 vaccine shot outside a trial: $575T; Starship upper stage caught by the tower: $1,140T.
 
 ### How much more productive did the world get between GTA V and GTA 6?
 
@@ -37,6 +49,7 @@ From public Google Trends data, with a dbt project and a MetricFlow semantic lay
 - [Methodology](https://github.com/exmergo/gta6-productivity-impact/blob/main/docs/methodology.md)
 - [Metric definitions](https://github.com/exmergo/gta6-productivity-impact/blob/main/docs/metrics.md)
 - [Data sources](https://github.com/exmergo/gta6-productivity-impact/blob/main/docs/sources.md)
+- [Everything we made chart data (JSON)](https://exmergo.github.io/gta6-productivity-impact/charts/data/everything-we-made.json)
 - [GTA V to GTA 6 chart data (JSON)](https://exmergo.github.io/gta6-productivity-impact/charts/data/gta-v-to-gta-6.json)
 - [Day-Off Index chart data (JSON)](https://exmergo.github.io/gta6-productivity-impact/charts/data/day-off-index.json)
 - [Dex](https://trydex.ai)

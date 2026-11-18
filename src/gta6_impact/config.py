@@ -76,6 +76,7 @@ GTA_6_YEAR = 2026  # GTA 6: 19 November 2026
 WORLD_BANK_INDICATORS = (
     "SL.GDP.PCAP.EM.KD",  # GDP per person employed, constant 2021 PPP $
     "NY.GDP.PCAP.KD",  # GDP per capita, constant 2015 US$
+    "NY.GDP.MKTP.KD",  # GDP, constant 2015 US$ (Metric 3: everything the world made)
     "SP.POP.GROW",  # population growth, annual %
 )
 IMF_INDICATORS = ("NGDP_RPCH",)  # real GDP growth, annual %

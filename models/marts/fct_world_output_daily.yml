@@ -1,0 +1,93 @@
+version: 2
+models:
+- name: fct_world_output_daily
+  description: 'Metric 3, everything humanity made while waiting for GTA 6: world real output on each UTC day from GTA V''s release to the day before GTA 6''s, and the running total since GTA V. One row per day.'
+  config:
+    meta:
+      dex:
+        grain:
+          - output_day
+        population:
+          rule: 'Every UTC day from var gta_v_date (2013-09-17, GTA V''s release) to the day before var gta_6_date (2026-11-19, GTA 6''s release): 4,811 days.'
+        assumptions:
+          - decision: Which days the wait holds
+            chosen: 2013-09-17 through 2026-11-18, every UTC day
+            evidence: request
+            detail: 'user: bookended by the two releases; GTA 6 unlocks 2026-11-19 00:00 UTC, the site countdown''s moment'
+            column: output_day
+          - decision: What drives the days
+            chosen: a range() of days generated in SQL, not metricflow_time_spine
+            evidence: default
+            detail: the time spine covers 2025-2027 only; widening it would change a model Metric 1 reads
+            column: output_day
+          - decision: Running total across an unavailable day
+            chosen: NULL from that day on
+            evidence: contract
+            detail: 'AGENTS.md: a NULL is unavailable, never zero; a total that skipped a year would understate'
+            column: cumulative_output
+  columns:
+    - name: output_day
+      description: UTC day.
+      config:
+        meta:
+          dex:
+            role: time
+            null_rule: never
+      data_tests:
+        - unique
+        - not_null
+    - name: data_year
+      description: Calendar year of output_day.
+      config:
+        meta:
+          dex:
+            role: dimension
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: daily_output
+      description: World real output on the day, constant 2015 US$ (the year spread evenly).
+      config:
+        meta:
+          dex:
+            role: measure
+            null_rule: NULL when the year's output is unavailable.
+            aggregation: sum
+            additivity: additive
+            unit: currency:USD
+    - name: is_estimate
+      description: True when the day's year is carried by IMF growth.
+      config:
+        meta:
+          dex:
+            role: attribute
+    - name: cumulative_output
+      description: Running total of daily_output from GTA V's release through the day. Never sum it across days.
+      config:
+        meta:
+          dex:
+            role: measure
+            null_rule: 'NULL from the first day with unavailable output on: never a partial total.'
+            aggregation: max
+            additivity: semi_additive
+            unit: currency:USD
+    - name: days_since_gta_v
+      description: 1 on GTA V's release day, 4,811 on 18 Nov 2026.
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+            unit: days
+      data_tests:
+        - not_null
+    - name: days_to_gta_6
+      description: Days left until GTA 6's release day; 1 on 18 Nov 2026.
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+            unit: days
+      data_tests:
+        - not_null

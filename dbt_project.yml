@@ -21,3 +21,5 @@ vars:
   day_off_index_end_week: '2026-11-08'
   day_off_index_weeks: 2
   day_off_index_weeks_back: 52
+  gta_v_date: '2013-09-17'
+  gta_6_date: '2026-11-19'

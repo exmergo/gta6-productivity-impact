@@ -6,13 +6,13 @@ import datetime as dt
 import json
 from html import escape
 
-from gta6_impact.config import ROOT
+from gta6_impact.config import RELEASE_DAY, ROOT
 
 SITE = ROOT / "site"
 REPO = "https://github.com/exmergo/gta6-productivity-impact"
 BASE = "https://exmergo.github.io/gta6-productivity-impact/"
 CARDS = (("day-off-index", "The Day-Off Index and its breakdown"),)
-HERO = "gta-v-to-gta-6"
+HERO = "everything-we-made"
 
 PAGE = """<!doctype html>
 <html lang="en" data-theme="dex-site">
@@ -73,6 +73,10 @@ PAGE = """<!doctype html>
   a {{ color: var(--dex-line); }}
   dl dt {{ font-weight: 700; font-size: 18px; margin-top: 22px; }}
   dl dd {{ margin: 6px 0 0; font-size: 17px; line-height: 1.5; color: var(--dex-ink-muted); max-width: 860px; }}
+  .ticker {{ font: 700 clamp(26px, 5.4vw, 52px) var(--font-mono); letter-spacing: -1px; margin: 28px 0 0; font-variant-numeric: tabular-nums; }}
+  .ticker small {{ display: block; font: 14px var(--font-mono); letter-spacing: 0; color: var(--dex-ink-muted); margin-top: 6px; }}
+  .ticker .since {{ display: block; font-size: .5em; margin-top: 10px; color: var(--dex-line); }}
+  .ticker .since:empty {{ display: none; }}
   footer {{ margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--dex-line-soft); font: 13px var(--font-mono); color: var(--dex-ink-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }}
 </style>
 </head>
@@ -84,7 +88,8 @@ PAGE = """<!doctype html>
 </header>
 <h1>{headline}</h1>
 <p class="lede">{lede}</p>
-<p class="countdown" id="countdown" data-release="2026-11-19T00:00:00Z">{countdown}</p>
+<p class="countdown" id="countdown" data-release="{release}">{countdown}</p>
+{wait}
 {productivity}
 <h2>The combo breaker: people are already planning the day off</h2>
 <p class="lede">Nobody publishes how many people booked that Thursday off. So we measured what
@@ -107,6 +112,8 @@ Wikipedia edits and the recovery curve are next in <a href="{repo}#the-series">t
 cd gta6-productivity-impact
 uv sync
 uv run dbt parse
+uv run dex explore semantic query world_output_produced
+uv run dex explore semantic query wait_milestone_output --group-by milestone__title,milestone__event_date
 uv run dex explore semantic query world_productivity_change_since_gta_v,world_productivity --group-by world_productivity_key__measure,world_productivity_key__data_year
 uv run dex explore semantic query day_off_index --group-by day_off_index_window__breakdown
 uv run dex explore semantic query day_off_index_term_change,day_off_index_term_prior,day_off_index_term_current --group-by day_off_index_term__term</pre>
@@ -117,6 +124,29 @@ uv run dex explore semantic query day_off_index_term_change,day_off_index_term_p
   if (document.documentElement.dataset.theme === 'dex-site-dark') {{
     document.getElementById('logo').src = 'brand/assets/dex-logo-white.png';
     document.querySelectorAll('img[data-dark]').forEach(i => i.src = i.dataset.dark);
+  }}
+  // The ticker: world output since GTA V, at the rate the semantic layer gives for the last
+  // day of the wait. It stops at GTA 6's release; a second line counts on from there.
+  const tk = document.getElementById('wait-ticker');
+  if (tk) {{
+    const total = tk.querySelector('.total'), since = tk.querySelector('.since');
+    const anchor = Date.parse(tk.dataset.anchorTime), release = Date.parse(tk.dataset.release);
+    const base = Number(tk.dataset.anchorTotal), rate = Number(tk.dataset.rate);
+    const fmt = new Intl.NumberFormat('en-US', {{ maximumFractionDigits: 0 }});
+    const draw = () => {{
+      const now = Date.now();
+      const made = base + rate * (Math.min(now, release) - anchor) / 1000;
+      total.textContent = (now >= release ? 'Final: $' : '$') + fmt.format(made);
+      since.textContent = now >= release
+        ? 'Made since GTA 6: $' + fmt.format(rate * (now - release) / 1000) : '';
+    }};
+    draw();
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(draw, 1000);
+    else {{
+      let last = 0;
+      const loop = t => {{ if (t - last > 100) {{ draw(); last = t; }} requestAnimationFrame(loop); }};
+      requestAnimationFrame(loop);
+    }}
   }}
   const el = document.getElementById('countdown');
   const t = Date.parse(el.dataset.release) - Date.now();
@@ -130,6 +160,85 @@ uv run dex explore semantic query day_off_index_term_change,day_off_index_term_p
 </body>
 </html>
 """
+
+
+def _quadrillions(v: float) -> str:
+    return f"${v / 1e15:.2f} quadrillion"
+
+
+def _trillions(v: float) -> str:
+    return f"${v / 1e12:,.0f}T" if v else "$0"
+
+
+def _when(r: dict) -> str:
+    day = str(r["milestone__event_date__day"])[:10]
+    return day[:7] if r.get("milestone__date_precision") == "month" else day
+
+
+def _wait(summary: dict) -> dict | None:
+    """Metric 3's facts, all from the semantic-query rows the chart drew."""
+    wait = summary.get("wait")
+    if not wait or wait.get("world_output_produced") is None:
+        return None
+    rows = wait["milestones"]
+    by_id = {r["milestone__milestone_id"]: r for r in rows}
+    total, rate = wait["world_output_produced"], wait["world_output_per_second"]
+    chart = [r for r in rows if r["milestone__tier"] == "hero"]
+    beats = [
+        by_id[i]["milestone__chart_label"]
+        for i in ("comet_landing", "black_hole_image", "ship_catch")
+        if i in by_id
+    ]
+    return {
+        "total": total,
+        "rate": rate,
+        "per_day": rate * 86400,
+        "days": wait["days"],
+        "start": dt.date.fromisoformat(wait["wait_start"]),
+        "last_day": dt.date.fromisoformat(wait["wait_last_day"]),
+        "release": dt.date.fromisoformat(wait["gta_6_release"]),
+        "rows": rows,
+        "chart": chart,
+        "by_id": by_id,
+        "beats": beats,
+    }
+
+
+def _wait_alt(w: dict) -> str:
+    return (
+        f"Everything humanity made while waiting for GTA 6: {_quadrillions(w['total'])} of real "
+        f"world output from {w['start']:%-d %b %Y} to {w['last_day']:%-d %b %Y}, "
+        f"{w['days']:,} days, with milestones from the comet landing to the Starship catch."
+    )
+
+
+def _wait_section(summary: dict) -> str:
+    """The release-day hook: the ticker, the chart, and every milestone with its source."""
+    w = _wait(summary)
+    if not w:
+        return ""
+    # The ticker counts up through the last day of the wait at that day's rate and lands on
+    # the total at the release moment: anchored at the start of the last day.
+    anchor_total = w["total"] - w["per_day"]
+    release = f"{w['release']}T00:00:00Z"
+    body = "".join(
+        f"<tr><td class='num'>{escape(_when(r))}</td>"
+        f"<td>{escape(r['milestone__title'])}</td>"
+        f"<td class='num'>{_trillions(r['wait_milestone_output']) if r['wait_milestone_output'] is not None else 'n/a'}</td>"
+        f"<td><a href=\"{escape(r['milestone__source_url'])}\">source</a></td></tr>"
+        for r in w["rows"]
+    )
+    alt = _wait_alt(w)
+    return f"""<p class="ticker" id="wait-ticker" data-anchor-total="{anchor_total:.0f}" data-anchor-time="{w['last_day']}T00:00:00Z" data-rate="{w['rate']:.1f}" data-release="{release}"><span class="total">{_quadrillions(w['total'])}</span><span class="since"></span><small>made by the world since GTA V, live at ${w['rate'] / 1e6:.1f} million a second, until GTA 6 (00:00 UTC, {w['release']:%-d %b})</small></p>
+<figure><img src="charts/png/everything-we-made-light.png" data-dark="charts/png/everything-we-made-dark.png" alt="{escape(alt)}"><figcaption>{escape(alt)} · <a href="charts/data/everything-we-made.json">data</a></figcaption></figure>
+<div class="wrap"><table>
+<thead><tr><th class="num">Date (UTC)</th><th>Meanwhile, humanity…</th><th class="num">Made since GTA V</th><th>Source</th></tr></thead>
+<tbody>{body}</tbody>
+</table></div>
+<p class="lede">World real GDP (World Bank WDI, constant 2015 US$), each year spread evenly over its
+days; 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world growth forecast. Each
+milestone reads what the world had made by the day before it. The milestones are our picks, one
+public source each.</p>"""
 
 
 PRODUCTIVITY_MEASURES = (
@@ -208,13 +317,20 @@ def _productivity_section(summary: dict) -> str:
         f"GTA V to GTA 6: world GDP per person ${head['first']:,.0f} in {head['first_year']} "
         f"and ${head['last']:,.0f} in {head['last_year']}, {_pct(head['change'])}"
     )
-    return f"""<figure><img src="charts/png/gta-v-to-gta-6-light.png" data-dark="charts/png/gta-v-to-gta-6-dark.png" alt="{alt}"><figcaption>{alt} · <a href="charts/data/gta-v-to-gta-6.json">data</a></figcaption></figure>
+    bridge = (
+        "And it wasn't just more people making more: each person made more, almost every year."
+        if _wait(summary)
+        else ""
+    )
+    return f"""<h2>The streak: the world got {head['change']:.0f}% more productive while it waited</h2>
+<p class="lede">{escape(bridge)} {escape(_streak_line(summary))}</p>
+<figure><img loading="lazy" src="charts/png/gta-v-to-gta-6-light.png" data-dark="charts/png/gta-v-to-gta-6-dark.png" alt="{alt}"><figcaption>{alt} · <a href="charts/data/gta-v-to-gta-6.json">data</a></figcaption></figure>
 <div class="wrap"><table>
 <thead><tr><th>World, real terms</th><th class="num">2013 (GTA V)</th><th class="num">Latest</th><th class="num">Change</th></tr></thead>
 <tbody>{body}</tbody>
 </table></div>
 <p class="lede">World Bank WDI. 2026 is the World Bank's 2025 figure grown by the IMF's 2026 world
-growth forecast.</p>"""
+growth forecast. GTA 6 comes out on Thursday 19 November 2026. Is it the combo breaker?</p>"""
 
 
 def _pct(value: float | None) -> str:
@@ -263,6 +379,7 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
         ),
     ]
     productivity = _productivity_rows(summary)
+    w = _wait(summary)
     if productivity:
         parts = "; ".join(
             f"{r['label']} {_pct(r['change'])} ({r['first_year']} to {r['last_year']})"
@@ -277,6 +394,37 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
                 "Bank's 2025 figure grown by the IMF's 2026 world growth forecast.",
             ),
         )
+    if w:
+        by = w["by_id"]
+        examples = "; ".join(
+            f"{by[i]['milestone__title']}: {_trillions(by[i]['wait_milestone_output'])}"
+            for i in ("black_hole_image", "covid_vaccine", "ship_catch")
+            if i in by and by[i]["wait_milestone_output"] is not None
+        )
+        faq[0:0] = [
+            (
+                "How much did the world produce between GTA V and GTA 6?",
+                f"About {_quadrillions(w['total'])} of goods and services in real terms "
+                f"(constant 2015 US$), over the {w['days']:,} days from GTA V's release "
+                f"({w['start']:%-d %B %Y}) to the day before GTA 6 ({w['last_day']:%-d %B %Y}). "
+                f"In 2026 the world makes about ${w['rate'] / 1e6:.1f} million a second, or "
+                f"${w['per_day'] / 1e9:,.0f} billion a day. World Bank world GDP; 2026 is the "
+                "World Bank's 2025 figure grown by the IMF's 2026 world growth forecast.",
+            ),
+            (
+                "Is that in today's dollars?",
+                "No. It's real output at 2015 prices (constant 2015 US$), so years compare "
+                "fairly. In today's prices the figure would be larger. The per-second rate is a "
+                "yearly average spread evenly; nobody measures GDP by the second.",
+            ),
+            (
+                "Why these milestones?",
+                "They're our picks, not a ranking: moments most people remember, each dated to "
+                "a UTC day and backed by one public source, listed on the scoreboard. Each one "
+                "reads what the world had made since GTA V by the day before it. "
+                f"For example, {examples}.",
+            ),
+        ]
     return faq
 
 
@@ -297,6 +445,7 @@ def _jsonld(summary: dict, faq: list[tuple[str, str]], description: str) -> str:
             "GTA V",
             "productivity",
             "GDP per person",
+            "world GDP",
             "sick day",
             "call in sick",
             "Google Trends",
@@ -308,7 +457,7 @@ def _jsonld(summary: dict, faq: list[tuple[str, str]], description: str) -> str:
                 "encodingFormat": "application/json",
                 "contentUrl": f"{BASE}charts/data/{name}.json",
             }
-            for name in (HERO, "day-off-index")
+            for name in (HERO, "gta-v-to-gta-6", "day-off-index")
         ],
     }
     graph = [dataset]
@@ -335,7 +484,18 @@ def build_site(summary: dict) -> None:
     index = summary.get("day_off_index")
     streak = _productivity_rows(summary)
     head = streak[0] if streak else None
-    if head and head["change"] is not None:
+    w = _wait(summary)
+    if w:
+        headline = (
+            f"Between GTA V and GTA 6, humanity made <em>{escape(_quadrillions(w['total']))}</em> "
+            "of stuff."
+        )
+        beats = ". ".join(w["beats"])
+        lede = (
+            f"{w['days']:,} days of world output, from {w['start']:%-d %B %Y} to the night "
+            f"before GTA 6. {beats}. Now we play GTA."
+        )
+    elif head and head["change"] is not None:
         headline = (
             f"Between GTA V and GTA 6, the world got <em>{head['change']:.0f}%</em> more "
             "productive."
@@ -370,7 +530,21 @@ def build_site(summary: dict) -> None:
         f"<td class='num'><b>{_pct(index)}</b></td></tr>"
     )
     faq = _faq(summary)
-    if head and head["change"] is not None:
+    if w:
+        og_title = (
+            f"Everything humanity made while waiting for GTA 6: {_quadrillions(w['total'])}"
+        )
+        image_alt = _wait_alt(w)
+        streak_text = (
+            f"Between GTA V and GTA 6 the world made {_quadrillions(w['total'])} of real "
+            f"output in {w['days']:,} days. "
+            + (
+                f"World GDP per person rose {_pct(head['change'])}. {_streak_line(summary)} "
+                if head and head["change"] is not None
+                else ""
+            )
+        )
+    elif head and head["change"] is not None:
         og_title = (
             f"GTA V to GTA 6: the world got {head['change']:.0f}% more productive. "
             "Is GTA 6 the combo breaker?"
@@ -398,6 +572,8 @@ def build_site(summary: dict) -> None:
         headline=headline,
         lede=escape(lede),
         countdown="GTA 6: Thursday 19 November",
+        release=f"{RELEASE_DAY}T00:00:00Z",
+        wait=_wait_section(summary),
         figures=figures,
         day_off_lede=escape(day_off_lede),
         hero=HERO,
@@ -431,8 +607,9 @@ def _crawlers(summary: dict, faq: list[tuple[str, str]], description: str) -> No
     qa = "\n\n".join(f"### {q}\n\n{a}" for q, a in faq)
     (SITE / "llms.txt").write_text(
         "# GTA 6 vs. Productivity\n\n"
-        "> An open, reproducible study of world productivity between GTA V and GTA 6, and "
-        "whether GTA 6 (released 19 November 2026) breaks the streak. Built with Dex.\n\n"
+        "> An open, reproducible study of what the world made between GTA V and GTA 6, how "
+        "much more productive it got, and whether GTA 6 (released 19 November 2026) breaks "
+        "the streak. Built with Dex.\n\n"
         f"Updated {today}. {description} "
         "Search interest, not a headcount; association, not causation.\n\n"
         f"## Questions\n\n{qa}\n\n"
@@ -442,6 +619,7 @@ def _crawlers(summary: dict, faq: list[tuple[str, str]], description: str) -> No
         f"- [Methodology]({REPO}/blob/main/docs/methodology.md)\n"
         f"- [Metric definitions]({REPO}/blob/main/docs/metrics.md)\n"
         f"- [Data sources]({REPO}/blob/main/docs/sources.md)\n"
+        f"- [Everything we made chart data (JSON)]({BASE}charts/data/everything-we-made.json)\n"
         f"- [GTA V to GTA 6 chart data (JSON)]({BASE}charts/data/gta-v-to-gta-6.json)\n"
         f"- [Day-Off Index chart data (JSON)]({BASE}charts/data/day-off-index.json)\n"
         "- [Dex](https://trydex.ai)\n"

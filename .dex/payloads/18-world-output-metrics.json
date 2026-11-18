@@ -1,0 +1,34 @@
+{
+ "definitions": [
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: world_output_produced\nlabel: World output made while waiting for GTA 6\ndescription: 'Metric 3, everything humanity made while waiting for GTA 6. World real output (World Bank\n  NY.GDP.MKTP.KD) made over the days asked for. With no group-by it is the headline: everything made from\n  GTA V''s release (17 Sep 2013) to the day before GTA 6 (18 Nov 2026), 4,811 days. Constant 2015 US$;\n  2026 is an IMF-based estimate; never add cumulative output across days.'\ntype: simple\ntype_params:\n  measure: daily_output\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: world_output_cumulative\nlabel: World output since GTA V, running total\ndescription: Metric 3. Running total of world real output since GTA V's release, as of each day. Group\n  by world_output_day__output_day or metric_time; at week or month grain it reads the period's last day.\n  Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative output across days.\ntype: simple\ntype_params:\n  measure: cumulative_output\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: world_output_per_second\nlabel: World output per second\ndescription: 'Metric 3. The rate the world makes things at: one day''s world real output / 86,400. Only\n  meaningful by day: group by world_output_day__output_day (or metric_time__day). A yearly average spread\n  evenly; nobody measures GDP by the second. Constant 2015 US$; 2026 is an IMF-based estimate; never add\n  cumulative output across days.'\ntype: derived\ntype_params:\n  expr: world_output_produced / 86400\n  metrics:\n  - name: world_output_produced\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: wait_milestone_output\nlabel: World output made by each milestone\ndescription: Metric 3. World real output made since GTA V's release by the day before each milestone.\n  Group by milestone__title and milestone__event_date (milestone__tier = 'hero' for the chart). Milestones\n  are editorial picks, not a ranking. Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative\n  output across days.\ntype: simple\ntype_params:\n  measure: output_by_then\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: wait_milestone_share\nlabel: Share of the wait's output made by each milestone\ndescription: Metric 3. wait_milestone_output over the whole wait's output (0 to 1). Group by milestone.\ntype: simple\ntype_params:\n  measure: share_of_wait_output\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: wait_milestone_days_to_gta_6\nlabel: Days from each milestone to GTA 6\ndescription: Metric 3. Days from the milestone to GTA 6's release day (19 Nov 2026). Group by milestone.\ntype: simple\ntype_params:\n  measure: days_to_gta_6\n"
+  }
+ ]
+}

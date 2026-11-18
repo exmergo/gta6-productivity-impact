@@ -1,0 +1,53 @@
+{
+  "cap": {
+    "elided": 3,
+    "generated": 20,
+    "limit": 20
+  },
+  "complete": true,
+  "connector": "duckdb",
+  "counts": {
+    "caught_downstream": 0,
+    "generated": 20,
+    "killed": 18,
+    "not_run": 0,
+    "rejected": 0,
+    "survived": 2
+  },
+  "downstream": true,
+  "downstream_tests": {
+    "test.gta6_impact.assert_wait_milestones_inside_wait": "05effd9e31618b8a",
+    "test.gta6_impact.assert_world_output_covers_the_wait": "bc962099eacf04ae",
+    "test.gta6_impact.assert_world_output_running_total": "6aa9b4e28bdf05f0",
+    "test.gta6_impact.not_null_fct_wait_milestones_category.b27cead7a1": "d468ef2744f35391",
+    "test.gta6_impact.not_null_fct_wait_milestones_chart_label.34a3d844bb": "5a7718bed78db166",
+    "test.gta6_impact.not_null_fct_wait_milestones_date_precision.14bdcfe3c0": "ac6cebf69fc27125",
+    "test.gta6_impact.not_null_fct_wait_milestones_days_since_gta_v.c27b038c1f": "f4454d03041f52b9",
+    "test.gta6_impact.not_null_fct_wait_milestones_days_to_gta_6.bae4dd9c5d": "93858ee8ffc5d993",
+    "test.gta6_impact.not_null_fct_wait_milestones_event_date.d9b92ae85b": "1bd18d6da02c274f",
+    "test.gta6_impact.not_null_fct_wait_milestones_milestone_id.9d4d5438ea": "ef3425245658ef60",
+    "test.gta6_impact.not_null_fct_wait_milestones_source_url.82bf0cba67": "2d66608065bc8f10",
+    "test.gta6_impact.not_null_fct_wait_milestones_tier.42e5215eaa": "5d76fb9c9799fd4f",
+    "test.gta6_impact.not_null_fct_wait_milestones_title.b63a2971e4": "137fac9b63581aa0",
+    "test.gta6_impact.not_null_fct_world_output_daily_data_year.8e799dc1ae": "2591057465a0c80d",
+    "test.gta6_impact.not_null_fct_world_output_daily_days_since_gta_v.8d01005744": "69e757c96ae97fbd",
+    "test.gta6_impact.not_null_fct_world_output_daily_days_to_gta_6.9010152f02": "bc155c60b184cfe6",
+    "test.gta6_impact.not_null_fct_world_output_daily_output_day.671e23c29b": "4afa1d7df7034f5f",
+    "test.gta6_impact.unique_fct_wait_milestones_milestone_id.6e734adc53": "202e838cea9f8958",
+    "test.gta6_impact.unique_fct_world_output_daily_output_day.9acbd98560": "217b82f3d2414717"
+  },
+  "engine_version": "1.18.0",
+  "equivalence_checked": true,
+  "incremental_counts": null,
+  "incremental_score": null,
+  "model": "int_world_output__yearly",
+  "model_id": "model.gta6_impact.int_world_output__yearly",
+  "not_run": 0,
+  "recorded_at": "2026-11-18T13:38:47+00:00",
+  "score": 0.9,
+  "score_with_downstream": 0.9,
+  "sql_digest": "2a9fad3566c03273",
+  "survivors": 2,
+  "tests_digest": "af1d210962bdf1fe",
+  "unsupported_sites": 0
+}

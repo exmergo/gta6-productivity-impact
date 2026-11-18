@@ -28,6 +28,102 @@
     ]
    },
    {
+    "axis": "volume",
+    "code": "row_count_changed",
+    "identifier": "gta6.raw.economy_indicators",
+    "column": null,
+    "severity": "low",
+    "detail": "gta6.raw.economy_indicators: rows 53 -> 66 (+24.5%)",
+    "exact": true,
+    "data": {
+     "row_count_before": 53,
+     "row_count_after": 66,
+     "change_fraction": 0.2453
+    },
+    "impacted_models": [
+     "fct_world_productivity",
+     "stg_economy__indicators"
+    ],
+    "impacted_metrics": [
+     "world_productivity",
+     "world_productivity_change_since_gta_v"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_added",
+    "identifier": "fct_wait_milestones",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'fct_wait_milestones' has a declaration for the first time since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_wait_milestones",
+     "fields": [
+      "assumptions",
+      "description",
+      "grain",
+      "population"
+     ],
+     "columns": [
+      "category",
+      "chart_label",
+      "date_precision",
+      "days_since_gta_v",
+      "days_to_gta_6",
+      "event_date",
+      "milestone_id",
+      "output_by_then",
+      "share_of_wait_output",
+      "source_url",
+      "tier",
+      "title",
+      "why"
+     ],
+     "path": "models/marts/fct_wait_milestones.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_added",
+    "identifier": "fct_world_output_daily",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'fct_world_output_daily' has a declaration for the first time since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_world_output_daily",
+     "fields": [
+      "assumptions",
+      "description",
+      "grain",
+      "population"
+     ],
+     "columns": [
+      "cumulative_output",
+      "daily_output",
+      "data_year",
+      "days_since_gta_v",
+      "days_to_gta_6",
+      "is_estimate",
+      "output_day"
+     ],
+     "path": "models/marts/fct_world_output_daily.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_output_cumulative",
+     "world_output_per_second",
+     "world_output_produced"
+    ]
+   },
+   {
     "axis": "grain",
     "code": "no_rows",
     "identifier": "gta6.main.stg_trends__interest",
@@ -40,9 +136,207 @@
     },
     "impacted_models": [],
     "impacted_metrics": []
+   },
+   {
+    "axis": "schema",
+    "code": "model_added",
+    "identifier": "fct_wait_milestones",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'fct_wait_milestones' is new since the baseline",
+    "exact": true,
+    "data": {},
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "schema",
+    "code": "model_added",
+    "identifier": "fct_world_output_daily",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'fct_world_output_daily' is new since the baseline",
+    "exact": true,
+    "data": {},
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "schema",
+    "code": "model_added",
+    "identifier": "int_world_output__yearly",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'int_world_output__yearly' is new since the baseline",
+    "exact": true,
+    "data": {},
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "schema",
+    "code": "model_added",
+    "identifier": "wait_milestones",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'wait_milestones' is new since the baseline",
+    "exact": true,
+    "data": {},
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_added",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "metric 'wait_milestone_days_to_gta_6' is new since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "wait_milestone_days_to_gta_6"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_added",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "metric 'wait_milestone_output' is new since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "wait_milestone_output"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_added",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "metric 'wait_milestone_share' is new since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "wait_milestone_share"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_added",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "metric 'world_output_cumulative' is new since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "world_output_cumulative"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_added",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "metric 'world_output_per_second' is new since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "world_output_per_second"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_added",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "metric 'world_output_produced' is new since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "world_output_produced"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_added",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "semantic model 'fct_wait_milestones' is new since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "semantic_model",
+     "name": "fct_wait_milestones"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_added",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "semantic model 'fct_world_output_daily' is new since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "semantic_model",
+     "name": "fct_world_output_daily"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_added",
+    "identifier": "int_world_output__yearly",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'int_world_output__yearly' has a declaration for the first time since the baseline",
+    "exact": true,
+    "data": {
+     "model": "int_world_output__yearly",
+     "fields": [
+      "assumptions",
+      "description",
+      "grain",
+      "population"
+     ],
+     "columns": [
+      "annual_output",
+      "daily_output",
+      "data_year",
+      "days_in_year",
+      "is_estimate",
+      "output_per_second",
+      "source_indicator"
+     ],
+     "path": "models/intermediate/int_world_output__yearly.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
    }
   ],
-  "finding_count": 2,
+  "finding_count": 18,
   "axes_run": [
    "grain",
    "schema",
@@ -51,13 +345,62 @@
   ],
   "axes": {
    "schema": {
-    "run_at": "2026-11-18T06:33:12.089763+00:00",
+    "run_at": "2026-11-18T14:24:13.326781+00:00",
     "scope": null,
-    "findings": [],
-    "finding_count": 0
+    "findings": [
+     {
+      "axis": "schema",
+      "code": "model_added",
+      "identifier": "fct_wait_milestones",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_wait_milestones' is new since the baseline",
+      "exact": true,
+      "data": {},
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "schema",
+      "code": "model_added",
+      "identifier": "fct_world_output_daily",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_world_output_daily' is new since the baseline",
+      "exact": true,
+      "data": {},
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "schema",
+      "code": "model_added",
+      "identifier": "int_world_output__yearly",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'int_world_output__yearly' is new since the baseline",
+      "exact": true,
+      "data": {},
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "schema",
+      "code": "model_added",
+      "identifier": "wait_milestones",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'wait_milestones' is new since the baseline",
+      "exact": true,
+      "data": {},
+      "impacted_models": [],
+      "impacted_metrics": []
+     }
+    ],
+    "finding_count": 4
    },
    "volume": {
-    "run_at": "2026-11-18T06:33:12.089763+00:00",
+    "run_at": "2026-11-18T14:24:13.326781+00:00",
     "scope": null,
     "findings": [
      {
@@ -84,12 +427,34 @@
        "day_off_index_term_current",
        "day_off_index_term_prior"
       ]
+     },
+     {
+      "axis": "volume",
+      "code": "row_count_changed",
+      "identifier": "gta6.raw.economy_indicators",
+      "column": null,
+      "severity": "low",
+      "detail": "gta6.raw.economy_indicators: rows 53 -> 66 (+24.5%)",
+      "exact": true,
+      "data": {
+       "row_count_before": 53,
+       "row_count_after": 66,
+       "change_fraction": 0.2453
+      },
+      "impacted_models": [
+       "fct_world_productivity",
+       "stg_economy__indicators"
+      ],
+      "impacted_metrics": [
+       "world_productivity",
+       "world_productivity_change_since_gta_v"
+      ]
      }
     ],
-    "finding_count": 1
+    "finding_count": 2
    },
    "grain": {
-    "run_at": "2026-11-18T06:33:12.089763+00:00",
+    "run_at": "2026-11-18T14:24:13.326781+00:00",
     "scope": null,
     "findings": [
      {
@@ -110,10 +475,235 @@
     "finding_count": 1
    },
    "semantic": {
-    "run_at": "2026-11-18T06:33:12.089763+00:00",
+    "run_at": "2026-11-18T14:24:13.326781+00:00",
     "scope": null,
-    "findings": [],
-    "finding_count": 0
+    "findings": [
+     {
+      "axis": "semantic",
+      "code": "declaration_added",
+      "identifier": "fct_wait_milestones",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_wait_milestones' has a declaration for the first time since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_wait_milestones",
+       "fields": [
+        "assumptions",
+        "description",
+        "grain",
+        "population"
+       ],
+       "columns": [
+        "category",
+        "chart_label",
+        "date_precision",
+        "days_since_gta_v",
+        "days_to_gta_6",
+        "event_date",
+        "milestone_id",
+        "output_by_then",
+        "share_of_wait_output",
+        "source_url",
+        "tier",
+        "title",
+        "why"
+       ],
+       "path": "models/marts/fct_wait_milestones.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_added",
+      "identifier": "fct_world_output_daily",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_world_output_daily' has a declaration for the first time since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_world_output_daily",
+       "fields": [
+        "assumptions",
+        "description",
+        "grain",
+        "population"
+       ],
+       "columns": [
+        "cumulative_output",
+        "daily_output",
+        "data_year",
+        "days_since_gta_v",
+        "days_to_gta_6",
+        "is_estimate",
+        "output_day"
+       ],
+       "path": "models/marts/fct_world_output_daily.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_output_cumulative",
+       "world_output_per_second",
+       "world_output_produced"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_added",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "metric 'wait_milestone_days_to_gta_6' is new since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "wait_milestone_days_to_gta_6"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_added",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "metric 'wait_milestone_output' is new since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "wait_milestone_output"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_added",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "metric 'wait_milestone_share' is new since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "wait_milestone_share"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_added",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "metric 'world_output_cumulative' is new since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "world_output_cumulative"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_added",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "metric 'world_output_per_second' is new since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "world_output_per_second"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_added",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "metric 'world_output_produced' is new since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "world_output_produced"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_added",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "semantic model 'fct_wait_milestones' is new since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "semantic_model",
+       "name": "fct_wait_milestones"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_added",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "semantic model 'fct_world_output_daily' is new since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "semantic_model",
+       "name": "fct_world_output_daily"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_added",
+      "identifier": "int_world_output__yearly",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'int_world_output__yearly' has a declaration for the first time since the baseline",
+      "exact": true,
+      "data": {
+       "model": "int_world_output__yearly",
+       "fields": [
+        "assumptions",
+        "description",
+        "grain",
+        "population"
+       ],
+       "columns": [
+        "annual_output",
+        "daily_output",
+        "data_year",
+        "days_in_year",
+        "is_estimate",
+        "output_per_second",
+        "source_indicator"
+       ],
+       "path": "models/intermediate/int_world_output__yearly.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     }
+    ],
+    "finding_count": 11
    }
   },
   "baseline": {
@@ -124,7 +714,7 @@
   "declaration_drift": {
    "checked": true,
    "baseline_declared_models": 12,
-   "declared_models": 12
+   "declared_models": 15
   },
   "hint": "run `maintain reconcile [<class>]` for proposed fixes as reviewable diffs"
  },
@@ -143,8 +733,9 @@
   "unit": null
  },
  "warnings": [
-  "1 relation(s) built by this project were not reported as source drift (table_added)",
-  "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline"
+  "5 relation(s) built by this project were not reported as source drift (table_added)",
+  "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline",
+  "this baseline's warehouse side was pinned from an exploration cache captured 27h ago (2026-11-17T10:54:22.532183+00:00), beyond the 24h freshness window; anything created or changed in the warehouse since then is not in it and will report as drift. Run `explore map` first, then `maintain snapshot`, to pin current state"
  ],
  "diffs": [],
  "errors": [],

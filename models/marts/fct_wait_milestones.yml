@@ -1,0 +1,137 @@
+version: 2
+models:
+- name: fct_wait_milestones
+  description: 'Metric 3: the milestones of the wait between GTA V and GTA 6, each with the world real output made since GTA V by the day before it. One row per milestone.'
+  config:
+    meta:
+      dex:
+        grain:
+          - milestone_id
+        population:
+          rule: Every milestone in the wait_milestones seed.
+          parent:
+            model: wait_milestones
+            key:
+              milestone_id: milestone_id
+        assumptions:
+          - decision: Which day a milestone's output is read on
+            chosen: the running total through the day before the event
+            evidence: request
+            detail: 'user: Metric 3 plan; avoids arguing about events late in the UTC day'
+            column: output_by_then
+          - decision: GTA V's own release day
+            chosen: output_by_then = 0, not NULL
+            evidence: request
+            detail: 'user: Metric 3 plan; the day before GTA V lies outside the wait, and nothing has been made since GTA V yet'
+            column: output_by_then
+  columns:
+    - name: milestone_id
+      config:
+        meta:
+          dex:
+            role: key
+            null_rule: never
+      data_tests:
+        - unique
+        - not_null
+    - name: event_date
+      description: UTC day of the event.
+      config:
+        meta:
+          dex:
+            role: time
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: date_precision
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: category
+      config:
+        meta:
+          dex:
+            role: dimension
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: tier
+      description: anchor, hero (on the chart) or long (site table only).
+      config:
+        meta:
+          dex:
+            role: dimension
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: title
+      config:
+        meta:
+          dex:
+            role: dimension
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: chart_label
+      config:
+        meta:
+          dex:
+            role: dimension
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: why
+      config:
+        meta:
+          dex:
+            role: attribute
+    - name: source_url
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: output_by_then
+      description: World real output made from GTA V's release through the day before the event, constant 2015 US$.
+      config:
+        meta:
+          dex:
+            role: measure
+            null_rule: NULL when the event falls outside the wait or the running total is unavailable.
+            aggregation: max
+            additivity: semi_additive
+            unit: currency:USD
+    - name: share_of_wait_output
+      description: 'output_by_then over the whole wait''s output: how far through the wait, in output.'
+      config:
+        meta:
+          dex:
+            role: measure
+            null_rule: NULL when output_by_then is.
+            aggregation: max
+            additivity: non_additive
+            unit: fraction
+    - name: days_since_gta_v
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+            unit: days
+      data_tests:
+        - not_null
+    - name: days_to_gta_6
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+            unit: days
+      data_tests:
+        - not_null

@@ -87,3 +87,58 @@ metrics:
   type: simple
   type_params:
     measure: pct_change_since_gta_v
+
+- name: world_output_produced
+  label: World output made while waiting for GTA 6
+  description: 'Metric 3, everything humanity made while waiting for GTA 6. World real output (World Bank
+    NY.GDP.MKTP.KD) made over the days asked for. With no group-by it is the headline: everything made from
+    GTA V''s release (17 Sep 2013) to the day before GTA 6 (18 Nov 2026), 4,811 days. Constant 2015 US$;
+    2026 is an IMF-based estimate; never add cumulative output across days.'
+  type: simple
+  type_params:
+    measure: daily_output
+
+- name: world_output_cumulative
+  label: World output since GTA V, running total
+  description: Metric 3. Running total of world real output since GTA V's release, as of each day. Group
+    by world_output_day__output_day or metric_time; at week or month grain it reads the period's last day.
+    Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative output across days.
+  type: simple
+  type_params:
+    measure: cumulative_output
+
+- name: world_output_per_second
+  label: World output per second
+  description: 'Metric 3. The rate the world makes things at: one day''s world real output / 86,400. Only
+    meaningful by day: group by world_output_day__output_day (or metric_time__day). A yearly average spread
+    evenly; nobody measures GDP by the second. Constant 2015 US$; 2026 is an IMF-based estimate; never add
+    cumulative output across days.'
+  type: derived
+  type_params:
+    expr: world_output_produced / 86400
+    metrics:
+    - name: world_output_produced
+
+- name: wait_milestone_output
+  label: World output made by each milestone
+  description: Metric 3. World real output made since GTA V's release by the day before each milestone.
+    Group by milestone__title and milestone__event_date (milestone__tier = 'hero' for the chart). Milestones
+    are editorial picks, not a ranking. Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative
+    output across days.
+  type: simple
+  type_params:
+    measure: output_by_then
+
+- name: wait_milestone_share
+  label: Share of the wait's output made by each milestone
+  description: Metric 3. wait_milestone_output over the whole wait's output (0 to 1). Group by milestone.
+  type: simple
+  type_params:
+    measure: share_of_wait_output
+
+- name: wait_milestone_days_to_gta_6
+  label: Days from each milestone to GTA 6
+  description: Metric 3. Days from the milestone to GTA 6's release day (19 Nov 2026). Group by milestone.
+  type: simple
+  type_params:
+    measure: days_to_gta_6

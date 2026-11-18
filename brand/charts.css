@@ -192,3 +192,20 @@ h1 .red { color: var(--dex-redline); }
 .gcard.portrait .glowup .value { font-size: 60px; }
 .gcard.portrait .glowup .era { gap: 14px; }
 .gcard.portrait .glowup .badge { top: 300px; }
+
+/* Metric 3, everything we made: the same glow-up, the running total rising across both eras,
+   humanity's moments as dots with chips; Rockstar's own nods as stars under the line. */
+.glowup.wait .sub { position: absolute; left: 42%; top: calc(124px * var(--k));
+  transform: translateX(-50%); white-space: nowrap; font: 600 calc(14px * var(--k)) var(--font-mono);
+  color: var(--era-white); paint-order: stroke; -webkit-text-stroke: calc(4px * var(--k)) var(--era-ink); }
+.glowup.wait .badge { left: 42%; top: calc(72px * var(--k)); font-size: calc(36px * var(--k)); }
+.glowup .trend .mark { fill: var(--era-white); stroke: var(--era-ink); stroke-width: calc(2.5px * var(--k)); }
+.glowup .trend .mark.rockstar { fill: var(--era-vi-pink); }
+.glowup .trend .leader { stroke: var(--era-ink); stroke-width: calc(1.5px * var(--k)); }
+.glowup .trend .chip rect { fill: var(--era-white); stroke: var(--era-ink); stroke-width: calc(2px * var(--k)); }
+.glowup .trend .chip text { font-family: var(--font-mono); font-weight: 600; fill: var(--era-ink); }
+.glowup .trend .chip .price { font-weight: 400; }
+.glowup .trend .chip.rockstar rect { fill: var(--era-ink); stroke: var(--era-vi-pink); }
+.glowup .trend .chip.rockstar text { fill: var(--era-white); }
+.gcard.portrait .glowup.wait .badge { top: 300px; }
+.gcard.portrait .glowup.wait .sub { top: 362px; font-size: 19px; }

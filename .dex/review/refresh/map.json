@@ -2,9 +2,9 @@
  "status": "ok",
  "data": {
   "cache_path": "./.dex/cache.json",
-  "object_count": 19,
-  "profiled_count": 17,
-  "cache_hit_count": 2,
+  "object_count": 23,
+  "profiled_count": 2,
+  "cache_hit_count": 21,
   "skipped_count": 0,
   "skipped": {
    "count": 0,
@@ -17,29 +17,29 @@
   "out_of_scope_carried_count": 0,
   "dropped_count": 0,
   "carried_relationship_count": 0,
-  "relationship_count": 3,
+  "relationship_count": 5,
   "pii_column_count": 10,
   "data_quality_note_count": 4,
   "top_objects": [
    {
     "identifier": "gta6.raw.trends_interest",
-    "rank_score": 0.7
+    "rank_score": 0.6932
+   },
+   {
+    "identifier": "gta6.main.fct_wait_milestones",
+    "rank_score": 0.678
+   },
+   {
+    "identifier": "gta6.main.fct_world_output_daily",
+    "rank_score": 0.67
    },
    {
     "identifier": "gta6.main.fct_day_off_index",
-    "rank_score": 0.6492
+    "rank_score": 0.6486
    },
    {
-    "identifier": "gta6.main.fct_signal_daily",
-    "rank_score": 0.6051
-   },
-   {
-    "identifier": "gta6.main.dim_date",
-    "rank_score": 0.5779
-   },
-   {
-    "identifier": "gta6.raw.bluesky_daily_hits",
-    "rank_score": 0.5521
+    "identifier": "gta6.main.wait_milestones",
+    "rank_score": 0.608
    }
   ],
   "objects": [
@@ -47,7 +47,7 @@
     "identifier": "gta6.raw.trends_interest",
     "object_type": "table",
     "row_count": 4080,
-    "rank_score": 0.7,
+    "rank_score": 0.6932,
     "profiled_at": "2026-11-18T06:33:10.986704+00:00",
     "grain": null,
     "candidate_key": null,
@@ -77,10 +77,122 @@
     "elided_data_quality_count": 0
    },
    {
+    "identifier": "gta6.main.fct_wait_milestones",
+    "object_type": "table",
+    "row_count": 45,
+    "rank_score": 0.678,
+    "profiled_at": "2026-11-18T13:35:11.500538+00:00",
+    "grain": [
+     "milestone_id"
+    ],
+    "candidate_key": [
+     "milestone_id"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "milestone_id",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "event_date",
+      "data_type": "DATE",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "title",
+      "data_type": "VARCHAR",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "chart_label",
+      "data_type": "VARCHAR",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "why",
+      "data_type": "VARCHAR",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "output_by_then",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "share_of_wait_output",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "days_since_gta_v",
+      "data_type": "BIGINT",
+      "role": "key",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 5,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.fct_world_output_daily",
+    "object_type": "table",
+    "row_count": 4811,
+    "rank_score": 0.67,
+    "profiled_at": "2026-11-18T13:35:11.004099+00:00",
+    "grain": [
+     "output_day"
+    ],
+    "candidate_key": [
+     "output_day"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "output_day",
+      "data_type": "DATE",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "cumulative_output",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "days_since_gta_v",
+      "data_type": "BIGINT",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "days_to_gta_6",
+      "data_type": "BIGINT",
+      "role": "key",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 3,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
     "identifier": "gta6.main.fct_day_off_index",
     "object_type": "table",
     "row_count": 1,
-    "rank_score": 0.6492,
+    "rank_score": 0.6486,
     "profiled_at": "2026-11-18T06:33:09.402649+00:00",
     "grain": [
      "batch_id"
@@ -163,10 +275,60 @@
     "elided_data_quality_count": 0
    },
    {
+    "identifier": "gta6.main.wait_milestones",
+    "object_type": "table",
+    "row_count": 45,
+    "rank_score": 0.608,
+    "profiled_at": "2026-11-18T14:24:12.574655+00:00",
+    "grain": [
+     "milestone_id"
+    ],
+    "candidate_key": [
+     "milestone_id"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "milestone_id",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "event_date",
+      "data_type": "DATE",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "title",
+      "data_type": "VARCHAR",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "chart_label",
+      "data_type": "VARCHAR",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "why",
+      "data_type": "VARCHAR",
+      "role": "key",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 4,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
     "identifier": "gta6.main.fct_signal_daily",
     "object_type": "table",
     "row_count": 872,
-    "rank_score": 0.6051,
+    "rank_score": 0.5995,
     "profiled_at": "2026-11-18T06:33:09.641562+00:00",
     "grain": [
      "signal_day_key"
@@ -201,7 +363,7 @@
     "identifier": "gta6.main.dim_date",
     "object_type": "table",
     "row_count": 457,
-    "rank_score": 0.5779,
+    "rank_score": 0.5729,
     "profiled_at": "2026-11-18T06:33:09.281107+00:00",
     "grain": [
      "date_day"
@@ -236,7 +398,7 @@
     "identifier": "gta6.raw.bluesky_daily_hits",
     "object_type": "table",
     "row_count": 1308,
-    "rank_score": 0.5521,
+    "rank_score": 0.5463,
     "profiled_at": "2026-11-18T06:33:10.664665+00:00",
     "grain": [
      "observed_at"
@@ -262,7 +424,7 @@
     "identifier": "gta6.raw.hn_daily_hits",
     "object_type": "table",
     "row_count": 1308,
-    "rank_score": 0.5521,
+    "rank_score": 0.5463,
     "profiled_at": "2026-11-18T06:33:10.837437+00:00",
     "grain": [
      "observed_at"
@@ -288,7 +450,7 @@
     "identifier": "gta6.raw.wiki_pageviews",
     "object_type": "table",
     "row_count": 436,
-    "rank_score": 0.5059,
+    "rank_score": 0.501,
     "profiled_at": "2026-11-18T06:33:11.071259+00:00",
     "grain": [
      "ts",
@@ -322,7 +484,7 @@
     "identifier": "gta6.main.fct_day_off_index_terms",
     "object_type": "table",
     "row_count": 3,
-    "rank_score": 0.4784,
+    "rank_score": 0.4772,
     "profiled_at": "2026-11-18T06:33:09.527810+00:00",
     "grain": [
      "term"
@@ -375,8 +537,8 @@
     "identifier": "gta6.main.fct_world_productivity",
     "object_type": "table",
     "row_count": 28,
-    "rank_score": 0.4618,
-    "profiled_at": "2026-11-17T10:54:22.687692+00:00",
+    "rank_score": 0.459,
+    "profiled_at": "2026-11-18T14:24:12.451233+00:00",
     "grain": [
      "world_productivity_key"
     ],
@@ -401,7 +563,7 @@
     "identifier": "gta6.main.fct_thursday_lift",
     "object_type": "table",
     "row_count": 26,
-    "rank_score": 0.4587,
+    "rank_score": 0.456,
     "profiled_at": "2026-11-18T06:33:09.761667+00:00",
     "grain": [
      "thursday_lift_key"
@@ -436,7 +598,7 @@
     "identifier": "gta6.main.metricflow_time_spine",
     "object_type": "table",
     "row_count": 1094,
-    "rank_score": 0.4546,
+    "rank_score": 0.4489,
     "profiled_at": "2026-11-18T06:33:09.913293+00:00",
     "grain": [
      "date_day"
@@ -456,6 +618,57 @@
     "elided_column_count": 0,
     "pii_column_count": 0,
     "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.raw.economy_indicators",
+    "object_type": "table",
+    "row_count": 66,
+    "rank_score": 0.4236,
+    "profiled_at": "2026-11-18T13:32:25.601131+00:00",
+    "grain": [
+     "year",
+     "indicator"
+    ],
+    "candidate_key": [
+     "year",
+     "indicator"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "indicator",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "geo",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "location",
+       "confidence": 0.3
+      }
+     },
+     {
+      "name": "year",
+      "data_type": "BIGINT",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "value",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 3,
+    "pii_column_count": 1,
+    "data_quality": [
+     "last_updated is declared VARCHAR but 100% of values match the %Y-%m-%d date format; consider casting with that format"
+    ],
     "elided_data_quality_count": 0
    },
    {
@@ -505,57 +718,6 @@
     "elided_column_count": 5,
     "pii_column_count": 1,
     "data_quality": [],
-    "elided_data_quality_count": 0
-   },
-   {
-    "identifier": "gta6.raw.economy_indicators",
-    "object_type": "table",
-    "row_count": 53,
-    "rank_score": 0.4179,
-    "profiled_at": "2026-11-17T10:52:22.821697+00:00",
-    "grain": [
-     "year",
-     "indicator"
-    ],
-    "candidate_key": [
-     "year",
-     "indicator"
-    ],
-    "semantic_models": [],
-    "columns": [
-     {
-      "name": "indicator",
-      "data_type": "VARCHAR",
-      "role": "grain",
-      "pii": null
-     },
-     {
-      "name": "geo",
-      "data_type": "VARCHAR",
-      "role": null,
-      "pii": {
-       "category": "location",
-       "confidence": 0.3
-      }
-     },
-     {
-      "name": "year",
-      "data_type": "BIGINT",
-      "role": "grain",
-      "pii": null
-     },
-     {
-      "name": "value",
-      "data_type": "DOUBLE",
-      "role": "key",
-      "pii": null
-     }
-    ],
-    "elided_column_count": 3,
-    "pii_column_count": 1,
-    "data_quality": [
-     "last_updated is declared VARCHAR but 100% of values match the %Y-%m-%d date format; consider casting with that format"
-    ],
     "elided_data_quality_count": 0
    },
    {
@@ -746,6 +908,50 @@
      "no candidate key detected; grain unknown"
     ],
     "elided_data_quality_count": 0
+   },
+   {
+    "identifier": "gta6.main.int_world_output__yearly",
+    "object_type": "view",
+    "row_count": 14,
+    "rank_score": 0.25,
+    "profiled_at": "2026-11-18T13:35:10.583835+00:00",
+    "grain": [
+     "data_year"
+    ],
+    "candidate_key": [
+     "data_year"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "data_year",
+      "data_type": "INTEGER",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "annual_output",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "daily_output",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     },
+     {
+      "name": "output_per_second",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 3,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
    }
   ],
   "edges": [
@@ -796,20 +1002,52 @@
     "orphan_fraction": null,
     "declared_by": null,
     "declaration_sources": []
+   },
+   {
+    "from_dataset": "gta6.main.wait_milestones",
+    "from_columns": [
+     "milestone_id"
+    ],
+    "to_dataset": "gta6.main.fct_wait_milestones",
+    "to_columns": [
+     "milestone_id"
+    ],
+    "kind": "inferred",
+    "confidence": 0.65,
+    "verified": false,
+    "orphan_fraction": null,
+    "declared_by": null,
+    "declaration_sources": []
+   },
+   {
+    "from_dataset": "gta6.main.fct_wait_milestones",
+    "from_columns": [
+     "milestone_id"
+    ],
+    "to_dataset": "gta6.main.wait_milestones",
+    "to_columns": [
+     "milestone_id"
+    ],
+    "kind": "inferred",
+    "confidence": 0.65,
+    "verified": false,
+    "orphan_fraction": null,
+    "declared_by": null,
+    "declaration_sources": []
    }
   ],
   "conflicts": [],
   "elided_object_count": 0,
-  "elided_column_count": 106,
+  "elided_column_count": 121,
   "elided_edge_count": 0,
-  "updated_at": "2026-11-18T06:33:09.189824+00:00",
+  "updated_at": "2026-11-18T14:24:12.310294+00:00",
   "notes": [
-   "inference examined 15 id-shaped column(s) across 19 profiled object(s)",
+   "inference examined 17 id-shaped column(s) across 23 profiled object(s)",
    "no declared relationships (dbt project present but unused)",
    "a dbt project is present but unused; pass --use-project to fold its declared joins, grain, and metric definitions into exploration",
-   "reused 2 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
+   "reused 21 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
    "value-overlap join inference not run; pass --infer-by-overlap to probe key-shaped columns whose names matched nothing for measured value containment",
-   "106 column(s) are not described. The default keeps grain, key, join and PII-flagged columns, at most 12 per object; --detail widens the selection to every column, and the per-object cap still binds"
+   "121 column(s) are not described. The default keeps grain, key, join and PII-flagged columns, at most 12 per object; --detail widens the selection to every column, and the per-object cap still binds"
   ]
  },
  "connection": {

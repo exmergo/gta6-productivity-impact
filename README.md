@@ -1,8 +1,8 @@
 # GTA 6 vs. Productivity
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-dark.png">
-  <img alt="Everything that happened before GTA 6: 4,811 days of waiting, from 17 Sep 2013 to 19 Nov 2026, from the comet landing and AlphaGo to ChatGPT, Claude Code and Artemis II, on the running total of world output." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1a60cf5c025f12f24037ad4c1cd53d9ff60e9e26/charts/png/everything-we-made-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/140b4f20c5e3ce35847b11aa59a0819f0dd7a919/charts/png/everything-we-made-dark.png">
+  <img alt="Everything that happened before GTA 6: 4,811 days of waiting, from 17 Sep 2013 to 19 Nov 2026, from the comet landing and AlphaGo to ChatGPT, Claude Code and Artemis II, on the running total of world output." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/140b4f20c5e3ce35847b11aa59a0819f0dd7a919/charts/png/everything-we-made-light.png">
 </picture>
 
 **Between GTA 5 and GTA 6, humanity made $1.14 quadrillion of stuff.** 4,811 days. We landed
@@ -48,8 +48,8 @@ It didn't just make more because there were more of us. Each person made more, t
 ## The streak: GTA 5 to GTA 6
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1f235b8e7a86f2839c966f5a73e7828dea522abc/charts/png/gta-v-to-gta-6-dark.png">
-  <img alt="GTA 5 to GTA 6: world GDP per person $9,811 in 2013 and $12,394 in 2026, +26%, up every year except 2020." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/1f235b8e7a86f2839c966f5a73e7828dea522abc/charts/png/gta-v-to-gta-6-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/140b4f20c5e3ce35847b11aa59a0819f0dd7a919/charts/png/gta-v-to-gta-6-dark.png">
+  <img alt="GTA 5 to GTA 6: world GDP per person $9,811 in 2013 and $12,394 in 2026, +26%, up every year except 2020." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/140b4f20c5e3ce35847b11aa59a0819f0dd7a919/charts/png/gta-v-to-gta-6-light.png">
 </picture>
 
 **Between GTA 5 and GTA 6, the world got 26% more productive.** Thirteen years, two delays and

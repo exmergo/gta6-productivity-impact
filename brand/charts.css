@@ -111,12 +111,14 @@ h1 .red { color: var(--dex-redline); }
 .chart .marker.launch { stroke: var(--dex-ink-faint); }
 .chart .marker-label.launch { fill: var(--dex-ink); }
 
-/* Metric 2 as a glow-up: GTA V's faded 2013 on the left, GTA 6's sunset on the right,
-   one diagonal cut, the logos as lockups, the whole path as one line across both. */
-.glowup { position: relative; display: flex; flex-direction: column; overflow: hidden;
-  font-family: var(--font-sans); background: var(--era-ink); --k: 1; }
-.glowup.portrait { --k: 1.6; }
-.glowup .art { position: relative; flex: 1; overflow: hidden; }
+/* Metric 2 as a glow-up inside the Dex frame: GTA V's faded 2013 on the left, GTA 6's
+   sunset on the right, one diagonal cut, logo and number side by side, the line below. */
+.card.frame { padding: 28px 36px 20px; }
+.card.frame .main { padding-top: 14px; }
+.card.frame.portrait { padding: 36px 40px 26px; }
+.card.frame.portrait .main { padding-top: 18px; }
+.glowup { position: relative; overflow: hidden; font-family: var(--font-sans);
+  background: var(--era-ink); outline: 1px solid var(--dex-ink); --k: 1; }
 .glowup .backdrop, .glowup .trend { position: absolute; inset: 0; width: 100%; height: 100%; }
 .glowup .s-v-sky { stop-color: var(--era-v-sky); }
 .glowup .s-v-haze { stop-color: var(--era-v-haze); }
@@ -125,15 +127,21 @@ h1 .red { color: var(--dex-redline); }
 .glowup .s-vi-pink { stop-color: var(--era-vi-pink); }
 .glowup .s-vi-gold { stop-color: var(--era-vi-gold); }
 .glowup .v-sun { fill: var(--era-v-haze); opacity: .9; }
-.glowup .v-city { fill: var(--era-v-sage); opacity: .45; }
-.glowup .vi-city { fill: var(--era-vi-deep); opacity: .75; }
-.glowup .trunk { fill: none; stroke-linecap: round; stroke-width: calc(8px * var(--k)); }
-.glowup g.v-palm { stroke: var(--era-v-deep); fill: var(--era-v-deep); opacity: .38; }
-.glowup g.vi-palm { stroke: var(--era-vi-deep); fill: var(--era-vi-deep); opacity: .9; }
+.glowup .v-city { fill: var(--era-v-sage); opacity: .35; }
+.glowup .vi-city { fill: var(--era-vi-deep); opacity: .55; }
+.glowup .trunk { fill: none; stroke-linecap: round; stroke-width: calc(7px * var(--k)); }
+.glowup g.v-palm { stroke: var(--era-v-deep); fill: var(--era-v-deep); opacity: .28; }
+.glowup g.vi-palm { stroke: var(--era-vi-deep); fill: var(--era-vi-deep); opacity: .6; }
 .glowup .leaf { stroke: none; }
 .glowup .v-grain { fill: var(--era-v-haze); opacity: .18; mix-blend-mode: screen; }
-.glowup .seam { stroke: var(--era-ink); stroke-width: calc(12px * var(--k)); }
+.glowup .seam { stroke: var(--era-ink); stroke-width: calc(10px * var(--k)); }
 
+/* The chart: quiet axes in the art's own ink, the line in white on an ink halo. */
+.glowup .trend .grid { stroke: var(--era-ink); stroke-opacity: .22; stroke-width: 1;
+  stroke-dasharray: 2 5; }
+.glowup .trend .axis { stroke: var(--era-ink); stroke-opacity: .55; stroke-width: calc(1.5px * var(--k)); }
+.glowup .trend .tick { font-family: var(--font-mono); fill: var(--era-ink); fill-opacity: .75; }
+.glowup .trend .tick.edge { fill-opacity: 1; font-weight: 600; }
 .glowup .trend .halo { fill: none; stroke: var(--era-ink); stroke-width: calc(9px * var(--k));
   stroke-linejoin: round; stroke-linecap: round; }
 .glowup .trend .stroke { fill: none; stroke: var(--era-white); stroke-width: calc(4px * var(--k));
@@ -141,43 +149,35 @@ h1 .red { color: var(--dex-redline); }
 .glowup .trend .dot { stroke: var(--era-ink); stroke-width: calc(3px * var(--k)); }
 .glowup .trend .dot.start { fill: var(--era-v-sky); }
 .glowup .trend .dot.end { fill: var(--era-vi-gold); }
-.glowup .trend .yr { font-family: var(--font-mono); fill: var(--era-white); paint-order: stroke;
-  stroke: var(--era-ink); stroke-width: calc(4px * var(--k)); stroke-linejoin: round; }
 
-.glowup .era { position: absolute; top: calc(22px * var(--k)); width: 44%;
-  display: flex; flex-direction: column; }
-.glowup .era.v { left: calc(40px * var(--k)); align-items: flex-start; }
-.glowup .era.vi { right: calc(40px * var(--k)); align-items: flex-end; text-align: right; }
-.glowup .gamelogo { height: calc(150px * var(--k)); width: auto;
-  filter: drop-shadow(0 calc(4px * var(--k)) 0 color-mix(in srgb, var(--era-ink) 45%, transparent)); }
-.glowup .gamelogo.text { font-size: calc(64px * var(--k)); font-weight: 700; color: var(--era-white);
+/* Logo and number side by side at the top of each half; 6 mirrors V. */
+.glowup .era { position: absolute; top: calc(18px * var(--k)); display: flex; align-items: center;
+  gap: calc(16px * var(--k)); }
+.glowup .era.v { left: calc(22px * var(--k)); }
+.glowup .era.vi { right: calc(22px * var(--k)); flex-direction: row-reverse; text-align: right; }
+.glowup .era.vi .num { align-items: flex-end; }
+.glowup .num { display: flex; flex-direction: column; align-items: flex-start; }
+.glowup .gamelogo { height: calc(108px * var(--k)); width: auto;
+  filter: drop-shadow(0 calc(3px * var(--k)) 0 color-mix(in srgb, var(--era-ink) 45%, transparent)); }
+.glowup .gamelogo.text { font-size: calc(48px * var(--k)); font-weight: 700; color: var(--era-white);
   -webkit-text-stroke: calc(6px * var(--k)) var(--era-ink); paint-order: stroke fill; line-height: 1; }
-.glowup .when { margin-top: calc(14px * var(--k)); padding: 2px calc(10px * var(--k));
-  font: calc(15px * var(--k)) var(--font-mono); letter-spacing: 2px;
-  background: var(--era-ink); color: var(--era-white); }
-.glowup .value { margin-top: calc(6px * var(--k)); font-size: calc(76px * var(--k)); font-weight: 700;
-  line-height: 1; letter-spacing: calc(-2px * var(--k)); color: var(--era-white);
-  -webkit-text-stroke: calc(8px * var(--k)) var(--era-ink); paint-order: stroke fill; }
-.glowup .what { margin-top: calc(6px * var(--k)); font: 600 calc(15px * var(--k)) var(--font-mono);
+.glowup .when { padding: 1px calc(8px * var(--k)); font: calc(13px * var(--k)) var(--font-mono);
+  letter-spacing: 2px; background: var(--era-ink); color: var(--era-white); }
+.glowup .value { margin-top: calc(4px * var(--k)); font-size: calc(54px * var(--k)); font-weight: 700;
+  line-height: 1; letter-spacing: calc(-1.5px * var(--k)); color: var(--era-white);
+  -webkit-text-stroke: calc(7px * var(--k)) var(--era-ink); paint-order: stroke fill; }
+.glowup .what { margin-top: calc(4px * var(--k)); font: 600 calc(13px * var(--k)) var(--font-mono);
   color: var(--era-white); paint-order: stroke; -webkit-text-stroke: calc(4px * var(--k)) var(--era-ink); }
 
-.glowup .badge { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%) rotate(-7deg);
-  padding: calc(4px * var(--k)) calc(18px * var(--k)); font-size: calc(58px * var(--k)); font-weight: 700;
-  letter-spacing: calc(-1.5px * var(--k)); color: var(--era-ink); background: var(--era-white);
-  border: calc(4px * var(--k)) solid var(--era-ink);
-  box-shadow: calc(7px * var(--k)) calc(7px * var(--k)) 0 var(--era-vi-pink); }
+.glowup .badge { position: absolute; left: 50%; top: calc(66px * var(--k));
+  transform: translate(-50%, -50%) rotate(-7deg);
+  padding: calc(2px * var(--k)) calc(14px * var(--k)); font-size: calc(44px * var(--k)); font-weight: 700;
+  letter-spacing: calc(-1px * var(--k)); color: var(--era-ink); background: var(--era-white);
+  border: calc(3px * var(--k)) solid var(--era-ink);
+  box-shadow: calc(6px * var(--k)) calc(6px * var(--k)) 0 var(--era-vi-pink); }
 
-.glowup .gfoot { display: flex; align-items: center; gap: 22px; padding: 0 calc(40px * var(--k));
-  height: calc(54px * var(--k) * .74 + 14px); background: var(--dex-paper); color: var(--dex-ink);
-  font: calc(13px * var(--k) * .85 + 2px) var(--font-mono); }
-.glowup .gfoot .dexlogo { height: calc(22px * var(--k) * .8 + 4px); width: auto; }
-.glowup .gfoot span:last-child { margin-left: auto; }
-.glowup .gfoot b { font-weight: 400; }
-
-/* Portrait: smaller numbers so 2026's clears the cut; the badge drops between them and the line. */
-.glowup.portrait .value { font-size: 104px; letter-spacing: -3px; -webkit-text-stroke-width: 10px; }
-.glowup.portrait .badge { top: 47%; }
-.glowup.portrait .gfoot { display: grid; grid-template-columns: auto 1fr; column-gap: 24px;
-  row-gap: 2px; align-content: center; font-size: 15px; }
-.glowup.portrait .gfoot .dexlogo { grid-row: 1 / 3; }
-.glowup.portrait .gfoot span:last-child { margin-left: 0; }
+/* Portrait: logo and number still side by side, a little tighter so each fits its half. */
+.card.frame.portrait .glowup .gamelogo { height: 118px; }
+.card.frame.portrait .glowup .value { font-size: 60px; }
+.card.frame.portrait .glowup .era { gap: 14px; }
+.card.frame.portrait .glowup .badge { top: 300px; }

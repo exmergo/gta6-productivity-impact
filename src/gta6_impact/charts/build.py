@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import math
 from html import escape
 
 from gta6_impact.charts.capture import capture
@@ -212,38 +213,6 @@ GAME_LOGOS = {
     "vi": ("gta-6-logo.svg", "GTA 6"),
 }
 
-GLOWUP_PAGE = """<!doctype html>
-<html lang="en" data-theme="{theme}">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title>
-<link rel="stylesheet" href="../brand/dex-site.css">
-<link rel="stylesheet" href="../brand/charts.css">
-<script>
-  const t = new URLSearchParams(location.search).get('theme');
-  if (t === 'dark') document.documentElement.dataset.theme = 'dex-site-dark';
-</script>
-</head>
-<body>
-<div class="glowup{variant}" style="width:{w}px;height:{h}px">
-  <div class="art">
-{art}
-  </div>
-  <div class="gfoot">
-    <img class="dexlogo" alt="Dex" src="../brand/assets/{logo}">
-    <span>{source}</span><span>{foot_right}</span>
-  </div>
-</div>
-<script>
-  if (document.documentElement.dataset.theme === 'dex-site-dark') {{
-    document.querySelector('.dexlogo').src = '../brand/assets/dex-logo-white.png';
-  }}
-</script>
-</body>
-</html>
-"""
-
 # A skyline as (width, height) steps, read left to right; reused, mirrored, on both halves.
 SKYLINE = [
     (26, 40),
@@ -318,7 +287,7 @@ def _backdrop(w: int, a: int, k: float) -> str:
         f'height="{sun_r * g:.1f}" fill="black"/>'
         for f, g in ((0.18, 0.06), (0.36, 0.09), (0.56, 0.12), (0.78, 0.15))
     )
-    base = a * 0.80
+    base = a + 2
     return f"""    <svg class="backdrop" viewBox="0 0 {w} {a}" preserveAspectRatio="none">
       <defs>
         <linearGradient id="gv" x1="0" y1="0" x2="0" y2="1">
@@ -353,35 +322,57 @@ def _backdrop(w: int, a: int, k: float) -> str:
     </svg>"""
 
 
-def _glowup_line(points: list[tuple[int, float]], w: int, a: int, k: float) -> str:
-    """The whole 2013 to 2026 path as one line across both eras: no axes, three labels."""
-    pad, band_top, band_bot = 56 * k, a * 0.66, a * 0.93
+def _glowup_line(points: list[tuple[int, float]], w: int, a: int, k: float, band_top: float) -> str:
+    """World GDP per person 2013 to 2026 across both eras, on quiet dollar and year axes."""
+    left, right, bottom = 70 * k, 30 * k, 34 * k
+    band_bot = a - bottom
     first, last = points[0][0], points[-1][0]
-    top = max(v for _, v in points)
+    lo = math.floor(min(v for _, v in points) / 500) * 500
+    hi = math.ceil(max(v for _, v in points) / 500) * 500
 
     def x(year: int) -> float:
-        return pad + (year - first) / (last - first) * (w - 2 * pad)
+        return left + (year - first) / (last - first) * (w - left - right)
 
     def y(v: float) -> float:
-        return band_bot - v / top * (band_bot - band_top)
+        return band_bot - (v - lo) / (hi - lo) * (band_bot - band_top)
 
-    d = " ".join(
-        f"{'M' if i == 0 else 'L'}{x(a_):.1f},{y(b):.1f}" for i, (a_, b) in enumerate(points)
+    fs = 13 * k
+    parts = [f'<svg class="trend" viewBox="0 0 {w} {a}">']
+    step = 1000 if hi - lo > 1500 else 500
+    for tick in range(math.ceil((lo + 1) / step) * step, hi + 1, step):
+        ty = y(tick)
+        parts.append(
+            f'<line class="grid" x1="{left:.1f}" x2="{w - right:.1f}" '
+            f'y1="{ty:.1f}" y2="{ty:.1f}"/>'
+            f'<text class="tick" x="{left - 10 * k:.1f}" y="{ty + fs * 0.35:.1f}" '
+            f'text-anchor="end" font-size="{fs:.1f}">${tick / 1000:g}k</text>'
+        )
+    parts.append(
+        f'<line class="axis" x1="{left:.1f}" x2="{w - right:.1f}" '
+        f'y1="{band_bot:.1f}" y2="{band_bot:.1f}"/>'
     )
-    dip = min(points[1:-1], key=lambda p: p[1] - (p[0] - first) * top / (last - first))
-    fs = 15 * k
-    return f"""    <svg class="trend" viewBox="0 0 {w} {a}">
-      <path class="halo" d="{d}"/>
-      <path class="stroke" d="{d}"/>
-      <circle class="dot start" cx="{x(first):.1f}" cy="{y(points[0][1]):.1f}" r="{7 * k:.1f}"/>
-      <circle class="dot end" cx="{x(last):.1f}" cy="{y(points[-1][1]):.1f}" r="{10 * k:.1f}"/>
-      <text class="yr" x="{x(first):.1f}" y="{band_bot + 26 * k:.1f}"
-        font-size="{fs:.1f}">{first}</text>
-      <text class="yr" x="{x(dip[0]):.1f}" y="{y(dip[1]) + 30 * k:.1f}" text-anchor="middle"
-        font-size="{fs:.1f}">{dip[0]}</text>
-      <text class="yr" x="{x(last):.1f}" y="{band_bot + 26 * k:.1f}" text-anchor="end"
-        font-size="{fs:.1f}">{last}</text>
-    </svg>"""
+    for year, _ in points:
+        tx = x(year)
+        edge = year in (first, last)
+        parts.append(
+            f'<line class="axis" x1="{tx:.1f}" x2="{tx:.1f}" '
+            f'y1="{band_bot:.1f}" y2="{band_bot + 6 * k:.1f}"/>'
+            f'<text class="tick{" edge" if edge else ""}" x="{tx:.1f}" '
+            f'y="{band_bot + 24 * k:.1f}" text-anchor="middle" '
+            f'font-size="{fs:.1f}">{year if edge else f"’{year % 100:02d}"}</text>'
+        )
+    d = " ".join(
+        f"{'M' if i == 0 else 'L'}{x(yr):.1f},{y(v):.1f}" for i, (yr, v) in enumerate(points)
+    )
+    parts.append(f'<path class="halo" d="{d}"/><path class="stroke" d="{d}"/>')
+    parts.append(
+        f'<circle class="dot start" cx="{x(first):.1f}" cy="{y(points[0][1]):.1f}" '
+        f'r="{7 * k:.1f}"/>'
+        f'<circle class="dot end" cx="{x(last):.1f}" cy="{y(points[-1][1]):.1f}" '
+        f'r="{10 * k:.1f}"/>'
+    )
+    parts.append("</svg>")
+    return "".join(parts)
 
 
 def _lockup(era: str) -> str:
@@ -391,29 +382,16 @@ def _lockup(era: str) -> str:
     return f'<div class="gamelogo text">{text}</div>'
 
 
-def _glowup_write(name: str, *, art: str, w: int, h: int, variant: str, png: bool) -> None:
-    CHARTS.mkdir(exist_ok=True)
-    for theme_name, theme in THEMES.items():
-        html = GLOWUP_PAGE.format(
-            theme=theme,
-            variant=f" {variant}" if variant else "",
-            title="GTA V to GTA 6",
-            w=w,
-            h=h,
-            logo=LOGO[theme],
-            art=art,
-            source=PRODUCTIVITY_SOURCE,
-            foot_right=FOOT_RIGHT,
-        )
-        suffix = "" if theme_name == "light" else "-dark"
-        path = CHARTS / f"{name}{suffix}.html"
-        path.write_text(html)
-        if png:
-            capture(path, CHARTS / "png" / f"{name}-{theme_name}.png", w, h)
+# Per size: card (w, h), the art panel inside the Dex frame (w, h), scale, and where the
+# chart starts below the logo row. Panel sizes match the frame's padding in charts.css.
+GLOWUP_SIZES = {
+    "gta-v-to-gta-6": ((1200, 630), (1128, 478), 1.0, 150, ""),
+    "gta-v-to-gta-6-portrait": ((1080, 1350), (1000, 1160), 1.45, 400, "portrait"),
+}
 
 
 def productivity_card(png: bool) -> dict:
-    """Metric 2, GTA V to GTA 6, as a glow-up: 2013 on the left, 2026 on the right."""
+    """Metric 2, GTA V to GTA 6, as a glow-up inside the Dex frame: 2013 left, 2026 right."""
     # Sorted, so the committed chart data does not churn on every refresh.
     rows = sorted(
         query(
@@ -425,10 +403,6 @@ def productivity_card(png: bool) -> dict:
             r["world_productivity_key__data_year"],
         ),
     )
-    (CHARTS / "data").mkdir(parents=True, exist_ok=True)
-    (CHARTS / "data" / "gta-v-to-gta-6.json").write_text(
-        json.dumps({"rows": rows}, indent=1, default=str)
-    )
     person = [
         r
         for r in rows
@@ -437,32 +411,40 @@ def productivity_card(png: bool) -> dict:
     ]
     start, end = person[0], person[-1]
     change = end["world_productivity_change_since_gta_v"]
-    points = [
-        (r["world_productivity_key__data_year"], r["world_productivity_change_since_gta_v"])
-        for r in person
-    ]
-    sizes = {
-        "gta-v-to-gta-6": (1200, 630, 54, 1.0, ""),
-        "gta-v-to-gta-6-portrait": (1080, 1350, 64, 1.6, "portrait"),
-    }
-    for name, (w, h, foot, k, variant) in sizes.items():
-        a = h - foot
-        art = f"""{_backdrop(w, a, k)}
-{_glowup_line(points, w, a, k)}
-    <div class="era v">
-      {_lockup("v")}
-      <div class="when">{start["world_productivity_key__data_year"]}</div>
-      <div class="value">${start["world_productivity"]:,.0f}</div>
-      <div class="what">world GDP per person</div>
-    </div>
-    <div class="era vi">
-      {_lockup("vi")}
-      <div class="when">{end["world_productivity_key__data_year"]}</div>
-      <div class="value">${end["world_productivity"]:,.0f}</div>
-      <div class="what">world GDP per person</div>
-    </div>
-    <div class="badge">{f"{change:+.0f}%" if change is not None else "n/a"}</div>"""
-        _glowup_write(name, art=art, w=w, h=h, variant=variant, png=png)
+    points = [(r["world_productivity_key__data_year"], r["world_productivity"]) for r in person]
+    for name, ((w, h), (aw, ah), k, band_top, variant) in GLOWUP_SIZES.items():
+        body = f"""    <div class="glowup" style="width:{aw}px;height:{ah}px;--k:{k}">
+{_backdrop(aw, ah, k)}
+{_glowup_line(points, aw, ah, k, band_top)}
+      <div class="era v">
+        {_lockup("v")}
+        <div class="num">
+          <div class="when">{start["world_productivity_key__data_year"]}</div>
+          <div class="value">${start["world_productivity"]:,.0f}</div>
+          <div class="what">world GDP per person</div>
+        </div>
+      </div>
+      <div class="era vi">
+        {_lockup("vi")}
+        <div class="num">
+          <div class="when">{end["world_productivity_key__data_year"]}</div>
+          <div class="value">${end["world_productivity"]:,.0f}</div>
+          <div class="what">world GDP per person</div>
+        </div>
+      </div>
+      <div class="badge">{f"{change:+.0f}%" if change is not None else "n/a"}</div>
+    </div>"""
+        _write(
+            name,
+            title="GTA V to GTA 6",
+            body=body,
+            source=PRODUCTIVITY_SOURCE,
+            w=w,
+            h=h,
+            data={"rows": rows},
+            png=png,
+            variant=f"frame {variant}".strip(),
+        )
     return {"rows": rows}
 
 

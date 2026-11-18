@@ -111,14 +111,20 @@ h1 .red { color: var(--dex-redline); }
 .chart .marker.launch { stroke: var(--dex-ink-faint); }
 .chart .marker-label.launch { fill: var(--dex-ink); }
 
-/* Metric 2 as a glow-up inside the Dex frame: GTA V's faded 2013 on the left, GTA 6's
-   sunset on the right, one diagonal cut, logo and number side by side, the line below. */
-.card.frame { padding: 28px 36px 20px; }
-.card.frame .main { padding-top: 14px; }
-.card.frame.portrait { padding: 36px 40px 26px; }
-.card.frame.portrait .main { padding-top: 18px; }
-.glowup { position: relative; overflow: hidden; font-family: var(--font-sans);
-  background: var(--era-ink); outline: 1px solid var(--dex-ink); --k: 1; }
+/* Metric 2 as a glow-up: GTA V's faded 2013 on the left, GTA 6's sunset on the right,
+   one diagonal cut, logo and number side by side, the line below, the Dex strip under it. */
+.gcard { display: flex; flex-direction: column; overflow: hidden; background: var(--dex-paper); }
+.glowup { position: relative; flex: none; overflow: hidden; font-family: var(--font-sans);
+  background: var(--era-ink); --k: 1; }
+.gfoot { display: flex; align-items: center; gap: 22px; flex: 1; padding: 0 40px;
+  background: var(--dex-paper); color: var(--dex-ink); font: 13px var(--font-mono); }
+.gfoot .dexlogo { height: 22px; width: auto; }
+.gfoot span:last-child { margin-left: auto; }
+.gfoot b { font-weight: 400; }
+.gcard.portrait .gfoot { display: grid; grid-template-columns: auto 1fr; column-gap: 26px;
+  row-gap: 4px; align-content: center; padding: 0 48px; font-size: 16px; }
+.gcard.portrait .gfoot .dexlogo { grid-row: 1 / 3; height: 30px; }
+.gcard.portrait .gfoot span:last-child { margin-left: 0; }
 .glowup .backdrop, .glowup .trend { position: absolute; inset: 0; width: 100%; height: 100%; }
 .glowup .s-v-sky { stop-color: var(--era-v-sky); }
 .glowup .s-v-haze { stop-color: var(--era-v-haze); }
@@ -142,6 +148,11 @@ h1 .red { color: var(--dex-redline); }
 .glowup .trend .axis { stroke: var(--era-ink); stroke-opacity: .55; stroke-width: calc(1.5px * var(--k)); }
 .glowup .trend .tick { font-family: var(--font-mono); fill: var(--era-ink); fill-opacity: .75; }
 .glowup .trend .tick.edge { fill-opacity: 1; font-weight: 600; }
+.glowup .trend .axes.vi .grid, .glowup .trend .axes.vi .axis { stroke: var(--era-white); }
+.glowup .trend .axes.vi .grid { stroke-opacity: .3; }
+.glowup .trend .axes.vi .axis { stroke-opacity: .7; }
+.glowup .trend .axes.vi .tick { fill: var(--era-white); fill-opacity: .85; }
+.glowup .trend .axes.vi .tick.edge { fill-opacity: 1; }
 .glowup .trend .halo { fill: none; stroke: var(--era-ink); stroke-width: calc(9px * var(--k));
   stroke-linejoin: round; stroke-linecap: round; }
 .glowup .trend .stroke { fill: none; stroke: var(--era-white); stroke-width: calc(4px * var(--k));
@@ -177,7 +188,7 @@ h1 .red { color: var(--dex-redline); }
   box-shadow: calc(6px * var(--k)) calc(6px * var(--k)) 0 var(--era-vi-pink); }
 
 /* Portrait: logo and number still side by side, a little tighter so each fits its half. */
-.card.frame.portrait .glowup .gamelogo { height: 118px; }
-.card.frame.portrait .glowup .value { font-size: 60px; }
-.card.frame.portrait .glowup .era { gap: 14px; }
-.card.frame.portrait .glowup .badge { top: 300px; }
+.gcard.portrait .glowup .gamelogo { height: 118px; }
+.gcard.portrait .glowup .value { font-size: 60px; }
+.gcard.portrait .glowup .era { gap: 14px; }
+.gcard.portrait .glowup .badge { top: 300px; }

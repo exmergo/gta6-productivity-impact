@@ -213,6 +213,36 @@ GAME_LOGOS = {
     "vi": ("gta-6-logo.svg", "GTA 6"),
 }
 
+GLOWUP_PAGE = """<!doctype html>
+<html lang="en" data-theme="{theme}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTA V to GTA 6</title>
+<link rel="stylesheet" href="../brand/dex-site.css">
+<link rel="stylesheet" href="../brand/charts.css">
+<script>
+  const t = new URLSearchParams(location.search).get('theme');
+  if (t === 'dark') document.documentElement.dataset.theme = 'dex-site-dark';
+</script>
+</head>
+<body>
+<div class="gcard{variant}" style="width:{w}px;height:{h}px">
+{body}
+  <div class="gfoot">
+    <img class="dexlogo" alt="Dex" src="../brand/assets/{logo}">
+    <span>{source}</span><span>{foot_right}</span>
+  </div>
+</div>
+<script>
+  if (document.documentElement.dataset.theme === 'dex-site-dark') {{
+    document.querySelector('.dexlogo').src = '../brand/assets/dex-logo-white.png';
+  }}
+</script>
+</body>
+</html>
+"""
+
 # A skyline as (width, height) steps, read left to right; reused, mirrored, on both halves.
 SKYLINE = [
     (26, 40),
@@ -338,29 +368,34 @@ def _glowup_line(points: list[tuple[int, float]], w: int, a: int, k: float, band
 
     fs = 13 * k
     parts = [f'<svg class="trend" viewBox="0 0 {w} {a}">']
+    axes: list[str] = []
     step = 1000 if hi - lo > 1500 else 500
     for tick in range(math.ceil((lo + 1) / step) * step, hi + 1, step):
         ty = y(tick)
-        parts.append(
+        axes.append(
             f'<line class="grid" x1="{left:.1f}" x2="{w - right:.1f}" '
             f'y1="{ty:.1f}" y2="{ty:.1f}"/>'
             f'<text class="tick" x="{left - 10 * k:.1f}" y="{ty + fs * 0.35:.1f}" '
             f'text-anchor="end" font-size="{fs:.1f}">${tick / 1000:g}k</text>'
         )
-    parts.append(
+    axes.append(
         f'<line class="axis" x1="{left:.1f}" x2="{w - right:.1f}" '
         f'y1="{band_bot:.1f}" y2="{band_bot:.1f}"/>'
     )
     for year, _ in points:
         tx = x(year)
         edge = year in (first, last)
-        parts.append(
+        axes.append(
             f'<line class="axis" x1="{tx:.1f}" x2="{tx:.1f}" '
             f'y1="{band_bot:.1f}" y2="{band_bot + 6 * k:.1f}"/>'
             f'<text class="tick{" edge" if edge else ""}" x="{tx:.1f}" '
             f'y="{band_bot + 24 * k:.1f}" text-anchor="middle" '
             f'font-size="{fs:.1f}">{year if edge else f"’{year % 100:02d}"}</text>'
         )
+    # The axes switch ink with the background: drawn once per era, clipped to its half
+    # (the clip paths live in the backdrop SVG of the same page).
+    for era in ("v", "vi"):
+        parts.append(f'<g class="axes {era}" clip-path="url(#c{era})">{"".join(axes)}</g>')
     d = " ".join(
         f"{'M' if i == 0 else 'L'}{x(yr):.1f},{y(v):.1f}" for i, (yr, v) in enumerate(points)
     )
@@ -382,16 +417,16 @@ def _lockup(era: str) -> str:
     return f'<div class="gamelogo text">{text}</div>'
 
 
-# Per size: card (w, h), the art panel inside the Dex frame (w, h), scale, and where the
-# chart starts below the logo row. Panel sizes match the frame's padding in charts.css.
+# Per size: card (w, h), the full-bleed art above the Dex footer strip (w, h), scale, and
+# where the chart starts below the logo row. The strip's height matches .gfoot in charts.css.
 GLOWUP_SIZES = {
-    "gta-v-to-gta-6": ((1200, 630), (1128, 478), 1.0, 150, ""),
-    "gta-v-to-gta-6-portrait": ((1080, 1350), (1000, 1160), 1.45, 400, "portrait"),
+    "gta-v-to-gta-6": ((1200, 630), (1200, 576), 1.0, 150, ""),
+    "gta-v-to-gta-6-portrait": ((1080, 1350), (1080, 1270), 1.45, 400, "portrait"),
 }
 
 
 def productivity_card(png: bool) -> dict:
-    """Metric 2, GTA V to GTA 6, as a glow-up inside the Dex frame: 2013 left, 2026 right."""
+    """Metric 2, GTA V to GTA 6, as a glow-up over the Dex footer: 2013 left, 2026 right."""
     # Sorted, so the committed chart data does not churn on every refresh.
     rows = sorted(
         query(
@@ -434,17 +469,27 @@ def productivity_card(png: bool) -> dict:
       </div>
       <div class="badge">{f"{change:+.0f}%" if change is not None else "n/a"}</div>
     </div>"""
-        _write(
-            name,
-            title="GTA V to GTA 6",
-            body=body,
-            source=PRODUCTIVITY_SOURCE,
-            w=w,
-            h=h,
-            data={"rows": rows},
-            png=png,
-            variant=f"frame {variant}".strip(),
+        CHARTS.mkdir(exist_ok=True)
+        (CHARTS / "data").mkdir(exist_ok=True)
+        (CHARTS / "data" / "gta-v-to-gta-6.json").write_text(
+            json.dumps({"rows": rows}, indent=1, default=str)
         )
+        for theme_name, theme in THEMES.items():
+            html = GLOWUP_PAGE.format(
+                theme=theme,
+                variant=f" {variant}" if variant else "",
+                w=w,
+                h=h,
+                logo=LOGO[theme],
+                body=body,
+                source=PRODUCTIVITY_SOURCE,
+                foot_right=FOOT_RIGHT,
+            )
+            suffix = "" if theme_name == "light" else "-dark"
+            path = CHARTS / f"{name}{suffix}.html"
+            path.write_text(html)
+            if png:
+                capture(path, CHARTS / "png" / f"{name}-{theme_name}.png", w, h)
     return {"rows": rows}
 
 

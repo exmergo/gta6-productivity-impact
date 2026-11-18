@@ -2,9 +2,9 @@
  "status": "ok",
  "data": {
   "cache_path": "./.dex/cache.json",
-  "object_count": 16,
-  "profiled_count": 0,
-  "cache_hit_count": 16,
+  "object_count": 19,
+  "profiled_count": 17,
+  "cache_hit_count": 2,
   "skipped_count": 0,
   "skipped": {
    "count": 0,
@@ -18,8 +18,8 @@
   "dropped_count": 0,
   "carried_relationship_count": 0,
   "relationship_count": 3,
-  "pii_column_count": 8,
-  "data_quality_note_count": 3,
+  "pii_column_count": 10,
+  "data_quality_note_count": 4,
   "top_objects": [
    {
     "identifier": "gta6.raw.trends_interest",
@@ -27,28 +27,28 @@
    },
    {
     "identifier": "gta6.main.fct_day_off_index",
-    "rank_score": 0.6493
+    "rank_score": 0.6492
    },
    {
     "identifier": "gta6.main.fct_signal_daily",
-    "rank_score": 0.6061
+    "rank_score": 0.6051
    },
    {
     "identifier": "gta6.main.dim_date",
-    "rank_score": 0.5792
+    "rank_score": 0.5779
    },
    {
     "identifier": "gta6.raw.bluesky_daily_hits",
-    "rank_score": 0.5533
+    "rank_score": 0.5521
    }
   ],
   "objects": [
    {
     "identifier": "gta6.raw.trends_interest",
     "object_type": "table",
-    "row_count": 3576,
+    "row_count": 4080,
     "rank_score": 0.7,
-    "profiled_at": "2026-11-16T19:31:20.011781+00:00",
+    "profiled_at": "2026-11-18T06:33:10.986704+00:00",
     "grain": null,
     "candidate_key": null,
     "semantic_models": [],
@@ -80,8 +80,8 @@
     "identifier": "gta6.main.fct_day_off_index",
     "object_type": "table",
     "row_count": 1,
-    "rank_score": 0.6493,
-    "profiled_at": "2026-11-16T19:31:19.003220+00:00",
+    "rank_score": 0.6492,
+    "profiled_at": "2026-11-18T06:33:09.402649+00:00",
     "grain": [
      "batch_id"
     ],
@@ -165,9 +165,9 @@
    {
     "identifier": "gta6.main.fct_signal_daily",
     "object_type": "table",
-    "row_count": 856,
-    "rank_score": 0.6061,
-    "profiled_at": "2026-11-16T19:31:19.152384+00:00",
+    "row_count": 872,
+    "rank_score": 0.6051,
+    "profiled_at": "2026-11-18T06:33:09.641562+00:00",
     "grain": [
      "signal_day_key"
     ],
@@ -201,8 +201,8 @@
     "identifier": "gta6.main.dim_date",
     "object_type": "table",
     "row_count": 457,
-    "rank_score": 0.5792,
-    "profiled_at": "2026-11-16T19:31:18.925961+00:00",
+    "rank_score": 0.5779,
+    "profiled_at": "2026-11-18T06:33:09.281107+00:00",
     "grain": [
      "date_day"
     ],
@@ -235,9 +235,9 @@
    {
     "identifier": "gta6.raw.bluesky_daily_hits",
     "object_type": "table",
-    "row_count": 1284,
-    "rank_score": 0.5533,
-    "profiled_at": "2026-11-16T19:31:19.786807+00:00",
+    "row_count": 1308,
+    "rank_score": 0.5521,
+    "profiled_at": "2026-11-18T06:33:10.664665+00:00",
     "grain": [
      "observed_at"
     ],
@@ -261,9 +261,9 @@
    {
     "identifier": "gta6.raw.hn_daily_hits",
     "object_type": "table",
-    "row_count": 1284,
-    "rank_score": 0.5533,
-    "profiled_at": "2026-11-16T19:31:19.892968+00:00",
+    "row_count": 1308,
+    "rank_score": 0.5521,
+    "profiled_at": "2026-11-18T06:33:10.837437+00:00",
     "grain": [
      "observed_at"
     ],
@@ -287,9 +287,9 @@
    {
     "identifier": "gta6.raw.wiki_pageviews",
     "object_type": "table",
-    "row_count": 428,
-    "rank_score": 0.5069,
-    "profiled_at": "2026-11-16T19:31:20.070609+00:00",
+    "row_count": 436,
+    "rank_score": 0.5059,
+    "profiled_at": "2026-11-18T06:33:11.071259+00:00",
     "grain": [
      "ts",
      "article"
@@ -322,8 +322,8 @@
     "identifier": "gta6.main.fct_day_off_index_terms",
     "object_type": "table",
     "row_count": 3,
-    "rank_score": 0.4787,
-    "profiled_at": "2026-11-16T19:31:19.077609+00:00",
+    "rank_score": 0.4784,
+    "profiled_at": "2026-11-18T06:33:09.527810+00:00",
     "grain": [
      "term"
     ],
@@ -372,11 +372,37 @@
     "elided_data_quality_count": 0
    },
    {
+    "identifier": "gta6.main.fct_world_productivity",
+    "object_type": "table",
+    "row_count": 28,
+    "rank_score": 0.4618,
+    "profiled_at": "2026-11-17T10:54:22.687692+00:00",
+    "grain": [
+     "world_productivity_key"
+    ],
+    "candidate_key": [
+     "world_productivity_key"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "world_productivity_key",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 10,
+    "pii_column_count": 0,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
     "identifier": "gta6.main.fct_thursday_lift",
     "object_type": "table",
     "row_count": 26,
-    "rank_score": 0.4595,
-    "profiled_at": "2026-11-16T19:31:19.235496+00:00",
+    "rank_score": 0.4587,
+    "profiled_at": "2026-11-18T06:33:09.761667+00:00",
     "grain": [
      "thursday_lift_key"
     ],
@@ -410,8 +436,8 @@
     "identifier": "gta6.main.metricflow_time_spine",
     "object_type": "table",
     "row_count": 1094,
-    "rank_score": 0.4561,
-    "profiled_at": "2026-11-16T19:31:19.322559+00:00",
+    "rank_score": 0.4546,
+    "profiled_at": "2026-11-18T06:33:09.913293+00:00",
     "grain": [
      "date_day"
     ],
@@ -437,7 +463,7 @@
     "object_type": "view",
     "row_count": 168,
     "rank_score": 0.42,
-    "profiled_at": "2026-11-16T19:31:19.673632+00:00",
+    "profiled_at": "2026-11-18T06:33:10.496436+00:00",
     "grain": [
      "week_start",
      "request_id"
@@ -482,11 +508,62 @@
     "elided_data_quality_count": 0
    },
    {
+    "identifier": "gta6.raw.economy_indicators",
+    "object_type": "table",
+    "row_count": 53,
+    "rank_score": 0.4179,
+    "profiled_at": "2026-11-17T10:52:22.821697+00:00",
+    "grain": [
+     "year",
+     "indicator"
+    ],
+    "candidate_key": [
+     "year",
+     "indicator"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "indicator",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "geo",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "location",
+       "confidence": 0.3
+      }
+     },
+     {
+      "name": "year",
+      "data_type": "BIGINT",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "value",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 3,
+    "pii_column_count": 1,
+    "data_quality": [
+     "last_updated is declared VARCHAR but 100% of values match the %Y-%m-%d date format; consider casting with that format"
+    ],
+    "elided_data_quality_count": 0
+   },
+   {
     "identifier": "gta6.main.stg_bluesky__daily_hits",
     "object_type": "view",
-    "row_count": 1284,
+    "row_count": 1308,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-16T19:31:19.420762+00:00",
+    "profiled_at": "2026-11-18T06:33:10.031442+00:00",
     "grain": [
      "observed_at"
     ],
@@ -508,11 +585,60 @@
     "elided_data_quality_count": 0
    },
    {
+    "identifier": "gta6.main.stg_economy__indicators",
+    "object_type": "view",
+    "row_count": 53,
+    "rank_score": 0.32,
+    "profiled_at": "2026-11-18T06:33:10.105781+00:00",
+    "grain": [
+     "year",
+     "indicator"
+    ],
+    "candidate_key": [
+     "year",
+     "indicator"
+    ],
+    "semantic_models": [],
+    "columns": [
+     {
+      "name": "indicator",
+      "data_type": "VARCHAR",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "geo",
+      "data_type": "VARCHAR",
+      "role": null,
+      "pii": {
+       "category": "location",
+       "confidence": 0.3
+      }
+     },
+     {
+      "name": "year",
+      "data_type": "INTEGER",
+      "role": "grain",
+      "pii": null
+     },
+     {
+      "name": "value",
+      "data_type": "DOUBLE",
+      "role": "key",
+      "pii": null
+     }
+    ],
+    "elided_column_count": 2,
+    "pii_column_count": 1,
+    "data_quality": [],
+    "elided_data_quality_count": 0
+   },
+   {
     "identifier": "gta6.main.stg_hn__daily_hits",
     "object_type": "view",
-    "row_count": 1284,
+    "row_count": 1308,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-16T19:31:19.505755+00:00",
+    "profiled_at": "2026-11-18T06:33:10.248862+00:00",
     "grain": [
      "observed_at"
     ],
@@ -538,7 +664,7 @@
     "object_type": "view",
     "row_count": 0,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-16T19:31:19.574283+00:00",
+    "profiled_at": "2026-11-18T06:33:10.369639+00:00",
     "grain": null,
     "candidate_key": null,
     "semantic_models": [],
@@ -563,9 +689,9 @@
    {
     "identifier": "gta6.main.stg_wiki__pageviews",
     "object_type": "view",
-    "row_count": 428,
+    "row_count": 436,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-16T19:31:19.696639+00:00",
+    "profiled_at": "2026-11-18T06:33:10.535978+00:00",
     "grain": [
      "view_date",
      "article"
@@ -597,9 +723,9 @@
    {
     "identifier": "gta6.main.int_signals__daily",
     "object_type": "view",
-    "row_count": 856,
+    "row_count": 872,
     "rank_score": 0.25,
-    "profiled_at": "2026-11-16T19:31:19.314854+00:00",
+    "profiled_at": "2026-11-18T06:33:09.900472+00:00",
     "grain": null,
     "candidate_key": null,
     "semantic_models": [],
@@ -674,16 +800,16 @@
   ],
   "conflicts": [],
   "elided_object_count": 0,
-  "elided_column_count": 91,
+  "elided_column_count": 106,
   "elided_edge_count": 0,
-  "updated_at": "2026-11-17T06:28:11.306785+00:00",
+  "updated_at": "2026-11-18T06:33:09.189824+00:00",
   "notes": [
-   "inference examined 13 id-shaped column(s) across 16 profiled object(s)",
+   "inference examined 15 id-shaped column(s) across 19 profiled object(s)",
    "no declared relationships (dbt project present but unused)",
    "a dbt project is present but unused; pass --use-project to fold its declared joins, grain, and metric definitions into exploration",
-   "reused 16 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
+   "reused 2 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
    "value-overlap join inference not run; pass --infer-by-overlap to probe key-shaped columns whose names matched nothing for measured value containment",
-   "91 column(s) are not described. The default keeps grain, key, join and PII-flagged columns, at most 12 per object; --detail widens the selection to every column, and the per-object cap still binds"
+   "106 column(s) are not described. The default keeps grain, key, join and PII-flagged columns, at most 12 per object; --detail widens the selection to every column, and the per-object cap still binds"
   ]
  },
  "connection": {

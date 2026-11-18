@@ -2,7 +2,7 @@ version: 2
 
 semantic_models:
   - name: fct_world_productivity
-    description: 'Metric 2, GTA V to GTA 6: world productivity per year from 2013 to 2026 and its real change since GTA V''s launch year. One row per measure per year. Population: Every year from var gta_v_year (2013) to var gta_6_year (2026) for both measures, published or not; an unpublished, unestimated year keeps its row with a NULL value.'
+    description: 'Metric 2, GTA 5 to GTA 6: world productivity per year from 2013 to 2026 and its real change since GTA 5''s launch year. One row per measure per year. Population: Every year from var gta_v_year (2013) to var gta_6_year (2026) for both measures, published or not; an unpublished, unestimated year keeps its row with a NULL value.'
     model: ref('fct_world_productivity')
     defaults:
       agg_time_dimension: year_start
@@ -40,7 +40,7 @@ semantic_models:
               null_rule: never
       - name: launch
         type: categorical
-        description: GTA V on 2013, GTA 6 on 2026, NULL in between.
+        description: GTA 5 on 2013, GTA 6 on 2026, NULL in between.
     measures:
       - name: value
         agg: max
@@ -55,7 +55,7 @@ semantic_models:
       - name: pct_change_since_gta_v
         agg: max
         expr: pct_change_since_gta_v
-        description: Real change since GTA V's launch year, in percent.
+        description: Real change since GTA 5's launch year, in percent.
         config:
           meta:
             dex:
@@ -76,7 +76,7 @@ semantic_models:
             - decision: Years covered
               chosen: 2013 to 2026, every year
               evidence: request
-              detail: 'user: bookended by the GTA V and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
+              detail: 'user: bookended by the GTA 5 and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
               column: data_year
             - decision: Years the World Bank has not published
               chosen: per capita carried by IMF WEO world real GDP growth less latest World Bank population growth, flagged is_estimate; per worker left NULL

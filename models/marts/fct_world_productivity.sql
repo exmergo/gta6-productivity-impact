@@ -1,5 +1,5 @@
--- Metric 2, GTA V to GTA 6: world productivity in every year from GTA V's launch year to
--- GTA 6's, and its real change since GTA V. One row per measure per year.
+-- Metric 2, GTA 5 to GTA 6: world productivity in every year from GTA 5's launch year to
+-- GTA 6's, and its real change since GTA 5. One row per measure per year.
 --   output_per_worker: World Bank GDP per person employed (constant 2021 PPP $).
 --   output_per_person: World Bank GDP per capita (constant 2015 US$).
 -- A year the World Bank has not published is estimated for output_per_person only: its last
@@ -113,7 +113,7 @@ select
     measure,
     year as data_year,
     make_date(year, 1, 1) as year_start,
-    case year when {{ gta_v }} then 'GTA V' when {{ gta_6 }} then 'GTA 6' end as launch,
+    case year when {{ gta_v }} then 'GTA 5' when {{ gta_6 }} then 'GTA 6' end as launch,
     value,
     unit,
     source_indicator,

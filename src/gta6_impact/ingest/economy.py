@@ -1,4 +1,4 @@
-"""Official economic data for Metric 2 (GTA V to GTA 6): world aggregates, one value a year.
+"""Official economic data for Metrics 2 and 3 (GTA 5 to GTA 6): world aggregates, one value a year.
 
 World Bank WDI publishes actuals up to its latest year; the IMF World Economic Outlook
 publishes world real GDP growth including the current year's estimate. Both land in one

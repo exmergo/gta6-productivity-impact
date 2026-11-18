@@ -1,46 +1,52 @@
 {
   "schema_version": 1,
   "connector": "duckdb",
-  "snapshot_created_at": "2026-11-17T11:01:53.157344+00:00",
+  "snapshot_created_at": "2026-11-18T14:24:41.898782+00:00",
   "axes": {
     "schema": {
-      "run_at": "2026-11-18T06:33:12.089763+00:00",
+      "run_at": "2026-11-18T14:24:42.695136+00:00",
       "scope": null,
       "findings": []
     },
     "volume": {
-      "run_at": "2026-11-18T06:33:12.089763+00:00",
+      "run_at": "2026-11-18T14:24:42.695136+00:00",
       "scope": null,
       "findings": [
         {
           "axis": "volume",
           "code": "row_count_changed",
-          "identifier": "gta6.raw.trends_interest",
+          "identifier": "gta6.main.stg_economy__indicators",
           "column": null,
           "severity": "low",
-          "detail": "gta6.raw.trends_interest: rows 3576 -> 4080 (+14.1%)",
+          "detail": "gta6.main.stg_economy__indicators: rows 53 -> 66 (+24.5%)",
           "exact": true,
           "data": {
-            "row_count_before": 3576,
-            "row_count_after": 4080,
-            "change_fraction": 0.1409
+            "row_count_before": 53,
+            "row_count_after": 66,
+            "change_fraction": 0.2453
           },
           "impacted_models": [
-            "fct_day_off_index",
-            "fct_day_off_index_terms",
-            "stg_trends__weekly"
+            "fct_wait_milestones",
+            "fct_world_output_daily",
+            "fct_world_productivity",
+            "int_world_output__yearly",
+            "stg_economy__indicators"
           ],
           "impacted_metrics": [
-            "day_off_index",
-            "day_off_index_term_change",
-            "day_off_index_term_current",
-            "day_off_index_term_prior"
+            "wait_milestone_days_to_gta_6",
+            "wait_milestone_output",
+            "wait_milestone_share",
+            "world_output_cumulative",
+            "world_output_per_second",
+            "world_output_produced",
+            "world_productivity",
+            "world_productivity_change_since_gta_v"
           ]
         }
       ]
     },
     "grain": {
-      "run_at": "2026-11-18T06:33:12.089763+00:00",
+      "run_at": "2026-11-18T14:24:42.695136+00:00",
       "scope": null,
       "findings": [
         {
@@ -60,7 +66,7 @@
       ]
     },
     "semantic": {
-      "run_at": "2026-11-18T06:33:12.089763+00:00",
+      "run_at": "2026-11-18T14:24:42.695136+00:00",
       "scope": null,
       "findings": []
     }

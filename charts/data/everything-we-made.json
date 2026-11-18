@@ -1,0 +1,1292 @@
+{
+ "world_output_produced": 1141710488719218.8,
+ "world_output_per_second": 3258116.710292625,
+ "wait_start": "2013-09-17",
+ "wait_last_day": "2026-11-18",
+ "gta_6_release": "2026-11-19",
+ "days": 4811,
+ "months": [
+  {
+   "metric_time__month": "2013-09-01T00:00:00",
+   "world_output_cumulative": 2734068676379.735
+  },
+  {
+   "metric_time__month": "2013-10-01T00:00:00",
+   "world_output_cumulative": 8788077888363.428
+  },
+  {
+   "metric_time__month": "2013-11-01T00:00:00",
+   "world_output_cumulative": 14646796480605.729
+  },
+  {
+   "metric_time__month": "2013-12-01T00:00:00",
+   "world_output_cumulative": 20700805692589.426
+  },
+  {
+   "metric_time__month": "2014-01-01T00:00:00",
+   "world_output_cumulative": 26946635697931.6
+  },
+  {
+   "metric_time__month": "2014-02-01T00:00:00",
+   "world_output_cumulative": 32588030541466.492
+  },
+  {
+   "metric_time__month": "2014-03-01T00:00:00",
+   "world_output_cumulative": 38833860546808.69
+  },
+  {
+   "metric_time__month": "2014-04-01T00:00:00",
+   "world_output_cumulative": 44878212164881.78
+  },
+  {
+   "metric_time__month": "2014-05-01T00:00:00",
+   "world_output_cumulative": 51124042170223.98
+  },
+  {
+   "metric_time__month": "2014-06-01T00:00:00",
+   "world_output_cumulative": 57168393788297.05
+  },
+  {
+   "metric_time__month": "2014-07-01T00:00:00",
+   "world_output_cumulative": 63414223793639.24
+  },
+  {
+   "metric_time__month": "2014-08-01T00:00:00",
+   "world_output_cumulative": 69660053798981.44
+  },
+  {
+   "metric_time__month": "2014-09-01T00:00:00",
+   "world_output_cumulative": 75704405417054.61
+  },
+  {
+   "metric_time__month": "2014-10-01T00:00:00",
+   "world_output_cumulative": 81950235422396.78
+  },
+  {
+   "metric_time__month": "2014-11-01T00:00:00",
+   "world_output_cumulative": 87994587040469.84
+  },
+  {
+   "metric_time__month": "2014-12-01T00:00:00",
+   "world_output_cumulative": 94240417045812.02
+  },
+  {
+   "metric_time__month": "2015-01-01T00:00:00",
+   "world_output_cumulative": 100681567475090.83
+  },
+  {
+   "metric_time__month": "2015-02-01T00:00:00",
+   "world_output_cumulative": 106499380766052.47
+  },
+  {
+   "metric_time__month": "2015-03-01T00:00:00",
+   "world_output_cumulative": 112940531195331.36
+  },
+  {
+   "metric_time__month": "2015-04-01T00:00:00",
+   "world_output_cumulative": 119173902578504.4
+  },
+  {
+   "metric_time__month": "2015-05-01T00:00:00",
+   "world_output_cumulative": 125615053007783.3
+  },
+  {
+   "metric_time__month": "2015-06-01T00:00:00",
+   "world_output_cumulative": 131848424390956.42
+  },
+  {
+   "metric_time__month": "2015-07-01T00:00:00",
+   "world_output_cumulative": 138289574820235.31
+  },
+  {
+   "metric_time__month": "2015-08-01T00:00:00",
+   "world_output_cumulative": 144730725249514.34
+  },
+  {
+   "metric_time__month": "2015-09-01T00:00:00",
+   "world_output_cumulative": 150964096632687.4
+  },
+  {
+   "metric_time__month": "2015-10-01T00:00:00",
+   "world_output_cumulative": 157405247061966.3
+  },
+  {
+   "metric_time__month": "2015-11-01T00:00:00",
+   "world_output_cumulative": 163638618445139.38
+  },
+  {
+   "metric_time__month": "2015-12-01T00:00:00",
+   "world_output_cumulative": 170079768874418.22
+  },
+  {
+   "metric_time__month": "2016-01-01T00:00:00",
+   "world_output_cumulative": 176682520969730.47
+  },
+  {
+   "metric_time__month": "2016-02-01T00:00:00",
+   "world_output_cumulative": 182859289058893.56
+  },
+  {
+   "metric_time__month": "2016-03-01T00:00:00",
+   "world_output_cumulative": 189462041154205.9
+  },
+  {
+   "metric_time__month": "2016-04-01T00:00:00",
+   "world_output_cumulative": 195851801246443.6
+  },
+  {
+   "metric_time__month": "2016-05-01T00:00:00",
+   "world_output_cumulative": 202454553341755.88
+  },
+  {
+   "metric_time__month": "2016-06-01T00:00:00",
+   "world_output_cumulative": 208844313433993.56
+  },
+  {
+   "metric_time__month": "2016-07-01T00:00:00",
+   "world_output_cumulative": 215447065529305.88
+  },
+  {
+   "metric_time__month": "2016-08-01T00:00:00",
+   "world_output_cumulative": 222049817624618.16
+  },
+  {
+   "metric_time__month": "2016-09-01T00:00:00",
+   "world_output_cumulative": 228439577716855.84
+  },
+  {
+   "metric_time__month": "2016-10-01T00:00:00",
+   "world_output_cumulative": 235042329812168.12
+  },
+  {
+   "metric_time__month": "2016-11-01T00:00:00",
+   "world_output_cumulative": 241432089904405.8
+  },
+  {
+   "metric_time__month": "2016-12-01T00:00:00",
+   "world_output_cumulative": 248034841999718.1
+  },
+  {
+   "metric_time__month": "2017-01-01T00:00:00",
+   "world_output_cumulative": 254883876849631.78
+  },
+  {
+   "metric_time__month": "2017-02-01T00:00:00",
+   "world_output_cumulative": 261070101875360.12
+  },
+  {
+   "metric_time__month": "2017-03-01T00:00:00",
+   "world_output_cumulative": 267919136725273.75
+  },
+  {
+   "metric_time__month": "2017-04-01T00:00:00",
+   "world_output_cumulative": 274547234967125.75
+  },
+  {
+   "metric_time__month": "2017-05-01T00:00:00",
+   "world_output_cumulative": 281396269817039.47
+  },
+  {
+   "metric_time__month": "2017-06-01T00:00:00",
+   "world_output_cumulative": 288024368058891.6
+  },
+  {
+   "metric_time__month": "2017-07-01T00:00:00",
+   "world_output_cumulative": 294873402908805.25
+  },
+  {
+   "metric_time__month": "2017-08-01T00:00:00",
+   "world_output_cumulative": 301722437758718.9
+  },
+  {
+   "metric_time__month": "2017-09-01T00:00:00",
+   "world_output_cumulative": 308350536000570.75
+  },
+  {
+   "metric_time__month": "2017-10-01T00:00:00",
+   "world_output_cumulative": 315199570850484.4
+  },
+  {
+   "metric_time__month": "2017-11-01T00:00:00",
+   "world_output_cumulative": 321827669092336.5
+  },
+  {
+   "metric_time__month": "2017-12-01T00:00:00",
+   "world_output_cumulative": 328676703942250.44
+  },
+  {
+   "metric_time__month": "2018-01-01T00:00:00",
+   "world_output_cumulative": 335750841285470.4
+  },
+  {
+   "metric_time__month": "2018-02-01T00:00:00",
+   "world_output_cumulative": 342140384692249.75
+  },
+  {
+   "metric_time__month": "2018-03-01T00:00:00",
+   "world_output_cumulative": 349214522035469.8
+  },
+  {
+   "metric_time__month": "2018-04-01T00:00:00",
+   "world_output_cumulative": 356060461399876.3
+  },
+  {
+   "metric_time__month": "2018-05-01T00:00:00",
+   "world_output_cumulative": 363134598743096.4
+  },
+  {
+   "metric_time__month": "2018-06-01T00:00:00",
+   "world_output_cumulative": 369980538107502.9
+  },
+  {
+   "metric_time__month": "2018-07-01T00:00:00",
+   "world_output_cumulative": 377054675450722.94
+  },
+  {
+   "metric_time__month": "2018-08-01T00:00:00",
+   "world_output_cumulative": 384128812793943.2
+  },
+  {
+   "metric_time__month": "2018-09-01T00:00:00",
+   "world_output_cumulative": 390974752158349.7
+  },
+  {
+   "metric_time__month": "2018-10-01T00:00:00",
+   "world_output_cumulative": 398048889501569.94
+  },
+  {
+   "metric_time__month": "2018-11-01T00:00:00",
+   "world_output_cumulative": 404894828865976.44
+  },
+  {
+   "metric_time__month": "2018-12-01T00:00:00",
+   "world_output_cumulative": 411968966209196.5
+  },
+  {
+   "metric_time__month": "2019-01-01T00:00:00",
+   "world_output_cumulative": 419232712274440.75
+  },
+  {
+   "metric_time__month": "2019-02-01T00:00:00",
+   "world_output_cumulative": 425793515172080.75
+  },
+  {
+   "metric_time__month": "2019-03-01T00:00:00",
+   "world_output_cumulative": 433057261237325.06
+  },
+  {
+   "metric_time__month": "2019-04-01T00:00:00",
+   "world_output_cumulative": 440086692913368.06
+  },
+  {
+   "metric_time__month": "2019-05-01T00:00:00",
+   "world_output_cumulative": 447350438978612.4
+  },
+  {
+   "metric_time__month": "2019-06-01T00:00:00",
+   "world_output_cumulative": 454379870654655.25
+  },
+  {
+   "metric_time__month": "2019-07-01T00:00:00",
+   "world_output_cumulative": 461643616719899.56
+  },
+  {
+   "metric_time__month": "2019-08-01T00:00:00",
+   "world_output_cumulative": 468907362785144.0
+  },
+  {
+   "metric_time__month": "2019-09-01T00:00:00",
+   "world_output_cumulative": 475936794461186.9
+  },
+  {
+   "metric_time__month": "2019-10-01T00:00:00",
+   "world_output_cumulative": 483200540526431.2
+  },
+  {
+   "metric_time__month": "2019-11-01T00:00:00",
+   "world_output_cumulative": 490229972202474.06
+  },
+  {
+   "metric_time__month": "2019-12-01T00:00:00",
+   "world_output_cumulative": 497493718267718.4
+  },
+  {
+   "metric_time__month": "2020-01-01T00:00:00",
+   "world_output_cumulative": 504528543738501.44
+  },
+  {
+   "metric_time__month": "2020-02-01T00:00:00",
+   "world_output_cumulative": 511109509501491.7
+  },
+  {
+   "metric_time__month": "2020-03-01T00:00:00",
+   "world_output_cumulative": 518144334972274.44
+  },
+  {
+   "metric_time__month": "2020-04-01T00:00:00",
+   "world_output_cumulative": 524952230589160.94
+  },
+  {
+   "metric_time__month": "2020-05-01T00:00:00",
+   "world_output_cumulative": 531987056059943.7
+  },
+  {
+   "metric_time__month": "2020-06-01T00:00:00",
+   "world_output_cumulative": 538794951676830.7
+  },
+  {
+   "metric_time__month": "2020-07-01T00:00:00",
+   "world_output_cumulative": 545829777147613.44
+  },
+  {
+   "metric_time__month": "2020-08-01T00:00:00",
+   "world_output_cumulative": 552864602618396.2
+  },
+  {
+   "metric_time__month": "2020-09-01T00:00:00",
+   "world_output_cumulative": 559672498235283.06
+  },
+  {
+   "metric_time__month": "2020-10-01T00:00:00",
+   "world_output_cumulative": 566707323706065.9
+  },
+  {
+   "metric_time__month": "2020-11-01T00:00:00",
+   "world_output_cumulative": 573515219322952.4
+  },
+  {
+   "metric_time__month": "2020-12-01T00:00:00",
+   "world_output_cumulative": 580550044793735.1
+  },
+  {
+   "metric_time__month": "2021-01-01T00:00:00",
+   "world_output_cumulative": 588061608346251.9
+  },
+  {
+   "metric_time__month": "2021-02-01T00:00:00",
+   "world_output_cumulative": 594846246393686.1
+  },
+  {
+   "metric_time__month": "2021-03-01T00:00:00",
+   "world_output_cumulative": 602357809946202.8
+  },
+  {
+   "metric_time__month": "2021-04-01T00:00:00",
+   "world_output_cumulative": 609627064997025.9
+  },
+  {
+   "metric_time__month": "2021-05-01T00:00:00",
+   "world_output_cumulative": 617138628549542.5
+  },
+  {
+   "metric_time__month": "2021-06-01T00:00:00",
+   "world_output_cumulative": 624407883600365.5
+  },
+  {
+   "metric_time__month": "2021-07-01T00:00:00",
+   "world_output_cumulative": 631919447152882.1
+  },
+  {
+   "metric_time__month": "2021-08-01T00:00:00",
+   "world_output_cumulative": 639431010705398.8
+  },
+  {
+   "metric_time__month": "2021-09-01T00:00:00",
+   "world_output_cumulative": 646700265756221.2
+  },
+  {
+   "metric_time__month": "2021-10-01T00:00:00",
+   "world_output_cumulative": 654211829308737.9
+  },
+  {
+   "metric_time__month": "2021-11-01T00:00:00",
+   "world_output_cumulative": 661481084359560.4
+  },
+  {
+   "metric_time__month": "2021-12-01T00:00:00",
+   "world_output_cumulative": 668992647912077.0
+  },
+  {
+   "metric_time__month": "2022-01-01T00:00:00",
+   "world_output_cumulative": 676762610075018.1
+  },
+  {
+   "metric_time__month": "2022-02-01T00:00:00",
+   "world_output_cumulative": 683780640415739.5
+  },
+  {
+   "metric_time__month": "2022-03-01T00:00:00",
+   "world_output_cumulative": 691550602578681.0
+  },
+  {
+   "metric_time__month": "2022-04-01T00:00:00",
+   "world_output_cumulative": 699069920800882.5
+  },
+  {
+   "metric_time__month": "2022-05-01T00:00:00",
+   "world_output_cumulative": 706839882963824.0
+  },
+  {
+   "metric_time__month": "2022-06-01T00:00:00",
+   "world_output_cumulative": 714359201186025.5
+  },
+  {
+   "metric_time__month": "2022-07-01T00:00:00",
+   "world_output_cumulative": 722129163348967.0
+  },
+  {
+   "metric_time__month": "2022-08-01T00:00:00",
+   "world_output_cumulative": 729899125511908.5
+  },
+  {
+   "metric_time__month": "2022-09-01T00:00:00",
+   "world_output_cumulative": 737418443734110.0
+  },
+  {
+   "metric_time__month": "2022-10-01T00:00:00",
+   "world_output_cumulative": 745188405897051.1
+  },
+  {
+   "metric_time__month": "2022-11-01T00:00:00",
+   "world_output_cumulative": 752707724119252.6
+  },
+  {
+   "metric_time__month": "2022-12-01T00:00:00",
+   "world_output_cumulative": 760477686282194.1
+  },
+  {
+   "metric_time__month": "2023-01-01T00:00:00",
+   "world_output_cumulative": 768469821572550.5
+  },
+  {
+   "metric_time__month": "2023-02-01T00:00:00",
+   "world_output_cumulative": 775688524415453.6
+  },
+  {
+   "metric_time__month": "2023-03-01T00:00:00",
+   "world_output_cumulative": 783680659705809.9
+  },
+  {
+   "metric_time__month": "2023-04-01T00:00:00",
+   "world_output_cumulative": 791414984180348.1
+  },
+  {
+   "metric_time__month": "2023-05-01T00:00:00",
+   "world_output_cumulative": 799407119470704.4
+  },
+  {
+   "metric_time__month": "2023-06-01T00:00:00",
+   "world_output_cumulative": 807141443945242.6
+  },
+  {
+   "metric_time__month": "2023-07-01T00:00:00",
+   "world_output_cumulative": 815133579235598.8
+  },
+  {
+   "metric_time__month": "2023-08-01T00:00:00",
+   "world_output_cumulative": 823125714525955.0
+  },
+  {
+   "metric_time__month": "2023-09-01T00:00:00",
+   "world_output_cumulative": 830860039000493.2
+  },
+  {
+   "metric_time__month": "2023-10-01T00:00:00",
+   "world_output_cumulative": 838852174290849.5
+  },
+  {
+   "metric_time__month": "2023-11-01T00:00:00",
+   "world_output_cumulative": 846586498765388.6
+  },
+  {
+   "metric_time__month": "2023-12-01T00:00:00",
+   "world_output_cumulative": 854578634055744.9
+  },
+  {
+   "metric_time__month": "2024-01-01T00:00:00",
+   "world_output_cumulative": 862780072645824.5
+  },
+  {
+   "metric_time__month": "2024-02-01T00:00:00",
+   "world_output_cumulative": 870452386165577.4
+  },
+  {
+   "metric_time__month": "2024-03-01T00:00:00",
+   "world_output_cumulative": 878653824755658.1
+  },
+  {
+   "metric_time__month": "2024-04-01T00:00:00",
+   "world_output_cumulative": 886590700810574.9
+  },
+  {
+   "metric_time__month": "2024-05-01T00:00:00",
+   "world_output_cumulative": 894792139400655.5
+  },
+  {
+   "metric_time__month": "2024-06-01T00:00:00",
+   "world_output_cumulative": 902729015455572.2
+  },
+  {
+   "metric_time__month": "2024-07-01T00:00:00",
+   "world_output_cumulative": 910930454045652.9
+  },
+  {
+   "metric_time__month": "2024-08-01T00:00:00",
+   "world_output_cumulative": 919131892635733.5
+  },
+  {
+   "metric_time__month": "2024-09-01T00:00:00",
+   "world_output_cumulative": 927068768690650.2
+  },
+  {
+   "metric_time__month": "2024-10-01T00:00:00",
+   "world_output_cumulative": 935270207280730.6
+  },
+  {
+   "metric_time__month": "2024-11-01T00:00:00",
+   "world_output_cumulative": 943207083335647.4
+  },
+  {
+   "metric_time__month": "2024-12-01T00:00:00",
+   "world_output_cumulative": 951408521925728.5
+  },
+  {
+   "metric_time__month": "2025-01-01T00:00:00",
+   "world_output_cumulative": 959872673038092.8
+  },
+  {
+   "metric_time__month": "2025-02-01T00:00:00",
+   "world_output_cumulative": 967517712752486.8
+  },
+  {
+   "metric_time__month": "2025-03-01T00:00:00",
+   "world_output_cumulative": 975981863864851.4
+  },
+  {
+   "metric_time__month": "2025-04-01T00:00:00",
+   "world_output_cumulative": 984172977844559.1
+  },
+  {
+   "metric_time__month": "2025-05-01T00:00:00",
+   "world_output_cumulative": 992637128956923.8
+  },
+  {
+   "metric_time__month": "2025-06-01T00:00:00",
+   "world_output_cumulative": 1000828242936631.5
+  },
+  {
+   "metric_time__month": "2025-07-01T00:00:00",
+   "world_output_cumulative": 1009292394048996.1
+  },
+  {
+   "metric_time__month": "2025-08-01T00:00:00",
+   "world_output_cumulative": 1017756545161359.2
+  },
+  {
+   "metric_time__month": "2025-09-01T00:00:00",
+   "world_output_cumulative": 1025947659141067.0
+  },
+  {
+   "metric_time__month": "2025-10-01T00:00:00",
+   "world_output_cumulative": 1034411810253431.6
+  },
+  {
+   "metric_time__month": "2025-11-01T00:00:00",
+   "world_output_cumulative": 1042602924233139.4
+  },
+  {
+   "metric_time__month": "2025-12-01T00:00:00",
+   "world_output_cumulative": 1051067075345504.0
+  },
+  {
+   "metric_time__month": "2026-01-01T00:00:00",
+   "world_output_cumulative": 1059793615142351.9
+  },
+  {
+   "metric_time__month": "2026-02-01T00:00:00",
+   "world_output_cumulative": 1067675651087891.9
+  },
+  {
+   "metric_time__month": "2026-03-01T00:00:00",
+   "world_output_cumulative": 1076402190884739.6
+  },
+  {
+   "metric_time__month": "2026-04-01T00:00:00",
+   "world_output_cumulative": 1084847229397817.9
+  },
+  {
+   "metric_time__month": "2026-05-01T00:00:00",
+   "world_output_cumulative": 1093573769194665.6
+  },
+  {
+   "metric_time__month": "2026-06-01T00:00:00",
+   "world_output_cumulative": 1102018807707743.6
+  },
+  {
+   "metric_time__month": "2026-07-01T00:00:00",
+   "world_output_cumulative": 1110745347504591.4
+  },
+  {
+   "metric_time__month": "2026-08-01T00:00:00",
+   "world_output_cumulative": 1119471887301439.1
+  },
+  {
+   "metric_time__month": "2026-09-01T00:00:00",
+   "world_output_cumulative": 1127916925814517.8
+  },
+  {
+   "metric_time__month": "2026-10-01T00:00:00",
+   "world_output_cumulative": 1136643465611365.5
+  },
+  {
+   "metric_time__month": "2026-11-01T00:00:00",
+   "world_output_cumulative": 1141710488719212.5
+  }
+ ],
+ "milestones": [
+  {
+   "milestone__event_date__day": "2013-09-17T00:00:00",
+   "milestone__milestone_id": "gta_v",
+   "milestone__title": "GTA 5 released",
+   "milestone__chart_label": "GTA 5",
+   "milestone__category": "rockstar",
+   "milestone__tier": "anchor",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.rockstargames.com/V",
+   "wait_milestone_output": 0.0,
+   "wait_milestone_share": 0.0,
+   "wait_milestone_days_to_gta_6": 4811
+  },
+  {
+   "milestone__event_date__day": "2014-11-12T00:00:00",
+   "milestone__milestone_id": "comet_landing",
+   "milestone__title": "Philae lands on a comet",
+   "milestone__chart_label": "We landed on a comet",
+   "milestone__category": "space",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.esa.int/Science_Exploration/Space_Science/Rosetta/Touchdown!_Rosetta_s_Philae_probe_lands_on_comet",
+   "wait_milestone_output": 84166497682356.88,
+   "wait_milestone_share": 0.0737196500461129,
+   "wait_milestone_days_to_gta_6": 4390
+  },
+  {
+   "milestone__event_date__day": "2015-07-14T00:00:00",
+   "milestone__milestone_id": "pluto_flyby",
+   "milestone__title": "New Horizons flies past Pluto",
+   "milestone__chart_label": "First close look at Pluto",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.nasa.gov/news-release/nasas-three-billion-mile-journey-to-pluto-reaches-historic-encounter/",
+   "wait_milestone_output": 134549551990331.45,
+   "wait_milestone_share": 0.11784909862855959,
+   "wait_milestone_days_to_gta_6": 4146
+  },
+  {
+   "milestone__event_date__day": "2015-09-14T00:00:00",
+   "milestone__milestone_id": "gravitational_waves",
+   "milestone__title": "LIGO detects gravitational waves",
+   "milestone__chart_label": "We heard spacetime ripple",
+   "milestone__category": "physics",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.ligo.caltech.edu/news/ligo20160211",
+   "wait_milestone_output": 147431852848889.3,
+   "wait_milestone_share": 0.12913243270128885,
+   "wait_milestone_days_to_gta_6": 4084
+  },
+  {
+   "milestone__event_date__day": "2015-12-12T00:00:00",
+   "milestone__milestone_id": "paris_agreement",
+   "milestone__title": "Paris Agreement adopted",
+   "milestone__chart_label": "Paris Agreement",
+   "milestone__category": "planet",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://unfccc.int/news/historic-paris-agreement-on-climate-change-195-nations-set-path-to-keep-temperature-rise-well",
+   "wait_milestone_output": 165924187952302.78,
+   "wait_milestone_share": 0.14532947677343225,
+   "wait_milestone_days_to_gta_6": 3995
+  },
+  {
+   "milestone__event_date__day": "2015-12-22T00:00:00",
+   "milestone__milestone_id": "booster_landing",
+   "milestone__title": "First orbital rocket booster lands upright",
+   "milestone__chart_label": "Rockets learned to land",
+   "milestone__category": "space",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://en.wikipedia.org/wiki/Falcon_9_flight_20",
+   "wait_milestone_output": 168001978413360.6,
+   "wait_milestone_share": 0.14714936936580802,
+   "wait_milestone_days_to_gta_6": 3985
+  },
+  {
+   "milestone__event_date__day": "2016-03-15T00:00:00",
+   "milestone__milestone_id": "alphago",
+   "milestone__title": "AlphaGo beats Lee Sedol 4-1",
+   "milestone__chart_label": "AI masters Go",
+   "milestone__category": "ai",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://deepmind.google/research/breakthroughs/alphago/",
+   "wait_milestone_output": 185841177101937.88,
+   "wait_milestone_share": 0.16277434510601477,
+   "wait_milestone_days_to_gta_6": 3901
+  },
+  {
+   "milestone__event_date__day": "2016-07-06T00:00:00",
+   "milestone__milestone_id": "pokemon_go",
+   "milestone__title": "Pokemon Go released",
+   "milestone__chart_label": "Pokemon Go",
+   "milestone__category": "release",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Go",
+   "wait_milestone_output": 209909273449366.53,
+   "wait_milestone_share": 0.18385508018310825,
+   "wait_milestone_days_to_gta_6": 3788
+  },
+  {
+   "milestone__event_date__day": "2017-03-03T00:00:00",
+   "milestone__milestone_id": "nintendo_switch",
+   "milestone__title": "Nintendo Switch released",
+   "milestone__chart_label": "Nintendo Switch",
+   "milestone__category": "release",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://en.wikipedia.org/wiki/Nintendo_Switch",
+   "wait_milestone_output": 261511975091483.56,
+   "wait_milestone_share": 0.22905279199532583,
+   "wait_milestone_days_to_gta_6": 3548
+  },
+  {
+   "milestone__event_date__day": "2017-08-17T00:00:00",
+   "milestone__milestone_id": "neutron_star_merger",
+   "milestone__title": "Neutron star merger seen in waves and light",
+   "milestone__chart_label": "Gold forged in a collision",
+   "milestone__category": "physics",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.ligo.caltech.edu/page/press-release-gw170817",
+   "wait_milestone_output": 298408388637792.94,
+   "wait_milestone_share": 0.2613695780026965,
+   "wait_milestone_days_to_gta_6": 3381
+  },
+  {
+   "milestone__event_date__day": "2018-02-06T00:00:00",
+   "milestone__milestone_id": "falcon_heavy",
+   "milestone__title": "Falcon Heavy launches a car toward Mars",
+   "milestone__chart_label": "A car in deep space",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://en.wikipedia.org/wiki/Falcon_Heavy_test_flight",
+   "wait_milestone_output": 336891831179538.0,
+   "wait_milestone_share": 0.29507640904435256,
+   "wait_milestone_days_to_gta_6": 3208
+  },
+  {
+   "milestone__event_date__day": "2018-10-26T00:00:00",
+   "milestone__milestone_id": "red_dead_redemption_2",
+   "milestone__title": "Red Dead Redemption 2 released",
+   "milestone__chart_label": "Rockstar ships RDR2",
+   "milestone__category": "rockstar",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.rockstargames.com/reddeadredemption2",
+   "wait_milestone_output": 396679701628688.56,
+   "wait_milestone_share": 0.34744333659725735,
+   "wait_milestone_days_to_gta_6": 2946
+  },
+  {
+   "milestone__event_date__day": "2019-04-10T00:00:00",
+   "milestone__milestone_id": "black_hole_image",
+   "milestone__title": "First image of a black hole",
+   "milestone__chart_label": "We photographed a black hole",
+   "milestone__category": "space",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.eso.org/public/news/eso1907/",
+   "wait_milestone_output": 435166090740138.0,
+   "wait_milestone_share": 0.3811527484768172,
+   "wait_milestone_days_to_gta_6": 2780
+  },
+  {
+   "milestone__event_date__day": "2019-10-23T00:00:00",
+   "milestone__milestone_id": "quantum_supremacy",
+   "milestone__title": "Google claims quantum supremacy",
+   "milestone__chart_label": "Quantum supremacy",
+   "milestone__category": "computing",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.nature.com/articles/s41586-019-1666-5",
+   "wait_milestone_output": 481091711023618.25,
+   "wait_milestone_share": 0.42137802514481054,
+   "wait_milestone_days_to_gta_6": 2584
+  },
+  {
+   "milestone__event_date__day": "2020-05-30T00:00:00",
+   "milestone__milestone_id": "crew_dragon_demo_2",
+   "milestone__title": "First commercial crewed launch (Crew Dragon Demo-2)",
+   "milestone__chart_label": "Private crew to orbit",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.nasa.gov/news-release/nasa-astronauts-launch-from-america-in-historic-test-flight-of-spacex-crew-dragon/",
+   "wait_milestone_output": 531533196352151.7,
+   "wait_milestone_share": 0.4655586522187717,
+   "wait_milestone_days_to_gta_6": 2364
+  },
+  {
+   "milestone__event_date__day": "2020-08-25T00:00:00",
+   "milestone__milestone_id": "africa_polio_free",
+   "milestone__title": "Africa certified free of wild polio",
+   "milestone__chart_label": "Africa polio-free",
+   "milestone__category": "health",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.afro.who.int/news/africa-eradicates-wild-poliovirus",
+   "wait_milestone_output": 551276093641122.44,
+   "wait_milestone_share": 0.4828510371832985,
+   "wait_milestone_days_to_gta_6": 2277
+  },
+  {
+   "milestone__event_date__day": "2020-11-30T00:00:00",
+   "milestone__milestone_id": "alphafold_2",
+   "milestone__title": "AlphaFold 2 solves protein structure prediction",
+   "milestone__chart_label": "AI folds proteins",
+   "milestone__category": "ai",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://deepmind.google/discover/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/",
+   "wait_milestone_output": 573288289469056.1,
+   "wait_milestone_share": 0.5021310526035189,
+   "wait_milestone_days_to_gta_6": 2180
+  },
+  {
+   "milestone__event_date__day": "2020-12-08T00:00:00",
+   "milestone__milestone_id": "covid_vaccine",
+   "milestone__title": "First COVID-19 vaccine shot outside a trial",
+   "milestone__chart_label": "COVID-19 vaccine in under a year",
+   "milestone__category": "health",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.england.nhs.uk/2020/12/landmark-moment-as-first-nhs-patient-receives-covid-19-vaccination/",
+   "wait_milestone_output": 575103728300226.1,
+   "wait_milestone_share": 0.5037211569680733,
+   "wait_milestone_days_to_gta_6": 2172
+  },
+  {
+   "milestone__event_date__day": "2021-04-19T00:00:00",
+   "milestone__milestone_id": "ingenuity_flight",
+   "milestone__title": "Ingenuity flies on Mars",
+   "milestone__chart_label": "First flight on another planet",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.nasa.gov/news-release/nasas-ingenuity-mars-helicopter-succeeds-in-historic-first-flight/",
+   "wait_milestone_output": 606719362976696.4,
+   "wait_milestone_share": 0.5314126207750995,
+   "wait_milestone_days_to_gta_6": 2040
+  },
+  {
+   "milestone__event_date__day": "2021-10-06T00:00:00",
+   "milestone__milestone_id": "malaria_vaccine",
+   "milestone__title": "WHO recommends the first malaria vaccine",
+   "milestone__chart_label": "First malaria vaccine",
+   "milestone__category": "health",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.who.int/news/item/06-10-2021-who-recommends-groundbreaking-malaria-vaccine-for-children-at-risk",
+   "wait_milestone_output": 647911808264691.9,
+   "wait_milestone_share": 0.5674922098609506,
+   "wait_milestone_days_to_gta_6": 1870
+  },
+  {
+   "milestone__event_date__day": "2021-12-25T00:00:00",
+   "milestone__milestone_id": "webb_launch",
+   "milestone__title": "James Webb Space Telescope launches",
+   "milestone__chart_label": "Webb launches",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://science.nasa.gov/mission/webb/",
+   "wait_milestone_output": 667296488400218.8,
+   "wait_milestone_share": 0.5844708400189979,
+   "wait_milestone_days_to_gta_6": 1790
+  },
+  {
+   "milestone__event_date__day": "2022-07-12T00:00:00",
+   "milestone__milestone_id": "webb_first_images",
+   "milestone__title": "Webb's first images",
+   "milestone__chart_label": "Webb sees the early universe",
+   "milestone__category": "space",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://science.nasa.gov/mission/webb/webbs-first-images",
+   "wait_milestone_output": 717116284534166.2,
+   "wait_milestone_share": 0.6281069427142058,
+   "wait_milestone_days_to_gta_6": 1591
+  },
+  {
+   "milestone__event_date__day": "2022-09-26T00:00:00",
+   "milestone__milestone_id": "dart_impact",
+   "milestone__title": "DART moves an asteroid",
+   "milestone__chart_label": "We nudged an asteroid",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.nasa.gov/news-release/nasas-dart-mission-hits-asteroid-in-first-ever-planetary-defense-test/",
+   "wait_milestone_output": 736165224030410.0,
+   "wait_milestone_share": 0.6447915047677725,
+   "wait_milestone_days_to_gta_6": 1515
+  },
+  {
+   "milestone__event_date__day": "2022-11-15T00:00:00",
+   "milestone__milestone_id": "eight_billion",
+   "milestone__title": "World population reaches 8 billion",
+   "milestone__chart_label": "8 billion humans",
+   "milestone__category": "humanity",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.un.org/en/dayof8billion",
+   "wait_milestone_output": 748697421067411.9,
+   "wait_milestone_share": 0.6557681903293291,
+   "wait_milestone_days_to_gta_6": 1465
+  },
+  {
+   "milestone__event_date__day": "2022-11-30T00:00:00",
+   "milestone__milestone_id": "chatgpt",
+   "milestone__title": "ChatGPT released",
+   "milestone__chart_label": "ChatGPT",
+   "milestone__category": "ai",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://en.wikipedia.org/wiki/ChatGPT",
+   "wait_milestone_output": 752457080178512.6,
+   "wait_milestone_share": 0.6590611959977962,
+   "wait_milestone_days_to_gta_6": 1450
+  },
+  {
+   "milestone__event_date__day": "2022-12-05T00:00:00",
+   "milestone__milestone_id": "fusion_ignition",
+   "milestone__title": "Fusion ignition at NIF",
+   "milestone__chart_label": "Fusion ignition",
+   "milestone__category": "physics",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.llnl.gov/article/49301/lawrence-livermore-national-laboratory-achieves-fusion-ignition",
+   "wait_milestone_output": 753710299882212.6,
+   "wait_milestone_share": 0.6601588645539517,
+   "wait_milestone_days_to_gta_6": 1445
+  },
+  {
+   "milestone__event_date__day": "2023-08-23T00:00:00",
+   "milestone__milestone_id": "chandrayaan_3",
+   "milestone__title": "Chandrayaan-3 lands near the lunar south pole",
+   "milestone__chart_label": "India on the Moon",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.isro.gov.in/Chandrayaan3_Details.html",
+   "wait_milestone_output": 820805417183593.9,
+   "wait_milestone_share": 0.7189260546291253,
+   "wait_milestone_days_to_gta_6": 1184
+  },
+  {
+   "milestone__event_date__day": "2023-11-15T00:00:00",
+   "milestone__milestone_id": "crispr_therapy",
+   "milestone__title": "First CRISPR therapy approved (Casgevy, UK)",
+   "milestone__chart_label": "CRISPR cures sickle cell",
+   "milestone__category": "health",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.gov.uk/government/news/mhra-authorises-world-first-gene-therapy-that-aims-to-cure-sickle-cell-disease-and-transfusion-dependent-thalassemia",
+   "wait_milestone_output": 842461525712301.5,
+   "wait_milestone_share": 0.7378941807369985,
+   "wait_milestone_days_to_gta_6": 1100
+  },
+  {
+   "milestone__event_date__day": "2023-12-04T00:00:00",
+   "milestone__milestone_id": "gta_vi_trailer_1",
+   "milestone__title": "GTA 6 Trailer 1",
+   "milestone__chart_label": "GTA 6 trailer",
+   "milestone__category": "rockstar",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.youtube.com/watch?v=QdBZY2fkU-0",
+   "wait_milestone_output": 847359931212841.8,
+   "wait_milestone_share": 0.7421845902137787,
+   "wait_milestone_days_to_gta_6": 1081
+  },
+  {
+   "milestone__event_date__day": "2024-06-25T00:00:00",
+   "milestone__milestone_id": "change_6_samples",
+   "milestone__title": "Chang'e 6 returns far-side Moon samples",
+   "milestone__chart_label": "Samples from the Moon's far side",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://en.wikipedia.org/wiki/Chang%27e_6",
+   "wait_milestone_output": 901141640244588.8,
+   "wait_milestone_share": 0.7892908483791742,
+   "wait_milestone_days_to_gta_6": 877
+  },
+  {
+   "milestone__event_date__day": "2024-10-13T00:00:00",
+   "milestone__milestone_id": "booster_catch",
+   "milestone__title": "Starship booster caught by the tower",
+   "milestone__chart_label": "Tower catches a rocket",
+   "milestone__category": "space",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.spacex.com/launches/mission/?missionId=starship-flight-5",
+   "wait_milestone_output": 930243519112616.8,
+   "wait_milestone_share": 0.8147805667934062,
+   "wait_milestone_days_to_gta_6": 767
+  },
+  {
+   "milestone__event_date__day": "2024-12-09T00:00:00",
+   "milestone__milestone_id": "willow_error_correction",
+   "milestone__title": "Google Willow error correction below threshold",
+   "milestone__chart_label": "Quantum error correction works",
+   "milestone__category": "computing",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://physicsworld.com/?p=118873",
+   "wait_milestone_output": 945323583616959.1,
+   "wait_milestone_share": 0.827988875426236,
+   "wait_milestone_days_to_gta_6": 710
+  },
+  {
+   "milestone__event_date__day": "2025-02-24T00:00:00",
+   "milestone__milestone_id": "claude_code",
+   "milestone__title": "Claude Code released (research preview)",
+   "milestone__chart_label": "Claude Code",
+   "milestone__category": "ai",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.anthropic.com/news/claude-3-7-sonnet",
+   "wait_milestone_output": 966152527089202.4,
+   "wait_milestone_share": 0.8462325052063299,
+   "wait_milestone_days_to_gta_6": 633
+  },
+  {
+   "milestone__event_date__day": "2025-05-15T00:00:00",
+   "milestone__milestone_id": "personalised_gene_editing",
+   "milestone__title": "First personalised gene-editing therapy (baby KJ)",
+   "milestone__chart_label": "Gene editing for one baby",
+   "milestone__category": "health",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.science.org/content/article/biggest-science-breakthroughs-2025",
+   "wait_milestone_output": 987995497701756.1,
+   "wait_milestone_share": 0.8653642998498716,
+   "wait_milestone_days_to_gta_6": 553
+  },
+  {
+   "milestone__event_date__day": "2025-06-05T00:00:00",
+   "milestone__milestone_id": "nintendo_switch_2",
+   "milestone__title": "Nintendo Switch 2 released",
+   "milestone__chart_label": "Switch 2",
+   "milestone__category": "release",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://en.wikipedia.org/wiki/Nintendo_Switch_2",
+   "wait_milestone_output": 993729277487551.2,
+   "wait_milestone_share": 0.8703863959438012,
+   "wait_milestone_days_to_gta_6": 532
+  },
+  {
+   "milestone__event_date__day": "2025-06-18T00:00:00",
+   "milestone__milestone_id": "lenacapavir",
+   "milestone__title": "Twice-yearly HIV prevention shot approved (lenacapavir)",
+   "milestone__chart_label": "Two shots a year vs HIV",
+   "milestone__category": "health",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.science.org/content/article/biggest-science-breakthroughs-2025",
+   "wait_milestone_output": 997278760212091.4,
+   "wait_milestone_share": 0.8734953125733769,
+   "wait_milestone_days_to_gta_6": 519
+  },
+  {
+   "milestone__event_date__day": "2025-06-23T00:00:00",
+   "milestone__milestone_id": "rubin_first_images",
+   "milestone__title": "Vera Rubin Observatory first images",
+   "milestone__chart_label": "Rubin opens its eye",
+   "milestone__category": "space",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.science.org/content/article/biggest-science-breakthroughs-2025",
+   "wait_milestone_output": 998643945875375.8,
+   "wait_milestone_share": 0.874691049738598,
+   "wait_milestone_days_to_gta_6": 514
+  },
+  {
+   "milestone__event_date__day": "2025-07-19T00:00:00",
+   "milestone__milestone_id": "imo_gold_ai",
+   "milestone__title": "AI reaches gold-medal level at the Math Olympiad",
+   "milestone__chart_label": "AI gets IMO gold",
+   "milestone__category": "ai",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "month",
+   "milestone__source_url": "https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/",
+   "wait_milestone_output": 1005742911324456.0,
+   "wait_milestone_share": 0.8809088829977494,
+   "wait_milestone_days_to_gta_6": 488
+  },
+  {
+   "milestone__event_date__day": "2025-10-07T00:00:00",
+   "milestone__milestone_id": "renewables_beat_coal",
+   "milestone__title": "Renewables overtake coal in world electricity (Ember, H1 2025)",
+   "milestone__chart_label": "Renewables beat coal",
+   "milestone__category": "planet",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/",
+   "wait_milestone_output": 1027585881937009.0,
+   "wait_milestone_share": 0.9000406776412905,
+   "wait_milestone_days_to_gta_6": 408
+  },
+  {
+   "milestone__event_date__day": "2026-04-06T00:00:00",
+   "milestone__milestone_id": "artemis_ii_flyby",
+   "milestone__title": "Artemis II crew flies around the Moon",
+   "milestone__chart_label": "Artemis II, humans back to the Moon",
+   "milestone__category": "space",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": true,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.nasa.gov/missions/artemis/artemis-2/",
+   "wait_milestone_output": 1077809697303585.9,
+   "wait_milestone_share": 0.9440306522126187,
+   "wait_milestone_days_to_gta_6": 227
+  },
+  {
+   "milestone__event_date__day": "2026-05-01T00:00:00",
+   "milestone__milestone_id": "unit_distance_disproof",
+   "milestone__title": "OpenAI says its model disproved an Erd\u0151s-era geometry conjecture (company claim)",
+   "milestone__chart_label": "AI solves an open problem (claimed)",
+   "milestone__category": "ai",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "month",
+   "milestone__source_url": "https://openai.com/index/model-disproves-discrete-geometry-conjecture/",
+   "wait_milestone_output": 1084847229397817.9,
+   "wait_milestone_share": 0.9501946772993347,
+   "wait_milestone_days_to_gta_6": 202
+  },
+  {
+   "milestone__event_date__day": "2026-07-19T00:00:00",
+   "milestone__milestone_id": "world_cup_2026",
+   "milestone__title": "Spain win the 2026 World Cup",
+   "milestone__chart_label": "World Cup 2026",
+   "milestone__category": "culture",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://abcnews.com/culture/story/spain-argentina-win-2026-world-cup-134824556",
+   "wait_milestone_output": 1107085830815591.1,
+   "wait_milestone_share": 0.9696729965733574,
+   "wait_milestone_days_to_gta_6": 123
+  },
+  {
+   "milestone__event_date__day": "2026-08-26T00:00:00",
+   "milestone__milestone_id": "daraxonrasib",
+   "milestone__title": "First pan-RAS drug approved for pancreatic cancer",
+   "milestone__chart_label": "Pancreatic cancer survival doubles",
+   "milestone__category": "health",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-daraxonrasib-metastatic-pancreatic-adenocarcinoma",
+   "wait_milestone_output": 1117782879598823.6,
+   "wait_milestone_share": 0.9790423147051656,
+   "wait_milestone_days_to_gta_6": 85
+  },
+  {
+   "milestone__event_date__day": "2026-09-03T00:00:00",
+   "milestone__milestone_id": "pig_kidney_271_days",
+   "milestone__title": "Pig kidney works 271 days in a living man",
+   "milestone__chart_label": "Pig kidney 271 days",
+   "milestone__category": "health",
+   "milestone__tier": "long",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.ktvu.com/news/pig-kidney-functions-record-271-days-inside-man-awaiting-human-transplant",
+   "wait_milestone_output": 1120034889868977.6,
+   "wait_milestone_share": 0.9810148027329145,
+   "wait_milestone_days_to_gta_6": 77
+  },
+  {
+   "milestone__event_date__day": "2026-11-14T00:00:00",
+   "milestone__milestone_id": "ship_catch",
+   "milestone__title": "Starship upper stage caught by the tower",
+   "milestone__chart_label": "We caught a spaceship",
+   "milestone__category": "space",
+   "milestone__tier": "hero",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://aerospaceamerica.aiaa.org/spacex-achieves-first-starship-tower-catch/",
+   "wait_milestone_output": 1140302982300366.2,
+   "wait_milestone_share": 0.998767194982657,
+   "wait_milestone_days_to_gta_6": 5
+  },
+  {
+   "milestone__event_date__day": "2026-11-19T00:00:00",
+   "milestone__milestone_id": "gta_6",
+   "milestone__title": "GTA 6 released",
+   "milestone__chart_label": "GTA 6",
+   "milestone__category": "rockstar",
+   "milestone__tier": "anchor",
+   "milestone__is_editorial": false,
+   "milestone__date_precision": "day",
+   "milestone__source_url": "https://www.rockstargames.com/VI",
+   "wait_milestone_output": 1141710488719212.5,
+   "wait_milestone_share": 1.0,
+   "wait_milestone_days_to_gta_6": 0
+  }
+ ]
+}

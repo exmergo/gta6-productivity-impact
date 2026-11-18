@@ -10,15 +10,16 @@ All sources are free and public, and no API keys are needed. The ingesters are i
 | Google Trends | `trendspy` (unofficial), one US request per Day-Off Index phrase over `TRENDS_SPAN` | weekly, relative 0–100 per request | `raw.trends_interest` |
 | Bluesky | `api.bsky.app/xrpc/app.bsky.feed.searchPosts`, one UTC day per call, `hitsTotal` | daily count | `raw.bluesky_daily_hits` |
 | Hacker News | `hn.algolia.com/api/v1/search_by_date`, `nbHits`, typo tolerance off | daily count | `raw.hn_daily_hits` |
-| World Bank WDI | `api.worldbank.org/v2/country/WLD/indicator/<code>`: `SL.GDP.PCAP.EM.KD`, `NY.GDP.PCAP.KD`, `SP.POP.GROW` | yearly, world | `raw.economy_indicators` |
+| World Bank WDI | `api.worldbank.org/v2/country/WLD/indicator/<code>`: `SL.GDP.PCAP.EM.KD`, `NY.GDP.PCAP.KD`, `NY.GDP.MKTP.KD`, `SP.POP.GROW` | yearly, world | `raw.economy_indicators` |
 | IMF World Economic Outlook | `imf.org/external/datamapper/api/v1/NGDP_RPCH/WEOWORLD` | yearly, world | `raw.economy_indicators` |
+| Milestones | editorial, one public source per row (`source_url`), dates checked as UTC days | per event | seed `wait_milestones` |
 
 ## What we tried and dropped
 
 - **Wikipedia hourly views.** The per-article API only serves daily and monthly data.
 - **GH Archive and the ClickHouse `github_events` playground** (for the PR metric).
   Their event volume fell from about 3.5M a day to about 100k a day from late October
-  2026, so a count from them can't be compared week to week. Metric 2 uses the GitHub
+  2026, so a count from them can't be compared week to week. The PR metric uses the GitHub
   Search API's `total_count` instead.
 
 ## When Google Trends rate-limits

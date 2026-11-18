@@ -1,5 +1,5 @@
--- Metric 2 is measured from GTA V's launch year: every measure needs its bookend value, or
--- every change since GTA V would read NULL.
+-- Metric 2 is measured from GTA 5's launch year: every measure needs its bookend value, or
+-- every change since GTA 5 would read NULL.
 select measure
 from {{ ref('fct_world_productivity') }}
 group by measure

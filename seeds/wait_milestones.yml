@@ -1,0 +1,64 @@
+version: 2
+seeds:
+- name: wait_milestones
+  description: 'Metric 3: moments between GTA 5 and GTA 6, one row per milestone, each dated to a UTC
+    day and carrying one public source. is_editorial marks the ones the chart draws.'
+  config:
+    column_types:
+      event_date: date
+      is_editorial: boolean
+  columns:
+  - name: milestone_id
+    description: Slug, e.g. black_hole_image.
+    data_tests:
+    - unique
+    - not_null
+  - name: event_date
+    description: UTC day the event happened.
+    data_tests:
+    - not_null
+  - name: date_precision
+    description: day, or month when only the month is certain.
+    data_tests:
+    - accepted_values:
+        arguments:
+          values:
+          - day
+          - month
+  - name: category
+    description: Theme of the milestone; rockstar marks the Rockstar nods.
+    data_tests:
+    - accepted_values:
+        arguments:
+          values:
+          - ai
+          - computing
+          - culture
+          - health
+          - humanity
+          - physics
+          - planet
+          - release
+          - rockstar
+          - space
+  - name: tier
+    description: anchor (the two releases), hero (headline moments) or long.
+    data_tests:
+    - accepted_values:
+        arguments:
+          values:
+          - anchor
+          - hero
+          - long
+  - name: is_editorial
+    description: 'True for the editorial milestones: the ones drawn on the Metric 3 chart.'
+    data_tests:
+    - not_null
+  - name: title
+    description: What happened, in a sentence.
+  - name: chart_label
+    description: Short label for the chart.
+  - name: why
+    description: Why it is on the list.
+  - name: source_url
+    description: One public source for the date.

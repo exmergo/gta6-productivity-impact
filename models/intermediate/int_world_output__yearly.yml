@@ -1,0 +1,420 @@
+version: 2
+models:
+- name: int_world_output__yearly
+  description: 'Metric 3: world real output (GDP, constant 2015 US$) in every year from GTA 5''s launch year to GTA 6''s, and its even daily and per-second rates. One row per year.'
+  config:
+    meta:
+      dex:
+        grain:
+          - data_year
+        population:
+          rule: Every year from var gta_v_year (2013) to var gta_6_year (2026), published or not; an unpublished, unestimated year keeps its row with NULL output.
+        assumptions:
+          - decision: What 'everything humanity made' measures
+            chosen: World Bank world real GDP, NY.GDP.MKTP.KD, constant 2015 US$
+            evidence: request
+            detail: 'user: Metric 3 plan, world output between GTA 5 and GTA 6; same price basis as Metric 2''s per-capita series'
+            column: annual_output
+          - decision: Years covered
+            chosen: 2013 to 2026, every year
+            evidence: request
+            detail: 'user: bookended by the GTA 5 and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
+            column: data_year
+          - decision: Years the World Bank has not published
+            chosen: last published GDP grown by IMF WEO world real GDP growth, no population adjustment, flagged is_estimate
+            evidence: precedent
+            detail: fct_world_productivity carries the unpublished year with the same IMF chain; total output takes no per-capita adjustment
+            column: annual_output
+          - decision: Daily output within a year
+            chosen: spread evenly over the year's days (365 or 366)
+            evidence: default
+            detail: GDP is published yearly; no seasonality is claimed
+            column: daily_output
+  columns:
+    - name: data_year
+      description: Calendar year.
+      config:
+        meta:
+          dex:
+            role: key
+            null_rule: never
+      data_tests:
+        - unique
+        - not_null
+    - name: annual_output
+      description: World real GDP in the year, constant 2015 US$.
+      config:
+        meta:
+          dex:
+            role: measure
+            null_rule: 'NULL when unpublished and not estimated: unavailable, never zero.'
+            aggregation: sum
+            additivity: additive
+            unit: currency:USD
+    - name: is_estimate
+      description: True when carried by IMF growth, not published by the World Bank.
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+      data_tests:
+        - not_null
+    - name: days_in_year
+      description: 365, or 366 in a leap year.
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+            unit: days
+      data_tests:
+        - not_null
+    - name: daily_output
+      description: 'annual_output / days_in_year: the year spread evenly over its days.'
+      config:
+        meta:
+          dex:
+            role: measure
+            null_rule: NULL when annual_output is.
+            aggregation: sum
+            additivity: additive
+            unit: currency:USD
+    - name: output_per_second
+      description: 'daily_output / 86400: a rate, the yearly average spread evenly.'
+      config:
+        meta:
+          dex:
+            role: measure
+            null_rule: NULL when annual_output is.
+            aggregation: max
+            additivity: non_additive
+            unit: currency:USD
+    - name: source_indicator
+      description: World Bank indicator code.
+      config:
+        meta:
+          dex:
+            role: attribute
+            null_rule: never
+      data_tests:
+        - not_null
+unit_tests:
+- name: world_output_carries_unpublished_years_by_imf_growth
+  description: '2025 = 7320 x (1 - 50%) = 3660 and 2026 = 3660 x (1 + 100%) = 7320, both estimates, with
+    no population adjustment: the chain compounds every year (two factors, so a sum of logs cannot pass
+    as a max); leap years have 366 days; other geographies, providers and indicators are ignored.'
+  model: int_world_output__yearly
+  given:
+  - input: ref('stg_economy__indicators')
+    rows:
+    - &id001
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2013
+      value: 3650.0
+    - &id002
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2014
+      value: 3650.0
+    - &id003
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2015
+      value: 3650.0
+    - &id004
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2016
+      value: 3660.0
+    - &id005
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2017
+      value: 3650.0
+    - &id006
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2018
+      value: 3650.0
+    - &id007
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2019
+      value: 3650.0
+    - &id008
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2020
+      value: 3660.0
+    - &id009
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2021
+      value: 3650.0
+    - &id010
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2022
+      value: 3650.0
+    - &id011
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2023
+      value: 3650.0
+    - &id012
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2024
+      value: 7320.0
+    - &id013
+      provider: world_bank
+      indicator: NY.GDP.MKTP.KD
+      geo: USA
+      year: 2025
+      value: 999.0
+    - &id014
+      provider: world_bank
+      indicator: NY.GDP.PCAP.KD
+      geo: WLD
+      year: 2025
+      value: 999.0
+    - &id015
+      provider: imf_weo
+      indicator: NGDP_RPCH
+      geo: WLD
+      year: 2024
+      value: 9.0
+    - &id016
+      provider: imf_weo
+      indicator: NGDP_RPCH
+      geo: WLD
+      year: 2026
+      value: 100.0
+    - &id017
+      provider: world_bank
+      indicator: NGDP_RPCH
+      geo: WLD
+      year: 2025
+      value: 50.0
+    - &id018
+      provider: imf_weo
+      indicator: NY.GDP.MKTP.KD
+      geo: WLD
+      year: 2025
+      value: 1.0
+    - provider: imf_weo
+      indicator: NGDP_RPCH
+      geo: WLD
+      year: 2025
+      value: -50.0
+  expect:
+    rows:
+    - data_year: 2013
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2014
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2015
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2016
+      annual_output: 3660.0
+      is_estimate: false
+      days_in_year: 366
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2017
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2018
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2019
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2020
+      annual_output: 3660.0
+      is_estimate: false
+      days_in_year: 366
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2021
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2022
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2023
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2024
+      annual_output: 7320.0
+      is_estimate: false
+      days_in_year: 366
+      daily_output: 20.0
+      output_per_second: 0.0002314814814814815
+    - data_year: 2025
+      annual_output: 3660.0
+      is_estimate: true
+      days_in_year: 365
+      daily_output: 10.027397260273972
+      output_per_second: 0.00011605783866057838
+    - data_year: 2026
+      annual_output: 7320.0
+      is_estimate: true
+      days_in_year: 365
+      daily_output: 20.054794520547944
+      output_per_second: 0.00023211567732115676
+- name: world_output_missing_imf_year_breaks_the_chain
+  description: 'With no IMF growth for 2025, 2025 and 2026 are both NULL (unavailable), though 2026 has
+    a growth figure: a gap is never skipped over, and never read as zero.'
+  model: int_world_output__yearly
+  given:
+  - input: ref('stg_economy__indicators')
+    rows:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - *id006
+    - *id007
+    - *id008
+    - *id009
+    - *id010
+    - *id011
+    - *id012
+    - *id013
+    - *id014
+    - *id015
+    - *id016
+    - *id017
+    - *id018
+  expect:
+    rows:
+    - data_year: 2013
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2014
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2015
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2016
+      annual_output: 3660.0
+      is_estimate: false
+      days_in_year: 366
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2017
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2018
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2019
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2020
+      annual_output: 3660.0
+      is_estimate: false
+      days_in_year: 366
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2021
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2022
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2023
+      annual_output: 3650.0
+      is_estimate: false
+      days_in_year: 365
+      daily_output: 10.0
+      output_per_second: 0.00011574074074074075
+    - data_year: 2024
+      annual_output: 7320.0
+      is_estimate: false
+      days_in_year: 366
+      daily_output: 20.0
+      output_per_second: 0.0002314814814814815
+    - data_year: 2025
+      annual_output: null
+      is_estimate: false
+      days_in_year: 365
+      daily_output: null
+      output_per_second: null
+    - data_year: 2026
+      annual_output: null
+      is_estimate: false
+      days_in_year: 365
+      daily_output: null
+      output_per_second: null

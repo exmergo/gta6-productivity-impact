@@ -65,7 +65,7 @@ metrics:
     numerator: day_off_mentions_gta
     denominator: day_off_mentions
 - name: gta_wiki_pageviews
-  label: GTA VI Wikipedia pageviews
+  label: GTA 6 Wikipedia pageviews
   description: Daily user pageviews of the English Wikipedia article Grand Theft Auto VI. The hype line.
   type: simple
   type_params:
@@ -76,14 +76,69 @@ metrics:
 
 - name: world_productivity
   label: World productivity
-  description: 'Metric 2, GTA V to GTA 6. World real output in one year, in the measure''s unit: output_per_worker is World Bank GDP per person employed (constant 2021 PPP $), output_per_person is World Bank GDP per capita (constant 2015 US$). Always group by world_productivity_key__measure and world_productivity_key__data_year; never add across measures or years.'
+  description: 'Metric 2, GTA 5 to GTA 6. World real output in one year, in the measure''s unit: output_per_worker is World Bank GDP per person employed (constant 2021 PPP $), output_per_person is World Bank GDP per capita (constant 2015 US$). Always group by world_productivity_key__measure and world_productivity_key__data_year; never add across measures or years.'
   type: simple
   type_params:
     measure: value
 
 - name: world_productivity_change_since_gta_v
-  label: World productivity, change since GTA V
-  description: 'Metric 2, GTA V to GTA 6. Real change in world productivity since GTA V''s launch year (2013), in percent. Group by world_productivity_key__measure and world_productivity_key__data_year. The headline year is 2026 (GTA 6) for output_per_person, an estimate carried by IMF world real GDP growth, and the latest published year for output_per_worker (2026 reads NULL: unavailable).'
+  label: World productivity, change since GTA 5
+  description: 'Metric 2, GTA 5 to GTA 6. Real change in world productivity since GTA 5''s launch year (2013), in percent. Group by world_productivity_key__measure and world_productivity_key__data_year. The headline year is 2026 (GTA 6) for output_per_person, an estimate carried by IMF world real GDP growth, and the latest published year for output_per_worker (2026 reads NULL: unavailable).'
   type: simple
   type_params:
     measure: pct_change_since_gta_v
+
+- name: world_output_produced
+  label: World output made while waiting for GTA 6
+  description: 'Metric 3, everything humanity made while waiting for GTA 6. World real output (World Bank
+    NY.GDP.MKTP.KD) made over the days asked for. With no group-by it is the headline: everything made from
+    GTA 5''s release (17 Sep 2013) to the day before GTA 6 (18 Nov 2026), 4,811 days. Constant 2015 US$;
+    2026 is an IMF-based estimate; never add cumulative output across days.'
+  type: simple
+  type_params:
+    measure: daily_output
+
+- name: world_output_cumulative
+  label: World output since GTA 5, running total
+  description: Metric 3. Running total of world real output since GTA 5's release, as of each day. Group
+    by world_output_day__output_day or metric_time; at week or month grain it reads the period's last day.
+    Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative output across days.
+  type: simple
+  type_params:
+    measure: cumulative_output
+
+- name: world_output_per_second
+  label: World output per second
+  description: 'Metric 3. The rate the world makes things at: one day''s world real output / 86,400. Only
+    meaningful by day: group by world_output_day__output_day (or metric_time__day). A yearly average spread
+    evenly; nobody measures GDP by the second. Constant 2015 US$; 2026 is an IMF-based estimate; never add
+    cumulative output across days.'
+  type: derived
+  type_params:
+    expr: world_output_produced / 86400
+    metrics:
+    - name: world_output_produced
+
+- name: wait_milestone_output
+  label: World output made by each milestone
+  description: Metric 3. World real output made since GTA 5's release by the day before each milestone.
+    Group by milestone__title and milestone__event_date (milestone__is_editorial = true for the chart). Milestones
+    are editorial picks, not a ranking. Constant 2015 US$; 2026 is an IMF-based estimate; never add cumulative
+    output across days.
+  type: simple
+  type_params:
+    measure: output_by_then
+
+- name: wait_milestone_share
+  label: Share of the wait's output made by each milestone
+  description: Metric 3. wait_milestone_output over the whole wait's output (0 to 1). Group by milestone.
+  type: simple
+  type_params:
+    measure: share_of_wait_output
+
+- name: wait_milestone_days_to_gta_6
+  label: Days from each milestone to GTA 6
+  description: Metric 3. Days from the milestone to GTA 6's release day (19 Nov 2026). Group by milestone.
+  type: simple
+  type_params:
+    measure: days_to_gta_6

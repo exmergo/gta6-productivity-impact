@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "plan_id": "pbbe480d825",
+  "created_at": "2026-11-18T13:42:19.155556+00:00",
+  "intent": "Metric 3: expose the per-second rate on the daily mart for the release-day ticker",
+  "project_dir": ".",
+  "edit_target": "project",
+  "edits": [
+    {
+      "path": "models/marts/fct_world_output_daily.sql",
+      "new_content": "-- Metric 3, everything humanity made while waiting for GTA 6: one row per UTC day of the\n-- wait, from GTA V's release (var gta_v_date) to the day before GTA 6's (var gta_6_date),\n-- with that day's world real output and the running total since GTA V.\n-- Days are generated here: the wait (2013 to 2026) is wider than the semantic time spine.\n-- A day whose year has no output reads NULL, and so does every running total from it on.\nwith days as (\n    select cast(range as date) as output_day\n    from range(cast('{{ var('gta_v_date', '2013-09-17') }}' as date), cast('{{ var('gta_6_date', '2026-11-19') }}' as date), interval 1 day)\n),\n\nyearly as (\n    select * from {{ ref('int_world_output__yearly') }}\n),\n\ndaily as (\n    select\n        days.output_day,\n        cast(year(days.output_day) as integer) as data_year,\n        yearly.daily_output,\n        yearly.is_estimate\n    from days\n    left join yearly on yearly.data_year = year(days.output_day)\n)\n\nselect\n    output_day,\n    data_year,\n    daily_output,\n    daily_output / 86400 as output_per_second,\n    is_estimate,\n    case\n        when bool_and(daily_output is not null) over wait\n            then sum(daily_output) over wait\n    end as cumulative_output,\n    datediff('day', cast('{{ var('gta_v_date', '2013-09-17') }}' as date), output_day) + 1 as days_since_gta_v,\n    datediff('day', output_day, cast('{{ var('gta_6_date', '2026-11-19') }}' as date)) as days_to_gta_6\nfrom daily\nwindow wait as (order by output_day rows between unbounded preceding and current row)\n",
+      "old_content_hash": "f8199a8bbc935797b5de54a9bdc6f96cc0f79c1d1965cbdf17acc04a671762b5",
+      "op": "upsert",
+      "kind": "model_sql"
+    },
+    {
+      "path": "models/marts/fct_world_output_daily.yml",
+      "new_content": "version: 2\nmodels:\n- name: fct_world_output_daily\n  description: 'Metric 3, everything humanity made while waiting for GTA 6: world real output on each UTC day from GTA V''s release to the day before GTA 6''s, and the running total since GTA V. One row per day.'\n  config:\n    meta:\n      dex:\n        grain:\n          - output_day\n        population:\n          rule: 'Every UTC day from var gta_v_date (2013-09-17, GTA V''s release) to the day before var gta_6_date (2026-11-19, GTA 6''s release): 4,811 days.'\n        assumptions:\n          - decision: Which days the wait holds\n            chosen: 2013-09-17 through 2026-11-18, every UTC day\n            evidence: request\n            detail: 'user: bookended by the two releases; GTA 6 unlocks 2026-11-19 00:00 UTC, the site countdown''s moment'\n            column: output_day\n          - decision: What drives the days\n            chosen: a range() of days generated in SQL, not metricflow_time_spine\n            evidence: default\n            detail: the time spine covers 2025-2027 only; widening it would change a model Metric 1 reads\n            column: output_day\n          - decision: Running total across an unavailable day\n            chosen: NULL from that day on\n            evidence: contract\n            detail: 'AGENTS.md: a NULL is unavailable, never zero; a total that skipped a year would understate'\n            column: cumulative_output\n  columns:\n    - name: output_day\n      description: UTC day.\n      config:\n        meta:\n          dex:\n            role: time\n            null_rule: never\n      data_tests:\n        - unique\n        - not_null\n    - name: data_year\n      description: Calendar year of output_day.\n      config:\n        meta:\n          dex:\n            role: dimension\n            null_rule: never\n      data_tests:\n        - not_null\n    - name: daily_output\n      description: World real output on the day, constant 2015 US$ (the year spread evenly).\n      config:\n        meta:\n          dex:\n            role: measure\n            null_rule: NULL when the year's output is unavailable.\n            aggregation: sum\n            additivity: additive\n            unit: currency:USD\n    - name: output_per_second\n      description: 'daily_output / 86400: the rate the world makes things at on the day, a yearly average spread evenly.'\n      config:\n        meta:\n          dex:\n            role: measure\n            null_rule: NULL when daily_output is.\n            aggregation: max\n            additivity: non_additive\n            unit: currency:USD\n    - name: is_estimate\n      description: True when the day's year is carried by IMF growth.\n      config:\n        meta:\n          dex:\n            role: attribute\n    - name: cumulative_output\n      description: Running total of daily_output from GTA V's release through the day. Never sum it across days.\n      config:\n        meta:\n          dex:\n            role: measure\n            null_rule: 'NULL from the first day with unavailable output on: never a partial total.'\n            aggregation: max\n            additivity: semi_additive\n            unit: currency:USD\n    - name: days_since_gta_v\n      description: 1 on GTA V's release day, 4,811 on 18 Nov 2026.\n      config:\n        meta:\n          dex:\n            role: attribute\n            null_rule: never\n            unit: days\n      data_tests:\n        - not_null\n    - name: days_to_gta_6\n      description: Days left until GTA 6's release day; 1 on 18 Nov 2026.\n      config:\n        meta:\n          dex:\n            role: attribute\n            null_rule: never\n            unit: days\n      data_tests:\n        - not_null\n",
+      "old_content_hash": "9bc303ae93c48f2f37c167f3ddd26f1f660d88a5c554c51ba63f01de54d5bde7",
+      "op": "upsert",
+      "kind": "schema_yml"
+    }
+  ],
+  "applied_at": null,
+  "refactor_models": {
+    "fct_world_output_daily": "none"
+  },
+  "refactor_baseline_ready": {
+    "fct_world_output_daily": true
+  },
+  "comparisons": {
+    "fct_world_output_daily": {
+      "status": "unexpected",
+      "reason_code": "unexpected_change",
+      "compared_at": "2026-11-18T13:42:35.218508+00:00",
+      "input_scope": [
+        "gta6.main.int_world_output__yearly"
+      ],
+      "baseline_compiled": "fed752d71c514658",
+      "proposed_compiled": "de6eec249e280c16",
+      "inputs_built_by": {
+        "invocation_id": "d2761f94-52ce-4b9f-aea9-59cbfe83c400",
+        "generated_at": "2026-11-18T13:41:03.800093Z",
+        "cold": false
+      },
+      "expectation": "3cf30a5c8ef189dd"
+    }
+  },
+  "identifier_conversions": null,
+  "change_scope": null,
+  "population_acceptance": null,
+  "repair": null,
+  "baseline_sources": null,
+  "retirement": null,
+  "toggle": null
+}

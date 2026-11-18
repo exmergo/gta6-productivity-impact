@@ -1,8 +1,8 @@
 version: 2
 models:
 - name: fct_world_productivity
-  description: 'Metric 2, GTA V to GTA 6: world productivity per year from 2013 to 2026 and its real change
-    since GTA V''s launch year. One row per measure per year.'
+  description: 'Metric 2, GTA 5 to GTA 6: world productivity per year from 2013 to 2026 and its real change
+    since GTA 5''s launch year. One row per measure per year.'
   config:
     meta:
       dex:
@@ -21,7 +21,7 @@ models:
         - decision: Years covered
           chosen: 2013 to 2026, every year
           evidence: request
-          detail: 'user: bookended by the GTA V and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
+          detail: 'user: bookended by the GTA 5 and GTA 6 releases (17 Sep 2013, 19 Nov 2026)'
           column: data_year
         - decision: Years the World Bank has not published
           chosen: per capita carried by IMF WEO world real GDP growth less latest World Bank population
@@ -69,7 +69,7 @@ models:
     data_tests:
     - not_null
   - name: launch
-    description: GTA V on 2013, GTA 6 on 2026, NULL in between.
+    description: GTA 5 on 2013, GTA 6 on 2026, NULL in between.
     config:
       meta:
         dex:
@@ -118,7 +118,7 @@ models:
         dex:
           role: attribute
   - name: pct_change_since_gta_v
-    description: Real change since GTA V's launch year, in percent.
+    description: Real change since GTA 5's launch year, in percent.
     config:
       meta:
         dex:
@@ -264,7 +264,7 @@ unit_tests:
     rows:
     - measure: output_per_person
       data_year: 2013
-      launch: GTA V
+      launch: GTA 5
       is_estimate: false
       is_latest: false
       pct_change_since_gta_v: 0.0
@@ -348,7 +348,7 @@ unit_tests:
       pct_change_since_gta_v: 13.3
     - measure: output_per_worker
       data_year: 2013
-      launch: GTA V
+      launch: GTA 5
       is_estimate: false
       is_latest: true
       pct_change_since_gta_v: 0.0
@@ -461,7 +461,7 @@ unit_tests:
     rows:
     - measure: output_per_person
       data_year: 2013
-      launch: GTA V
+      launch: GTA 5
       is_estimate: false
       is_latest: false
       pct_change_since_gta_v: 0.0
@@ -545,7 +545,7 @@ unit_tests:
       pct_change_since_gta_v: null
     - measure: output_per_worker
       data_year: 2013
-      launch: GTA V
+      launch: GTA 5
       is_estimate: false
       is_latest: null
       pct_change_since_gta_v: null

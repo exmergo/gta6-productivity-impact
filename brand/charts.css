@@ -111,7 +111,7 @@ h1 .red { color: var(--dex-redline); }
 .chart .marker.launch { stroke: var(--dex-ink-faint); }
 .chart .marker-label.launch { fill: var(--dex-ink); }
 
-/* Metric 2 as a glow-up: GTA V's faded 2013 on the left, GTA 6's sunset on the right,
+/* Metric 2 as a glow-up: GTA 5's faded 2013 on the left, GTA 6's sunset on the right,
    one diagonal cut, logo and number side by side, the line below, the Dex strip under it. */
 .gcard { display: flex; flex-direction: column; overflow: hidden; background: var(--dex-paper); }
 .glowup { position: relative; flex: none; overflow: hidden; font-family: var(--font-sans);
@@ -192,3 +192,35 @@ h1 .red { color: var(--dex-redline); }
 .gcard.portrait .glowup .value { font-size: 60px; }
 .gcard.portrait .glowup .era { gap: 14px; }
 .gcard.portrait .glowup .badge { top: 300px; }
+
+/* Metric 3, everything that happened before GTA 6: the same glow-up, the running total rising
+   across both eras, each editorial milestone a picture card on the line; Rockstar's own nods
+   as stars with ink cards. */
+.glowup.wait .era { flex-direction: column; align-items: center; gap: calc(6px * var(--k)); }
+.glowup.wait .era.vi .num, .glowup.wait .num { align-items: center; }
+/* The text lockup sizes to its type, so the date sits right under the title. */
+.gcard .glowup.wait .gamelogo.text { height: auto; }
+.gcard.portrait .glowup.wait .titles { top: 200px; }
+.glowup.wait .titles { position: absolute; left: 50%; top: calc(16px * var(--k));
+  transform: translateX(-50%); width: calc(560px * var(--k)); text-align: center; }
+.glowup.wait .headline { font-size: calc(46px * var(--k)); font-weight: 700; line-height: 1.02;
+  letter-spacing: calc(-1px * var(--k)); word-spacing: calc(5px * var(--k)); color: var(--era-white);
+  -webkit-text-stroke: calc(7px * var(--k)) var(--era-ink); paint-order: stroke fill; }
+.glowup.wait .subhead { margin-top: calc(10px * var(--k)); font: 600 calc(20px * var(--k)) var(--font-mono);
+  color: var(--era-white); paint-order: stroke; -webkit-text-stroke: calc(5px * var(--k)) var(--era-ink); }
+.glowup.wait .subhead b { font-weight: 700; }
+.glowup .trend .mark { fill: var(--era-white); stroke: var(--era-ink); stroke-width: calc(2.5px * var(--k)); }
+.glowup .trend .mark.rockstar { fill: var(--era-vi-pink); }
+.glowup .trend .leader { stroke: var(--era-ink); stroke-width: calc(2px * var(--k)); }
+.glowup .trend .card .shadow { fill: var(--era-ink); }
+.glowup .trend .card .frame { fill: var(--era-white); stroke: var(--era-ink); stroke-width: calc(2.5px * var(--k)); }
+.glowup .trend .card .tile { fill: var(--era-ink); }
+.glowup .trend .card .tile.logo { fill: var(--era-white); stroke: var(--era-ink); stroke-opacity: .15; }
+.glowup .trend .card text { font-family: var(--font-mono); font-weight: 600; fill: var(--era-ink); }
+.glowup .trend .card .year { font-weight: 400; fill-opacity: .6; }
+.glowup .trend .card.rockstar .frame { fill: var(--era-ink); stroke: var(--era-vi-pink); }
+.glowup .trend .card.rockstar .shadow { fill: var(--era-vi-pink); }
+.glowup .trend .card.rockstar text { fill: var(--era-white); }
+.gcard.portrait .glowup.wait .titles { width: 960px; }
+.gcard.portrait .glowup.wait .headline { font-size: 72px; }
+.gcard.portrait .glowup.wait .subhead { font-size: 28px; }

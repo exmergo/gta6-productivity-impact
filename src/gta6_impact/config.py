@@ -67,15 +67,16 @@ TRENDS_GEO = "US"
 # windows (dbt vars day_off_index_*). Canonical snapshot: 2025-11-01 to 2026-11-15.
 TRENDS_SPAN = (dt.date(2025, 11, 1), dt.date(2026, 11, 15))
 
-# Metric 2, GTA V to GTA 6: world productivity between the two launch years, from official
+# Metric 2, GTA 5 to GTA 6: world productivity between the two launch years, from official
 # economic data only. World Bank WDI actuals (world aggregate WLD) and the IMF World Economic
 # Outlook's world real GDP growth (WEOWORLD), which carries the year World Bank has not
 # published yet.
-GTA_V_YEAR = 2013  # GTA V: 17 September 2013
+GTA_V_YEAR = 2013  # GTA 5: 17 September 2013
 GTA_6_YEAR = 2026  # GTA 6: 19 November 2026
 WORLD_BANK_INDICATORS = (
     "SL.GDP.PCAP.EM.KD",  # GDP per person employed, constant 2021 PPP $
     "NY.GDP.PCAP.KD",  # GDP per capita, constant 2015 US$
+    "NY.GDP.MKTP.KD",  # GDP, constant 2015 US$ (Metric 3: everything the world made)
     "SP.POP.GROW",  # population growth, annual %
 )
 IMF_INDICATORS = ("NGDP_RPCH",)  # real GDP growth, annual %

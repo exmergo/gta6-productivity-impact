@@ -210,7 +210,7 @@ PRODUCTIVITY_SOURCE = (
 # and used only when present; without them the card falls back to a plain type lockup.
 GAME_LOGOS = {
     "v": ("gta-v-logo.png", "GTA V"),
-    "vi": ("gta-6-logo.svg", "GTA 6"),
+    "vi": ("gta-6-logo.svg", "GTA VI"),
 }
 
 GLOWUP_PAGE = """<!doctype html>
@@ -218,7 +218,7 @@ GLOWUP_PAGE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA V to GTA 6</title>
+<title>{title}</title>
 <link rel="stylesheet" href="../brand/dex-site.css">
 <link rel="stylesheet" href="../brand/charts.css">
 <script>
@@ -426,7 +426,7 @@ GLOWUP_SIZES = {
 
 
 def productivity_card(png: bool) -> dict:
-    """Metric 2, GTA V to GTA 6, as a glow-up over the Dex footer: 2013 left, 2026 right."""
+    """Metric 2, GTA 5 to GTA 6, as a glow-up over the Dex footer: 2013 left, 2026 right."""
     # Sorted, so the committed chart data does not churn on every refresh.
     rows = sorted(
         query(
@@ -476,6 +476,7 @@ def productivity_card(png: bool) -> dict:
         )
         for theme_name, theme in THEMES.items():
             html = GLOWUP_PAGE.format(
+                title="GTA 5 to GTA 6",
                 theme=theme,
                 variant=f" {variant}" if variant else "",
                 w=w,
@@ -493,10 +494,378 @@ def productivity_card(png: bool) -> dict:
     return {"rows": rows}
 
 
+WAIT_SOURCE = "Data source: World Bank WDI, IMF WEO · world real GDP, constant 2015 US$"
+# Per size: card (w, h), art (w, h), scale, where the chart starts, CSS variant, the milestone
+# card's width before scaling, and how cards pick a side of the line: "room" puts each where
+# there is more space (the shallow landscape line), "alternate" takes turns in date order so
+# no side crowds (the steep portrait line).
+WAIT_SIZES = {
+    "everything-we-made": ((1200, 630), (1200, 576), 1.0, 200, "", 112, "room"),
+    "everything-we-made-portrait": (
+        (1080, 1350),
+        (1080, 1270),
+        1.45,
+        470,
+        "portrait",
+        96,
+        "alternate",
+    ),
+}
+# One picture per editorial milestone (brand/milestones/): file, and how it fits its tile.
+# Logos sit whole on a white tile; photos fill theirs, cropped around the centre unless an
+# alignment says otherwise (the RDR2 cover is tall: its top holds Arthur and the revolver).
+MILESTONE_IMAGES = {
+    "comet_landing": ("comet_landing.jpg", "xMidYMid slice"),
+    "alphago": ("alphago.jpg", "xMidYMid slice"),
+    "red_dead_redemption_2": ("red_dead_redemption_2.jpg", "xMidYMin slice"),
+    "black_hole_image": ("black_hole_image.jpg", "xMidYMid slice"),
+    "covid_vaccine": ("covid_vaccine.jpg", "xMidYMid slice"),
+    "chatgpt": ("chatgpt.png", "xMidYMid meet"),
+    "gta_vi_trailer_1": ("gta_vi_trailer_1.jpg", "xMidYMid slice"),
+    "claude_code": ("claude_code.png", "xMidYMid meet"),
+    "artemis_ii_flyby": ("artemis_ii_flyby.jpg", "xMidYMid slice"),
+}
+MONO = 0.6  # IBM Plex Mono advance width, in em: label wraps are computed, not measured
+
+
+def _trillions(v: float) -> str:
+    return f"${v / 1e12:,.0f}T"
+
+
+def _wrap(text: str, width: int) -> list[str]:
+    """Greedy wrap to `width` characters; two lines are rebalanced so neither is left a stub."""
+    lines: list[str] = []
+    for word in text.split():
+        if lines and len(lines[-1]) + 1 + len(word) <= width:
+            lines[-1] += " " + word
+        else:
+            lines.append(word)
+    if len(lines) == 2:
+        words = text.split()
+        splits = [(" ".join(words[:i]), " ".join(words[i:])) for i in range(1, len(words))]
+        lines = list(min(splits, key=lambda ab: max(len(ab[0]), len(ab[1]))))
+    return lines
+
+
+def _spread(targets: list[float], gap: float, lo: float, hi: float) -> list[float]:
+    """Card centres as close to their dots as possible, at least `gap` apart, inside [lo, hi]:
+    neighbours that would overlap merge into a block centred on their dots."""
+    blocks: list[list[float]] = []  # [first index, count, sum of target - offset]
+    for i, t in enumerate(targets):
+        blocks.append([i, 1, t])
+        while len(blocks) > 1:
+            (_, n0, s0), (_, n1, s1) = blocks[-2], blocks[-1]
+            if s0 / n0 + n0 * gap <= s1 / n1:
+                break
+            blocks[-2:] = [[blocks[-2][0], n0 + n1, s0 + s1 - n1 * n0 * gap]]
+    pos = [b[2] / b[1] + j * gap for b in blocks for j in range(int(b[1]))]
+    for i in range(len(pos)):
+        pos[i] = max(pos[i], lo, pos[i - 1] + gap if i else lo)
+    for i in reversed(range(len(pos))):
+        pos[i] = min(pos[i], hi, pos[i + 1] - gap if i + 1 < len(pos) else hi)
+    return pos
+
+
+def _wait_line(
+    points: list[tuple[dt.date, float]],
+    marks: list[dict],
+    card_w: float,
+    placement: str,
+    w: int,
+    a: int,
+    k: float,
+    band_top: float,
+) -> str:
+    """Cumulative world output over the wait, each editorial milestone as a picture card tied to
+    its dot: above the line where there is more room above it (early), below it otherwise."""
+    left, right, bottom = 78 * k, 34 * k, 34 * k
+    band_bot = a - bottom
+    first, last = points[0][0], points[-1][0]
+    span = (last - first).days
+    hi = math.ceil(max(v for _, v in points) / 250e12) * 250e12
+
+    def x(day: dt.date) -> float:
+        return left + (day - first).days / span * (w - left - right)
+
+    def y(v: float) -> float:
+        return band_bot - v / hi * (band_bot - band_top)
+
+    fs = 13 * k
+    axes: list[str] = []
+    step = 250e12
+    tick = 0.0
+    while tick <= hi + 1:
+        ty = y(tick)
+        if tick:
+            axes.append(
+                f'<line class="grid" x1="{left:.1f}" x2="{w - right:.1f}" '
+                f'y1="{ty:.1f}" y2="{ty:.1f}"/>'
+            )
+        axes.append(
+            f'<text class="tick" x="{left - 10 * k:.1f}" y="{ty + fs * 0.35:.1f}" '
+            f'text-anchor="end" font-size="{fs:.1f}">{_trillions(tick) if tick else "$0"}</text>'
+        )
+        tick += step
+    axes.append(
+        f'<line class="axis" x1="{left:.1f}" x2="{w - right:.1f}" '
+        f'y1="{band_bot:.1f}" y2="{band_bot:.1f}"/>'
+    )
+    for year in range(first.year, last.year + 1):
+        day = first if year == first.year else dt.date(year, 1, 1)
+        edge = year in (first.year, last.year)
+        if year == last.year:
+            day = last
+        tx = x(day)
+        crowded = year == first.year + 1 and (day - first).days < 200
+        axes.append(
+            f'<line class="axis" x1="{tx:.1f}" x2="{tx:.1f}" '
+            f'y1="{band_bot:.1f}" y2="{band_bot + 6 * k:.1f}"/>'
+        )
+        if crowded:
+            continue
+        anchor = "start" if year == first.year else "end" if year == last.year else "middle"
+        axes.append(
+            f'<text class="tick{" edge" if edge else ""}" x="{tx:.1f}" '
+            f'y="{band_bot + 24 * k:.1f}" text-anchor="{anchor}" '
+            f'font-size="{fs:.1f}">{year if edge else f"’{year % 100:02d}"}</text>'
+        )
+    parts = [f'<svg class="trend" viewBox="0 0 {w} {a}">']
+    for era in ("v", "vi"):
+        parts.append(f'<g class="axes {era}" clip-path="url(#c{era})">{"".join(axes)}</g>')
+    xy = [(x(d), y(v)) for d, v in points]
+    d = " ".join(f"{'M' if i == 0 else 'L'}{px:.1f},{py:.1f}" for i, (px, py) in enumerate(xy))
+    parts.append(f'<path class="halo" d="{d}"/><path class="stroke" d="{d}"/>')
+
+    def line_y(px: float) -> float:
+        """The line's height at px (it rises left to right, so a span's extremes are its ends)."""
+        for (ax, ay), (bx, by) in zip(xy, xy[1:], strict=False):
+            if ax <= px <= bx:
+                return ay + (by - ay) * (px - ax) / (bx - ax) if bx > ax else ay
+        return xy[0][1] if px < xy[0][0] else xy[-1][1]
+
+    # The card: picture on top, the label wrapped under it.
+    cw, pad, lfs = card_w * k, 5 * k, 11 * k
+    iw = cw - 2 * pad
+    ih = iw * 0.56
+    per_line = int(iw / (MONO * lfs))
+    lh = lfs * 1.25
+    gap, lead = cw + 6 * k, 20 * k
+
+    dots = {m["id"]: (x(m["day"]), y(m["value"])) for m in marks}
+    need = pad + ih + 6 * k + 3 * lh + 3 * k + lead  # a year, a two-line label, a leader
+    sides: dict[str, list[dict]] = {"above": [], "below": []}
+    for i, m in enumerate(sorted(marks, key=lambda m: m["day"])):
+        _, py = dots[m["id"]]
+        if placement == "alternate":
+            # Take turns, unless the turn's side has no room for a card there.
+            above = i % 2 == 0
+            if not above and band_bot - py < need:
+                above = True
+            elif above and py - band_top < need:
+                above = False
+        else:
+            above = py - band_top > band_bot - py
+        sides["above" if above else "below"].append(m)
+
+    leaders, glyphs, cards = [], [], []
+    for side, ms in sides.items():
+        ms.sort(key=lambda m: m["day"])
+        centres = _spread(
+            [dots[m["id"]][0] for m in ms], gap, left + cw / 2 + 4 * k, w - right - cw / 2
+        )
+        for m, cx in zip(ms, centres, strict=True):
+            px, py = dots[m["id"]]
+            x0, x1 = cx - cw / 2, cx + cw / 2
+            lines = _wrap(m["label"], per_line)
+            chh = pad + ih + 6 * k + (1 + len(lines)) * lh + 3 * k
+            if side == "above":
+                y1 = min(line_y(x0), line_y(x1), py) - lead
+                y0 = y1 - chh
+                ok = y0 >= band_top - 70 * k  # may rise into the headroom, not the headline
+            else:
+                y0 = max(line_y(x0), line_y(x1), py) + lead
+                y1 = y0 + chh
+                ok = y1 <= band_bot - 4 * k
+            if not ok:
+                print(json.dumps({"chart": "everything-we-made", "overflow": m["id"]}), flush=True)
+            ex = min(max(px, x0 + 10 * k), x1 - 10 * k)
+            leaders.append(
+                f'<line class="leader" x1="{px:.1f}" y1="{py:.1f}" '
+                f'x2="{ex:.1f}" y2="{y1 if side == "above" else y0:.1f}"/>'
+            )
+            if m["rockstar"]:
+                r_, pts = 9 * k, []
+                for j in range(10):
+                    ang = -math.pi / 2 + j * math.pi / 5
+                    rad = r_ if j % 2 == 0 else r_ * 0.45
+                    pts.append(f"{px + rad * math.cos(ang):.1f},{py + rad * math.sin(ang):.1f}")
+                glyphs.append(f'<polygon class="mark rockstar" points="{" ".join(pts)}"/>')
+            else:
+                glyphs.append(f'<circle class="mark" cx="{px:.1f}" cy="{py:.1f}" r="{6 * k:.1f}"/>')
+            file, fit = MILESTONE_IMAGES.get(m["id"], (None, "xMidYMid slice"))
+            kind = "logo" if fit.endswith("meet") else "photo"
+            ix, iy = x0 + pad, y0 + pad
+            tile = (
+                f'<rect class="tile {kind}" x="{ix:.1f}" y="{iy:.1f}" '
+                f'width="{iw:.1f}" height="{ih:.1f}"/>'
+            )
+            if file:
+                inset = ih * 0.14 if kind == "logo" else 0
+                tile += (
+                    f'<image href="../brand/milestones/{file}" '
+                    f'x="{ix + inset:.1f}" y="{iy + inset:.1f}" width="{iw - 2 * inset:.1f}" '
+                    f'height="{ih - 2 * inset:.1f}" preserveAspectRatio="{fit}"/>'
+                )
+            ty = iy + ih + 6 * k + lfs
+            label = f'<tspan class="year" x="{cx:.1f}" y="{ty:.1f}">{m["day"].year}</tspan>'
+            label += "".join(
+                f'<tspan x="{cx:.1f}" y="{ty + (i + 1) * lh:.1f}">{escape(t)}</tspan>'
+                for i, t in enumerate(lines)
+            )
+            cls = "card rockstar" if m["rockstar"] else "card"
+            cards.append(
+                f'<g class="{cls}">'
+                f'<rect class="shadow" x="{x0 + 4 * k:.1f}" y="{y0 + 4 * k:.1f}" '
+                f'width="{cw:.1f}" height="{chh:.1f}" rx="{3 * k:.1f}"/>'
+                f'<rect class="frame" x="{x0:.1f}" y="{y0:.1f}" width="{cw:.1f}" '
+                f'height="{chh:.1f}" rx="{3 * k:.1f}"/>{tile}'
+                f'<text text-anchor="middle" font-size="{lfs:.1f}">{label}</text></g>'
+            )
+    parts += leaders + glyphs + cards
+    parts.append(
+        f'<circle class="dot start" cx="{xy[0][0]:.1f}" cy="{xy[0][1]:.1f}" r="{7 * k:.1f}"/>'
+        f'<circle class="dot end" cx="{xy[-1][0]:.1f}" cy="{xy[-1][1]:.1f}" r="{10 * k:.1f}"/>'
+    )
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def wait_card(png: bool) -> dict:
+    """Metric 3, everything that happened before GTA 6: the running total of world output from
+    GTA 5 to GTA 6, with the editorial milestones as picture cards on the line."""
+    headline = query(["world_output_produced"])[0]["world_output_produced"]
+    months = sorted(
+        query(["world_output_cumulative"], ["metric_time__month"]),
+        key=lambda r: r["metric_time__month"],
+    )
+    milestones = sorted(
+        query(
+            ["wait_milestone_output", "wait_milestone_share", "wait_milestone_days_to_gta_6"],
+            [
+                "milestone__milestone_id",
+                "milestone__event_date",
+                "milestone__chart_label",
+                "milestone__title",
+                "milestone__category",
+                "milestone__tier",
+                "milestone__is_editorial",
+                "milestone__date_precision",
+                "milestone__source_url",
+            ],
+        ),
+        key=lambda r: (str(r["milestone__event_date__day"]), r["milestone__milestone_id"]),
+    )
+    by_id = {r["milestone__milestone_id"]: r for r in milestones}
+    gta_v, gta_6 = by_id["gta_v"], by_id["gta_6"]
+    start = _day(gta_v["milestone__event_date__day"])
+    end = _day(gta_6["milestone__event_date__day"])
+    last_day = end - dt.timedelta(days=1)
+    days = gta_v["wait_milestone_days_to_gta_6"]
+    # The release-day ticker's rate: the last day of the wait, by the second.
+    rate = query(
+        ["world_output_per_second"],
+        ["world_output_day__output_day"],
+        where=f"{{{{ Dimension('world_output_day__output_day') }}}} = '{last_day}'",
+    )[0]["world_output_per_second"]
+    # Each month's running total is its last day's (a running total is never summed).
+    points = [(start, gta_v["wait_milestone_output"])]
+    for r in months:
+        month = _day(r["metric_time__month"])
+        month_end = (month.replace(day=28) + dt.timedelta(days=4)).replace(day=1) - dt.timedelta(
+            days=1
+        )
+        if r["world_output_cumulative"] is not None and start < month_end < last_day:
+            points.append((month_end, r["world_output_cumulative"]))
+    points.append((last_day, headline))
+    # The chart draws the editorial milestones: the layer's own filter picks them.
+    editorial = query(
+        ["wait_milestone_output"],
+        ["milestone__milestone_id"],
+        where="{{ Dimension('milestone__is_editorial') }} = true",
+    )
+    picked = {r["milestone__milestone_id"] for r in editorial}
+    marks = [
+        {
+            "id": r["milestone__milestone_id"],
+            "day": _day(r["milestone__event_date__day"]),
+            "label": r["milestone__chart_label"],
+            "value": r["wait_milestone_output"],
+            "rockstar": r["milestone__category"] == "rockstar",
+        }
+        for r in milestones
+        if r["milestone__milestone_id"] in picked and r["wait_milestone_output"] is not None
+    ]
+    for name, ((w, h), (aw, ah), k, band_top, variant, card_w, placement) in WAIT_SIZES.items():
+        body = f"""    <div class="glowup wait" style="width:{aw}px;height:{ah}px;--k:{k}">
+{_backdrop(aw, ah, k)}
+{_wait_line(points, marks, card_w, placement, aw, ah, k, band_top)}
+      <div class="era v">
+        {_lockup("v")}
+        <div class="num">
+          <div class="when">{start:%d %b %Y}</div>
+        </div>
+      </div>
+      <div class="era vi">
+        {_lockup("vi")}
+        <div class="num">
+          <div class="when">{end:%d %b %Y}</div>
+        </div>
+      </div>
+      <div class="titles">
+        <div class="headline">Everything that happened before GTA 6</div>
+        <div class="subhead"><b>{days:,}</b> days of waiting</div>
+      </div>
+    </div>"""
+        for theme_name, theme in THEMES.items():
+            html = GLOWUP_PAGE.format(
+                title="Everything before GTA 6",
+                theme=theme,
+                variant=f" {variant}" if variant else "",
+                w=w,
+                h=h,
+                logo=LOGO[theme],
+                body=body,
+                source=WAIT_SOURCE,
+                foot_right=FOOT_RIGHT,
+            )
+            suffix = "" if theme_name == "light" else "-dark"
+            path = CHARTS / f"{name}{suffix}.html"
+            path.write_text(html)
+            if png:
+                capture(path, CHARTS / "png" / f"{name}-{theme_name}.png", w, h)
+    data = {
+        "world_output_produced": headline,
+        "world_output_per_second": rate,
+        "wait_start": str(start),
+        "wait_last_day": str(last_day),
+        "gta_6_release": str(end),
+        "days": days,
+        "months": months,
+        "milestones": milestones,
+    }
+    (CHARTS / "data").mkdir(parents=True, exist_ok=True)
+    (CHARTS / "data" / "everything-we-made.json").write_text(
+        json.dumps(data, indent=1, default=str)
+    )
+    return data
+
+
 def build(png: bool = True) -> dict:
+    wait = wait_card(png)
     productivity = productivity_card(png)
     summary = index_card(png)
     summary["productivity"] = productivity["rows"]
+    summary["wait"] = wait
     return summary
 
 

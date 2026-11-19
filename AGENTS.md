@@ -17,6 +17,12 @@ Every number must come out of the dbt project and its semantic layer.
    across days), `world_output_per_second` (by day only) and `wait_milestone_output` by
    `milestone__title` and `milestone__event_date` (the chart filters
    `milestone__is_editorial = true`). Constant 2015 US$; 2026 is an IMF-based estimate.
+   Metric 4 (did GitHub go quiet on release day) is `github_release_day_change` (never
+   without its breakdown: group by `github_release_day__breakdown`, or give
+   `github_activity_change` by `github_activity__activity` beside it), with
+   `github_activity_release_day` and `github_activity_baseline`; canonical: Thu 19 Nov 2026
+   vs Thu 12 Nov 2026, UTC days. Daily counts are `github_activity_count` by `metric_time__day`
+   and `github_day__activity`; never add across activities.
 2. Query it with `uv run dex explore semantic query <metrics> --group-by ...`. Never answer
    from raw SQL when a metric exists, and never add `signal_value` across signals or sources.
 3. **Never report `day_off_index` without its breakdown**: group it by

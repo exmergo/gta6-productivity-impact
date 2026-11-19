@@ -29,3 +29,7 @@ sources:
     description: 'Official economic data, one value per provider, indicator, geography and year: World
       Bank WDI world aggregates (WLD) and the IMF World Economic Outlook world series (WEOWORLD). A year
       a provider has not published is absent, never zero.'
+  - name: github_daily_counts
+    description: GitHub Search API total_count for one activity (prs_opened, prs_merged, commits) bounded
+      to one UTC day, one call each. total_count is NULL when the call failed; incomplete_results is true
+      when GitHub's search timed out (or the call failed). No repository, user, title or URL is stored.

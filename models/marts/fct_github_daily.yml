@@ -1,0 +1,120 @@
+version: 2
+models:
+- name: fct_github_daily
+  description: 'Metric 4: GitHub activity per UTC day, one row per day per activity.'
+  config:
+    meta:
+      dex:
+        grain:
+          - activity_date
+          - activity
+        population:
+          rule: 'Every (day, activity) row in staging: 1 Oct 2026 onward, only fully ended UTC days.'
+          parent:
+            model: stg_github__daily_counts
+            key:
+              activity_date: activity_date
+              activity: activity
+        assumptions:
+          - decision: What 'GitHub activity' counts
+            chosen: PRs opened, PRs merged, commits (GitHub Search API total_count)
+            evidence: request
+            detail: 'user: metric 4 is GitHub PRs / commits; docs/metrics.md names the Search API `is:pr created:<day>`'
+            column: activity
+          - decision: Day boundary
+            chosen: UTC day, first to last second
+            evidence: contract
+            detail: 'config.py: all days in this study are UTC days'
+            column: activity_date
+  columns:
+  - name: github_day_key
+    description: md5 of activity|day.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity_date
+    description: UTC day.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity
+    description: prs_opened, prs_merged or commits.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity_label
+    description: PRs opened, PRs merged or Commits.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity_count
+    description: How many on the day. NULL when unavailable, never zero.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when unavailable, never zero. Never add across activities.
+          aggregation: sum
+          additivity: additive
+          unit: count
+  - name: is_available
+    description: True when the day's count is complete.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: weekday_name
+    description: Day of the week.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: is_release_day
+    description: True on GTA 6's release day (var github_release_day).
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: days_from_release
+    description: Days after release day (negative before it).
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: observed_at
+    description: When the count was asked for (UTC).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null

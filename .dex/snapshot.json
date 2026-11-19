@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-11-18T14:24:41.898782+00:00",
+  "created_at": "2026-11-19T10:51:21.132418+00:00",
   "connector": "duckdb",
   "tool_version": "1.18.0",
   "warehouse": {
@@ -1296,7 +1296,7 @@
             "reason": "signal_day_key is unique and non-null on all 872 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.5995,
+        "rank_score": 0.5999,
         "data_quality": [],
         "findings": [
           {
@@ -1658,7 +1658,7 @@
       {
         "identifier": "gta6.main.fct_wait_milestones",
         "object_type": "table",
-        "row_count": 45,
+        "row_count": 46,
         "byte_size": null,
         "columns": [
           {
@@ -1666,7 +1666,7 @@
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": null,
@@ -1685,7 +1685,7 @@
             "data_type": "DATE",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": "2013-09-17",
@@ -1695,8 +1695,8 @@
             "value_domain": null,
             "temporal_granularity": "day",
             "temporal_span": 4812,
-            "temporal_distinct_periods": 45,
-            "temporal_missing_periods": 4767,
+            "temporal_distinct_periods": 46,
+            "temporal_missing_periods": 4766,
             "temporal_largest_gap": 420
           },
           {
@@ -1715,7 +1715,7 @@
               "values": [
                 {
                   "value": "day",
-                  "count": 43
+                  "count": 44
                 },
                 {
                   "value": "month",
@@ -1769,7 +1769,7 @@
                 },
                 {
                   "value": "hero",
-                  "count": 14
+                  "count": 15
                 },
                 {
                   "value": "anchor",
@@ -1785,11 +1785,42 @@
             "temporal_largest_gap": null
           },
           {
+            "name": "is_editorial",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 37
+                },
+                {
+                  "value": true,
+                  "count": 9
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
             "name": "title",
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": null,
@@ -1808,7 +1839,7 @@
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": null,
@@ -1827,7 +1858,7 @@
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": null,
@@ -1846,7 +1877,7 @@
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 42,
+            "distinct_count": 45,
             "distinct_count_exact": false,
             "is_unique": false,
             "min_value": null,
@@ -1865,7 +1896,7 @@
             "data_type": "DOUBLE",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": 0.0,
@@ -1885,8 +1916,8 @@
             "nullable": true,
             "null_fraction": 0.0,
             "distinct_count": 45,
-            "distinct_count_exact": true,
-            "is_unique": true,
+            "distinct_count_exact": false,
+            "is_unique": false,
             "min_value": 0.0,
             "max_value": 1.0,
             "pii": null,
@@ -1903,7 +1934,7 @@
             "data_type": "BIGINT",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": 0,
@@ -1923,8 +1954,8 @@
             "nullable": true,
             "null_fraction": 0.0,
             "distinct_count": 46,
-            "distinct_count_exact": false,
-            "is_unique": false,
+            "distinct_count_exact": true,
+            "is_unique": true,
             "min_value": 0,
             "max_value": 4811,
             "pii": null,
@@ -1957,10 +1988,10 @@
             "output_by_then"
           ],
           [
-            "share_of_wait_output"
+            "days_since_gta_v"
           ],
           [
-            "days_since_gta_v"
+            "days_to_gta_6"
           ]
         ],
         "grain": [
@@ -1973,59 +2004,59 @@
               "milestone_id"
             ],
             "status": "reported",
-            "reason": "milestone_id is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "milestone_id is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "event_date"
             ],
             "status": "reported",
-            "reason": "event_date is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "event_date is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "title"
             ],
             "status": "reported",
-            "reason": "title is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "title is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "chart_label"
             ],
             "status": "reported",
-            "reason": "chart_label is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "chart_label is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "why"
             ],
             "status": "reported",
-            "reason": "why is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "why is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "output_by_then"
             ],
             "status": "reported",
-            "reason": "output_by_then is unique and non-null on all 45 rows, proven by an exact distinct count"
-          },
-          {
-            "columns": [
-              "share_of_wait_output"
-            ],
-            "status": "reported",
-            "reason": "share_of_wait_output is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "output_by_then is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "days_since_gta_v"
             ],
             "status": "reported",
-            "reason": "days_since_gta_v is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "days_since_gta_v is unique and non-null on all 46 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "days_to_gta_6"
+            ],
+            "status": "reported",
+            "reason": "days_to_gta_6 is unique and non-null on all 46 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.678,
+        "rank_score": 0.6789,
         "data_quality": [],
         "findings": [
           {
@@ -2035,7 +2066,7 @@
             "detail": "milestone_id participates in the detected grain but the warehouse still allows it to be NULL"
           }
         ],
-        "profiled_at": "2026-11-18T13:35:11.500538+00:00",
+        "profiled_at": "2026-11-18T15:59:17.695098+00:00",
         "semantic_models": [],
         "values_withheld": false
       },
@@ -4553,7 +4584,7 @@
       {
         "identifier": "gta6.main.wait_milestones",
         "object_type": "table",
-        "row_count": 45,
+        "row_count": 46,
         "byte_size": null,
         "columns": [
           {
@@ -4561,7 +4592,7 @@
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": null,
@@ -4580,7 +4611,7 @@
             "data_type": "DATE",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": "2013-09-17",
@@ -4590,8 +4621,8 @@
             "value_domain": null,
             "temporal_granularity": "day",
             "temporal_span": 4812,
-            "temporal_distinct_periods": 45,
-            "temporal_missing_periods": 4767,
+            "temporal_distinct_periods": 46,
+            "temporal_missing_periods": 4766,
             "temporal_largest_gap": 420
           },
           {
@@ -4610,7 +4641,7 @@
               "values": [
                 {
                   "value": "day",
-                  "count": 43
+                  "count": 44
                 },
                 {
                   "value": "month",
@@ -4664,7 +4695,7 @@
                 },
                 {
                   "value": "hero",
-                  "count": 14
+                  "count": 15
                 },
                 {
                   "value": "anchor",
@@ -4680,11 +4711,42 @@
             "temporal_largest_gap": null
           },
           {
+            "name": "is_editorial",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 37
+                },
+                {
+                  "value": true,
+                  "count": 9
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
             "name": "title",
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": null,
@@ -4703,7 +4765,7 @@
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": null,
@@ -4722,7 +4784,7 @@
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 45,
+            "distinct_count": 46,
             "distinct_count_exact": true,
             "is_unique": true,
             "min_value": null,
@@ -4741,7 +4803,7 @@
             "data_type": "VARCHAR",
             "nullable": true,
             "null_fraction": 0.0,
-            "distinct_count": 43,
+            "distinct_count": 44,
             "distinct_count_exact": true,
             "is_unique": false,
             "min_value": null,
@@ -4783,38 +4845,38 @@
               "milestone_id"
             ],
             "status": "reported",
-            "reason": "milestone_id is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "milestone_id is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "event_date"
             ],
             "status": "reported",
-            "reason": "event_date is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "event_date is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "title"
             ],
             "status": "reported",
-            "reason": "title is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "title is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "chart_label"
             ],
             "status": "reported",
-            "reason": "chart_label is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "chart_label is unique and non-null on all 46 rows, proven by an exact distinct count"
           },
           {
             "columns": [
               "why"
             ],
             "status": "reported",
-            "reason": "why is unique and non-null on all 45 rows, proven by an exact distinct count"
+            "reason": "why is unique and non-null on all 46 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.608,
+        "rank_score": 0.6089,
         "data_quality": [],
         "findings": [
           {
@@ -4824,7 +4886,7 @@
             "detail": "milestone_id participates in the detected grain but the warehouse still allows it to be NULL"
           }
         ],
-        "profiled_at": "2026-11-18T14:24:12.574655+00:00",
+        "profiled_at": "2026-11-18T18:41:15.776641+00:00",
         "semantic_models": [],
         "values_withheld": false
       },
@@ -5098,7 +5160,7 @@
             "reason": "observed_at is unique and non-null on all 1308 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.5463,
+        "rank_score": 0.5466,
         "data_quality": [],
         "findings": [
           {
@@ -5657,7 +5719,7 @@
             "reason": "observed_at is unique and non-null on all 1308 rows, proven by an exact distinct count"
           }
         ],
-        "rank_score": 0.5463,
+        "rank_score": 0.5466,
         "data_quality": [],
         "findings": [
           {
@@ -6026,7 +6088,7 @@
         "grain": null,
         "composite_keys": [],
         "key_evidence": [],
-        "rank_score": 0.6932,
+        "rank_score": 0.6949,
         "data_quality": [
           "no candidate key detected; grain unknown"
         ],
@@ -6179,7 +6241,7 @@
             "reason": "ts, article is unique as a combination on all 436 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
           }
         ],
-        "rank_score": 0.501,
+        "rank_score": 0.5014,
         "data_quality": [],
         "findings": [
           {
@@ -6198,25 +6260,1101 @@
         "profiled_at": "2026-11-18T06:33:11.071259+00:00",
         "semantic_models": [],
         "values_withheld": false
+      },
+      {
+        "identifier": "gta6.raw.github_daily_counts",
+        "object_type": "table",
+        "row_count": 147,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 48,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2026-10-01",
+            "max_value": "2026-11-18",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 49,
+            "temporal_distinct_periods": 49,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "activity",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "commits",
+                  "count": 49
+                },
+                {
+                  "value": "prs_merged",
+                  "count": 49
+                },
+                {
+                  "value": "prs_opened",
+                  "count": 49
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "endpoint",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "issues",
+                  "count": 98
+                },
+                {
+                  "value": "commits",
+                  "count": 49
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "query",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 147,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "total_count",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.07482993197278909,
+            "distinct_count": 136,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 648699,
+            "max_value": 92870161,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "incomplete_results",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 136
+                },
+                {
+                  "value": true,
+                  "count": 11
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "observed_at",
+            "data_type": "TIMESTAMP WITH TIME ZONE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 147,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2026-11-19T11:36:59.599356+01:00",
+            "max_value": "2026-11-19T11:43:27.140655+01:00",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "hour",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "pull_id",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "20261119T103658Z",
+                  "count": 147
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "query"
+          ],
+          [
+            "observed_at"
+          ]
+        ],
+        "grain": [
+          "query"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "query"
+            ],
+            "status": "reported",
+            "reason": "query is unique and non-null on all 147 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "observed_at"
+            ],
+            "status": "reported",
+            "reason": "observed_at is unique and non-null on all 147 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "query",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "query participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-19T10:43:39.509338+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_github_daily",
+        "object_type": "table",
+        "row_count": 147,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "github_day_key",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 147,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "activity_date",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 48,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2026-10-01",
+            "max_value": "2026-11-18",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 49,
+            "temporal_distinct_periods": 49,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "activity",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "commits",
+                  "count": 49
+                },
+                {
+                  "value": "prs_merged",
+                  "count": 49
+                },
+                {
+                  "value": "prs_opened",
+                  "count": 49
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "activity_label",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "Commits",
+                  "count": 49
+                },
+                {
+                  "value": "PRs merged",
+                  "count": 49
+                },
+                {
+                  "value": "PRs opened",
+                  "count": 49
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "activity_count",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.07482993197278909,
+            "distinct_count": 136,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 648699,
+            "max_value": 92870161,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_available",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": true,
+                  "count": 136
+                },
+                {
+                  "value": false,
+                  "count": 11
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "weekday_name",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 7,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": {
+              "category": "name",
+              "confidence": 0.6
+            },
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "is_release_day",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": false,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 147
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "days_from_release",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 49,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": -49,
+            "max_value": -1,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "observed_at",
+            "data_type": "TIMESTAMP WITH TIME ZONE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 147,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2026-11-19T11:36:59.599356+01:00",
+            "max_value": "2026-11-19T11:43:27.140655+01:00",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "hour",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          }
+        ],
+        "candidate_keys": [
+          [
+            "github_day_key"
+          ],
+          [
+            "observed_at"
+          ]
+        ],
+        "grain": [
+          "github_day_key"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "github_day_key"
+            ],
+            "status": "reported",
+            "reason": "github_day_key is unique and non-null on all 147 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "observed_at"
+            ],
+            "status": "reported",
+            "reason": "observed_at is unique and non-null on all 147 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "github_day_key",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "github_day_key participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-19T10:45:30.802077+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_github_release_day_activities",
+        "object_type": "table",
+        "row_count": 3,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "activity",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "activity_label",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2026-11-19",
+            "max_value": "2026-11-19",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "baseline_weeks",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 1,
+            "max_value": 1,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "baseline_start",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2026-11-12",
+            "max_value": "2026-11-12",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "baseline_end",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2026-11-12",
+            "max_value": "2026-11-12",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "baseline_days_found",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 1,
+            "max_value": 1,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "baseline_count",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 1121476.0,
+            "max_value": 12866079.0,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_day_count",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 1.0,
+            "distinct_count": 0,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "pct_change",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 1.0,
+            "distinct_count": 0,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "activity"
+          ],
+          [
+            "activity_label"
+          ],
+          [
+            "baseline_count"
+          ]
+        ],
+        "grain": [
+          "activity"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "activity"
+            ],
+            "status": "reported",
+            "reason": "activity is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "activity_label"
+            ],
+            "status": "reported",
+            "reason": "activity_label is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "baseline_count"
+            ],
+            "status": "reported",
+            "reason": "baseline_count is unique and non-null on all 3 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "release_day_count",
+            "code": "fully_null_column",
+            "severity": "high",
+            "detail": "release_day_count is 100% NULL"
+          },
+          {
+            "column": "pct_change",
+            "code": "fully_null_column",
+            "severity": "high",
+            "detail": "pct_change is 100% NULL"
+          },
+          {
+            "column": "activity",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "activity participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-19T10:45:30.859499+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_github_release_day",
+        "object_type": "table",
+        "row_count": 1,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "release_day_key",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2026-11-19",
+            "max_value": "2026-11-19",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "baseline_start",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2026-11-12",
+            "max_value": "2026-11-12",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "baseline_end",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": "2026-11-12",
+            "max_value": "2026-11-12",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "baseline_weeks",
+            "data_type": "INTEGER",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 1,
+            "max_value": 1,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "activities_total",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 3,
+            "max_value": 3,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "activities_available",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 0,
+            "max_value": 0,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "github_release_day_change",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 1.0,
+            "distinct_count": 0,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "breakdown",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "release_day_key"
+          ],
+          [
+            "release_day"
+          ],
+          [
+            "baseline_start"
+          ],
+          [
+            "baseline_end"
+          ],
+          [
+            "baseline_weeks"
+          ],
+          [
+            "activities_total"
+          ],
+          [
+            "activities_available"
+          ],
+          [
+            "breakdown"
+          ]
+        ],
+        "grain": [
+          "release_day_key"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "release_day_key"
+            ],
+            "status": "reported",
+            "reason": "release_day_key is unique and non-null on all 1 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "release_day"
+            ],
+            "status": "reported",
+            "reason": "release_day is unique and non-null on all 1 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "baseline_start"
+            ],
+            "status": "reported",
+            "reason": "baseline_start is unique and non-null on all 1 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "baseline_end"
+            ],
+            "status": "reported",
+            "reason": "baseline_end is unique and non-null on all 1 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "baseline_weeks"
+            ],
+            "status": "reported",
+            "reason": "baseline_weeks is unique and non-null on all 1 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "activities_total"
+            ],
+            "status": "reported",
+            "reason": "activities_total is unique and non-null on all 1 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "activities_available"
+            ],
+            "status": "reported",
+            "reason": "activities_available is unique and non-null on all 1 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "breakdown"
+            ],
+            "status": "reported",
+            "reason": "breakdown is unique and non-null on all 1 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [
+          "release_day_key is declared VARCHAR but 100% of values match the %Y-%m-%d date format; consider casting with that format"
+        ],
+        "findings": [
+          {
+            "column": "github_release_day_change",
+            "code": "fully_null_column",
+            "severity": "high",
+            "detail": "github_release_day_change is 100% NULL"
+          },
+          {
+            "column": "release_day_key",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "release_day_key participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-19T10:45:30.935450+00:00",
+        "semantic_models": [],
+        "values_withheld": false
       }
     ],
     "relationships": [
-      {
-        "from_dataset": "gta6.main.wait_milestones",
-        "from_columns": [
-          "milestone_id"
-        ],
-        "to_dataset": "gta6.main.fct_wait_milestones",
-        "to_columns": [
-          "milestone_id"
-        ],
-        "kind": "inferred",
-        "confidence": 0.65,
-        "verified": false,
-        "orphan_fraction": null,
-        "declared_by": null,
-        "declaration_sources": []
-      },
       {
         "from_dataset": "gta6.main.fct_day_off_index_terms",
         "from_columns": [
@@ -6266,6 +7404,22 @@
         "declaration_sources": []
       },
       {
+        "from_dataset": "gta6.main.wait_milestones",
+        "from_columns": [
+          "milestone_id"
+        ],
+        "to_dataset": "gta6.main.fct_wait_milestones",
+        "to_columns": [
+          "milestone_id"
+        ],
+        "kind": "inferred",
+        "confidence": 0.65,
+        "verified": false,
+        "orphan_fraction": null,
+        "declared_by": null,
+        "declaration_sources": []
+      },
+      {
         "from_dataset": "gta6.raw.trends_interest",
         "from_columns": [
           "batch_id"
@@ -6284,13 +7438,13 @@
     ]
   },
   "warehouse_from": "cache",
-  "cache_updated_at": "2026-11-18T14:24:12.310294+00:00",
+  "cache_updated_at": "2026-11-19T10:45:35.925453+00:00",
   "transform_layer": {
     "files": {
       "models/intermediate/int_signals__daily.sql": "cb216555bdd3b6537d57a3ace9e535aae9b6392a10420c95c11671ef3fbcedae",
       "models/intermediate/int_signals__daily.yml": "5c3ad0a45d97be4fcbee5cf2344d13b82249d6b74fd078f4dee31c98981e6756",
-      "models/intermediate/int_world_output__yearly.sql": "822a18c4818060c7b74b0986e857c4a6672c135306dfa9acf76ad4c1d74789d6",
-      "models/intermediate/int_world_output__yearly.yml": "b46569b8201e512c7c4d0eb3dd03267b1d7e9e6d87270716bb495579b7c083e4",
+      "models/intermediate/int_world_output__yearly.sql": "9c2d5c2a26f58a8d33da33498888c341d6b0a41a2f6df928d13b16f97501b227",
+      "models/intermediate/int_world_output__yearly.yml": "86b164cba77e7144308c4e9d9f5881ede29b9e4d53289eac92c88c4a742cd301",
       "models/marts/dim_date.sql": "2128c3068e799ea66f10e04780a0279297f2e5dae7602f14be5a88c5698171da",
       "models/marts/dim_date.yml": "d5651ee4a78359c402214836f81b00a84c7eadb9c9a6b45e8706eb4937e6147c",
       "models/marts/dim_date_semantic.yml": "dc157b25cba57fc09b635948edb695085da1e91c0c96b717e32e2d5ccdf0a9b2",
@@ -6298,47 +7452,62 @@
       "models/marts/fct_day_off_index.yml": "c3e656137e4b7d14b93a87ee76017deef2c52c810805ebd0219acf71a2ee5bf6",
       "models/marts/fct_day_off_index_terms.sql": "069c9fb97c736714a29c3f2f33b0edd5339a354adfbcf8324482b1553706486c",
       "models/marts/fct_day_off_index_terms.yml": "973fbbc3ed91793286e82f25dffd83d65035ed649b566f1985ffe1bd0e69e653",
+      "models/marts/fct_github_daily.sql": "c7269193f2c553c8f1c74002b60baffb3fdd2bb2efe578a45ebbb73e9b443240",
+      "models/marts/fct_github_daily.yml": "4dabb18a83b578037dc07517864f8a3144939f69b2ab4a3389be4a703cb5a8f6",
+      "models/marts/fct_github_daily_semantic.yml": "4cb5d085d0223d674e775a2c53744ac74711eaf4fbd62604f10fc41f26f40098",
+      "models/marts/fct_github_release_day.sql": "6ea6edd0bba69e9835abaf15445e4dc5a0d018c93d27b2b4ef770f747d258f81",
+      "models/marts/fct_github_release_day.yml": "4e3dd3a118ac83615c014aee311ba48ce5e646bce22079d7bc9b3aff72cf7906",
+      "models/marts/fct_github_release_day_activities.sql": "7f4275a96002dc81dd4003021bb9005577b34be9c09d50331b393e130c17efd4",
+      "models/marts/fct_github_release_day_activities.yml": "11431759357b6cce69ccc654d5336cc4e6c003bf68dd000d91943213179a20bb",
+      "models/marts/fct_github_release_day_activities_semantic.yml": "beee42070ab950a4810073931fd7f0d2fc44e1bede5a5b3965b590887069e726",
+      "models/marts/fct_github_release_day_semantic.yml": "5971237877b6e1132a1c9230a4217ac391ec6b3aed25ff38773289ac673f505b",
       "models/marts/fct_signal_daily.sql": "0f7a8a7f031a8cf145b92244d83a2034f858cdc7b7ce42fea4f10fd9bcabfbfa",
       "models/marts/fct_signal_daily.yml": "e04b37443fa9372aba1bc4fc8bbadf4a8753d9be36cea12abc8be5b4960b3098",
-      "models/marts/fct_wait_milestones.sql": "c7d6b890c5096749f59985d333d08559a380cc7cb9043dc821b5b0dc86fee168",
-      "models/marts/fct_wait_milestones.yml": "355408824256f1c5b0a70b7a45ffbb8c13542d2c1f2b33d1c3c5a19e90698996",
-      "models/marts/fct_world_output_daily.sql": "f8199a8bbc935797b5de54a9bdc6f96cc0f79c1d1965cbdf17acc04a671762b5",
-      "models/marts/fct_world_output_daily.yml": "9bc303ae93c48f2f37c167f3ddd26f1f660d88a5c554c51ba63f01de54d5bde7",
-      "models/marts/fct_world_output_semantic.yml": "c943c666b5774c20739b877282db274c9e69df60f47392345cbfa0300ae1530d",
-      "models/marts/fct_world_productivity.sql": "8c5ea9cf8cec5effced4d1f5bdb0a55bc38b4c9c4d37ee05035479cf7cc1b99e",
-      "models/marts/fct_world_productivity.yml": "73e8afc2d9045e8769df3982eaef5c61fd12f480c2e6283e38dcb77b67d13243",
-      "models/marts/fct_world_productivity_semantic.yml": "3aada3c2213f095f3daf38ed2cb2a3e86f102978afff01a8f0ede28e525e1301",
+      "models/marts/fct_wait_milestones.sql": "5d2a5a66ad40ec49def1be786dd1f39dfc12c8a98c53518291d73b57717a9958",
+      "models/marts/fct_wait_milestones.yml": "ef5b6bdfb501da931ee8a8fdbe6b5e1871f35215bef7234120146fa91130a54a",
+      "models/marts/fct_world_output_daily.sql": "557e88fb560c25dd19e6d83bd82da11ceb5aa8cd047994fe685a5e0ed12ef8d6",
+      "models/marts/fct_world_output_daily.yml": "7bb59c55b7e531519843dca647550d3f65424d3b5103b221f2f3ea4a92bf76d2",
+      "models/marts/fct_world_output_semantic.yml": "aa2a31d0a3cff532e4c3d141b0f69ce28a207537aa15768075d2efde2a59a21c",
+      "models/marts/fct_world_productivity.sql": "d0735b23826c7ef2cede20cde1385328d1fbf38b313b537daed9f005c1565259",
+      "models/marts/fct_world_productivity.yml": "71415f240dbcb52b509c2fc0d0e8b1dca0259651b4de9a25eb9f9ccc001d9920",
+      "models/marts/fct_world_productivity_semantic.yml": "95526de2f98cd46a8b0611f87cc5e3da378f1937aecbb0bc9386142562584b8f",
       "models/marts/metricflow_time_spine.sql": "fa9fa9f664236f9af4e868eaf8b3fb300253d7b5677936d36bef66fd75049c01",
       "models/marts/metricflow_time_spine.yml": "3455df32cbd9525b0b5164becc1a9bc7909dce85d8f53784f4f8e3f154a93d5a",
       "models/marts/semantic/day_off_index.yml": "4677ed50ca02942c6b6c9d248f8e41a27abc13cae1041041b20b50d72d6800e6",
-      "models/marts/semantic/metrics.yml": "558db332e38d2cd31a1eab989e8b6f4555ac5031fab348791038397a7fc1ca17",
+      "models/marts/semantic/metrics.yml": "18a5958665770a7cd23a507595e63d4fb55644b06fc1780305570909ceb90328",
       "models/marts/semantic/signal_daily.yml": "6b6595e3ebf439be4059cdce7b5e8a95838ff787eb5b27faa1aadf2107ce8656",
-      "models/staging/_sources.yml": "931262c1305c36b311421dcd392c7a720c26d7b63fb7c333b33a55d0468c1c0b",
+      "models/staging/_sources.yml": "ea03d8dc3c5208083c91b40e482ec9ab95dd38381de30441f9544e45f70518ca",
       "models/staging/stg_bluesky__daily_hits.sql": "6bbd92a4c09bad5a8c9db4458bfb3c587854153870ac529400762195edc858b9",
       "models/staging/stg_bluesky__daily_hits.yml": "6d9fb352935fcd60fd36b457dd4051488bd44834e77f139d740043cea041f6f4",
       "models/staging/stg_economy__indicators.sql": "83aa8f099fd71d64ff3cd0f5d7059a98a853f19f0dea9ca27ef39aeff2574d77",
       "models/staging/stg_economy__indicators.yml": "7042bbf35def4aa642b23c72c80a29c3319321c2fdc1ab4020a5399cf7d9c895",
+      "models/staging/stg_github__daily_counts.sql": "6e31c635e6f898bdca86319f7964d299990b4ebb5a5b63e2926189a6d9cd0d79",
+      "models/staging/stg_github__daily_counts.yml": "964ea5274fe517203fc2c347103f37a98e0c8525e8b9734eca15514e62b8d558",
       "models/staging/stg_hn__daily_hits.sql": "f61b6d745229d492facfc84bf5fedfdcd542593b564c1669f650772fac787781",
       "models/staging/stg_hn__daily_hits.yml": "5a00fd93b31ce089672b511a3e4a9bdf541f146a2cd5ba7f1330f6825802d3d0",
       "models/staging/stg_trends__weekly.sql": "c2806560d533b5c339072ded15866491b3e281f3a1a743a53a736cadc3c27ad0",
       "models/staging/stg_trends__weekly.yml": "a7fa5a5cfc5f0061680857e58031f34f477b34e17c85b1ce3c61392396b0267b",
       "models/staging/stg_wiki__pageviews.sql": "2a206d30dc32a91dbae3d2af53178dee0eac84476be45be665a6f08791520d32",
       "models/staging/stg_wiki__pageviews.yml": "9600a44e2fff8bca7b7d11a7c42ad27e429751a67f45981d55107c1327321b99",
-      "seeds/wait_milestones.csv": "295b93c2ef88d4350b2d1250095660c6a3d9aab49b6eed77244825d51522306b",
-      "seeds/wait_milestones.yml": "3299e03038f01a9114e5f4b87bb16e3dad7fd8bc400958b3f3421fe6b7878ff1",
+      "seeds/wait_milestones.csv": "053cd92400146746aa289f08ecf01d95410e9a19aefa6c1a293d7548ea244467",
+      "seeds/wait_milestones.yml": "08fe0b33a69351fbd69bb5dbcc81b41fd27591c8bd817e23fbc92416c60b0ad2",
       "data_tests/assert_day_off_index_has_breakdown.sql": "aadf3eb1a943c1bc14ba0b2c06fca2fae7bc1b64aa1e24f7922e3dc79652f53c",
+      "data_tests/assert_github_release_day_has_breakdown.sql": "259a9b8b9a7a6aef045013239c55c9edd375cb0541b48a137db701484a9823fe",
       "data_tests/assert_int_signals_grain.sql": "ce01913fa81342fd9770b78d22706576f42bf36fe1c9711364d6963325b86349",
-      "data_tests/assert_wait_milestones_inside_wait.sql": "15fabcd1643ceb75565364a3409c1028921bca90996999e97a46d5bbc15e36d3",
-      "data_tests/assert_world_output_covers_the_wait.sql": "9ffa1280e7e33fd796770d00c437b2d9594ad3191782041aa20f2ecd8ed36deb",
+      "data_tests/assert_wait_milestones_inside_wait.sql": "aad6a24c9f6421b816e65238a09ffa4bf1354746b3f158960717f128fe4469e8",
+      "data_tests/assert_world_output_covers_the_wait.sql": "4c885331bb2396452d6ea156cacb187665ebff97b35d27e10be89b7337d53e87",
       "data_tests/assert_world_output_running_total.sql": "17dedb2c3e2922f42b6f3d18ce90e7a2ae0ad492ff4f54ec72aff347bf4fc14b",
-      "data_tests/assert_world_productivity_has_gta_v_year.sql": "d78da9bf846fd01a20dcb6cac2c8f9fa78830aa87bd08d8a80356ab11694ba83",
+      "data_tests/assert_world_productivity_has_gta_v_year.sql": "45e6a2629061e5f002dfd71cc39ca3b995575ee4ce2d7d1a84b7c5223b53061a",
       "profiles.yml": "be2450ec6c0b4a460844d1b73ce4245729ba6de8b4ea570dcd3a3886b7279a9d",
-      "dbt_project.yml": "4b8b0d43fe8114712acb1a223a488f7f7ae18c176f61f4aeea96150bc99bda6f"
+      "dbt_project.yml": "2e7661664f473288955ca999d2b5dcc5160945c98d6455a0a9084acc13a6474e"
     },
     "models": [
       "dim_date",
       "fct_day_off_index",
       "fct_day_off_index_terms",
+      "fct_github_daily",
+      "fct_github_release_day",
+      "fct_github_release_day_activities",
       "fct_signal_daily",
       "fct_wait_milestones",
       "fct_world_output_daily",
@@ -6348,6 +7517,7 @@
       "metricflow_time_spine",
       "stg_bluesky__daily_hits",
       "stg_economy__indicators",
+      "stg_github__daily_counts",
       "stg_hn__daily_hits",
       "stg_trends__weekly",
       "stg_wiki__pageviews",
@@ -6359,6 +7529,9 @@
       "dim_date": "models/marts/dim_date.sql",
       "fct_day_off_index": "models/marts/fct_day_off_index.sql",
       "fct_day_off_index_terms": "models/marts/fct_day_off_index_terms.sql",
+      "fct_github_daily": "models/marts/fct_github_daily.sql",
+      "fct_github_release_day": "models/marts/fct_github_release_day.sql",
+      "fct_github_release_day_activities": "models/marts/fct_github_release_day_activities.sql",
       "fct_signal_daily": "models/marts/fct_signal_daily.sql",
       "fct_wait_milestones": "models/marts/fct_wait_milestones.sql",
       "fct_world_output_daily": "models/marts/fct_world_output_daily.sql",
@@ -6366,6 +7539,7 @@
       "metricflow_time_spine": "models/marts/metricflow_time_spine.sql",
       "stg_bluesky__daily_hits": "models/staging/stg_bluesky__daily_hits.sql",
       "stg_economy__indicators": "models/staging/stg_economy__indicators.sql",
+      "stg_github__daily_counts": "models/staging/stg_github__daily_counts.sql",
       "stg_hn__daily_hits": "models/staging/stg_hn__daily_hits.sql",
       "stg_trends__weekly": "models/staging/stg_trends__weekly.sql",
       "stg_wiki__pageviews": "models/staging/stg_wiki__pageviews.sql",
@@ -6406,6 +7580,13 @@
         "table": "economy_indicators",
         "columns": [],
         "path": "models/staging/_sources.yml"
+      },
+      {
+        "source_name": "raw",
+        "schema_name": "raw",
+        "table": "github_daily_counts",
+        "columns": [],
+        "path": "models/staging/_sources.yml"
       }
     ],
     "model_sources": {
@@ -6414,6 +7595,9 @@
       ],
       "stg_economy__indicators": [
         "raw.economy_indicators"
+      ],
+      "stg_github__daily_counts": [
+        "raw.github_daily_counts"
       ],
       "stg_hn__daily_hits": [
         "raw.hn_daily_hits"
@@ -6439,6 +7623,15 @@
       ],
       "fct_day_off_index_terms": [
         "stg_trends__weekly"
+      ],
+      "fct_github_daily": [
+        "stg_github__daily_counts"
+      ],
+      "fct_github_release_day": [
+        "fct_github_release_day_activities"
+      ],
+      "fct_github_release_day_activities": [
+        "fct_github_daily"
       ],
       "fct_signal_daily": [
         "dim_date",
@@ -6508,10 +7701,10 @@
       "int_world_output__yearly": {
         "path": "models/intermediate/int_world_output__yearly.yml",
         "fields": {
-          "description": "7989b0a4132a1e073054063c14d365dd47e3a5c9d77488890d1943467cc328fb",
+          "description": "0f451a79da53986290339722175614a25f3670b670da7109ed2ce44958ad8215",
           "grain": "a962a5c4af538d14020e9383037f2bdee597213af40f8adb96e05bc3b08faf8c",
           "population": "bc3f88c559edba86527ca92fb86e04301061d761be80cdf164b9bdc04b91ad79",
-          "assumptions": "b5dd0435c8e533d8ff0751a26fd37c1e83fac1f8a65368bd9de7f7821c87c18c"
+          "assumptions": "d6a35924b7cc8fa376ff9b6ba7942ea218227e988302cc6739e51b6ea22bc398"
         },
         "columns": {
           "data_year": {
@@ -6775,6 +7968,208 @@
           }
         }
       },
+      "fct_github_daily": {
+        "path": "models/marts/fct_github_daily.yml",
+        "fields": {
+          "description": "e106807cd46b51f1602e2c218f6094d875c582f7046d4bead934e9109d0bf776",
+          "grain": "93253e444a0762400d33a049978880a38c7e6b372ccef1f0c9704defc4564c90",
+          "population": "ec998c78f531ea10b234efcf69d9178855cda359321ca869122c63cef3192efe",
+          "assumptions": "3bc8506148ab67045e553ff489365faebea97841cda8579642e63ffb02d070ad"
+        },
+        "columns": {
+          "github_day_key": {
+            "description": "06a3eac509663c6f257e0fbfa16ef4562d5897a039b2bc3e46374acfdbea3f56",
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activity_date": {
+            "description": "0069a5813e56f360b081d095ca32078d177aa3a9cd3113f2f5fe447f213af6a6",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activity": {
+            "description": "2dbd48a75d1284d0121651aebbc16c1a2683d027a8629481df226a0a67219de5",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activity_label": {
+            "description": "8885acc18ddbc1180b848fe92e909c5a9a9e5ab84940fbe282348b25ac050811",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activity_count": {
+            "description": "2a89f6d2b7696c582effcae93271b7819b13ce3ba51a51882005c9bf50742bb3",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "7c62906978e47e94bee46c505019909379c627f31fd181a9b9373e4e7f0c0251",
+            "aggregation": "4482ea0ae0ce3742ddbdc1953682872957da22ba1fd100977e444012ed63572c",
+            "additivity": "9b5fa6f9217c165c470d2d6b816f7edd3810e0fb98e0cb451ac2e1b214264b3a",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "is_available": {
+            "description": "98fe0d02b041dc1e4c32f80fb1611c14f818bc405ae9b496a257e8480c995ca3",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "weekday_name": {
+            "description": "23b4bd127ddc12cac9134e6f791d4fdd577d5b9482ba72d7ec7bf26a199dad4b",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "is_release_day": {
+            "description": "7f51b15468da57236c825416e1e73b293e31b439cd22852283f222155af3dd93",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "days_from_release": {
+            "description": "f3fd6c84cad78fc42dc0ea98e41f7c35d06ff4deff966d3a6b0f64c40788400f",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "observed_at": {
+            "description": "836cafd2f9eb4bf6c3f9e0954e622d7414f8ad525f87e11a4b9c826987705286",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          }
+        }
+      },
+      "fct_github_release_day": {
+        "path": "models/marts/fct_github_release_day.yml",
+        "fields": {
+          "description": "f09e15bcf8a7f85033298c74487b7b05bf353b50e5bcfa8b862756bcdf88901a",
+          "grain": "12afd12c577f98eaf567ed79be55843e69ea469873255b9eeed1cdcef7753b88",
+          "population": "a3d73f9604399ea4f2be6bbfbcbc8cac268401d5f54643bd414244b9b09f4dc9",
+          "assumptions": "c3031142d09f7562a52d3c3db5370b4d06732848965f2527734aa5fa972f9503"
+        },
+        "columns": {
+          "release_day_key": {
+            "description": "5344313a620c5bcf5d5f6c597bb160f4fc73ed4bdf46f4d75f51756835c36c18",
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "release_day": {
+            "description": "163e9367103f55495b6596d4fe350a248cbe25c8b2be86103f1b24f7135f26dd",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "baseline_start": {
+            "description": "63f8973e4f19e6921dc070a203a794821b2039d194c207e8970b93f1398600b9",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "baseline_end": {
+            "description": "a36ca4d5b8750badb01132eb325b8095828d199b68727d7726659e2e185c5592",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "baseline_weeks": {
+            "description": "bc3fa5990d9dce23b77d85306038193060384ca9184150fdd245eb054d9f2e91",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activities_total": {
+            "description": "723d2d7f542bdae7f9257cf1076b09ec6fb1edcbda16973fb34f016a0f00dd4c",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "activities_available": {
+            "description": "0410e1207ffc3d9d228a0f91df066e853bf84e85cc4ad3085c9cd8c0fd030ca8",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "github_release_day_change": {
+            "description": "68076b185ceef0f8d870fd820fe6c9868c590ecedbe8dc62a6722bdd11de2444",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "13b4e4f240b5c9edca91f1327361735e5f4daa9c5a531edeecbe4e5a0096d940",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          },
+          "breakdown": {
+            "description": "7bb616136cdb798fa427d52325d66a35dfe298bc089c71cc55cbca35891d9a4b",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          }
+        }
+      },
+      "fct_github_release_day_activities": {
+        "path": "models/marts/fct_github_release_day_activities.yml",
+        "fields": {
+          "description": "139d2eb92359d6571c453b2a3062d7719bab7625701409d5d14481e88a496ffe",
+          "grain": "4686fd4a49536e7e6731ebf9fd8cf246a69bba0964a6735d774cc110e4d1ef6d",
+          "population": "a454d9537874d93640de2cb5b5db5d48deed421c2df5f2522ba68e0a1b14e860",
+          "assumptions": "23c0132c1aae2531cc1a3d50fb56e301e4f34d725e073b9584a84426f50dfc69"
+        },
+        "columns": {
+          "activity": {
+            "description": "2dbd48a75d1284d0121651aebbc16c1a2683d027a8629481df226a0a67219de5",
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activity_label": {
+            "description": "8885acc18ddbc1180b848fe92e909c5a9a9e5ab84940fbe282348b25ac050811",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "release_day": {
+            "description": "61dd787fb270cafb6f5a4ff6cac505c0cbb9c6c90c7c79e4256ad6447d5d587f",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "baseline_weeks": {
+            "description": "5a5bd0ec738c177793299e06f7cc878445ea950cd4ddeedba44ab06f798670f9",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "baseline_start": {
+            "description": "63f8973e4f19e6921dc070a203a794821b2039d194c207e8970b93f1398600b9",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "baseline_end": {
+            "description": "c6e9d7b3fd4637b65aaca3913f3611e4d88f14873dd23bb237d91f01d526fb5f",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "baseline_days_found": {
+            "description": "6ef732247b9b22153c0b2d43d6efda602a6cebef0bf12ba8e89739cdcae9f079",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "15ab0356a25e08eb0d93e4658961021125228d88b28c2fc71c97575f97d1f292"
+          },
+          "baseline_count": {
+            "description": "16833dfb4767d7fbe3cb9ca67cd93a4d58f60b75e5307d31e2c3fb971c3422df",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "4423e9c83a88b3615ec00aefc5ad58d0463abe918fa28f5e8bcffa864d252678",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "release_day_count": {
+            "description": "7c2ed4fbfbd84d7b5f7bd62ee08a0b8e5e35968287bf6f96ceae1be77cc498e4",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "013e0dfc4aaa313bc720e9e88429a5e20154d16501b4a21537ad46a82f0c819d",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "pct_change": {
+            "description": "a715c4c4d7485dea763f2d02e26281fe9502dad59823dc7bc59c80d1f9cec225",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "eb2e9c1bc4f87a03a090610aa74f741b62bbca628c00c0f500ccef09ce552505",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          }
+        }
+      },
       "fct_signal_daily": {
         "path": "models/marts/fct_signal_daily.yml",
         "fields": {
@@ -6845,10 +8240,10 @@
       "fct_wait_milestones": {
         "path": "models/marts/fct_wait_milestones.yml",
         "fields": {
-          "description": "055579df7f8b7a1357233bad1268ac7b67427f6eaf67c71d14b2d21cfad55eb5",
+          "description": "45f16ee8f870a03344441d460a98c3551af419552df1be7b7441655be829a74a",
           "grain": "c472e82f005fef472267808b752dc3b0486ab5fc2678847e7f88215415017eee",
           "population": "86e2b6e84fffbd3dcfdd1298c2cdc474dcc0c528cc7504273fcf6aa08c03dc48",
-          "assumptions": "d125cce883c81e6d11987dccd5fc95c31dc3dcb4bb4e86a5f4c69fd00be1b9cf"
+          "assumptions": "5f29b054c3c90a3572c3913f9747be9b105b942bdc2e74ddc31d40915e9dc923"
         },
         "columns": {
           "milestone_id": {
@@ -6869,7 +8264,7 @@
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
           },
           "tier": {
-            "description": "ed1d74feff010806a3e3bda8bea2116841faa66e1ed02298bd4cd485c227ad64",
+            "description": "640f1f043e819693be32075a806387b29ee29e0a82a02b0e6320404704fe9d1a",
             "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
           },
@@ -6889,7 +8284,7 @@
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
           },
           "output_by_then": {
-            "description": "314d7da0c0ba8f4b2a4196d79922d250b4195bde44b46d3c33114f877e18a829",
+            "description": "3fa82c7e29092ff3a61dd869ca4fe82b91cd6ba8d72b9a46f719a355a5e68632",
             "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
             "null_rule": "71e544f35759a381a4e404e47fc4be5291489a780b807f5271f3119918dc8876",
             "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
@@ -6913,15 +8308,20 @@
             "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
             "unit": "15ab0356a25e08eb0d93e4658961021125228d88b28c2fc71c97575f97d1f292"
+          },
+          "is_editorial": {
+            "description": "87746f6d65d1149c2127bb43409bd9ed62cca55da47ef9d5abab511bc976b355",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
           }
         }
       },
       "fct_world_output_daily": {
         "path": "models/marts/fct_world_output_daily.yml",
         "fields": {
-          "description": "4c589d0329286170784092ce737a989e753902f84ece49a35ea994d9b4700585",
+          "description": "b4187c9d2b5be93ab562f3f4c7c460bb63f496deed26198bf6caf1ad71800124",
           "grain": "883c9218af36129e5b1ca0a079874c494f8c59c7710518e56e555ff7bda32794",
-          "population": "43d43f8e533b6a61cc6d4461685f516cb7a9b157e3269232f2165dcd002ee6c0",
+          "population": "87f4372efa0be4fbad2f8ee2e578072a091a013d2ccf60c33ddcc45a3fa9ae63",
           "assumptions": "0573dba7da4bf84ceada4bccae14464841971cdb0d407f8b0e42bb04dae1c3c9"
         },
         "columns": {
@@ -6948,7 +8348,7 @@
             "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
           },
           "cumulative_output": {
-            "description": "f5b17ff43015196754e0e1c095351bbe8ed44bd3d3265ceab9372ad4f3dda74b",
+            "description": "dd1988059316352025960196f816a0830cfd6995e5c2c5a07b1be987c1a9bfac",
             "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
             "null_rule": "767b00a71a002957356d397ce48ae646af5e011d173ea0f853822a9db1f676ec",
             "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
@@ -6956,7 +8356,7 @@
             "unit": "f92f42dfec33821ab5ffca03ad64a3439b992b35a7339b405ab86ae06f9c6922"
           },
           "days_since_gta_v": {
-            "description": "989d6d5fa50b489eb1220c9aa0970b6f7e283930444054014e4a796ca17302a6",
+            "description": "2c67a3248155afa52f95c44d7e5de6fc398aed5182db13a5fbb2295068a00172",
             "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
             "unit": "15ab0356a25e08eb0d93e4658961021125228d88b28c2fc71c97575f97d1f292"
@@ -6972,10 +8372,10 @@
       "fct_world_productivity": {
         "path": "models/marts/fct_world_productivity.yml",
         "fields": {
-          "description": "fa2ac7cdf6902d2ff294e8e7e764d1780f8f65ad337e29505a543708ec317c66",
+          "description": "20812e52c94528767566e7a04c99508b3981068eabb1152ad75fc3163e71e48a",
           "grain": "30983c67a79a49aa091662aa8278387d4169471d1b07e640bb635286c2aa3e5e",
           "population": "3528e8af9ce416d94817dcd225d1eb85a64bb88dd1acaebbccfeabae248d8a82",
-          "assumptions": "3910daa8174d64c2c0d16647229635958b36ebb3ba1ed0c1e25d97f7e50e19a9"
+          "assumptions": "33c68987fb444ce58918d8a331ab070d59d0b19b0e19af758cafff16073e7301"
         },
         "columns": {
           "world_productivity_key": {
@@ -6999,7 +8399,7 @@
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
           },
           "launch": {
-            "description": "b6b32829251218c8095e1ed80a38019845cdfba84dc46571435a5f37e9710de9",
+            "description": "9c0dde6a02f76afe8591b7f233efb5a98b3e74509be9c8afca040b4e53bcefa1",
             "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a"
           },
           "value": {
@@ -7030,7 +8430,7 @@
             "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
           },
           "pct_change_since_gta_v": {
-            "description": "e0978010cfe7fa5dd5f6d71a7858a0516abb37e04bd99984693a36ef02817f5c",
+            "description": "7a22f54a828bfe5786a7e781cd36653790a006e0e422c8952dd2dbf779dcdb10",
             "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
             "null_rule": "fb72d439f2d1038174b8e783310aa16c9c42af06da12f8aa0360e1f8a2343c2c",
             "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
@@ -7143,6 +8543,55 @@
           "last_updated": {
             "description": "932d80950f6a4a5587299bda426891333c9ec2166e0b4d6f3f0c2713bd78e02f",
             "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17"
+          }
+        }
+      },
+      "stg_github__daily_counts": {
+        "path": "models/staging/stg_github__daily_counts.yml",
+        "fields": {
+          "description": "9cc5ddcfaf8f3b011cf7df1c76d908ac7ef1b5cce888ad08ba2c91ec20ebf064",
+          "grain": "93253e444a0762400d33a049978880a38c7e6b372ccef1f0c9704defc4564c90",
+          "population": "b621716040bf38efd1823e2019b8bca9948d6a955de5af430d6cbaa890309045",
+          "assumptions": "76035f1be179dfd21b58e22395d80a071935964296a2c6975797eebca11b0fce"
+        },
+        "columns": {
+          "activity_date": {
+            "description": "492b84161b54c0d700857c4bbdbb0d2dfeb71b668e2add400e935e0d8885d774",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activity": {
+            "description": "2dbd48a75d1284d0121651aebbc16c1a2683d027a8629481df226a0a67219de5",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "endpoint": {
+            "description": "77d2982d06ade8f08ea57d406f3c2212502f5e0240997b53a037d8e948eb9e18",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "query": {
+            "description": "a5760d1579cc11e718ea9a3bcdc456f9411a93b918f7408f69bf9d946f8e8019",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activity_count": {
+            "description": "1de8a2960d8c300cd4e5ba36d7401e2c4ba79015c61118c2185f517d45760fe0",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "f3064d0a73b27bae84e45915fa6d1c5c5492b73a56bafdb117234e9df7ce18d8",
+            "aggregation": "4482ea0ae0ce3742ddbdc1953682872957da22ba1fd100977e444012ed63572c",
+            "additivity": "9b5fa6f9217c165c470d2d6b816f7edd3810e0fb98e0cb451ac2e1b214264b3a",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "is_available": {
+            "description": "524ad883d931cac03099b16a789db4c28b095fd9fee76e865347e6fbb19c5f58",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "observed_at": {
+            "description": "b2958b137fa1c9d8c43395a9542646675e714400fa23ec03e1158af7111e2da1",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
           }
         }
       },
@@ -7313,9 +8762,91 @@
         "key_claims": null
       },
       {
+        "name": "fct_github_daily",
+        "path": "models/marts/fct_github_daily_semantic.yml",
+        "content_sha256": "3703dbfcb7b11db907a0f7bb5fe3e12cf8c28476b82e4f03db2815c628e68eb4",
+        "model_ref": "fct_github_daily",
+        "relation": null,
+        "entities": {
+          "github_day": "github_day_key"
+        },
+        "dimensions": {
+          "activity_date": "activity_date",
+          "activity": "activity",
+          "activity_label": "activity_label",
+          "weekday_name": "weekday_name",
+          "is_release_day": "is_release_day",
+          "days_from_release": "days_from_release"
+        },
+        "categorical_dimensions": {
+          "activity": "activity",
+          "activity_label": "activity_label",
+          "weekday_name": "weekday_name",
+          "is_release_day": "is_release_day",
+          "days_from_release": "days_from_release"
+        },
+        "measures": {
+          "github_activity_count_measure": "activity_count"
+        },
+        "keys": [],
+        "key_claims": null
+      },
+      {
+        "name": "fct_github_release_day_activities",
+        "path": "models/marts/fct_github_release_day_activities_semantic.yml",
+        "content_sha256": "e309318523fe2ef05f76c5dfa2826af39b29690bca31e70d83b109ed916305e9",
+        "model_ref": "fct_github_release_day_activities",
+        "relation": null,
+        "entities": {
+          "github_activity": "activity"
+        },
+        "dimensions": {
+          "activity": "activity",
+          "activity_label": "activity_label",
+          "release_day": "release_day",
+          "baseline_start": "baseline_start",
+          "baseline_end": "baseline_end"
+        },
+        "categorical_dimensions": {
+          "activity": "activity",
+          "activity_label": "activity_label"
+        },
+        "measures": {
+          "github_activity_pct_change": "pct_change",
+          "github_activity_release_day_count": "release_day_count",
+          "github_activity_baseline_count": "baseline_count"
+        },
+        "keys": [],
+        "key_claims": null
+      },
+      {
+        "name": "fct_github_release_day",
+        "path": "models/marts/fct_github_release_day_semantic.yml",
+        "content_sha256": "f4b59cddaa839574bb639407900e0da48b8fcce3bb0ed74dedb00cbffa2df2b5",
+        "model_ref": "fct_github_release_day",
+        "relation": null,
+        "entities": {
+          "github_release_day": "release_day_key"
+        },
+        "dimensions": {
+          "breakdown": "breakdown",
+          "release_day": "release_day",
+          "baseline_start": "baseline_start",
+          "baseline_end": "baseline_end"
+        },
+        "categorical_dimensions": {
+          "breakdown": "breakdown"
+        },
+        "measures": {
+          "github_release_day_change_measure": "github_release_day_change"
+        },
+        "keys": [],
+        "key_claims": null
+      },
+      {
         "name": "fct_world_output_daily",
         "path": "models/marts/fct_world_output_semantic.yml",
-        "content_sha256": "dcc0fa38e307ca2004e7ac65c0367a02add4fccd045f019715a04c2232151aa4",
+        "content_sha256": "7b617647848c1588f2af61447e24b6f424f6a2a96f24bef8462d06a9b44074ca",
         "model_ref": "fct_world_output_daily",
         "relation": null,
         "entities": {
@@ -7340,7 +8871,7 @@
       {
         "name": "fct_wait_milestones",
         "path": "models/marts/fct_world_output_semantic.yml",
-        "content_sha256": "a732ee01f7e41792375c848413dc3e15e9103d31f09937677f9b3d085bdbad4b",
+        "content_sha256": "2e326d099c5eaa05254497bcce6c4f6bc1441c37257317284f7a7e0a15bbde28",
         "model_ref": "fct_wait_milestones",
         "relation": null,
         "entities": {
@@ -7353,6 +8884,7 @@
           "chart_label": "chart_label",
           "category": "category",
           "tier": "tier",
+          "is_editorial": "is_editorial",
           "date_precision": "date_precision",
           "source_url": "source_url"
         },
@@ -7362,6 +8894,7 @@
           "chart_label": "chart_label",
           "category": "category",
           "tier": "tier",
+          "is_editorial": "is_editorial",
           "date_precision": "date_precision",
           "source_url": "source_url"
         },
@@ -7376,7 +8909,7 @@
       {
         "name": "fct_world_productivity",
         "path": "models/marts/fct_world_productivity_semantic.yml",
-        "content_sha256": "4bbf472016ff1aac6ddaea9a9c18cf61293c30ef9d3de95ec02e8b121361856c",
+        "content_sha256": "a0050d64974723263cbcd97be63b68bd95f44dfc64d928976159db54e99b1df4",
         "model_ref": "fct_world_productivity",
         "relation": null,
         "entities": {
@@ -7565,7 +9098,7 @@
       {
         "name": "gta_wiki_pageviews",
         "path": "models/marts/semantic/metrics.yml",
-        "content_sha256": "72e2b84fd9b1920b862f225d934c80b563a9cf2d38d55a7341f117ddcf5f58a9",
+        "content_sha256": "26fb1a53d8c23d1dd7c624400360090a0a98df3e3e883d52300c7c202f4d29ef",
         "input_measures": [
           "signal_value_measure"
         ],
@@ -7574,7 +9107,7 @@
       {
         "name": "world_productivity",
         "path": "models/marts/semantic/metrics.yml",
-        "content_sha256": "a3f36fe0b93fbfd7ee93bd9bb5d061d31b9b54a095486738d21665b50653a4b1",
+        "content_sha256": "bb2c886b241917d2fe2246dbe7b93501c8b89a23a0716fea12b2ca2454085884",
         "input_measures": [
           "value"
         ],
@@ -7583,7 +9116,7 @@
       {
         "name": "world_productivity_change_since_gta_v",
         "path": "models/marts/semantic/metrics.yml",
-        "content_sha256": "3fb6470f7fd1b42ab07f85551c94f8ff7846487b619da750085c600bf1929170",
+        "content_sha256": "6cd2c21a2f27217c68af2952f4c78276243d6ea6ba9a3514d6d10f949474c02a",
         "input_measures": [
           "pct_change_since_gta_v"
         ],
@@ -7592,7 +9125,7 @@
       {
         "name": "world_output_produced",
         "path": "models/marts/semantic/metrics.yml",
-        "content_sha256": "6436cd60d73ac0c118a0b9b28dbe35ab1f95699e7a3cb3135e722815dcee626d",
+        "content_sha256": "5faa1953e028f201f365d708762f0b577114eda3bf3058f46919f95b7c15f243",
         "input_measures": [
           "daily_output"
         ],
@@ -7601,7 +9134,7 @@
       {
         "name": "world_output_cumulative",
         "path": "models/marts/semantic/metrics.yml",
-        "content_sha256": "c4a8ac72df79328e16792d8db23e5a95b43086d031f5fc238d4cbed098e9044b",
+        "content_sha256": "222e36258e78b9b8a08487b2fb31888a6714839766a0de8b445aab0cb7f19aba",
         "input_measures": [
           "cumulative_output"
         ],
@@ -7619,7 +9152,7 @@
       {
         "name": "wait_milestone_output",
         "path": "models/marts/semantic/metrics.yml",
-        "content_sha256": "a2f0189b86b38ceb035f6b52ac70707704c7bae738adbe1e899826c8e6e68e36",
+        "content_sha256": "b14a16c514bc10162fc008c1e787f24cebe91323cdf9a2f055878638ba48b076",
         "input_measures": [
           "output_by_then"
         ],
@@ -7640,6 +9173,51 @@
         "content_sha256": "4c7584b5385cee22582db39eb07f9013f88da926638dc4986c791bedd6282eea",
         "input_measures": [
           "days_to_gta_6"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_release_day_change",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "8ed0c50d8ca0e4e973ad005561a52f40492976168e6f8b437511c3210963bfbf",
+        "input_measures": [
+          "github_release_day_change_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_activity_change",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "12da103303efb5781f1bd9725f99994ad5f62c80558b0875c00d3a234e40195a",
+        "input_measures": [
+          "github_activity_pct_change"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_activity_release_day",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "44e24ba3c682cbe207ac0516ab0c382061b20678608c24650aeb4ec41744a34a",
+        "input_measures": [
+          "github_activity_release_day_count"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_activity_baseline",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "63d9dfe903d4b6e66113646f9b3d26a6539908b997c31c4f9a4f6fcaa46116d8",
+        "input_measures": [
+          "github_activity_baseline_count"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_activity_count",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "abca37ae6af54febd1be94687237b86073c485c543dfcc4538322ec5d623b271",
+        "input_measures": [
+          "github_activity_count_measure"
         ],
         "input_metrics": []
       }

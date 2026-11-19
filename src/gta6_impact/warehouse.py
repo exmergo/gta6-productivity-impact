@@ -15,6 +15,7 @@ TABLES = {
     "wikipedia": ("wiki_pageviews", "article, granularity, ts", "pull_id desc"),
     "trends": ("trends_interest", "request_id, geo, term, day", "pull_id desc"),
     "economy": ("economy_indicators", "provider, indicator, geo, year", "pull_id desc"),
+    "github": ("github_daily_counts", "day, activity", "pull_id desc"),
 }
 
 
@@ -44,15 +45,20 @@ def load() -> dict[str, int]:
     return counts
 
 
-def settled_keys(folder: str, settle_days: int = 3) -> set[tuple]:
+def settled_keys(
+    folder: str,
+    settle_days: int = 3,
+    key: str = "day, seed, gta_filter",
+    settled: str = "hits_total is not null",
+) -> set[tuple]:
     """Daily counts older than a few days rarely move; skip re-asking for them."""
     files = sorted((RAW_DIR / folder).glob("*.parquet"))
     if not files:
         return set()
     cutoff = dt.datetime.now(dt.UTC).date() - dt.timedelta(days=settle_days)
     rows = duckdb.sql(
-        "select distinct day, seed, gta_filter from read_parquet(?, union_by_name = true) "
-        "where hits_total is not null and day < ?",
+        f"select distinct {key} from read_parquet(?, union_by_name = true) "
+        f"where {settled} and day < ?",
         params=[[str(p) for p in files], cutoff],
     ).fetchall()
-    return {(r[0], r[1], r[2]) for r in rows}
+    return {tuple(r) for r in rows}

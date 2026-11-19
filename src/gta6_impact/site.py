@@ -102,8 +102,7 @@ people <em>search</em> for when they're planning to skip work, against the same 
 </table></div>
 <p class="lede">Weekly Google Trends interest, one request per phrase spanning both years, so the
 two years share one scale. Search interest, not a headcount.</p>
-<p class="lede">Whether the streak actually breaks shows up after release: GitHub pull requests,
-Wikipedia edits and the recovery curve are next in <a href="{repo}#the-series">the series</a>.</p>
+{github}
 <h2>Questions people ask</h2>
 {faq}
 <h2>Ask it yourself</h2>
@@ -116,7 +115,7 @@ uv run dex explore semantic query world_output_produced
 uv run dex explore semantic query wait_milestone_output --group-by milestone__title,milestone__event_date
 uv run dex explore semantic query world_productivity_change_since_gta_v,world_productivity --group-by world_productivity_key__measure,world_productivity_key__data_year
 uv run dex explore semantic query day_off_index --group-by day_off_index_window__breakdown
-uv run dex explore semantic query day_off_index_term_change,day_off_index_term_prior,day_off_index_term_current --group-by day_off_index_term__term</pre>
+uv run dex explore semantic query day_off_index_term_change,day_off_index_term_prior,day_off_index_term_current --group-by day_off_index_term__term{github_ask}</pre>
 <footer><span>Public-signal proxy, not headcount · UTC days · association, not causation</span>
 <span><a href="{repo}">Source &amp; method</a> · Built with <a href="https://trydex.ai">Dex</a></span></footer>
 </main>
@@ -332,6 +331,74 @@ def _productivity_section(summary: dict) -> str:
 growth forecast. GTA 6 comes out on Thursday 19 November 2026. Is it the combo breaker?</p>"""
 
 
+GITHUB_BRIDGE = """<p class="lede">Whether the streak actually breaks shows up after release: GitHub pull requests,
+Wikipedia edits and the recovery curve are next in <a href="{repo}#the-series">the series</a>.</p>"""
+GITHUB_ASK = (
+    "\nuv run dex explore semantic query github_release_day_change "
+    "--group-by github_release_day__breakdown"
+    "\nuv run dex explore semantic query github_activity_change,github_activity_baseline,"
+    "github_activity_release_day --group-by github_activity__activity"
+)
+
+
+def _github(summary: dict) -> dict | None:
+    """Metric 4, once release day has been counted; None before that."""
+    g = summary.get("github")
+    if not g or g.get("github_release_day_change") is None:
+        return None
+    return g
+
+
+def _count(v: float) -> str:
+    return f"{v / 1e6:.2f} million" if v < 1e7 else f"{v / 1e6:.1f} million"
+
+
+def _github_parts(g: dict) -> str:
+    return "; ".join(
+        f"{r['label']} {_pct(r['github_activity_change'])}"
+        f" ({_count(r['github_activity_release_day'])} against "
+        f"{_count(r['github_activity_baseline'])})"
+        for r in g["activities"]
+    )
+
+
+def _github_section(summary: dict) -> str:
+    g = _github(summary)
+    if not g:
+        return GITHUB_BRIDGE.format(repo=REPO)
+    change = g["github_release_day_change"]
+    release = dt.date.fromisoformat(g["release_day"])
+    went = "went quiet" if change < 0 else "didn't go quiet"
+    rows = "".join(
+        f"<tr><td>{escape(r['label'])}</td>"
+        f"<td class='num'>{r['github_activity_baseline']:,.0f}</td>"
+        f"<td class='num'>{r['github_activity_release_day']:,.0f}</td>"
+        f"<td class='num'>{_pct(r['github_activity_change'])}</td></tr>"
+        for r in g["activities"]
+    ) + (
+        "<tr><td><b>Average change</b></td><td></td><td></td>"
+        f"<td class='num'><b>{_pct(change)}</b></td></tr>"
+    )
+    name = "github-release-day"
+    alt = (
+        f"GitHub on GTA 6 release day: {_pct(change)} on average against "
+        f"{g['baseline_label']}. {_github_parts(g)}."
+    )
+    return f"""<h2>The verdict: GitHub {went} on release day</h2>
+<p class="lede">GitHub's own search counts, {release:%A} {release:%-d %B %Y} (UTC) against
+{escape(g["baseline_label"])}.
+{escape(_github_parts(g))}. The average of the three: <b>{_pct(change)}</b>.</p>
+<figure><img src="charts/png/{name}-light.png" data-dark="charts/png/{name}-dark.png"
+alt="{escape(alt)}" loading="lazy"><figcaption>GitHub on GTA 6 release day ·
+<a href="charts/data/{name}.json">data</a></figcaption></figure>
+<div class="wrap"><table>
+<thead><tr><th>GitHub, public</th><th class="num">{escape(g["baseline_legend"])}</th><th class="num">{release:%-d %b}</th><th class="num">Change</th></tr></thead>
+<tbody>{rows}</tbody>
+</table></div>
+<p class="lede">Wikipedia edits and the recovery curve are next in
+<a href="{REPO}#the-series">the series</a>.</p>"""
+
+
 def _pct(value: float | None) -> str:
     return f"{value:+.1f}%" if value is not None else "not yet available"
 
@@ -377,6 +444,20 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
             "source and every number can be reproduced from it.",
         ),
     ]
+    g = _github(summary)
+    if g:
+        change = g["github_release_day_change"]
+        release = dt.date.fromisoformat(g["release_day"])
+        faq.insert(
+            0,
+            (
+                "Did GitHub go quiet on GTA 6 release day?",
+                f"{'Yes' if change < 0 else 'No'}. On {release:%A} {release:%-d %B %Y} (UTC), "
+                f"PRs opened, PRs merged and commits on GitHub were {_pct(change)} on average "
+                f"against {g['baseline_label']}: {_github_parts(g)}. GitHub Search "
+                "API counts; a change on release day is association, not proof of cause.",
+            ),
+        )
     productivity = _productivity_rows(summary)
     w = _wait(summary)
     if productivity:
@@ -449,6 +530,8 @@ def _jsonld(summary: dict, faq: list[tuple[str, str]], description: str) -> str:
             "sick day",
             "call in sick",
             "Google Trends",
+            "GitHub",
+            "pull requests",
             "dbt",
         ],
         "distribution": [
@@ -458,6 +541,7 @@ def _jsonld(summary: dict, faq: list[tuple[str, str]], description: str) -> str:
                 "contentUrl": f"{BASE}charts/data/{name}.json",
             }
             for name in (HERO, "gta-v-to-gta-6", "day-off-index")
+            + (("github-release-day",) if _github(summary) else ())
         ],
     }
     graph = [dataset]
@@ -576,6 +660,8 @@ def build_site(summary: dict) -> None:
         day_off_lede=escape(day_off_lede),
         hero=HERO,
         productivity=_productivity_section(summary),
+        github=_github_section(summary),
+        github_ask=GITHUB_ASK if _github(summary) else "",
         rows=rows,
         prior=escape(summary["prior_window"]),
         current=escape(summary["current_window"]),

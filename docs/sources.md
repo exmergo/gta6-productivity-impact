@@ -1,6 +1,7 @@
 # Sources
 
-All sources are free and public, and no API keys are needed. The ingesters are in
+All sources are free and public, and no API keys are needed. (GitHub search allows 10 calls a
+minute without a token; the refresh passes the Actions `GITHUB_TOKEN` for 30.) The ingesters are in
 `src/gta6_impact/ingest/` and every pull lands as an immutable Parquet file in
 `data/raw/<source>/`.
 
@@ -12,6 +13,7 @@ All sources are free and public, and no API keys are needed. The ingesters are i
 | Hacker News | `hn.algolia.com/api/v1/search_by_date`, `nbHits`, typo tolerance off | daily count | `raw.hn_daily_hits` |
 | World Bank WDI | `api.worldbank.org/v2/country/WLD/indicator/<code>`: `SL.GDP.PCAP.EM.KD`, `NY.GDP.PCAP.KD`, `NY.GDP.MKTP.KD`, `SP.POP.GROW` | yearly, world | `raw.economy_indicators` |
 | IMF World Economic Outlook | `imf.org/external/datamapper/api/v1/NGDP_RPCH/WEOWORLD` | yearly, world | `raw.economy_indicators` |
+| GitHub | `api.github.com/search/issues` (`is:pr created:`, `is:pr is:merged merged:`) and `/search/commits` (`committer-date:`), one UTC day per call, `total_count` | daily count | `raw.github_daily_counts` |
 | Milestones | editorial, one public source per row (`source_url`), dates checked as UTC days | per event | seed `wait_milestones` |
 
 ## What we tried and dropped

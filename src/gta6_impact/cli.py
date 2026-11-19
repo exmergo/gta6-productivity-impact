@@ -12,7 +12,14 @@ from gta6_impact import store, warehouse
 from gta6_impact.config import ROOT
 from gta6_impact.http import Http
 
-SOURCES = ("wikipedia", "bluesky", "hn", "trends", "economy")
+SOURCES = ("wikipedia", "bluesky", "hn", "trends", "economy", "github")
+
+
+def github_interval() -> float:
+    """GitHub search allows 10 calls a minute without a token and 30 with one."""
+    from gta6_impact.ingest.github import token
+
+    return 2.2 if token() else 6.5
 
 
 def ingest(sources: list[str]) -> None:
@@ -23,6 +30,7 @@ def ingest(sources: list[str]) -> None:
             "wikimedia.org": 0.2,
             "api.worldbank.org": 0.5,
             "www.imf.org": 0.5,
+            "api.github.com": github_interval(),
         }
     )
     pulled = store.pull_id()
@@ -58,6 +66,17 @@ def _ingest_one(source: str, http: Http, pulled: str) -> None:
         from gta6_impact.ingest import economy
 
         rows = economy.run(http)
+    elif source == "github":
+        from gta6_impact.ingest import github
+
+        rows = github.run(
+            http,
+            skip=warehouse.settled_keys(
+                "github",
+                key="day, activity",
+                settled="total_count is not null and not incomplete_results",
+            ),
+        )
     else:
         raise SystemExit(f"unknown source {source}")
     path = store.write(source, rows, tag=source, pulled=pulled)

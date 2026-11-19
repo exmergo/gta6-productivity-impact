@@ -29,14 +29,24 @@ class Http:
             time.sleep(gap - elapsed)
         self._last[host] = time.monotonic()
 
-    def get_json(self, url: str, params: dict[str, Any] | None = None) -> Any:
+    def get_json(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
         host = urlparse(url).netloc
         for attempt in range(self._retries):
             self._wait(host)
             try:
-                response = self._client.get(url, params=params)
+                response = self._client.get(url, params=params, headers=headers)
             except httpx.TransportError:
                 time.sleep(min(60, 2**attempt))
+                continue
+            if response.status_code == 403 and response.headers.get("x-ratelimit-remaining") == "0":
+                # GitHub's search quota is per minute: wait for the reset it names.
+                reset = float(response.headers.get("x-ratelimit-reset", time.time() + 60))
+                time.sleep(min(90, max(1.0, reset - time.time() + 1)))
                 continue
             if response.status_code in RETRY_STATUS:
                 retry_after = response.headers.get("retry-after")

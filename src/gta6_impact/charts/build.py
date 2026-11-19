@@ -203,6 +203,136 @@ def index_card(png: bool) -> dict:
     return data
 
 
+GITHUB_SOURCE = (
+    'Data source: GitHub Search API <span class="unit">· public activity, UTC days</span>'
+)
+GITHUB_ORDER = ("prs_opened", "prs_merged", "commits")
+
+
+def _millions(v: float) -> str:
+    return f"{v / 1e6:.2f}M" if v < 1e7 else f"{v / 1e6:.1f}M"
+
+
+def _signed(v: float) -> str:
+    """+3 or −3, with a real minus sign: a hyphen reads as a dash at display sizes."""
+    return f"{v:+.0f}".replace("-", "\u2212")
+
+
+def _short(day: dt.date) -> str:
+    return f"{day.day} {day:%b}"
+
+
+def _github_bars(rows: list[dict], prior: str, current: str) -> str:
+    """Per activity, the baseline Thursday above release day, each pair on its own scale."""
+    out = [
+        '<div class="yoy"><div></div><div class="key">'
+        f'<span><i class="prior"></i>{escape(prior)}</span>'
+        f'<span><i class="current"></i>{escape(current)}</span></div>'
+    ]
+    for r in rows:
+        change = r["github_activity_change"]
+        pair = (
+            ("prior", r["github_activity_baseline"]),
+            ("current", r["github_activity_release_day"]),
+        )
+        top = max((v for _, v in pair if v is not None), default=0) or 1
+        bars = "".join(
+            f'<b class="{cls}" style="width:{100 * value / top:.1f}%">{_millions(value)}</b>'
+            for cls, value in pair
+            if value is not None
+        )
+        out.append(
+            f'<div class="term">{escape(r["label"])}</div>'
+            f'<div class="pair">{bars}</div>'
+            f'<div class="change">{f"{_signed(change)}%" if change is not None else "n/a"}</div>'
+        )
+    out.append("</div>")
+    return "".join(out)
+
+
+def github_card(png: bool) -> dict | None:
+    """Metric 4: GitHub on release day, with its breakdown on the same card. Drawn only once
+    release day has been counted: a half-day count is not a count."""
+    day = "github_release_day__"
+    heads = query(
+        ["github_release_day_change"],
+        [f"{day}breakdown", f"{day}release_day", f"{day}baseline_start", f"{day}baseline_end"],
+    )
+    if not heads:
+        return None
+    head = heads[0]
+    activities = query(
+        ["github_activity_change", "github_activity_release_day", "github_activity_baseline"],
+        ["github_activity__activity", "github_activity__activity_label"],
+    )
+    for r in activities:
+        r["label"] = r["github_activity__activity_label"]
+    rows = sorted(
+        activities,
+        key=lambda r: (
+            GITHUB_ORDER.index(r["github_activity__activity"])
+            if r["github_activity__activity"] in GITHUB_ORDER
+            else 99
+        ),
+    )
+    release = _day(head[f"{day}release_day__day"])
+    first, last = _day(head[f"{day}baseline_start__day"]), _day(head[f"{day}baseline_end__day"])
+    weeks = (last - first).days // 7 + 1
+    if weeks == 1:
+        # "the Thursday before (12 Nov)": one day, named plainly
+        baseline = f"the {release:%A} before ({_short(first)})"
+        legend = f"{first:%a %-d %b}"
+    else:
+        baseline = (
+            f"the median of the {weeks} {release:%A}s before ({_short(first)}–{_short(last)})"
+        )
+        legend = f"Median {release:%A}"
+    change = head["github_release_day_change"]
+    data = {
+        "github_release_day_change": change,
+        "breakdown": head[f"{day}breakdown"],
+        "release_day": str(release),
+        "baseline_start": str(first),
+        "baseline_end": str(last),
+        "baseline_label": baseline,
+        "baseline_legend": legend,
+        "activities": rows,
+    }
+    if change is None:
+        return data
+    big = f"{_signed(change)}<small>%</small>"
+    body = f"""    <div class="hero">
+      <div>
+        <div class="big">{big}</div>
+        <h1>GitHub on GTA 6 release day (vs the week before)</h1>
+        <p class="fine">Average change in PRs opened, PRs merged and commits on GitHub,
+        <span class="nw">{release:%a %-d %b %Y}</span> vs
+        <span class="nw">{escape(baseline)}</span>.<br>GTA 6 launched 19 Nov.</p>
+      </div>
+      {_github_bars(rows, legend, f"{release:%a %-d %b}")}
+    </div>"""
+    aside = """  <figure class="aside">
+    <img alt="Lucia and Jason, the two leads of GTA 6" src="../assets/gta-6-lucia-and-the-guy.jpg">
+  </figure>"""
+    for name, w, h, variant in (
+        ("github-release-day", 1200, 630, ""),
+        ("github-release-day-portrait", 720, 900, "portrait"),
+    ):
+        _write(
+            name,
+            title="GitHub on GTA 6 release day",
+            body=body,
+            aside=aside,
+            source=GITHUB_SOURCE,
+            w=w,
+            h=h,
+            data=data if not variant else None,
+            png=png,
+            variant=variant,
+        )
+    return data
+
+
 PRODUCTIVITY_SOURCE = (
     "Data source: World Bank WDI, IMF WEO · world GDP per person, constant 2015 US$"
 )
@@ -866,6 +996,7 @@ def build(png: bool = True) -> dict:
     summary = index_card(png)
     summary["productivity"] = productivity["rows"]
     summary["wait"] = wait
+    summary["github"] = github_card(png)
     return summary
 
 

@@ -9,7 +9,7 @@ semantic query.
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | Google Trends, US, weekly | live |
 | 2 | **GTA 5 to GTA 6** | How much more productive did the world get between the two launches? | World Bank WDI (world GDP per person employed and per capita, real), IMF WEO for 2026 | live |
 | 3 | **Everything humanity made while waiting** | How much did the world make between GTA 5 and GTA 6? | World Bank WDI (world GDP, real), IMF WEO for 2026, a seed of milestones | live (release day, Thu 19 Nov) |
-| 4 | **PRs opened** | Did GitHub go quiet? | GitHub Search API, `is:pr created:<day>` | Fri 20 Nov |
+| 4 | **PRs opened on GitHub** | Did GitHub go quiet on release day? | GitHub Search API, `total_count` per UTC day: PRs opened, PRs merged, commits | Fri 20 Nov |
 | 5 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | Wikimedia `edits/aggregate` | after release |
 | 6 | **The recovery curve** | How many working days until output is back to normal? | Metrics 4–5, daily for two weeks | 30 Nov |
 
@@ -98,3 +98,43 @@ Models: `int_world_output__yearly` (one row per year, unit-tested and mutation-t
 milestone, driven from the seed). Charts: `charts/png/everything-we-made-{light,dark}.png` and the
 4:5 `everything-we-made-portrait-{light,dark}.png`; the scoreboard's ticker reads
 `world_output_per_second` for the last day of the wait.
+
+## 4. PRs opened on GitHub
+
+Did GitHub go quiet on GTA 6's release day? Release day against a normal week, from the
+GitHub Search API's own counts.
+
+- **Activities**: pull requests opened (`is:pr created:<day>`), pull requests merged
+  (`is:pr is:merged merged:<day>`) and commits (`/search/commits`, `committer-date:<day>`). Each
+  query is bounded to one UTC day, first to last second, and only `total_count` is read. No
+  repository, user, title or URL is stored.
+- **Days**: every fully ended UTC day from 1 Oct 2026, through two weeks after release (Metric
+  6 reads the same table). A day is only asked for once it is over: a half-day count is not a
+  count.
+- **Release day**: Thursday 19 November 2026, 00:00 to 23:59:59 UTC (dbt var
+  `github_release_day`).
+- **Baseline**: the average of the same weekday in the four weeks before (dbt var
+  `github_baseline_weeks`): Thursdays 22 Oct, 29 Oct, 5 Nov and 12 Nov 2026. GitHub has a
+  strong weekly cycle and grows year on year, so recent Thursdays are the like-for-like
+  control. No US holiday falls in the baseline (Thanksgiving is 26 Nov).
+- **Change**: release day over the baseline average, in percent, per activity. The headline is
+  the plain average of the three changes (counts differ tenfold between PRs and commits, so
+  changes are averaged, not counts), always shown with its breakdown. A missing or incomplete
+  count (GitHub's `incomplete_results`) is NULL, and any NULL leaves the change NULL.
+- **Freshness**: daily counts keep moving slightly as GitHub indexes late arrivals and drops
+  deleted ones (well under 0.1% of a day's count in the hours after it closes, measured on
+  19 Nov), so days are re-asked for three days and the newest pull wins.
+
+Limits: public activity GitHub's search can see, not all of software. Commit search counts
+commits on default branches by their committer date, which the committer's machine sets. A drop
+lines up with release day; it is association, not proof of cause.
+
+Ask it: `uv run dex explore semantic query github_release_day_change --group-by
+github_release_day__breakdown` and `uv run dex explore semantic query
+github_activity_change,github_activity_baseline,github_activity_release_day --group-by
+github_activity__activity`. By day: `uv run dex explore semantic query github_activity_count
+--group-by metric_time__day,github_day__activity`. Models: `stg_github__daily_counts`,
+`fct_github_daily` (one row per day per activity), `fct_github_release_day_activities` (one row
+per activity) and `fct_github_release_day` (one row per release day). Charts:
+`charts/png/github-release-day-{light,dark}.png` and the 4:5
+`github-release-day-portrait-{light,dark}.png`.

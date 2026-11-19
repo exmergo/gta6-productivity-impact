@@ -1,0 +1,174 @@
+version: 2
+models:
+- name: fct_github_release_day
+  description: 'Metric 4 headline: the average of the activities'' release-day changes, one row per release
+    day, with its breakdown.'
+  config:
+    meta:
+      dex:
+        grain:
+        - release_day_key
+        population:
+          rule: One row for the configured release day (var github_release_day).
+        assumptions:
+        - decision: How the activities combine
+          chosen: plain average of the per-activity percent changes
+          evidence: precedent
+          detail: the Day-Off Index averages its phrases' changes the same way; counts differ by 10x between
+            PRs and commits, so changes are averaged, not counts
+          column: github_release_day_change
+        - decision: An activity not yet available
+          chosen: headline NULL
+          evidence: precedent
+          detail: 'fct_day_off_index: an average over fewer parts is a different number'
+          column: github_release_day_change
+  columns:
+  - name: release_day_key
+    description: 'Release day as text: the row''s key.'
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+    - unique
+    - not_null
+  - name: release_day
+    description: GTA 6's release day.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: baseline_start
+    description: First baseline day.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: baseline_end
+    description: Last baseline day.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: baseline_weeks
+    description: Baseline days (same weekday, weeks before).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: activities_total
+    description: Activities in the breakdown.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+    - not_null
+  - name: activities_available
+    description: Activities with a change.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+    - not_null
+  - name: github_release_day_change
+    description: Average of the activities' changes, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL until every activity has a change.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+  - name: breakdown
+    description: Every activity's change. Always report it with the headline.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+unit_tests:
+- name: github_headline_is_the_average_of_changes
+  description: The headline averages the activities' changes and spells each out.
+  model: fct_github_release_day
+  given:
+  - input: ref('fct_github_release_day_activities')
+    rows:
+    - activity: prs_opened
+      activity_label: PRs opened
+      release_day: '2026-11-19'
+      baseline_start: '2026-11-12'
+      baseline_end: '2026-11-12'
+      baseline_weeks: 1
+      pct_change: -10.0
+    - activity: prs_merged
+      activity_label: PRs merged
+      release_day: '2026-11-19'
+      baseline_start: '2026-11-12'
+      baseline_end: '2026-11-12'
+      baseline_weeks: 1
+      pct_change: -5.0
+    - activity: commits
+      activity_label: Commits
+      release_day: '2026-11-19'
+      baseline_start: '2026-11-12'
+      baseline_end: '2026-11-12'
+      baseline_weeks: 1
+      pct_change: 3.0
+  expect:
+    rows:
+    - release_day_key: '2026-11-19'
+      activities_total: 3
+      activities_available: 3
+      github_release_day_change: -4.0
+      breakdown: PRs opened -10.0% · PRs merged -5.0% · Commits +3.0%
+- name: github_headline_null_until_every_activity_counted
+  description: One activity without a change leaves the headline NULL.
+  model: fct_github_release_day
+  given:
+  - input: ref('fct_github_release_day_activities')
+    rows:
+    - activity: prs_opened
+      activity_label: PRs opened
+      release_day: '2026-11-19'
+      baseline_start: '2026-11-12'
+      baseline_end: '2026-11-12'
+      baseline_weeks: 1
+      pct_change: -10.0
+    - activity: commits
+      activity_label: Commits
+      release_day: '2026-11-19'
+      baseline_start: '2026-11-12'
+      baseline_end: '2026-11-12'
+      baseline_weeks: 1
+      pct_change: null
+  expect:
+    rows:
+    - activities_available: 1
+      github_release_day_change: null
+      breakdown: PRs opened -10.0% · Commits not yet available

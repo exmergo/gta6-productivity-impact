@@ -34,6 +34,8 @@ jobs:
           version: "0.13.5"
       - run: uv sync --locked
       - name: Ingest, load, build with Dex, check drift, draw
+        env:
+          GITHUB_TOKEN: ${{ github.token }}  # GitHub search quota for Metric 4: 30 calls/min, not 10
         run: uv run gta6 refresh ${{ inputs.sources }}
       - name: Commit the refreshed warehouse, evidence and charts
         run: |

@@ -1,0 +1,29 @@
+{
+ "definitions": [
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: github_release_day_change\nlabel: GitHub on GTA 6 release day\ndescription: 'Metric 4. Average change, in percent, of PRs opened, PRs merged and commits on GitHub on\n  GTA 6''s release day (Thu 19 Nov 2026, UTC) against the Thursday before (12 Nov 2026). -5 = GitHub 5%\n  quieter. Never report it alone: always with its breakdown (group by github_release_day__breakdown, or\n  query github_activity_change by github_activity__activity).'\ntype: simple\ntype_params:\n  measure: github_release_day_change_measure\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: github_activity_change\nlabel: GitHub release day, change by activity\ndescription: 'Metric 4 breakdown: one activity''s release-day count against the same weekday a week before,\n  in percent. Group by github_activity__activity.'\ntype: simple\ntype_params:\n  measure: github_activity_pct_change\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: github_activity_release_day\nlabel: GitHub activity on release day\ndescription: Metric 4. An activity's count on release day (UTC). Group by github_activity__activity.\ntype: simple\ntype_params:\n  measure: github_activity_release_day_count\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: github_activity_baseline\nlabel: GitHub activity on a normal day\ndescription: Metric 4. An activity's count on the same weekday a week before release day (the median when\n  the baseline spans more weeks). Group by github_activity__activity.\ntype: simple\ntype_params:\n  measure: github_activity_baseline_count\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: github_activity_count\nlabel: GitHub activity per day\ndescription: 'Metrics 4 and 6. PRs opened, PRs merged or commits on GitHub per UTC day (GitHub Search\n  API total_count). Always group by github_day__activity: never add across activities. NULL is unavailable,\n  never zero.'\ntype: simple\ntype_params:\n  measure: github_activity_count_measure\n"
+  }
+ ]
+}

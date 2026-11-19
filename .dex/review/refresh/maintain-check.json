@@ -254,6 +254,31 @@
     ]
    },
    {
+    "axis": "volume",
+    "code": "row_count_changed",
+    "identifier": "gta6.raw.trends_interest",
+    "column": null,
+    "severity": "low",
+    "detail": "gta6.raw.trends_interest: rows 4080 -> 4584 (+12.4%)",
+    "exact": true,
+    "data": {
+     "row_count_before": 4080,
+     "row_count_after": 4584,
+     "change_fraction": 0.1235
+    },
+    "impacted_models": [
+     "fct_day_off_index",
+     "fct_day_off_index_terms",
+     "stg_trends__weekly"
+    ],
+    "impacted_metrics": [
+     "day_off_index",
+     "day_off_index_term_change",
+     "day_off_index_term_current",
+     "day_off_index_term_prior"
+    ]
+   },
+   {
     "axis": "schema",
     "code": "model_changed",
     "identifier": "wait_milestones",
@@ -754,7 +779,7 @@
     "impacted_metrics": []
    }
   ],
-  "finding_count": 37,
+  "finding_count": 38,
   "axes_run": [
    "grain",
    "schema",
@@ -763,7 +788,7 @@
   ],
   "axes": {
    "schema": {
-    "run_at": "2026-11-19T12:13:57.440692+00:00",
+    "run_at": "2026-11-19T18:12:10.370311+00:00",
     "scope": null,
     "findings": [
      {
@@ -912,7 +937,7 @@
     "finding_count": 7
    },
    "volume": {
-    "run_at": "2026-11-19T12:13:57.440692+00:00",
+    "run_at": "2026-11-19T18:12:10.370311+00:00",
     "scope": null,
     "findings": [
      {
@@ -945,12 +970,37 @@
        "world_productivity",
        "world_productivity_change_since_gta_v"
       ]
+     },
+     {
+      "axis": "volume",
+      "code": "row_count_changed",
+      "identifier": "gta6.raw.trends_interest",
+      "column": null,
+      "severity": "low",
+      "detail": "gta6.raw.trends_interest: rows 4080 -> 4584 (+12.4%)",
+      "exact": true,
+      "data": {
+       "row_count_before": 4080,
+       "row_count_after": 4584,
+       "change_fraction": 0.1235
+      },
+      "impacted_models": [
+       "fct_day_off_index",
+       "fct_day_off_index_terms",
+       "stg_trends__weekly"
+      ],
+      "impacted_metrics": [
+       "day_off_index",
+       "day_off_index_term_change",
+       "day_off_index_term_current",
+       "day_off_index_term_prior"
+      ]
      }
     ],
-    "finding_count": 1
+    "finding_count": 2
    },
    "grain": {
-    "run_at": "2026-11-19T12:13:57.440692+00:00",
+    "run_at": "2026-11-19T18:12:10.370311+00:00",
     "scope": null,
     "findings": [
      {
@@ -971,7 +1021,7 @@
     "finding_count": 1
    },
    "semantic": {
-    "run_at": "2026-11-19T12:13:57.440692+00:00",
+    "run_at": "2026-11-19T18:12:10.370311+00:00",
     "scope": null,
     "findings": [
      {
@@ -1569,7 +1619,8 @@
   "unit": null
  },
  "warnings": [
-  "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline"
+  "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline",
+  "this baseline's warehouse side was pinned from an exploration cache captured 28h ago (2026-11-18T14:24:12.310294+00:00), beyond the 24h freshness window; anything created or changed in the warehouse since then is not in it and will report as drift. Run `explore map` first, then `maintain snapshot`, to pin current state"
  ],
  "diffs": [],
  "errors": [],

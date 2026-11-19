@@ -2062,7 +2062,7 @@
           "detail": "milestone_id participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T15:59:17.695098+00:00",
+      "profiled_at": "2026-11-19T18:12:07.641360+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -2396,7 +2396,7 @@
           "detail": "output_day participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T13:35:11.004099+00:00",
+      "profiled_at": "2026-11-19T18:12:07.703135+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -2704,7 +2704,7 @@
           "detail": "world_productivity_key participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T14:24:12.451233+00:00",
+      "profiled_at": "2026-11-19T18:12:07.950273+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -3142,7 +3142,7 @@
           "detail": "data_year participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T13:35:10.583835+00:00",
+      "profiled_at": "2026-11-19T18:12:08.041089+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -5332,7 +5332,7 @@
           "value_domain": {
             "values": [
               {
-                "value": "20261118T133116Z",
+                "value": "20261119T181048Z",
                 "count": 66
               }
             ],
@@ -5405,7 +5405,7 @@
           "detail": "indicator participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T13:32:25.601131+00:00",
+      "profiled_at": "2026-11-19T18:12:08.213168+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -6108,7 +6108,7 @@
       "grain": null,
       "composite_keys": [],
       "key_evidence": [],
-      "rank_score": 0.6965,
+      "rank_score": 0.698,
       "data_quality": [
         "no candidate key detected; grain unknown"
       ],
@@ -6284,6 +6284,22 @@
   ],
   "relationships": [
     {
+      "from_dataset": "gta6.main.fct_wait_milestones",
+      "from_columns": [
+        "milestone_id"
+      ],
+      "to_dataset": "gta6.main.wait_milestones",
+      "to_columns": [
+        "milestone_id"
+      ],
+      "kind": "inferred",
+      "confidence": 0.65,
+      "verified": false,
+      "orphan_fraction": null,
+      "declared_by": null,
+      "declaration_sources": []
+    },
+    {
       "from_dataset": "gta6.main.fct_day_off_index_terms",
       "from_columns": [
         "batch_id"
@@ -6316,38 +6332,6 @@
       "declaration_sources": []
     },
     {
-      "from_dataset": "gta6.raw.trends_interest",
-      "from_columns": [
-        "batch_id"
-      ],
-      "to_dataset": "gta6.main.fct_day_off_index",
-      "to_columns": [
-        "batch_id"
-      ],
-      "kind": "inferred",
-      "confidence": 0.45,
-      "verified": false,
-      "orphan_fraction": null,
-      "declared_by": null,
-      "declaration_sources": []
-    },
-    {
-      "from_dataset": "gta6.main.fct_wait_milestones",
-      "from_columns": [
-        "milestone_id"
-      ],
-      "to_dataset": "gta6.main.wait_milestones",
-      "to_columns": [
-        "milestone_id"
-      ],
-      "kind": "inferred",
-      "confidence": 0.65,
-      "verified": false,
-      "orphan_fraction": null,
-      "declared_by": null,
-      "declaration_sources": []
-    },
-    {
       "from_dataset": "gta6.main.wait_milestones",
       "from_columns": [
         "milestone_id"
@@ -6362,12 +6346,28 @@
       "orphan_fraction": null,
       "declared_by": null,
       "declaration_sources": []
+    },
+    {
+      "from_dataset": "gta6.raw.trends_interest",
+      "from_columns": [
+        "batch_id"
+      ],
+      "to_dataset": "gta6.main.fct_day_off_index",
+      "to_columns": [
+        "batch_id"
+      ],
+      "kind": "inferred",
+      "confidence": 0.45,
+      "verified": false,
+      "orphan_fraction": null,
+      "declared_by": null,
+      "declaration_sources": []
     }
   ],
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-19T12:13:52.178863+00:00",
+    "updated_at": "2026-11-19T18:12:07.138558+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

@@ -1292,7 +1292,7 @@
           "reason": "signal_day_key is unique and non-null on all 872 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5995,
+      "rank_score": 0.5999,
       "data_quality": [],
       "findings": [
         {
@@ -2052,7 +2052,7 @@
           "reason": "days_to_gta_6 is unique and non-null on all 46 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.678,
+      "rank_score": 0.6789,
       "data_quality": [],
       "findings": [
         {
@@ -4872,7 +4872,7 @@
           "reason": "why is unique and non-null on all 46 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.608,
+      "rank_score": 0.6089,
       "data_quality": [],
       "findings": [
         {
@@ -5156,7 +5156,7 @@
           "reason": "observed_at is unique and non-null on all 1308 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5463,
+      "rank_score": 0.5466,
       "data_quality": [],
       "findings": [
         {
@@ -5715,7 +5715,7 @@
           "reason": "observed_at is unique and non-null on all 1308 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5463,
+      "rank_score": 0.5466,
       "data_quality": [],
       "findings": [
         {
@@ -6084,7 +6084,7 @@
       "grain": null,
       "composite_keys": [],
       "key_evidence": [],
-      "rank_score": 0.6932,
+      "rank_score": 0.6949,
       "data_quality": [
         "no candidate key detected; grain unknown"
       ],
@@ -6237,7 +6237,7 @@
           "reason": "ts, article is unique as a combination on all 436 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
         }
       ],
-      "rank_score": 0.501,
+      "rank_score": 0.5014,
       "data_quality": [],
       "findings": [
         {
@@ -6259,22 +6259,6 @@
     }
   ],
   "relationships": [
-    {
-      "from_dataset": "gta6.main.wait_milestones",
-      "from_columns": [
-        "milestone_id"
-      ],
-      "to_dataset": "gta6.main.fct_wait_milestones",
-      "to_columns": [
-        "milestone_id"
-      ],
-      "kind": "inferred",
-      "confidence": 0.65,
-      "verified": false,
-      "orphan_fraction": null,
-      "declared_by": null,
-      "declaration_sources": []
-    },
     {
       "from_dataset": "gta6.main.fct_day_off_index_terms",
       "from_columns": [
@@ -6324,6 +6308,22 @@
       "declaration_sources": []
     },
     {
+      "from_dataset": "gta6.main.wait_milestones",
+      "from_columns": [
+        "milestone_id"
+      ],
+      "to_dataset": "gta6.main.fct_wait_milestones",
+      "to_columns": [
+        "milestone_id"
+      ],
+      "kind": "inferred",
+      "confidence": 0.65,
+      "verified": false,
+      "orphan_fraction": null,
+      "declared_by": null,
+      "declaration_sources": []
+    },
+    {
       "from_dataset": "gta6.raw.trends_interest",
       "from_columns": [
         "batch_id"
@@ -6343,7 +6343,7 @@
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-18T18:41:15.653783+00:00",
+    "updated_at": "2026-11-19T06:29:38.695484+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

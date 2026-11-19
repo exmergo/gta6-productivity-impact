@@ -3,37 +3,183 @@
  "data": {
   "findings": [
    {
-    "axis": "volume",
-    "code": "row_count_changed",
-    "identifier": "gta6.raw.trends_interest",
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_world_output_daily",
     "column": null,
-    "severity": "low",
-    "detail": "gta6.raw.trends_interest: rows 3576 -> 4080 (+14.1%)",
+    "severity": "high",
+    "detail": "model 'fct_world_output_daily' changed its declared population since the baseline",
     "exact": true,
     "data": {
-     "row_count_before": 3576,
-     "row_count_after": 4080,
-     "change_fraction": 0.1409
+     "model": "fct_world_output_daily",
+     "field": "population",
+     "change": "changed",
+     "path": "models/marts/fct_world_output_daily.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_output_cumulative",
+     "world_output_per_second",
+     "world_output_produced"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "dimension_cardinality_changed",
+    "identifier": "gta6.main.fct_wait_milestones",
+    "column": "chart_label",
+    "severity": "medium",
+    "detail": "dimension 'chart_label' on semantic model 'fct_wait_milestones' widened: 45 -> 46 distinct values in gta6.main.fct_wait_milestones.chart_label",
+    "exact": true,
+    "data": {
+     "distinct_before": 45,
+     "distinct_after": 46,
+     "dimension": "chart_label",
+     "semantic_model": "fct_wait_milestones"
     },
     "impacted_models": [
-     "fct_day_off_index",
-     "fct_day_off_index_terms",
-     "stg_trends__weekly"
+     "fct_wait_milestones"
     ],
     "impacted_metrics": [
-     "day_off_index",
-     "day_off_index_term_change",
-     "day_off_index_term_current",
-     "day_off_index_term_prior"
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
     ]
+   },
+   {
+    "axis": "semantic",
+    "code": "dimension_cardinality_changed",
+    "identifier": "gta6.main.fct_wait_milestones",
+    "column": "milestone_id",
+    "severity": "medium",
+    "detail": "dimension 'milestone_id' on semantic model 'fct_wait_milestones' widened: 45 -> 46 distinct values in gta6.main.fct_wait_milestones.milestone_id",
+    "exact": true,
+    "data": {
+     "distinct_before": 45,
+     "distinct_after": 46,
+     "dimension": "milestone_id",
+     "semantic_model": "fct_wait_milestones"
+    },
+    "impacted_models": [
+     "fct_wait_milestones"
+    ],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "dimension_cardinality_changed",
+    "identifier": "gta6.main.fct_wait_milestones",
+    "column": "source_url",
+    "severity": "medium",
+    "detail": "dimension 'source_url' on semantic model 'fct_wait_milestones' widened: ~42 -> 44 distinct values in gta6.main.fct_wait_milestones.source_url",
+    "exact": false,
+    "data": {
+     "distinct_before": 42,
+     "distinct_after": 44,
+     "dimension": "source_url",
+     "semantic_model": "fct_wait_milestones"
+    },
+    "impacted_models": [
+     "fct_wait_milestones"
+    ],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "dimension_cardinality_changed",
+    "identifier": "gta6.main.fct_wait_milestones",
+    "column": "title",
+    "severity": "medium",
+    "detail": "dimension 'title' on semantic model 'fct_wait_milestones' widened: 45 -> 46 distinct values in gta6.main.fct_wait_milestones.title",
+    "exact": true,
+    "data": {
+     "distinct_before": 45,
+     "distinct_after": 46,
+     "dimension": "title",
+     "semantic_model": "fct_wait_milestones"
+    },
+    "impacted_models": [
+     "fct_wait_milestones"
+    ],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_wait_milestones",
+    "column": null,
+    "severity": "medium",
+    "detail": "model 'fct_wait_milestones' changed its declared assumptions since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_wait_milestones",
+     "field": "assumptions",
+     "change": "changed",
+     "path": "models/marts/fct_wait_milestones.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_world_productivity",
+    "column": null,
+    "severity": "medium",
+    "detail": "model 'fct_world_productivity' changed its declared assumptions since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_world_productivity",
+     "field": "assumptions",
+     "change": "changed",
+     "path": "models/marts/fct_world_productivity.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_productivity",
+     "world_productivity_change_since_gta_v"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "int_world_output__yearly",
+    "column": null,
+    "severity": "medium",
+    "detail": "model 'int_world_output__yearly' changed its declared assumptions since the baseline",
+    "exact": true,
+    "data": {
+     "model": "int_world_output__yearly",
+     "field": "assumptions",
+     "change": "changed",
+     "path": "models/intermediate/int_world_output__yearly.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": []
    },
    {
     "axis": "volume",
     "code": "row_count_changed",
-    "identifier": "gta6.raw.economy_indicators",
+    "identifier": "gta6.main.stg_economy__indicators",
     "column": null,
     "severity": "low",
-    "detail": "gta6.raw.economy_indicators: rows 53 -> 66 (+24.5%)",
+    "detail": "gta6.main.stg_economy__indicators: rows 53 -> 66 (+24.5%)",
     "exact": true,
     "data": {
      "row_count_before": 53,
@@ -41,8 +187,126 @@
      "change_fraction": 0.2453
     },
     "impacted_models": [
+     "fct_wait_milestones",
+     "fct_world_output_daily",
      "fct_world_productivity",
+     "int_world_output__yearly",
      "stg_economy__indicators"
+    ],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share",
+     "world_output_cumulative",
+     "world_output_per_second",
+     "world_output_produced",
+     "world_productivity",
+     "world_productivity_change_since_gta_v"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "model_changed",
+    "identifier": "int_world_output__yearly",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'int_world_output__yearly' changed since the baseline",
+    "exact": true,
+    "data": {
+     "path": "models/intermediate/int_world_output__yearly.sql"
+    },
+    "impacted_models": [
+     "fct_wait_milestones",
+     "fct_world_output_daily",
+     "int_world_output__yearly"
+    ],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share",
+     "world_output_cumulative",
+     "world_output_per_second",
+     "world_output_produced"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "model_changed",
+    "identifier": "fct_world_output_daily",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'fct_world_output_daily' changed since the baseline",
+    "exact": true,
+    "data": {
+     "path": "models/marts/fct_world_output_daily.sql"
+    },
+    "impacted_models": [
+     "fct_wait_milestones",
+     "fct_world_output_daily"
+    ],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share",
+     "world_output_cumulative",
+     "world_output_per_second",
+     "world_output_produced"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "model_changed",
+    "identifier": "wait_milestones",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'wait_milestones' changed since the baseline",
+    "exact": true,
+    "data": {
+     "path": "seeds/wait_milestones.csv"
+    },
+    "impacted_models": [
+     "fct_wait_milestones",
+     "wait_milestones"
+    ],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "model_changed",
+    "identifier": "fct_wait_milestones",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'fct_wait_milestones' changed since the baseline",
+    "exact": true,
+    "data": {
+     "path": "models/marts/fct_wait_milestones.sql"
+    },
+    "impacted_models": [
+     "fct_wait_milestones"
+    ],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "model_changed",
+    "identifier": "fct_world_productivity",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'fct_world_productivity' changed since the baseline",
+    "exact": true,
+    "data": {
+     "path": "models/marts/fct_world_productivity.sql"
+    },
+    "impacted_models": [
+     "fct_world_productivity"
     ],
     "impacted_metrics": [
      "world_productivity",
@@ -51,35 +315,56 @@
    },
    {
     "axis": "semantic",
-    "code": "declaration_added",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of semantic model 'fct_wait_milestones' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "semantic_model",
+     "name": "fct_wait_milestones",
+     "path": "models/marts/fct_world_output_semantic.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of semantic model 'fct_world_output_daily' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "semantic_model",
+     "name": "fct_world_output_daily",
+     "path": "models/marts/fct_world_output_semantic.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_output_cumulative",
+     "world_output_per_second",
+     "world_output_produced"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
     "identifier": "fct_wait_milestones",
     "column": null,
     "severity": "low",
-    "detail": "model 'fct_wait_milestones' has a declaration for the first time since the baseline",
+    "detail": "model 'fct_wait_milestones' changed its declared description since the baseline",
     "exact": true,
     "data": {
      "model": "fct_wait_milestones",
-     "fields": [
-      "assumptions",
-      "description",
-      "grain",
-      "population"
-     ],
-     "columns": [
-      "category",
-      "chart_label",
-      "date_precision",
-      "days_since_gta_v",
-      "days_to_gta_6",
-      "event_date",
-      "milestone_id",
-      "output_by_then",
-      "share_of_wait_output",
-      "source_url",
-      "tier",
-      "title",
-      "why"
-     ],
+     "field": "description",
+     "change": "changed",
      "path": "models/marts/fct_wait_milestones.yml"
     },
     "impacted_models": [],
@@ -92,28 +377,62 @@
    {
     "axis": "semantic",
     "code": "declaration_added",
+    "identifier": "fct_wait_milestones",
+    "column": "is_editorial",
+    "severity": "low",
+    "detail": "column 'is_editorial' of model 'fct_wait_milestones' now declares description, null rule, role, where the baseline declared nothing",
+    "exact": true,
+    "data": {
+     "model": "fct_wait_milestones",
+     "column": "is_editorial",
+     "fields": [
+      "description",
+      "null_rule",
+      "role"
+     ],
+     "path": "models/marts/fct_wait_milestones.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_wait_milestones",
+    "column": "tier",
+    "severity": "low",
+    "detail": "column 'tier' of model 'fct_wait_milestones' changed its declared description since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_wait_milestones",
+     "column": "tier",
+     "field": "description",
+     "change": "changed",
+     "path": "models/marts/fct_wait_milestones.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "wait_milestone_days_to_gta_6",
+     "wait_milestone_output",
+     "wait_milestone_share"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
     "identifier": "fct_world_output_daily",
     "column": null,
     "severity": "low",
-    "detail": "model 'fct_world_output_daily' has a declaration for the first time since the baseline",
+    "detail": "model 'fct_world_output_daily' changed its declared description since the baseline",
     "exact": true,
     "data": {
      "model": "fct_world_output_daily",
-     "fields": [
-      "assumptions",
-      "description",
-      "grain",
-      "population"
-     ],
-     "columns": [
-      "cumulative_output",
-      "daily_output",
-      "data_year",
-      "days_since_gta_v",
-      "days_to_gta_6",
-      "is_estimate",
-      "output_day"
-     ],
+     "field": "description",
+     "change": "changed",
      "path": "models/marts/fct_world_output_daily.yml"
     },
     "impacted_models": [],
@@ -121,6 +440,268 @@
      "world_output_cumulative",
      "world_output_per_second",
      "world_output_produced"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "column_added",
+    "identifier": "gta6.main.wait_milestones",
+    "column": "is_editorial",
+    "severity": "low",
+    "detail": "is_editorial was added to gta6.main.wait_milestones (BOOLEAN)",
+    "exact": true,
+    "data": {
+     "data_type": "BOOLEAN"
+    },
+    "impacted_models": [
+     "fct_wait_milestones",
+     "wait_milestones"
+    ],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of metric 'world_output_produced' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "world_output_produced",
+     "path": "models/marts/semantic/metrics.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_output_per_second",
+     "world_output_produced"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of semantic model 'fct_world_productivity' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "semantic_model",
+     "name": "fct_world_productivity",
+     "path": "models/marts/fct_world_productivity_semantic.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_productivity",
+     "world_productivity_change_since_gta_v"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_world_productivity",
+    "column": null,
+    "severity": "low",
+    "detail": "model 'fct_world_productivity' changed its declared description since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_world_productivity",
+     "field": "description",
+     "change": "changed",
+     "path": "models/marts/fct_world_productivity.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_productivity",
+     "world_productivity_change_since_gta_v"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_world_productivity",
+    "column": "launch",
+    "severity": "low",
+    "detail": "column 'launch' of model 'fct_world_productivity' changed its declared description since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_world_productivity",
+     "column": "launch",
+     "field": "description",
+     "change": "changed",
+     "path": "models/marts/fct_world_productivity.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_productivity",
+     "world_productivity_change_since_gta_v"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "column_added",
+    "identifier": "gta6.main.fct_wait_milestones",
+    "column": "is_editorial",
+    "severity": "low",
+    "detail": "is_editorial was added to gta6.main.fct_wait_milestones (BOOLEAN)",
+    "exact": true,
+    "data": {
+     "data_type": "BOOLEAN"
+    },
+    "impacted_models": [
+     "fct_wait_milestones"
+    ],
+    "impacted_metrics": []
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of metric 'gta_wiki_pageviews' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "gta_wiki_pageviews",
+     "path": "models/marts/semantic/metrics.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "gta_wiki_pageviews"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of metric 'wait_milestone_output' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "wait_milestone_output",
+     "path": "models/marts/semantic/metrics.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "wait_milestone_output"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of metric 'world_output_cumulative' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "world_output_cumulative",
+     "path": "models/marts/semantic/metrics.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_output_cumulative"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of metric 'world_productivity' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "world_productivity",
+     "path": "models/marts/semantic/metrics.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_productivity"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "definition_changed",
+    "identifier": null,
+    "column": null,
+    "severity": "low",
+    "detail": "the definition of metric 'world_productivity_change_since_gta_v' changed since the baseline",
+    "exact": true,
+    "data": {
+     "kind": "metric",
+     "name": "world_productivity_change_since_gta_v",
+     "path": "models/marts/semantic/metrics.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_productivity_change_since_gta_v"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_wait_milestones",
+    "column": "output_by_then",
+    "severity": "low",
+    "detail": "column 'output_by_then' of model 'fct_wait_milestones' changed its declared description since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_wait_milestones",
+     "column": "output_by_then",
+     "field": "description",
+     "change": "changed",
+     "path": "models/marts/fct_wait_milestones.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "wait_milestone_output"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_world_output_daily",
+    "column": "cumulative_output",
+    "severity": "low",
+    "detail": "column 'cumulative_output' of model 'fct_world_output_daily' changed its declared description since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_world_output_daily",
+     "column": "cumulative_output",
+     "field": "description",
+     "change": "changed",
+     "path": "models/marts/fct_world_output_daily.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_output_cumulative"
+    ]
+   },
+   {
+    "axis": "semantic",
+    "code": "declaration_changed",
+    "identifier": "fct_world_productivity",
+    "column": "pct_change_since_gta_v",
+    "severity": "low",
+    "detail": "column 'pct_change_since_gta_v' of model 'fct_world_productivity' changed its declared description since the baseline",
+    "exact": true,
+    "data": {
+     "model": "fct_world_productivity",
+     "column": "pct_change_since_gta_v",
+     "field": "description",
+     "change": "changed",
+     "path": "models/marts/fct_world_productivity.yml"
+    },
+    "impacted_models": [],
+    "impacted_metrics": [
+     "world_productivity_change_since_gta_v"
     ]
    },
    {
@@ -138,205 +719,42 @@
     "impacted_metrics": []
    },
    {
-    "axis": "schema",
-    "code": "model_added",
-    "identifier": "fct_wait_milestones",
-    "column": null,
-    "severity": "low",
-    "detail": "model 'fct_wait_milestones' is new since the baseline",
-    "exact": true,
-    "data": {},
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "schema",
-    "code": "model_added",
+    "axis": "semantic",
+    "code": "declaration_changed",
     "identifier": "fct_world_output_daily",
-    "column": null,
+    "column": "days_since_gta_v",
     "severity": "low",
-    "detail": "model 'fct_world_output_daily' is new since the baseline",
+    "detail": "column 'days_since_gta_v' of model 'fct_world_output_daily' changed its declared description since the baseline",
     "exact": true,
-    "data": {},
+    "data": {
+     "model": "fct_world_output_daily",
+     "column": "days_since_gta_v",
+     "field": "description",
+     "change": "changed",
+     "path": "models/marts/fct_world_output_daily.yml"
+    },
     "impacted_models": [],
     "impacted_metrics": []
    },
    {
-    "axis": "schema",
-    "code": "model_added",
+    "axis": "semantic",
+    "code": "declaration_changed",
     "identifier": "int_world_output__yearly",
     "column": null,
     "severity": "low",
-    "detail": "model 'int_world_output__yearly' is new since the baseline",
-    "exact": true,
-    "data": {},
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "schema",
-    "code": "model_added",
-    "identifier": "wait_milestones",
-    "column": null,
-    "severity": "low",
-    "detail": "model 'wait_milestones' is new since the baseline",
-    "exact": true,
-    "data": {},
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "definition_added",
-    "identifier": null,
-    "column": null,
-    "severity": "low",
-    "detail": "metric 'wait_milestone_days_to_gta_6' is new since the baseline",
-    "exact": true,
-    "data": {
-     "kind": "metric",
-     "name": "wait_milestone_days_to_gta_6"
-    },
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "definition_added",
-    "identifier": null,
-    "column": null,
-    "severity": "low",
-    "detail": "metric 'wait_milestone_output' is new since the baseline",
-    "exact": true,
-    "data": {
-     "kind": "metric",
-     "name": "wait_milestone_output"
-    },
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "definition_added",
-    "identifier": null,
-    "column": null,
-    "severity": "low",
-    "detail": "metric 'wait_milestone_share' is new since the baseline",
-    "exact": true,
-    "data": {
-     "kind": "metric",
-     "name": "wait_milestone_share"
-    },
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "definition_added",
-    "identifier": null,
-    "column": null,
-    "severity": "low",
-    "detail": "metric 'world_output_cumulative' is new since the baseline",
-    "exact": true,
-    "data": {
-     "kind": "metric",
-     "name": "world_output_cumulative"
-    },
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "definition_added",
-    "identifier": null,
-    "column": null,
-    "severity": "low",
-    "detail": "metric 'world_output_per_second' is new since the baseline",
-    "exact": true,
-    "data": {
-     "kind": "metric",
-     "name": "world_output_per_second"
-    },
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "definition_added",
-    "identifier": null,
-    "column": null,
-    "severity": "low",
-    "detail": "metric 'world_output_produced' is new since the baseline",
-    "exact": true,
-    "data": {
-     "kind": "metric",
-     "name": "world_output_produced"
-    },
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "definition_added",
-    "identifier": null,
-    "column": null,
-    "severity": "low",
-    "detail": "semantic model 'fct_wait_milestones' is new since the baseline",
-    "exact": true,
-    "data": {
-     "kind": "semantic_model",
-     "name": "fct_wait_milestones"
-    },
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "definition_added",
-    "identifier": null,
-    "column": null,
-    "severity": "low",
-    "detail": "semantic model 'fct_world_output_daily' is new since the baseline",
-    "exact": true,
-    "data": {
-     "kind": "semantic_model",
-     "name": "fct_world_output_daily"
-    },
-    "impacted_models": [],
-    "impacted_metrics": []
-   },
-   {
-    "axis": "semantic",
-    "code": "declaration_added",
-    "identifier": "int_world_output__yearly",
-    "column": null,
-    "severity": "low",
-    "detail": "model 'int_world_output__yearly' has a declaration for the first time since the baseline",
+    "detail": "model 'int_world_output__yearly' changed its declared description since the baseline",
     "exact": true,
     "data": {
      "model": "int_world_output__yearly",
-     "fields": [
-      "assumptions",
-      "description",
-      "grain",
-      "population"
-     ],
-     "columns": [
-      "annual_output",
-      "daily_output",
-      "data_year",
-      "days_in_year",
-      "is_estimate",
-      "output_per_second",
-      "source_indicator"
-     ],
+     "field": "description",
+     "change": "changed",
      "path": "models/intermediate/int_world_output__yearly.yml"
     },
     "impacted_models": [],
     "impacted_metrics": []
    }
   ],
-  "finding_count": 18,
+  "finding_count": 37,
   "axes_run": [
    "grain",
    "schema",
@@ -345,96 +763,165 @@
   ],
   "axes": {
    "schema": {
-    "run_at": "2026-11-18T14:24:13.326781+00:00",
+    "run_at": "2026-11-19T06:29:40.933466+00:00",
     "scope": null,
     "findings": [
      {
       "axis": "schema",
-      "code": "model_added",
-      "identifier": "fct_wait_milestones",
-      "column": null,
-      "severity": "low",
-      "detail": "model 'fct_wait_milestones' is new since the baseline",
-      "exact": true,
-      "data": {},
-      "impacted_models": [],
-      "impacted_metrics": []
-     },
-     {
-      "axis": "schema",
-      "code": "model_added",
-      "identifier": "fct_world_output_daily",
-      "column": null,
-      "severity": "low",
-      "detail": "model 'fct_world_output_daily' is new since the baseline",
-      "exact": true,
-      "data": {},
-      "impacted_models": [],
-      "impacted_metrics": []
-     },
-     {
-      "axis": "schema",
-      "code": "model_added",
+      "code": "model_changed",
       "identifier": "int_world_output__yearly",
       "column": null,
       "severity": "low",
-      "detail": "model 'int_world_output__yearly' is new since the baseline",
+      "detail": "model 'int_world_output__yearly' changed since the baseline",
       "exact": true,
-      "data": {},
-      "impacted_models": [],
+      "data": {
+       "path": "models/intermediate/int_world_output__yearly.sql"
+      },
+      "impacted_models": [
+       "fct_wait_milestones",
+       "fct_world_output_daily",
+       "int_world_output__yearly"
+      ],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share",
+       "world_output_cumulative",
+       "world_output_per_second",
+       "world_output_produced"
+      ]
+     },
+     {
+      "axis": "schema",
+      "code": "model_changed",
+      "identifier": "fct_world_output_daily",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_world_output_daily' changed since the baseline",
+      "exact": true,
+      "data": {
+       "path": "models/marts/fct_world_output_daily.sql"
+      },
+      "impacted_models": [
+       "fct_wait_milestones",
+       "fct_world_output_daily"
+      ],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share",
+       "world_output_cumulative",
+       "world_output_per_second",
+       "world_output_produced"
+      ]
+     },
+     {
+      "axis": "schema",
+      "code": "model_changed",
+      "identifier": "wait_milestones",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'wait_milestones' changed since the baseline",
+      "exact": true,
+      "data": {
+       "path": "seeds/wait_milestones.csv"
+      },
+      "impacted_models": [
+       "fct_wait_milestones",
+       "wait_milestones"
+      ],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "schema",
+      "code": "model_changed",
+      "identifier": "fct_wait_milestones",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_wait_milestones' changed since the baseline",
+      "exact": true,
+      "data": {
+       "path": "models/marts/fct_wait_milestones.sql"
+      },
+      "impacted_models": [
+       "fct_wait_milestones"
+      ],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "schema",
+      "code": "model_changed",
+      "identifier": "fct_world_productivity",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_world_productivity' changed since the baseline",
+      "exact": true,
+      "data": {
+       "path": "models/marts/fct_world_productivity.sql"
+      },
+      "impacted_models": [
+       "fct_world_productivity"
+      ],
+      "impacted_metrics": [
+       "world_productivity",
+       "world_productivity_change_since_gta_v"
+      ]
+     },
+     {
+      "axis": "schema",
+      "code": "column_added",
+      "identifier": "gta6.main.wait_milestones",
+      "column": "is_editorial",
+      "severity": "low",
+      "detail": "is_editorial was added to gta6.main.wait_milestones (BOOLEAN)",
+      "exact": true,
+      "data": {
+       "data_type": "BOOLEAN"
+      },
+      "impacted_models": [
+       "fct_wait_milestones",
+       "wait_milestones"
+      ],
       "impacted_metrics": []
      },
      {
       "axis": "schema",
-      "code": "model_added",
-      "identifier": "wait_milestones",
-      "column": null,
+      "code": "column_added",
+      "identifier": "gta6.main.fct_wait_milestones",
+      "column": "is_editorial",
       "severity": "low",
-      "detail": "model 'wait_milestones' is new since the baseline",
+      "detail": "is_editorial was added to gta6.main.fct_wait_milestones (BOOLEAN)",
       "exact": true,
-      "data": {},
-      "impacted_models": [],
+      "data": {
+       "data_type": "BOOLEAN"
+      },
+      "impacted_models": [
+       "fct_wait_milestones"
+      ],
       "impacted_metrics": []
      }
     ],
-    "finding_count": 4
+    "finding_count": 7
    },
    "volume": {
-    "run_at": "2026-11-18T14:24:13.326781+00:00",
+    "run_at": "2026-11-19T06:29:40.933466+00:00",
     "scope": null,
     "findings": [
      {
       "axis": "volume",
       "code": "row_count_changed",
-      "identifier": "gta6.raw.trends_interest",
+      "identifier": "gta6.main.stg_economy__indicators",
       "column": null,
       "severity": "low",
-      "detail": "gta6.raw.trends_interest: rows 3576 -> 4080 (+14.1%)",
-      "exact": true,
-      "data": {
-       "row_count_before": 3576,
-       "row_count_after": 4080,
-       "change_fraction": 0.1409
-      },
-      "impacted_models": [
-       "fct_day_off_index",
-       "fct_day_off_index_terms",
-       "stg_trends__weekly"
-      ],
-      "impacted_metrics": [
-       "day_off_index",
-       "day_off_index_term_change",
-       "day_off_index_term_current",
-       "day_off_index_term_prior"
-      ]
-     },
-     {
-      "axis": "volume",
-      "code": "row_count_changed",
-      "identifier": "gta6.raw.economy_indicators",
-      "column": null,
-      "severity": "low",
-      "detail": "gta6.raw.economy_indicators: rows 53 -> 66 (+24.5%)",
+      "detail": "gta6.main.stg_economy__indicators: rows 53 -> 66 (+24.5%)",
       "exact": true,
       "data": {
        "row_count_before": 53,
@@ -442,19 +929,28 @@
        "change_fraction": 0.2453
       },
       "impacted_models": [
+       "fct_wait_milestones",
+       "fct_world_output_daily",
        "fct_world_productivity",
+       "int_world_output__yearly",
        "stg_economy__indicators"
       ],
       "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share",
+       "world_output_cumulative",
+       "world_output_per_second",
+       "world_output_produced",
        "world_productivity",
        "world_productivity_change_since_gta_v"
       ]
      }
     ],
-    "finding_count": 2
+    "finding_count": 1
    },
    "grain": {
-    "run_at": "2026-11-18T14:24:13.326781+00:00",
+    "run_at": "2026-11-19T06:29:40.933466+00:00",
     "scope": null,
     "findings": [
      {
@@ -475,40 +971,232 @@
     "finding_count": 1
    },
    "semantic": {
-    "run_at": "2026-11-18T14:24:13.326781+00:00",
+    "run_at": "2026-11-19T06:29:40.933466+00:00",
     "scope": null,
     "findings": [
      {
       "axis": "semantic",
-      "code": "declaration_added",
+      "code": "declaration_changed",
+      "identifier": "fct_world_output_daily",
+      "column": null,
+      "severity": "high",
+      "detail": "model 'fct_world_output_daily' changed its declared population since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_world_output_daily",
+       "field": "population",
+       "change": "changed",
+       "path": "models/marts/fct_world_output_daily.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_output_cumulative",
+       "world_output_per_second",
+       "world_output_produced"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "dimension_cardinality_changed",
+      "identifier": "gta6.main.fct_wait_milestones",
+      "column": "chart_label",
+      "severity": "medium",
+      "detail": "dimension 'chart_label' on semantic model 'fct_wait_milestones' widened: 45 -> 46 distinct values in gta6.main.fct_wait_milestones.chart_label",
+      "exact": true,
+      "data": {
+       "distinct_before": 45,
+       "distinct_after": 46,
+       "dimension": "chart_label",
+       "semantic_model": "fct_wait_milestones"
+      },
+      "impacted_models": [
+       "fct_wait_milestones"
+      ],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "dimension_cardinality_changed",
+      "identifier": "gta6.main.fct_wait_milestones",
+      "column": "milestone_id",
+      "severity": "medium",
+      "detail": "dimension 'milestone_id' on semantic model 'fct_wait_milestones' widened: 45 -> 46 distinct values in gta6.main.fct_wait_milestones.milestone_id",
+      "exact": true,
+      "data": {
+       "distinct_before": 45,
+       "distinct_after": 46,
+       "dimension": "milestone_id",
+       "semantic_model": "fct_wait_milestones"
+      },
+      "impacted_models": [
+       "fct_wait_milestones"
+      ],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "dimension_cardinality_changed",
+      "identifier": "gta6.main.fct_wait_milestones",
+      "column": "source_url",
+      "severity": "medium",
+      "detail": "dimension 'source_url' on semantic model 'fct_wait_milestones' widened: ~42 -> 44 distinct values in gta6.main.fct_wait_milestones.source_url",
+      "exact": false,
+      "data": {
+       "distinct_before": 42,
+       "distinct_after": 44,
+       "dimension": "source_url",
+       "semantic_model": "fct_wait_milestones"
+      },
+      "impacted_models": [
+       "fct_wait_milestones"
+      ],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "dimension_cardinality_changed",
+      "identifier": "gta6.main.fct_wait_milestones",
+      "column": "title",
+      "severity": "medium",
+      "detail": "dimension 'title' on semantic model 'fct_wait_milestones' widened: 45 -> 46 distinct values in gta6.main.fct_wait_milestones.title",
+      "exact": true,
+      "data": {
+       "distinct_before": 45,
+       "distinct_after": 46,
+       "dimension": "title",
+       "semantic_model": "fct_wait_milestones"
+      },
+      "impacted_models": [
+       "fct_wait_milestones"
+      ],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
       "identifier": "fct_wait_milestones",
       "column": null,
-      "severity": "low",
-      "detail": "model 'fct_wait_milestones' has a declaration for the first time since the baseline",
+      "severity": "medium",
+      "detail": "model 'fct_wait_milestones' changed its declared assumptions since the baseline",
       "exact": true,
       "data": {
        "model": "fct_wait_milestones",
-       "fields": [
-        "assumptions",
-        "description",
-        "grain",
-        "population"
-       ],
-       "columns": [
-        "category",
-        "chart_label",
-        "date_precision",
-        "days_since_gta_v",
-        "days_to_gta_6",
-        "event_date",
-        "milestone_id",
-        "output_by_then",
-        "share_of_wait_output",
-        "source_url",
-        "tier",
-        "title",
-        "why"
-       ],
+       "field": "assumptions",
+       "change": "changed",
+       "path": "models/marts/fct_wait_milestones.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "fct_world_productivity",
+      "column": null,
+      "severity": "medium",
+      "detail": "model 'fct_world_productivity' changed its declared assumptions since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_world_productivity",
+       "field": "assumptions",
+       "change": "changed",
+       "path": "models/marts/fct_world_productivity.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_productivity",
+       "world_productivity_change_since_gta_v"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "int_world_output__yearly",
+      "column": null,
+      "severity": "medium",
+      "detail": "model 'int_world_output__yearly' changed its declared assumptions since the baseline",
+      "exact": true,
+      "data": {
+       "model": "int_world_output__yearly",
+       "field": "assumptions",
+       "change": "changed",
+       "path": "models/intermediate/int_world_output__yearly.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": []
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_changed",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "the definition of semantic model 'fct_wait_milestones' changed since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "semantic_model",
+       "name": "fct_wait_milestones",
+       "path": "models/marts/fct_world_output_semantic.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_changed",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "the definition of semantic model 'fct_world_output_daily' changed since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "semantic_model",
+       "name": "fct_world_output_daily",
+       "path": "models/marts/fct_world_output_semantic.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_output_cumulative",
+       "world_output_per_second",
+       "world_output_produced"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "fct_wait_milestones",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_wait_milestones' changed its declared description since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_wait_milestones",
+       "field": "description",
+       "change": "changed",
        "path": "models/marts/fct_wait_milestones.yml"
       },
       "impacted_models": [],
@@ -521,28 +1209,62 @@
      {
       "axis": "semantic",
       "code": "declaration_added",
+      "identifier": "fct_wait_milestones",
+      "column": "is_editorial",
+      "severity": "low",
+      "detail": "column 'is_editorial' of model 'fct_wait_milestones' now declares description, null rule, role, where the baseline declared nothing",
+      "exact": true,
+      "data": {
+       "model": "fct_wait_milestones",
+       "column": "is_editorial",
+       "fields": [
+        "description",
+        "null_rule",
+        "role"
+       ],
+       "path": "models/marts/fct_wait_milestones.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "fct_wait_milestones",
+      "column": "tier",
+      "severity": "low",
+      "detail": "column 'tier' of model 'fct_wait_milestones' changed its declared description since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_wait_milestones",
+       "column": "tier",
+       "field": "description",
+       "change": "changed",
+       "path": "models/marts/fct_wait_milestones.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "wait_milestone_days_to_gta_6",
+       "wait_milestone_output",
+       "wait_milestone_share"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
       "identifier": "fct_world_output_daily",
       "column": null,
       "severity": "low",
-      "detail": "model 'fct_world_output_daily' has a declaration for the first time since the baseline",
+      "detail": "model 'fct_world_output_daily' changed its declared description since the baseline",
       "exact": true,
       "data": {
        "model": "fct_world_output_daily",
-       "fields": [
-        "assumptions",
-        "description",
-        "grain",
-        "population"
-       ],
-       "columns": [
-        "cumulative_output",
-        "daily_output",
-        "data_year",
-        "days_since_gta_v",
-        "days_to_gta_6",
-        "is_estimate",
-        "output_day"
-       ],
+       "field": "description",
+       "change": "changed",
        "path": "models/marts/fct_world_output_daily.yml"
       },
       "impacted_models": [],
@@ -554,166 +1276,280 @@
      },
      {
       "axis": "semantic",
-      "code": "definition_added",
+      "code": "definition_changed",
       "identifier": null,
       "column": null,
       "severity": "low",
-      "detail": "metric 'wait_milestone_days_to_gta_6' is new since the baseline",
+      "detail": "the definition of metric 'world_output_produced' changed since the baseline",
       "exact": true,
       "data": {
        "kind": "metric",
-       "name": "wait_milestone_days_to_gta_6"
+       "name": "world_output_produced",
+       "path": "models/marts/semantic/metrics.yml"
       },
       "impacted_models": [],
-      "impacted_metrics": []
+      "impacted_metrics": [
+       "world_output_per_second",
+       "world_output_produced"
+      ]
      },
      {
       "axis": "semantic",
-      "code": "definition_added",
+      "code": "definition_changed",
       "identifier": null,
       "column": null,
       "severity": "low",
-      "detail": "metric 'wait_milestone_output' is new since the baseline",
-      "exact": true,
-      "data": {
-       "kind": "metric",
-       "name": "wait_milestone_output"
-      },
-      "impacted_models": [],
-      "impacted_metrics": []
-     },
-     {
-      "axis": "semantic",
-      "code": "definition_added",
-      "identifier": null,
-      "column": null,
-      "severity": "low",
-      "detail": "metric 'wait_milestone_share' is new since the baseline",
-      "exact": true,
-      "data": {
-       "kind": "metric",
-       "name": "wait_milestone_share"
-      },
-      "impacted_models": [],
-      "impacted_metrics": []
-     },
-     {
-      "axis": "semantic",
-      "code": "definition_added",
-      "identifier": null,
-      "column": null,
-      "severity": "low",
-      "detail": "metric 'world_output_cumulative' is new since the baseline",
-      "exact": true,
-      "data": {
-       "kind": "metric",
-       "name": "world_output_cumulative"
-      },
-      "impacted_models": [],
-      "impacted_metrics": []
-     },
-     {
-      "axis": "semantic",
-      "code": "definition_added",
-      "identifier": null,
-      "column": null,
-      "severity": "low",
-      "detail": "metric 'world_output_per_second' is new since the baseline",
-      "exact": true,
-      "data": {
-       "kind": "metric",
-       "name": "world_output_per_second"
-      },
-      "impacted_models": [],
-      "impacted_metrics": []
-     },
-     {
-      "axis": "semantic",
-      "code": "definition_added",
-      "identifier": null,
-      "column": null,
-      "severity": "low",
-      "detail": "metric 'world_output_produced' is new since the baseline",
-      "exact": true,
-      "data": {
-       "kind": "metric",
-       "name": "world_output_produced"
-      },
-      "impacted_models": [],
-      "impacted_metrics": []
-     },
-     {
-      "axis": "semantic",
-      "code": "definition_added",
-      "identifier": null,
-      "column": null,
-      "severity": "low",
-      "detail": "semantic model 'fct_wait_milestones' is new since the baseline",
+      "detail": "the definition of semantic model 'fct_world_productivity' changed since the baseline",
       "exact": true,
       "data": {
        "kind": "semantic_model",
-       "name": "fct_wait_milestones"
+       "name": "fct_world_productivity",
+       "path": "models/marts/fct_world_productivity_semantic.yml"
       },
       "impacted_models": [],
-      "impacted_metrics": []
+      "impacted_metrics": [
+       "world_productivity",
+       "world_productivity_change_since_gta_v"
+      ]
      },
      {
       "axis": "semantic",
-      "code": "definition_added",
+      "code": "declaration_changed",
+      "identifier": "fct_world_productivity",
+      "column": null,
+      "severity": "low",
+      "detail": "model 'fct_world_productivity' changed its declared description since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_world_productivity",
+       "field": "description",
+       "change": "changed",
+       "path": "models/marts/fct_world_productivity.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_productivity",
+       "world_productivity_change_since_gta_v"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "fct_world_productivity",
+      "column": "launch",
+      "severity": "low",
+      "detail": "column 'launch' of model 'fct_world_productivity' changed its declared description since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_world_productivity",
+       "column": "launch",
+       "field": "description",
+       "change": "changed",
+       "path": "models/marts/fct_world_productivity.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_productivity",
+       "world_productivity_change_since_gta_v"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_changed",
       "identifier": null,
       "column": null,
       "severity": "low",
-      "detail": "semantic model 'fct_world_output_daily' is new since the baseline",
+      "detail": "the definition of metric 'gta_wiki_pageviews' changed since the baseline",
       "exact": true,
       "data": {
-       "kind": "semantic_model",
-       "name": "fct_world_output_daily"
+       "kind": "metric",
+       "name": "gta_wiki_pageviews",
+       "path": "models/marts/semantic/metrics.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "gta_wiki_pageviews"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_changed",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "the definition of metric 'wait_milestone_output' changed since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "wait_milestone_output",
+       "path": "models/marts/semantic/metrics.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "wait_milestone_output"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_changed",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "the definition of metric 'world_output_cumulative' changed since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "world_output_cumulative",
+       "path": "models/marts/semantic/metrics.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_output_cumulative"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_changed",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "the definition of metric 'world_productivity' changed since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "world_productivity",
+       "path": "models/marts/semantic/metrics.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_productivity"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "definition_changed",
+      "identifier": null,
+      "column": null,
+      "severity": "low",
+      "detail": "the definition of metric 'world_productivity_change_since_gta_v' changed since the baseline",
+      "exact": true,
+      "data": {
+       "kind": "metric",
+       "name": "world_productivity_change_since_gta_v",
+       "path": "models/marts/semantic/metrics.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_productivity_change_since_gta_v"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "fct_wait_milestones",
+      "column": "output_by_then",
+      "severity": "low",
+      "detail": "column 'output_by_then' of model 'fct_wait_milestones' changed its declared description since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_wait_milestones",
+       "column": "output_by_then",
+       "field": "description",
+       "change": "changed",
+       "path": "models/marts/fct_wait_milestones.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "wait_milestone_output"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "fct_world_output_daily",
+      "column": "cumulative_output",
+      "severity": "low",
+      "detail": "column 'cumulative_output' of model 'fct_world_output_daily' changed its declared description since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_world_output_daily",
+       "column": "cumulative_output",
+       "field": "description",
+       "change": "changed",
+       "path": "models/marts/fct_world_output_daily.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_output_cumulative"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "fct_world_productivity",
+      "column": "pct_change_since_gta_v",
+      "severity": "low",
+      "detail": "column 'pct_change_since_gta_v' of model 'fct_world_productivity' changed its declared description since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_world_productivity",
+       "column": "pct_change_since_gta_v",
+       "field": "description",
+       "change": "changed",
+       "path": "models/marts/fct_world_productivity.yml"
+      },
+      "impacted_models": [],
+      "impacted_metrics": [
+       "world_productivity_change_since_gta_v"
+      ]
+     },
+     {
+      "axis": "semantic",
+      "code": "declaration_changed",
+      "identifier": "fct_world_output_daily",
+      "column": "days_since_gta_v",
+      "severity": "low",
+      "detail": "column 'days_since_gta_v' of model 'fct_world_output_daily' changed its declared description since the baseline",
+      "exact": true,
+      "data": {
+       "model": "fct_world_output_daily",
+       "column": "days_since_gta_v",
+       "field": "description",
+       "change": "changed",
+       "path": "models/marts/fct_world_output_daily.yml"
       },
       "impacted_models": [],
       "impacted_metrics": []
      },
      {
       "axis": "semantic",
-      "code": "declaration_added",
+      "code": "declaration_changed",
       "identifier": "int_world_output__yearly",
       "column": null,
       "severity": "low",
-      "detail": "model 'int_world_output__yearly' has a declaration for the first time since the baseline",
+      "detail": "model 'int_world_output__yearly' changed its declared description since the baseline",
       "exact": true,
       "data": {
        "model": "int_world_output__yearly",
-       "fields": [
-        "assumptions",
-        "description",
-        "grain",
-        "population"
-       ],
-       "columns": [
-        "annual_output",
-        "daily_output",
-        "data_year",
-        "days_in_year",
-        "is_estimate",
-        "output_per_second",
-        "source_indicator"
-       ],
+       "field": "description",
+       "change": "changed",
        "path": "models/intermediate/int_world_output__yearly.yml"
       },
       "impacted_models": [],
       "impacted_metrics": []
      }
     ],
-    "finding_count": 11
+    "finding_count": 28
    }
   },
   "baseline": {
-   "snapshot_created_at": "2026-11-17T11:01:53.157344+00:00",
+   "snapshot_created_at": "2026-11-18T14:24:41.898782+00:00",
    "from": "cache"
   },
   "drift_path": "./.dex/drift.json",
   "declaration_drift": {
    "checked": true,
-   "baseline_declared_models": 12,
+   "baseline_declared_models": 15,
    "declared_models": 15
   },
   "hint": "run `maintain reconcile [<class>]` for proposed fixes as reviewable diffs"
@@ -733,9 +1569,7 @@
   "unit": null
  },
  "warnings": [
-  "5 relation(s) built by this project were not reported as source drift (table_added)",
-  "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline",
-  "this baseline's warehouse side was pinned from an exploration cache captured 27h ago (2026-11-17T10:54:22.532183+00:00), beyond the 24h freshness window; anything created or changed in the warehouse since then is not in it and will report as drift. Run `explore map` first, then `maintain snapshot`, to pin current state"
+  "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline"
  ],
  "diffs": [],
  "errors": [],

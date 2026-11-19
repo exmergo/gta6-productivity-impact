@@ -240,7 +240,7 @@
           "detail": "date_day participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:09.281107+00:00",
+      "profiled_at": "2026-11-19T12:13:52.354311+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -588,7 +588,7 @@
           "detail": "batch_id participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:09.402649+00:00",
+      "profiled_at": "2026-11-19T12:13:52.553453+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -935,14 +935,14 @@
           "detail": "term participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:09.527810+00:00",
+      "profiled_at": "2026-11-19T12:13:52.758130+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
     {
       "identifier": "gta6.main.fct_signal_daily",
       "object_type": "table",
-      "row_count": 872,
+      "row_count": 880,
       "byte_size": null,
       "columns": [
         {
@@ -950,7 +950,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 872,
+          "distinct_count": 880,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": null,
@@ -980,15 +980,15 @@
             "values": [
               {
                 "value": "wikipedia",
-                "count": 436
+                "count": 440
               },
               {
                 "value": "bluesky",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "hacker_news",
-                "count": 218
+                "count": 220
               }
             ],
             "elided": 0
@@ -1015,27 +1015,27 @@
             "values": [
               {
                 "value": "posts:day_off",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "posts:day_off_gta",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "pageviews:grand_theft_auto_vi",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "pageviews:paid_time_off",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "pageviews:presenteeism",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "pageviews:sick_leave",
-                "count": 109
+                "count": 110
               }
             ],
             "elided": 0
@@ -1062,19 +1062,19 @@
             "values": [
               {
                 "value": "reference",
-                "count": 327
+                "count": 330
               },
               {
                 "value": "day_off_gta",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "day_off_intent",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "hype",
-                "count": 109
+                "count": 110
               }
             ],
             "elided": 0
@@ -1112,17 +1112,17 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 111,
+          "distinct_count": 112,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02",
-          "max_value": "2026-11-17",
+          "max_value": "2026-11-18",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 412,
-          "temporal_distinct_periods": 109,
+          "temporal_span": 413,
+          "temporal_distinct_periods": 110,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -1131,11 +1131,11 @@
           "data_type": "DOUBLE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 319,
+          "distinct_count": 323,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": 0.0,
-          "max_value": 153037.0,
+          "max_value": 519632.0,
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
@@ -1161,7 +1161,7 @@
             "values": [
               {
                 "value": true,
-                "count": 872
+                "count": 880
               }
             ],
             "elided": 0
@@ -1192,7 +1192,7 @@
               },
               {
                 "value": 2026,
-                "count": 384
+                "count": 392
               }
             ],
             "elided": 0
@@ -1262,7 +1262,7 @@
               },
               {
                 "value": 3,
-                "count": 112
+                "count": 120
               }
             ],
             "elided": 0
@@ -1289,7 +1289,7 @@
             "signal_day_key"
           ],
           "status": "reported",
-          "reason": "signal_day_key is unique and non-null on all 872 rows, proven by an exact distinct count"
+          "reason": "signal_day_key is unique and non-null on all 880 rows, proven by an exact distinct count"
         }
       ],
       "rank_score": 0.5999,
@@ -1302,7 +1302,7 @@
           "detail": "signal_day_key participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:09.641562+00:00",
+      "profiled_at": "2026-11-19T12:13:52.963266+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -1647,7 +1647,7 @@
           "detail": "thursday_lift_key participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:09.761667+00:00",
+      "profiled_at": "2026-11-19T12:13:53.172516+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -2711,7 +2711,7 @@
     {
       "identifier": "gta6.main.int_signals__daily",
       "object_type": "view",
-      "row_count": 872,
+      "row_count": 880,
       "byte_size": null,
       "columns": [
         {
@@ -2730,15 +2730,15 @@
             "values": [
               {
                 "value": "wikipedia",
-                "count": 436
+                "count": 440
               },
               {
                 "value": "bluesky",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "hacker_news",
-                "count": 218
+                "count": 220
               }
             ],
             "elided": 0
@@ -2765,27 +2765,27 @@
             "values": [
               {
                 "value": "posts:day_off",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "posts:day_off_gta",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "pageviews:grand_theft_auto_vi",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "pageviews:paid_time_off",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "pageviews:presenteeism",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "pageviews:sick_leave",
-                "count": 109
+                "count": 110
               }
             ],
             "elided": 0
@@ -2812,19 +2812,19 @@
             "values": [
               {
                 "value": "reference",
-                "count": 327
+                "count": 330
               },
               {
                 "value": "day_off_gta",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "day_off_intent",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "hype",
-                "count": 109
+                "count": 110
               }
             ],
             "elided": 0
@@ -2862,17 +2862,17 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 111,
+          "distinct_count": 112,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02",
-          "max_value": "2026-11-17",
+          "max_value": "2026-11-18",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 412,
-          "temporal_distinct_periods": 109,
+          "temporal_span": 413,
+          "temporal_distinct_periods": 110,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -2881,11 +2881,11 @@
           "data_type": "DOUBLE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 319,
+          "distinct_count": 323,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": 0.0,
-          "max_value": 153037.0,
+          "max_value": 519632.0,
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
@@ -2911,7 +2911,7 @@
             "values": [
               {
                 "value": true,
-                "count": 872
+                "count": 880
               }
             ],
             "elided": 0
@@ -2932,7 +2932,7 @@
         "no candidate key detected; grain unknown"
       ],
       "findings": [],
-      "profiled_at": "2026-11-18T06:33:09.900472+00:00",
+      "profiled_at": "2026-11-19T12:13:53.375286+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -3200,14 +3200,14 @@
           "detail": "date_day participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:09.913293+00:00",
+      "profiled_at": "2026-11-19T12:13:53.396975+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
     {
       "identifier": "gta6.main.stg_bluesky__daily_hits",
       "object_type": "view",
-      "row_count": 1308,
+      "row_count": 1320,
       "byte_size": null,
       "columns": [
         {
@@ -3215,17 +3215,17 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 111,
+          "distinct_count": 112,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02",
-          "max_value": "2026-11-17",
+          "max_value": "2026-11-18",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 412,
-          "temporal_distinct_periods": 109,
+          "temporal_span": 413,
+          "temporal_distinct_periods": 110,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -3245,27 +3245,27 @@
             "values": [
               {
                 "value": "call in sick",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "calling in sick",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "day off",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "pto",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "sick day",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "time off",
-                "count": 218
+                "count": 220
               }
             ],
             "elided": 0
@@ -3292,11 +3292,11 @@
             "values": [
               {
                 "value": "any",
-                "count": 654
+                "count": 660
               },
               {
                 "value": "gta",
-                "count": 654
+                "count": 660
               }
             ],
             "elided": 0
@@ -3323,51 +3323,51 @@
             "values": [
               {
                 "value": "\"call in sick\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"call in sick\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"calling in sick\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"calling in sick\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"day off\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"day off\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"pto\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"pto\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"sick day\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"sick day\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"time off\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"time off\" gta",
-                "count": 109
+                "count": 110
               }
             ],
             "elided": 0
@@ -3383,7 +3383,7 @@
           "data_type": "BIGINT",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 273,
+          "distinct_count": 277,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": 0,
@@ -3413,7 +3413,7 @@
             "values": [
               {
                 "value": true,
-                "count": 1308
+                "count": 1320
               }
             ],
             "elided": 0
@@ -3429,19 +3429,19 @@
           "data_type": "TIMESTAMP WITH TIME ZONE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 1308,
+          "distinct_count": 1320,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": "2026-11-16T16:11:22.162552+00:00",
-          "max_value": "2026-11-18T06:27:15.669849+00:00",
+          "max_value": "2026-11-19T12:12:59.106483+00:00",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "hour",
-          "temporal_span": 39,
-          "temporal_distinct_periods": 4,
-          "temporal_missing_periods": 35,
-          "temporal_largest_gap": 23
+          "temporal_span": 69,
+          "temporal_distinct_periods": 5,
+          "temporal_missing_periods": 64,
+          "temporal_largest_gap": 29
         }
       ],
       "candidate_keys": [
@@ -3459,7 +3459,7 @@
             "observed_at"
           ],
           "status": "reported",
-          "reason": "observed_at is unique and non-null on all 1308 rows, proven by an exact distinct count"
+          "reason": "observed_at is unique and non-null on all 1320 rows, proven by an exact distinct count"
         }
       ],
       "rank_score": 0.32,
@@ -3472,14 +3472,14 @@
           "detail": "observed_at participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:10.031442+00:00",
+      "profiled_at": "2026-11-19T12:13:53.603888+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
     {
       "identifier": "gta6.main.stg_economy__indicators",
       "object_type": "view",
-      "row_count": 53,
+      "row_count": 66,
       "byte_size": null,
       "columns": [
         {
@@ -3498,7 +3498,7 @@
             "values": [
               {
                 "value": "world_bank",
-                "count": 39
+                "count": 52
               },
               {
                 "value": "imf_weo",
@@ -3518,7 +3518,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 4,
+          "distinct_count": 5,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -3578,11 +3578,11 @@
           "data_type": "DOUBLE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 50,
+          "distinct_count": 63,
           "distinct_count_exact": true,
           "is_unique": false,
           "min_value": -2.7,
-          "max_value": 50671.7228169014,
+          "max_value": 99658553419775.2,
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
@@ -3596,7 +3596,7 @@
           "name": "last_updated",
           "data_type": "DATE",
           "nullable": true,
-          "null_fraction": 0.26415094339622647,
+          "null_fraction": 0.21212121212121215,
           "distinct_count": 1,
           "distinct_count_exact": false,
           "is_unique": false,
@@ -3608,7 +3608,7 @@
             "values": [
               {
                 "value": "2026-11-11",
-                "count": 39
+                "count": 52
               }
             ],
             "elided": 0
@@ -3651,7 +3651,7 @@
             "indicator"
           ],
           "status": "reported",
-          "reason": "year, indicator is unique as a combination on all 53 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
+          "reason": "year, indicator is unique as a combination on all 66 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
         },
         {
           "columns": [
@@ -3659,7 +3659,7 @@
             "year"
           ],
           "status": "reported",
-          "reason": "value, year is unique as a combination on all 53 rows, proven by an exact distinct-combination probe, and ranks behind year, indicator, which is proven at a smaller cardinality"
+          "reason": "value, year is unique as a combination on all 66 rows, proven by an exact distinct-combination probe, and ranks behind year, indicator, which is proven at a smaller cardinality"
         }
       ],
       "rank_score": 0.32,
@@ -3678,14 +3678,14 @@
           "detail": "indicator participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:10.105781+00:00",
+      "profiled_at": "2026-11-19T12:13:53.716976+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
     {
       "identifier": "gta6.main.stg_hn__daily_hits",
       "object_type": "view",
-      "row_count": 1308,
+      "row_count": 1320,
       "byte_size": null,
       "columns": [
         {
@@ -3693,17 +3693,17 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 111,
+          "distinct_count": 112,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02",
-          "max_value": "2026-11-17",
+          "max_value": "2026-11-18",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 412,
-          "temporal_distinct_periods": 109,
+          "temporal_span": 413,
+          "temporal_distinct_periods": 110,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -3723,27 +3723,27 @@
             "values": [
               {
                 "value": "call in sick",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "calling in sick",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "day off",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "pto",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "sick day",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "time off",
-                "count": 218
+                "count": 220
               }
             ],
             "elided": 0
@@ -3770,11 +3770,11 @@
             "values": [
               {
                 "value": "any",
-                "count": 654
+                "count": 660
               },
               {
                 "value": "gta",
-                "count": 654
+                "count": 660
               }
             ],
             "elided": 0
@@ -3801,51 +3801,51 @@
             "values": [
               {
                 "value": "\"call in sick\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"call in sick\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"calling in sick\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"calling in sick\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"day off\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"day off\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"pto\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"pto\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"sick day\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"sick day\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"time off\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"time off\" gta",
-                "count": 109
+                "count": 110
               }
             ],
             "elided": 0
@@ -3872,11 +3872,11 @@
             "values": [
               {
                 "value": 0,
-                "count": 1122
+                "count": 1131
               },
               {
                 "value": 1,
-                "count": 111
+                "count": 114
               },
               {
                 "value": 2,
@@ -3931,7 +3931,7 @@
             "values": [
               {
                 "value": true,
-                "count": 1308
+                "count": 1320
               }
             ],
             "elided": 0
@@ -3947,19 +3947,19 @@
           "data_type": "TIMESTAMP WITH TIME ZONE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 1308,
+          "distinct_count": 1320,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": "2026-11-16T16:24:17.688892+00:00",
-          "max_value": "2026-11-18T06:27:25.848770+00:00",
+          "max_value": "2026-11-19T12:13:08.334314+00:00",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "hour",
-          "temporal_span": 39,
-          "temporal_distinct_periods": 4,
-          "temporal_missing_periods": 35,
-          "temporal_largest_gap": 23
+          "temporal_span": 68,
+          "temporal_distinct_periods": 5,
+          "temporal_missing_periods": 63,
+          "temporal_largest_gap": 29
         }
       ],
       "candidate_keys": [
@@ -3977,7 +3977,7 @@
             "observed_at"
           ],
           "status": "reported",
-          "reason": "observed_at is unique and non-null on all 1308 rows, proven by an exact distinct count"
+          "reason": "observed_at is unique and non-null on all 1320 rows, proven by an exact distinct count"
         }
       ],
       "rank_score": 0.32,
@@ -3990,7 +3990,7 @@
           "detail": "observed_at participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:10.248862+00:00",
+      "profiled_at": "2026-11-19T12:13:53.932175+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -4184,7 +4184,7 @@
         "empty table (no rows)"
       ],
       "findings": [],
-      "profiled_at": "2026-11-18T06:33:10.369639+00:00",
+      "profiled_at": "2026-11-19T12:13:54.127211+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -4463,14 +4463,14 @@
           "detail": "request_id participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:10.496436+00:00",
+      "profiled_at": "2026-11-19T12:13:54.352423+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
     {
       "identifier": "gta6.main.stg_wiki__pageviews",
       "object_type": "view",
-      "row_count": 436,
+      "row_count": 440,
       "byte_size": null,
       "columns": [
         {
@@ -4497,17 +4497,17 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 111,
+          "distinct_count": 112,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02",
-          "max_value": "2026-11-17",
+          "max_value": "2026-11-18",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 412,
-          "temporal_distinct_periods": 109,
+          "temporal_span": 413,
+          "temporal_distinct_periods": 110,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -4516,11 +4516,11 @@
           "data_type": "BIGINT",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 215,
+          "distinct_count": 218,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": 4,
-          "max_value": 153037,
+          "max_value": 519632,
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
@@ -4554,7 +4554,7 @@
             "article"
           ],
           "status": "reported",
-          "reason": "view_date, article is unique as a combination on all 436 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
+          "reason": "view_date, article is unique as a combination on all 440 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
         }
       ],
       "rank_score": 0.32,
@@ -4573,7 +4573,7 @@
           "detail": "article participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:10.535978+00:00",
+      "profiled_at": "2026-11-19T12:13:54.420500+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -4889,7 +4889,7 @@
     {
       "identifier": "gta6.raw.bluesky_daily_hits",
       "object_type": "table",
-      "row_count": 1308,
+      "row_count": 1320,
       "byte_size": null,
       "columns": [
         {
@@ -4897,17 +4897,17 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 111,
+          "distinct_count": 112,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02",
-          "max_value": "2026-11-17",
+          "max_value": "2026-11-18",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 412,
-          "temporal_distinct_periods": 109,
+          "temporal_span": 413,
+          "temporal_distinct_periods": 110,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -4927,27 +4927,27 @@
             "values": [
               {
                 "value": "call in sick",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "calling in sick",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "day off",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "pto",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "sick day",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "time off",
-                "count": 218
+                "count": 220
               }
             ],
             "elided": 0
@@ -4974,11 +4974,11 @@
             "values": [
               {
                 "value": "any",
-                "count": 654
+                "count": 660
               },
               {
                 "value": "gta",
-                "count": 654
+                "count": 660
               }
             ],
             "elided": 0
@@ -5005,51 +5005,51 @@
             "values": [
               {
                 "value": "\"call in sick\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"call in sick\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"calling in sick\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"calling in sick\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"day off\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"day off\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"pto\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"pto\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"sick day\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"sick day\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"time off\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"time off\" gta",
-                "count": 109
+                "count": 110
               }
             ],
             "elided": 0
@@ -5065,7 +5065,7 @@
           "data_type": "BIGINT",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 273,
+          "distinct_count": 277,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": 0,
@@ -5084,26 +5084,26 @@
           "data_type": "TIMESTAMP WITH TIME ZONE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 1308,
+          "distinct_count": 1320,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": "2026-11-16T16:11:22.162552+00:00",
-          "max_value": "2026-11-18T06:27:15.669849+00:00",
+          "max_value": "2026-11-19T12:12:59.106483+00:00",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "hour",
-          "temporal_span": 39,
-          "temporal_distinct_periods": 4,
-          "temporal_missing_periods": 35,
-          "temporal_largest_gap": 23
+          "temporal_span": 69,
+          "temporal_distinct_periods": 5,
+          "temporal_missing_periods": 64,
+          "temporal_largest_gap": 29
         },
         {
           "name": "pull_id",
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 4,
+          "distinct_count": 5,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -5117,7 +5117,7 @@
                 "count": 1248
               },
               {
-                "value": "20261118T062652Z",
+                "value": "20261119T121235Z",
                 "count": 36
               },
               {
@@ -5126,6 +5126,10 @@
               },
               {
                 "value": "20261117T062704Z",
+                "count": 12
+              },
+              {
+                "value": "20261118T062652Z",
                 "count": 12
               }
             ],
@@ -5153,7 +5157,7 @@
             "observed_at"
           ],
           "status": "reported",
-          "reason": "observed_at is unique and non-null on all 1308 rows, proven by an exact distinct count"
+          "reason": "observed_at is unique and non-null on all 1320 rows, proven by an exact distinct count"
         }
       ],
       "rank_score": 0.5466,
@@ -5166,7 +5170,7 @@
           "detail": "observed_at participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:10.664665+00:00",
+      "profiled_at": "2026-11-19T12:13:54.651446+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
@@ -5408,7 +5412,7 @@
     {
       "identifier": "gta6.raw.hn_daily_hits",
       "object_type": "table",
-      "row_count": 1308,
+      "row_count": 1320,
       "byte_size": null,
       "columns": [
         {
@@ -5416,17 +5420,17 @@
           "data_type": "DATE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 111,
+          "distinct_count": 112,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02",
-          "max_value": "2026-11-17",
+          "max_value": "2026-11-18",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 412,
-          "temporal_distinct_periods": 109,
+          "temporal_span": 413,
+          "temporal_distinct_periods": 110,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -5446,27 +5450,27 @@
             "values": [
               {
                 "value": "call in sick",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "calling in sick",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "day off",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "pto",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "sick day",
-                "count": 218
+                "count": 220
               },
               {
                 "value": "time off",
-                "count": 218
+                "count": 220
               }
             ],
             "elided": 0
@@ -5493,11 +5497,11 @@
             "values": [
               {
                 "value": "any",
-                "count": 654
+                "count": 660
               },
               {
                 "value": "gta",
-                "count": 654
+                "count": 660
               }
             ],
             "elided": 0
@@ -5524,51 +5528,51 @@
             "values": [
               {
                 "value": "\"call in sick\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"call in sick\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"calling in sick\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"calling in sick\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"day off\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"day off\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"pto\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"pto\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"sick day\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"sick day\" gta",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"time off\"",
-                "count": 109
+                "count": 110
               },
               {
                 "value": "\"time off\" gta",
-                "count": 109
+                "count": 110
               }
             ],
             "elided": 0
@@ -5595,11 +5599,11 @@
             "values": [
               {
                 "value": 0,
-                "count": 1122
+                "count": 1131
               },
               {
                 "value": 1,
-                "count": 111
+                "count": 114
               },
               {
                 "value": 2,
@@ -5643,26 +5647,26 @@
           "data_type": "TIMESTAMP WITH TIME ZONE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 1308,
+          "distinct_count": 1320,
           "distinct_count_exact": true,
           "is_unique": true,
           "min_value": "2026-11-16T16:24:17.688892+00:00",
-          "max_value": "2026-11-18T06:27:25.848770+00:00",
+          "max_value": "2026-11-19T12:13:08.334314+00:00",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "hour",
-          "temporal_span": 39,
-          "temporal_distinct_periods": 4,
-          "temporal_missing_periods": 35,
-          "temporal_largest_gap": 23
+          "temporal_span": 68,
+          "temporal_distinct_periods": 5,
+          "temporal_missing_periods": 63,
+          "temporal_largest_gap": 29
         },
         {
           "name": "pull_id",
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 4,
+          "distinct_count": 5,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -5676,7 +5680,7 @@
                 "count": 1248
               },
               {
-                "value": "20261118T062652Z",
+                "value": "20261119T121235Z",
                 "count": 36
               },
               {
@@ -5685,6 +5689,10 @@
               },
               {
                 "value": "20261117T062704Z",
+                "count": 12
+              },
+              {
+                "value": "20261118T062652Z",
                 "count": 12
               }
             ],
@@ -5712,7 +5720,7 @@
             "observed_at"
           ],
           "status": "reported",
-          "reason": "observed_at is unique and non-null on all 1308 rows, proven by an exact distinct count"
+          "reason": "observed_at is unique and non-null on all 1320 rows, proven by an exact distinct count"
         }
       ],
       "rank_score": 0.5466,
@@ -5725,14 +5733,14 @@
           "detail": "observed_at participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:10.837437+00:00",
+      "profiled_at": "2026-11-19T12:13:54.933118+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
     {
       "identifier": "gta6.raw.trends_interest",
       "object_type": "table",
-      "row_count": 4080,
+      "row_count": 4416,
       "byte_size": null,
       "columns": [
         {
@@ -5740,7 +5748,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 63,
+          "distinct_count": 69,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -5758,7 +5766,7 @@
           "name": "term_group",
           "data_type": "VARCHAR",
           "nullable": true,
-          "null_fraction": 0.20588235294117652,
+          "null_fraction": 0.2663043478260869,
           "distinct_count": 5,
           "distinct_count_exact": false,
           "is_unique": false,
@@ -5835,15 +5843,15 @@
             "values": [
               {
                 "value": "call in sick",
-                "count": 1036
+                "count": 1148
               },
               {
                 "value": "day off work",
-                "count": 1036
+                "count": 1148
               },
               {
                 "value": "sick day",
-                "count": 1036
+                "count": 1148
               },
               {
                 "value": "GTA 6",
@@ -5916,11 +5924,11 @@
             "values": [
               {
                 "value": false,
-                "count": 4035
+                "count": 4365
               },
               {
                 "value": true,
-                "count": 45
+                "count": 51
               }
             ],
             "elided": 0
@@ -5936,7 +5944,7 @@
           "data_type": "VARCHAR",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 6,
+          "distinct_count": 8,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -5972,6 +5980,14 @@
               {
                 "value": "20261118T062652Z",
                 "count": 168
+              },
+              {
+                "value": "20261119T062729Z",
+                "count": 168
+              },
+              {
+                "value": "20261119T121235Z",
+                "count": 168
               }
             ],
             "elided": 0
@@ -5986,8 +6002,8 @@
           "name": "batch_id",
           "data_type": "VARCHAR",
           "nullable": true,
-          "null_fraction": 0.7941176470588236,
-          "distinct_count": 5,
+          "null_fraction": 0.7336956521739131,
+          "distinct_count": 7,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": null,
@@ -6015,6 +6031,14 @@
               {
                 "value": "20261118T062725",
                 "count": 168
+              },
+              {
+                "value": "20261119T062803",
+                "count": 168
+              },
+              {
+                "value": "20261119T121308",
+                "count": 168
               }
             ],
             "elided": 0
@@ -6029,7 +6053,7 @@
           "name": "span_start",
           "data_type": "DATE",
           "nullable": true,
-          "null_fraction": 0.7941176470588236,
+          "null_fraction": 0.7336956521739131,
           "distinct_count": 1,
           "distinct_count_exact": false,
           "is_unique": false,
@@ -6041,7 +6065,7 @@
             "values": [
               {
                 "value": "2025-11-01",
-                "count": 840
+                "count": 1176
               }
             ],
             "elided": 0
@@ -6056,7 +6080,7 @@
           "name": "span_end",
           "data_type": "DATE",
           "nullable": true,
-          "null_fraction": 0.7941176470588236,
+          "null_fraction": 0.7336956521739131,
           "distinct_count": 1,
           "distinct_count_exact": false,
           "is_unique": false,
@@ -6068,7 +6092,7 @@
             "values": [
               {
                 "value": "2026-11-15",
-                "count": 840
+                "count": 1176
               }
             ],
             "elided": 0
@@ -6084,19 +6108,19 @@
       "grain": null,
       "composite_keys": [],
       "key_evidence": [],
-      "rank_score": 0.6949,
+      "rank_score": 0.6965,
       "data_quality": [
         "no candidate key detected; grain unknown"
       ],
       "findings": [],
-      "profiled_at": "2026-11-18T06:33:10.986704+00:00",
+      "profiled_at": "2026-11-19T12:13:55.194798+00:00",
       "semantic_models": [],
       "values_withheld": false
     },
     {
       "identifier": "gta6.raw.wiki_pageviews",
       "object_type": "table",
-      "row_count": 436,
+      "row_count": 440,
       "byte_size": null,
       "columns": [
         {
@@ -6134,7 +6158,7 @@
             "values": [
               {
                 "value": "daily",
-                "count": 436
+                "count": 440
               }
             ],
             "elided": 0
@@ -6150,17 +6174,17 @@
           "data_type": "TIMESTAMP WITH TIME ZONE",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 104,
+          "distinct_count": 105,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": "2025-10-02T00:00:00+00:00",
-          "max_value": "2026-11-17T00:00:00+00:00",
+          "max_value": "2026-11-18T00:00:00+00:00",
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
           "temporal_granularity": "day",
-          "temporal_span": 412,
-          "temporal_distinct_periods": 109,
+          "temporal_span": 413,
+          "temporal_distinct_periods": 110,
           "temporal_missing_periods": 303,
           "temporal_largest_gap": 303
         },
@@ -6169,11 +6193,11 @@
           "data_type": "BIGINT",
           "nullable": true,
           "null_fraction": 0.0,
-          "distinct_count": 215,
+          "distinct_count": 218,
           "distinct_count_exact": false,
           "is_unique": false,
           "min_value": 4,
-          "max_value": 153037,
+          "max_value": 519632,
           "pii": null,
           "pii_overridden": null,
           "value_domain": null,
@@ -6198,8 +6222,8 @@
           "value_domain": {
             "values": [
               {
-                "value": "20261118T062652Z",
-                "count": 436
+                "value": "20261119T121235Z",
+                "count": 440
               }
             ],
             "elided": 0
@@ -6234,7 +6258,7 @@
             "article"
           ],
           "status": "reported",
-          "reason": "ts, article is unique as a combination on all 436 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
+          "reason": "ts, article is unique as a combination on all 440 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
         }
       ],
       "rank_score": 0.5014,
@@ -6253,7 +6277,7 @@
           "detail": "article participates in the detected grain but the warehouse still allows it to be NULL"
         }
       ],
-      "profiled_at": "2026-11-18T06:33:11.071259+00:00",
+      "profiled_at": "2026-11-19T12:13:55.344846+00:00",
       "semantic_models": [],
       "values_withheld": false
     }
@@ -6267,22 +6291,6 @@
       "to_dataset": "gta6.main.fct_day_off_index",
       "to_columns": [
         "batch_id"
-      ],
-      "kind": "inferred",
-      "confidence": 0.65,
-      "verified": false,
-      "orphan_fraction": null,
-      "declared_by": null,
-      "declaration_sources": []
-    },
-    {
-      "from_dataset": "gta6.main.fct_wait_milestones",
-      "from_columns": [
-        "milestone_id"
-      ],
-      "to_dataset": "gta6.main.wait_milestones",
-      "to_columns": [
-        "milestone_id"
       ],
       "kind": "inferred",
       "confidence": 0.65,
@@ -6308,22 +6316,6 @@
       "declaration_sources": []
     },
     {
-      "from_dataset": "gta6.main.wait_milestones",
-      "from_columns": [
-        "milestone_id"
-      ],
-      "to_dataset": "gta6.main.fct_wait_milestones",
-      "to_columns": [
-        "milestone_id"
-      ],
-      "kind": "inferred",
-      "confidence": 0.65,
-      "verified": false,
-      "orphan_fraction": null,
-      "declared_by": null,
-      "declaration_sources": []
-    },
-    {
       "from_dataset": "gta6.raw.trends_interest",
       "from_columns": [
         "batch_id"
@@ -6338,12 +6330,44 @@
       "orphan_fraction": null,
       "declared_by": null,
       "declaration_sources": []
+    },
+    {
+      "from_dataset": "gta6.main.fct_wait_milestones",
+      "from_columns": [
+        "milestone_id"
+      ],
+      "to_dataset": "gta6.main.wait_milestones",
+      "to_columns": [
+        "milestone_id"
+      ],
+      "kind": "inferred",
+      "confidence": 0.65,
+      "verified": false,
+      "orphan_fraction": null,
+      "declared_by": null,
+      "declaration_sources": []
+    },
+    {
+      "from_dataset": "gta6.main.wait_milestones",
+      "from_columns": [
+        "milestone_id"
+      ],
+      "to_dataset": "gta6.main.fct_wait_milestones",
+      "to_columns": [
+        "milestone_id"
+      ],
+      "kind": "inferred",
+      "confidence": 0.65,
+      "verified": false,
+      "orphan_fraction": null,
+      "declared_by": null,
+      "declaration_sources": []
     }
   ],
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-19T06:29:38.695484+00:00",
+    "updated_at": "2026-11-19T12:13:52.178863+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

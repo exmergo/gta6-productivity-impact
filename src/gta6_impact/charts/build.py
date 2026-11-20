@@ -251,25 +251,55 @@ def _github_bars(rows: list[dict], prior: str, current: str) -> str:
 
 
 def _thursdays(series: list[dict], release: dt.date) -> str:
-    """PRs opened on each Thursday up to release day, from zero, release day in the accent. Each
-    column carries its change on the week before, so the run of rises and the drop read at once."""
-    top = max(r["github_activity_count"] for r in series) or 1
-    cols = []
-    for r in series:
-        day = _day(r["metric_time__day"])
-        wow = r["github_activity_change_wow"]
-        cls = "col now" if day == release else "col"
-        delta = f"{_signed(wow)}%" if wow is not None else "&nbsp;"
-        cols.append(
-            f'<div class="{cls}"><span class="wow">{delta}</span>'
-            f'<span class="v">{_millions(r["github_activity_count"])}</span>'
-            f'<i style="height:{100 * r["github_activity_count"] / top:.1f}%"></i>'
-            f'<span class="d">{_short(day)}</span></div>'
+    """PRs opened on every Thursday in the data, as the change on the Thursday before.
+
+    The bars start at zero change, so a drop points down and every rise points up, at their
+    true sizes on one linear scale; each Thursday's count sits under its date. The first
+    Thursday has nothing to compare with, so it is not drawn.
+    """
+    shown = [r for r in series if r["github_activity_change_wow"] is not None]
+    label = f"PRs opened, each {release:%A} vs the {release:%A} before"
+    w, h = 632, 250
+    top_pad, label_h, foot_h = 28, 30, 56
+    values = [r["github_activity_change_wow"] for r in shown]
+    hi, lo = max(0.0, *values), min(0.0, *values)
+    plot_h = h - top_pad - foot_h - label_h
+    k = plot_h / ((hi - lo) or 1)
+    zero = top_pad + hi * k
+    step = w / len(shown)
+    bar = step * 0.56
+    marks = []
+    for i, r in enumerate(shown):
+        day, v = _day(r["metric_time__day"]), r["github_activity_change_wow"]
+        cls = "now" if day == release else "was"
+        x = i * step + (step - bar) / 2
+        cx = x + bar / 2
+        y, bh = (zero - v * k, v * k) if v >= 0 else (zero, -v * k)
+        ly = y - 10 if v >= 0 else y + bh + 24
+        marks.append(
+            f'<rect class="{cls}" x="{x:.1f}" y="{y:.1f}" width="{bar:.1f}" '
+            f'height="{max(bh, 1.5):.1f}"/>'
+            f'<text class="pct {cls}" x="{cx:.1f}" y="{ly:.1f}">{_signed(v)}%</text>'
+            f'<text class="d {cls}" x="{cx:.1f}" y="{h - 26}">{_short(day)}</text>'
+            f'<text class="n {cls}" x="{cx:.1f}" y="{h - 6}">'
+            f"{_millions(r['github_activity_count'])}</text>"
         )
-    return (
-        f'<div class="thu"><div class="cap">PRs opened, every {release:%A}</div>'
-        f'<div class="cols">{"".join(cols)}</div></div>'
+    svg = (
+        f'<svg class="wow" viewBox="0 0 {w} {h}" role="img" aria-label="{escape(label)}">'
+        f'{"".join(marks)}<line class="zero" x1="0" x2="{w}" y1="{zero:.1f}" y2="{zero:.1f}"/>'
+        f'<text class="zl" x="0" y="{zero - 6:.1f}">0%</text></svg>'
     )
+    return f'<div class="thu">{svg}</div>'
+
+
+def _github_mark() -> str:
+    """GitHub's mark, inlined so it takes the theme's ink. A third-party trademark: kept local in
+    brand/third-party/ (gitignored) and drawn only when present."""
+    path = ROOT / "brand" / "third-party" / "github-mark.svg"
+    if not path.exists():
+        return ""
+    svg = path.read_text().replace("<svg ", '<svg class="mark" fill="currentColor" ', 1)
+    return f'  <figure class="gh-mark" aria-label="GitHub">{svg}</figure>'
 
 
 def _significance() -> dict | None:
@@ -372,6 +402,11 @@ def github_card(png: bool) -> dict | None:
         if r["github_activity__activity"] != "prs_opened"
         and r["github_activity_change"] is not None
     )
+    # The release-day t-test, as one short line: context, never the headline.
+    test = data["significance"]
+    sig = ""
+    if test is not None:
+        sig = f" · t-test vs trend: p = {test['p_one_sided']:.2f}"
     body = f"""    <div class="hero">
       <div>
         <div class="big">{big}</div>
@@ -383,13 +418,12 @@ def github_card(png: bool) -> dict | None:
       <div class="gh-bottom">
         {_thursdays(series, release)}
         {_github_bars(rows, legend, f"{release:%a %-d %b}")}
-        <p class="gh-line">{escape(others)}, {escape(f"{release:%-d %b}")} vs
-        {escape(_short(first))}.</p>
+        <p class="gh-line">{escape(others)}{sig}</p>
       </div>
     </div>"""
-    aside = """  <figure class="aside">
+    aside = f"""  <figure class="aside">
     <img alt="Lucia and Jason, the two leads of GTA 6" src="../assets/gta-6-lucia-and-the-guy.jpg">
-  </figure>"""
+  </figure>{_github_mark()}"""
     for name, w, h, variant in (
         ("github-release-day", 1200, 630, "decimals github"),
         ("github-release-day-portrait", 720, 900, "portrait decimals github"),

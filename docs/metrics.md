@@ -9,7 +9,7 @@ semantic query.
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | Google Trends, US, weekly | live |
 | 2 | **GTA 5 to GTA 6** | How much more productive did the world get between the two launches? | World Bank WDI (world GDP per person employed and per capita, real), IMF WEO for 2026 | live |
 | 3 | **Everything humanity made while waiting** | How much did the world make between GTA 5 and GTA 6? | World Bank WDI (world GDP, real), IMF WEO for 2026, a seed of milestones | live (release day, Thu 19 Nov) |
-| 4 | **PRs opened on GitHub** | Did GitHub go quiet on release day? | GitHub Search API, `total_count` per UTC day: PRs opened, PRs merged, commits | Fri 20 Nov |
+| 4 | **PRs opened on GitHub** | Did GitHub go quiet on release day? | GitHub Search API, `total_count` per UTC day: PRs opened, PRs merged, commits | live (Fri 20 Nov) |
 | 5 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | Wikimedia `edits/aggregate` | after release |
 | 6 | **The recovery curve** | How many working days until output is back to normal? | Metrics 4–5, daily for two weeks | 30 Nov |
 

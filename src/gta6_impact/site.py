@@ -703,7 +703,14 @@ def build_site(summary: dict) -> None:
     description = (
         f"{streak_text}The combo breaker? US Google searches for skipping work "
         f"{summary['current_window']} vs {summary['prior_window']}: Day-Off Index {_pct(index)} "
-        f"({summary['breakdown']}). An open, reproducible study built with Dex."
+        f"({summary['breakdown']}). "
+        + (
+            f"The verdict: pull requests opened on GitHub on GTA 6 release day "
+            f"{_pct(g['github_release_day_change'])} against {g['baseline_label']}. "
+            if (g := _github(summary))
+            else ""
+        )
+        + "An open, reproducible study built with Dex."
     )
     html = PAGE.format(
         updated=dt.datetime.now(dt.UTC).strftime("%Y-%m-%d %H:%M UTC"),

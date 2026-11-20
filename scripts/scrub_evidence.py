@@ -26,7 +26,7 @@ def main(paths: list[str]) -> int:
         cleaned = scrub(original)
         if cleaned != original:
             path.write_text(cleaned)
-            print(f"scrubbed {path.relative_to(ROOT)}")
+            print(f"scrubbed {scrub(str(path.resolve()))}")
     return 0
 
 

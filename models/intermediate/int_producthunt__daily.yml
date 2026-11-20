@@ -1,0 +1,71 @@
+version: 2
+models:
+- name: int_producthunt__daily
+  description: 'Metric 5: Product Hunt launches and launch-day comments per Pacific day, one row per day per activity.'
+  config:
+    meta:
+      dex:
+        grain:
+          - launch_day
+          - activity
+        population:
+          rule: Every asked day in stg_producthunt__days, once per activity (launches, comments).
+        assumptions:
+          - decision: Which days exist
+            chosen: every day in stg_producthunt__days, crossed with both activities
+            evidence: precedent
+            detail: driven from the day roster so a day with no launches read keeps a row; fct_github_daily keeps every asked (day, activity) the same way
+            column: launch_day
+          - decision: What 'Product Hunt activity' counts
+            chosen: launches (count of posts launched) and comments; not points
+            evidence: request
+            detail: 'user: points is not a good metric; count of launches and total count of comments is'
+            column: activity
+          - decision: Which launches count
+            chosen: every post launched that day, featured or not
+            evidence: default
+            detail: the API's totalCount for the day; featured launches are ~3% of them (33 of 1,197 on 19 Nov) and stay in staging as is_featured
+            column: activity_count
+          - decision: A day not read in full
+            chosen: comments NULL; launches still the API's count
+            evidence: contract
+            detail: 'AGENTS.md: a NULL is unavailable, never zero'
+            column: activity_count
+  columns:
+  - name: launch_day
+    description: Pacific day.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity
+    description: launches or comments.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity_count
+    description: How many on the day. NULL when unavailable, never zero.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: comments NULL when the day was not read in full; never zero for unavailable.
+          aggregation: sum
+          additivity: additive
+          unit: count
+  - name: observed_at
+    description: When the day was asked for (UTC).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null

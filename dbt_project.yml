@@ -26,3 +26,5 @@ vars:
   github_release_day: '2026-11-19'
   github_baseline_weeks: 1
   github_test_min_fit_days: 21
+  producthunt_release_day: '2026-11-19'
+  producthunt_baseline_weeks: 1

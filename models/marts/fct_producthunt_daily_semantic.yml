@@ -1,0 +1,70 @@
+version: 2
+semantic_models:
+- name: fct_producthunt_daily
+  description: 'Metric 5: Product Hunt activity per Pacific day (launches, launch-day comments), one row
+    per day per activity. Never add counts across activities.'
+  model: ref('fct_producthunt_daily')
+  defaults:
+    agg_time_dimension: launch_day
+  entities:
+  - name: producthunt_day
+    type: primary
+    expr: producthunt_day_key
+    config: &id001
+      meta:
+        dex:
+          null_rule: never
+  dimensions:
+  - name: launch_day
+    type: time
+    description: Pacific day (Product Hunt's day).
+    type_params:
+      time_granularity: day
+    config: *id001
+  - name: activity
+    type: categorical
+    description: launches or comments.
+    config: *id001
+  - name: activity_label
+    type: categorical
+    description: Launches or Comments.
+    config: *id001
+  - name: is_release_day
+    type: categorical
+    description: True on GTA 6's release day.
+    config: *id001
+  - name: days_from_release
+    type: categorical
+    description: Days after release day (negative before).
+    config: *id001
+  measures:
+  - name: producthunt_activity_count_measure
+    agg: sum
+    expr: activity_count
+    description: How many on the day.
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: additive
+          null_rule: NULL when unavailable, never zero.
+  - name: producthunt_activity_wow_pct_change
+    agg: max
+    expr: wow_pct_change
+    description: The day against the same weekday a week earlier, in percent.
+    config:
+      meta:
+        dex:
+          unit: percent
+          additivity: non_additive
+          null_rule: NULL unless both days have a count.
+  - name: producthunt_activity_prior_week_count
+    agg: max
+    expr: prior_week_count
+    description: The same weekday a week earlier.
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: non_additive
+          null_rule: NULL when that day has no count.

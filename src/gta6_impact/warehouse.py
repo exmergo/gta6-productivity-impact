@@ -16,6 +16,8 @@ TABLES = {
     "trends": ("trends_interest", "request_id, geo, term, day", "pull_id desc"),
     "economy": ("economy_indicators", "provider, indicator, geo, year", "pull_id desc"),
     "github": ("github_daily_counts", "day, activity", "pull_id desc"),
+    "producthunt": ("producthunt_launches", "post_id", "pull_id desc"),
+    "producthunt_days": ("producthunt_days", "day", "pull_id desc"),
 }
 
 

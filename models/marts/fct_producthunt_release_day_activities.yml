@@ -1,0 +1,125 @@
+version: 2
+models:
+- name: fct_producthunt_release_day_activities
+  description: 'Metric 5 breakdown: release day against the same weekday in the weeks before (canonical: the Thursday before), one row per activity.'
+  config:
+    meta:
+      dex:
+        grain:
+          - activity
+        population:
+          rule: One row per activity present in fct_producthunt_daily, whether or not release day has been counted yet.
+        assumptions:
+          - decision: Which rows exist
+            chosen: one row per activity in fct_producthunt_daily (launches, comments); not a child of the GitHub marts Dex drafted as parent
+            evidence: precedent
+            detail: mirrors fct_github_release_day_activities, driven from its own daily mart
+            column: activity
+          - decision: What release day is compared with
+            chosen: the same weekday a week before (Thu 12 Nov 2026)
+            evidence: precedent
+            detail: Metric 4 (fct_github_release_day_activities) compares with the Thursday before; launch counts have a strong weekly cycle (818 on Sun 15 Nov vs 1,175 on Thu 12 Nov)
+            column: baseline_count
+          - decision: A baseline day without a count
+            chosen: change NULL
+            evidence: precedent
+            detail: fct_github_release_day_activities does the same
+            column: pct_change
+  columns:
+  - name: activity
+    description: launches or comments.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+      - unique
+      - not_null
+  - name: activity_label
+    description: Launches or Comments.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: release_day
+    description: GTA 6's release day (var producthunt_release_day).
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: baseline_weeks
+    description: How many same weekdays before release day form the baseline.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: baseline_start
+    description: First baseline day.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: baseline_end
+    description: Last baseline day (a week before release day).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: baseline_days_found
+    description: Baseline days with a count.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: days
+    data_tests:
+      - not_null
+  - name: baseline_count
+    description: Median count over the baseline days (the day itself when there is one).
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when no baseline day has a count.
+          aggregation: max
+          additivity: non_additive
+          unit: count
+  - name: release_day_count
+    description: Count on release day. NULL until the day is over and counted.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL until release day has ended and been counted.
+          aggregation: max
+          additivity: non_additive
+          unit: count
+  - name: pct_change
+    description: Release day against the baseline, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL unless release day and every baseline day have a count.
+          aggregation: max
+          additivity: non_additive
+          unit: percent

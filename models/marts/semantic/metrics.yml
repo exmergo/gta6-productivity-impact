@@ -237,3 +237,70 @@ metrics:
   type: simple
   type_params:
     measure: github_release_test_df
+
+- name: producthunt_launches_change
+  label: 'Product Hunt on GTA 6 release day: launches'
+  description: Metric 5 headline. Change, in percent, of products launched on Product Hunt on GTA 6's release
+    day (Thu 19 Nov 2026, a Pacific day, Product Hunt's own) against the Thursday before (12 Nov 2026).
+    Every launch counts, featured or not (the API's own count for the day). Report it with producthunt_comments_change,
+    or group by producthunt_release_day__breakdown.
+  type: simple
+  type_params:
+    measure: producthunt_launches_change_measure
+
+- name: producthunt_comments_change
+  label: 'Product Hunt on GTA 6 release day: comments'
+  description: 'Metric 5 headline. Change, in percent, of comments on Product Hunt launches on GTA 6''s
+    release day (Thu 19 Nov 2026, a Pacific day, Product Hunt''s own) against the Thursday before (12 Nov
+    2026): top-level comments written during the launch day on that day''s launches (replies left out),
+    so both days are counted at the same age. Report it with producthunt_launches_change.'
+  type: simple
+  type_params:
+    measure: producthunt_comments_change_measure
+
+- name: producthunt_activity_change
+  label: Product Hunt release day, change by activity
+  description: 'Metric 5 breakdown: one activity''s release-day count against the same weekday a week before,
+    in percent. Group by producthunt_activity__activity.'
+  type: simple
+  type_params:
+    measure: producthunt_activity_pct_change
+
+- name: producthunt_activity_release_day
+  label: Product Hunt activity on release day
+  description: Metric 5. An activity's count on release day (Pacific). Group by producthunt_activity__activity.
+  type: simple
+  type_params:
+    measure: producthunt_activity_release_day_count
+
+- name: producthunt_activity_baseline
+  label: Product Hunt activity on a normal day
+  description: Metric 5. An activity's count on the same weekday a week before release day. Group by producthunt_activity__activity.
+  type: simple
+  type_params:
+    measure: producthunt_activity_baseline_count
+
+- name: producthunt_activity_count
+  label: Product Hunt activity per day
+  description: 'Metric 5. Launches, or launch-day top-level comments on that day''s launches, per Pacific
+    day. Always group by producthunt_day__activity: never add across activities. NULL is unavailable, never
+    zero.'
+  type: simple
+  type_params:
+    measure: producthunt_activity_count_measure
+
+- name: producthunt_activity_change_wow
+  label: Product Hunt activity, change on the same weekday a week earlier
+  description: Metric 5. A day's count against the same weekday 7 days earlier, in percent, per activity.
+    Group by metric_time__day and producthunt_day__activity. NULL when either day is missing.
+  type: simple
+  type_params:
+    measure: producthunt_activity_wow_pct_change
+
+- name: producthunt_activity_count_week_before
+  label: Product Hunt activity, same weekday a week earlier
+  description: Metric 5. The count on the same weekday 7 days earlier, per activity. Group by metric_time__day
+    and producthunt_day__activity.
+  type: simple
+  type_params:
+    measure: producthunt_activity_prior_week_count

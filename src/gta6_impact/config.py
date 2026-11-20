@@ -92,3 +92,7 @@ GITHUB_ACTIVITIES = {
 }
 # Days asked for: the baseline Thursdays, release day and the two weeks after it (Metric 6).
 GITHUB_SPAN = (dt.date(2026, 10, 1), dt.date(2026, 12, 4))
+
+# Metric 5, Product Hunt. Pacific days (Product Hunt's own day): release day and the Thursday
+# before, nothing else. Each day costs ~60-100 API calls at 62 calls per 15 minutes.
+PRODUCTHUNT_DAYS = (dt.date(2026, 11, 12), dt.date(2026, 11, 19))

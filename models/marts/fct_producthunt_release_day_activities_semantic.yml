@@ -1,0 +1,74 @@
+version: 2
+semantic_models:
+- name: fct_producthunt_release_day_activities
+  description: 'Metric 5 breakdown: one row per activity, release day against the same weekday a week
+    before.'
+  model: ref('fct_producthunt_release_day_activities')
+  defaults:
+    agg_time_dimension: release_day
+  entities:
+  - name: producthunt_activity
+    type: primary
+    expr: activity
+    config: &id001
+      meta:
+        dex:
+          null_rule: never
+  dimensions:
+  - name: activity
+    type: categorical
+    description: launches or comments.
+    config: *id001
+  - name: activity_label
+    type: categorical
+    description: Launches or Comments.
+    config: *id001
+  - name: release_day
+    type: time
+    description: GTA 6's release day.
+    type_params:
+      time_granularity: day
+    config: *id001
+  - name: baseline_start
+    type: time
+    description: First baseline day.
+    type_params:
+      time_granularity: day
+    config: *id001
+  - name: baseline_end
+    type: time
+    description: Last baseline day.
+    type_params:
+      time_granularity: day
+    config: *id001
+  measures:
+  - name: producthunt_activity_pct_change
+    agg: max
+    expr: pct_change
+    description: Release day against the baseline, in percent.
+    config:
+      meta:
+        dex:
+          unit: percent
+          additivity: non_additive
+          null_rule: NULL unless release day and every baseline day have a count.
+  - name: producthunt_activity_release_day_count
+    agg: max
+    expr: release_day_count
+    description: Count on release day.
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: non_additive
+          null_rule: NULL until release day has ended and been counted.
+  - name: producthunt_activity_baseline_count
+    agg: max
+    expr: baseline_count
+    description: Count on the baseline day (median over baseline days).
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: non_additive
+          null_rule: NULL when no baseline day has a count.

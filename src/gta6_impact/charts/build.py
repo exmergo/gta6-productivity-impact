@@ -250,7 +250,7 @@ def _github_bars(rows: list[dict], prior: str, current: str) -> str:
     return "".join(out)
 
 
-def _thursdays(series: list[dict], release: dt.date) -> str:
+def _thursdays(series: list[dict], release: dt.date, h: int = 250) -> str:
     """PRs opened on every Thursday in the data, as the change on the Thursday before.
 
     The bars start at zero change, so a drop points down and every rise points up, at their
@@ -259,7 +259,7 @@ def _thursdays(series: list[dict], release: dt.date) -> str:
     """
     shown = [r for r in series if r["github_activity_change_wow"] is not None]
     label = f"PRs opened, each {release:%A} vs the {release:%A} before"
-    w, h = 632, 250
+    w = 632
     top_pad, label_h, foot_h = 28, 30, 56
     values = [r["github_activity_change_wow"] for r in shown]
     hi, lo = max(0.0, *values), min(0.0, *values)
@@ -410,13 +410,13 @@ def github_card(png: bool) -> dict | None:
     body = f"""    <div class="hero">
       <div>
         <div class="big">{big}</div>
-        <h1>PRs opened on GitHub on GTA 6 release day</h1>
+        <h1>PRs opened on GitHub<br class="pbr"> on GTA 6 release day</h1>
         <p class="fine">Pull requests opened on GitHub,
         <span class="nw">{release:%a %-d %b %Y}</span> vs
         <span class="nw">{escape(baseline)}</span>.<br>GTA 6 launched 19 Nov.</p>
       </div>
       <div class="gh-bottom">
-        {_thursdays(series, release)}
+        {{chart}}
         {_github_bars(rows, legend, f"{release:%a %-d %b}")}
         <p class="gh-line">{escape(others)}{sig}</p>
       </div>
@@ -424,14 +424,15 @@ def github_card(png: bool) -> dict | None:
     aside = f"""  <figure class="aside">
     <img alt="Lucia and Jason, the two leads of GTA 6" src="../assets/gta-6-lucia-and-the-guy.jpg">
   </figure>{_github_mark()}"""
-    for name, w, h, variant in (
-        ("github-release-day", 1200, 630, "decimals github"),
-        ("github-release-day-portrait", 720, 900, "portrait decimals github"),
+    # The 4:5 card is tall: its chart takes the height the landscape card has no room for.
+    for name, w, h, variant, chart_h in (
+        ("github-release-day", 1200, 630, "decimals github", 250),
+        ("github-release-day-portrait", 720, 900, "portrait decimals github", 312),
     ):
         _write(
             name,
             title="PRs opened on GTA 6 release day",
-            body=body,
+            body=body.replace("{chart}", _thursdays(series, release, chart_h)),
             aside=aside,
             source=GITHUB_SOURCE,
             w=w,

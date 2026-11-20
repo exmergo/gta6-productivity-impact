@@ -252,8 +252,8 @@ h1 .red { color: var(--dex-redline); }
   top: 40px; right: 64px; width: 250px; height: 250px; }
 .gh-mark svg { width: 100%; height: 100%; display: block; }
 .card.github .aside { top: 196px; right: 266px; width: 150px; height: 150px; }
-.card.portrait .gh-mark { top: 70px; right: 36px; width: 230px; height: 230px; }
-.card.portrait.github .aside { top: 18px; right: 250px; width: 150px; height: 150px; }
+.card.portrait .gh-mark { top: 120px; right: 28px; width: 230px; height: 230px; }
+.card.portrait.github .aside { top: 33px; right: 230px; width: 170px; height: 170px; }
 .card.portrait.github .big { margin-top: 26px; }
 .card.portrait.github .hero { justify-content: flex-start; }
 .card.portrait.github .gh-bottom { margin-top: auto; }
@@ -261,8 +261,11 @@ h1 .red { color: var(--dex-redline); }
 .gh-line { display: none; }
 .card.portrait .gh-bottom { grid-template-columns: 1fr; row-gap: 12px; }
 .card.portrait .gh-bottom .yoy { display: none; }
-.card.portrait .gh-line { display: block; margin: 0; font: 14px var(--font-mono); color: var(--dex-ink); }
+.card.portrait .gh-line { display: block; margin: 0; font: 14px var(--font-mono); color: var(--dex-ink-muted); }
 .card.portrait.github .hero h1 { margin-top: 52px; }
 .card.github:not(.portrait) .thu svg.wow { width: auto; height: 196px; max-width: 100%; }
 .card.github:not(.portrait) .gh-mark { top: 34px; right: 60px; width: 210px; height: 210px; }
 .card.github:not(.portrait) .aside { top: 40px; right: 290px; width: 150px; height: 150px; }
+/* Explicit line break used only on the 4:5 card */
+.pbr { display: none; }
+.card.portrait .pbr { display: inline; }

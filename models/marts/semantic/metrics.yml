@@ -144,11 +144,11 @@ metrics:
     measure: days_to_gta_6
 
 - name: github_release_day_change
-  label: GitHub on GTA 6 release day
-  description: 'Metric 4. Average change, in percent, of PRs opened, PRs merged and commits on GitHub on
-    GTA 6''s release day (Thu 19 Nov 2026, UTC) against the Thursday before (12 Nov 2026). -5 = GitHub 5%
-    quieter. Never report it alone: always with its breakdown (group by github_release_day__breakdown, or
-    query github_activity_change by github_activity__activity).'
+  label: 'GitHub on GTA 6 release day: PRs opened'
+  description: Metric 4 headline. Change, in percent, of pull requests opened on GitHub on GTA 6's release
+    day (Thu 19 Nov 2026, UTC) against the Thursday before (12 Nov 2026). -4 = 4% fewer PRs opened. Report
+    it with its breakdown (group by github_release_day__breakdown, or query github_activity_change by github_activity__activity),
+    which also gives PRs merged and commits.
   type: simple
   type_params:
     measure: github_release_day_change_measure

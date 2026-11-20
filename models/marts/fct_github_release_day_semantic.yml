@@ -1,8 +1,8 @@
 version: 2
 semantic_models:
 - name: fct_github_release_day
-  description: 'Metric 4 headline: the average of the activities'' release-day changes, one row per release
-    day, with its breakdown.'
+  description: 'Metric 4 headline: PRs opened on release day against the Thursday before, one row per
+    release day, with its breakdown (PRs opened, PRs merged, commits).'
   model: ref('fct_github_release_day')
   defaults:
     agg_time_dimension: release_day
@@ -10,44 +10,56 @@ semantic_models:
   - name: github_release_day
     type: primary
     expr: release_day_key
-    config: &id001
+    config:
       meta:
         dex:
           null_rule: never
   dimensions:
   - name: breakdown
     type: categorical
-    description: Every activity's change. Always report it with the headline.
-    config: *id001
+    description: Every activity's change. Report it with the headline.
+    config:
+      meta:
+        dex:
+          null_rule: never
   - name: release_day
     type: time
     description: GTA 6's release day.
     type_params:
       time_granularity: day
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   - name: baseline_start
     type: time
     description: First baseline day.
     type_params:
       time_granularity: day
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   - name: baseline_end
     type: time
     description: Last baseline day.
     type_params:
       time_granularity: day
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   measures:
   - name: github_release_day_change_measure
     agg: max
     expr: github_release_day_change
-    description: Average of the activities' release-day changes, in percent.
+    description: PRs opened's release-day change, in percent.
     config:
       meta:
         dex:
           unit: percent
           additivity: non_additive
-          null_rule: NULL until every activity has a change.
+          null_rule: NULL until PRs opened has a change.
   config:
     meta:
       dex:

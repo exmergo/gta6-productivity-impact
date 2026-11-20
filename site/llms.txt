@@ -24,7 +24,7 @@ World real output grew by about a quarter between GTA 5 (2013) and GTA 6 (2026):
 
 ### Did GitHub go quiet on GTA 6 release day?
 
-Yes. On Thursday 19 November 2026 (UTC), PRs opened, PRs merged and commits on GitHub were -3.2% on average against the Thursday before (12 Nov): PRs opened -3.7% (1.30 million against 1.35 million); PRs merged -2.5% (1.09 million against 1.12 million); Commits -3.4% (12.4 million against 12.9 million). GitHub Search API counts; a change on release day is association, not proof of cause.
+Yes. On Thursday 19 November 2026 (UTC), pull requests opened on GitHub were -3.7% against the Thursday before (12 Nov): PRs opened -3.7% (1.30 million against 1.35 million); PRs merged -2.5% (1.09 million against 1.12 million); Commits -3.4% (12.4 million against 12.9 million). GitHub Search API counts; a change on release day is association, not proof of cause.
 
 ### Are Americans searching for sick days more before GTA 6?
 

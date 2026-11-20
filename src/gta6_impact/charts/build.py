@@ -304,8 +304,8 @@ def github_card(png: bool) -> dict | None:
     body = f"""    <div class="hero">
       <div>
         <div class="big">{big}</div>
-        <h1>GitHub on GTA 6 release day (vs the week before)</h1>
-        <p class="fine">Average change in PRs opened, PRs merged and commits on GitHub,
+        <h1>PRs opened on GitHub on GTA 6 release day</h1>
+        <p class="fine">Pull requests opened on GitHub,
         <span class="nw">{release:%a %-d %b %Y}</span> vs
         <span class="nw">{escape(baseline)}</span>.<br>GTA 6 launched 19 Nov.</p>
       </div>
@@ -320,7 +320,7 @@ def github_card(png: bool) -> dict | None:
     ):
         _write(
             name,
-            title="GitHub on GTA 6 release day",
+            title="PRs opened on GTA 6 release day",
             body=body,
             aside=aside,
             source=GITHUB_SOURCE,

@@ -113,14 +113,15 @@ GitHub Search API's own counts.
   count.
 - **Release day**: Thursday 19 November 2026, 00:00 to 23:59:59 UTC (dbt var
   `github_release_day`).
-- **Baseline**: the average of the same weekday in the four weeks before (dbt var
-  `github_baseline_weeks`): Thursdays 22 Oct, 29 Oct, 5 Nov and 12 Nov 2026. GitHub has a
-  strong weekly cycle and grows year on year, so recent Thursdays are the like-for-like
-  control. No US holiday falls in the baseline (Thanksgiving is 26 Nov).
-- **Change**: release day over the baseline average, in percent, per activity. The headline is
-  the plain average of the three changes (counts differ tenfold between PRs and commits, so
-  changes are averaged, not counts), always shown with its breakdown. A missing or incomplete
-  count (GitHub's `incomplete_results`) is NULL, and any NULL leaves the change NULL.
+- **Baseline**: the Thursday before, 12 Nov 2026 (dbt var `github_baseline_weeks` = 1; more
+  weeks take the median of those weekdays). GitHub has a strong weekly cycle and grew fast
+  through the autumn (PRs opened on Thursdays: 1.15M on 22 Oct, 1.35M on 12 Nov), so the
+  nearest same weekday is the like-for-like control; commits also carry bulk-import spikes
+  (16.4M on 5 Nov). No US holiday falls on it.
+- **Change**: release day over the baseline, in percent, per activity. **The headline is PRs
+  opened**, the series' own question and the cleanest count (GitHub stamps the time a PR is
+  opened); PRs merged and commits sit beside it as the breakdown. A missing or incomplete count
+  (GitHub's `incomplete_results`) is NULL, and a NULL leaves that change NULL.
 - **Freshness**: daily counts keep moving slightly as GitHub indexes late arrivals and drops
   deleted ones (well under 0.1% of a day's count in the hours after it closes, measured on
   19 Nov), so days are re-asked for three days and the newest pull wins.
@@ -128,6 +129,15 @@ GitHub Search API's own counts.
 Limits: public activity GitHub's search can see, not all of software. Commit search counts
 commits on default branches by their committer date, which the committer's machine sets. A drop
 lines up with release day; it is association, not proof of cause.
+
+**PRs opened: −3.7%** on Thu 19 Nov 2026 against Thu 12 Nov (UTC days). Since counting began
+(1 Oct), every earlier Thursday had more PRs opened than the one before it (+0.2% to +12.8%).
+
+| GitHub | Thu 12 Nov | Thu 19 Nov | Change |
+|---|---|---|---|
+| PRs opened | 1,350,958 | 1,301,341 | **−3.7%** |
+| PRs merged | 1,121,476 | 1,093,112 | −2.5% |
+| Commits | 12,866,079 | 12,429,627 | −3.4% |
 
 Ask it: `uv run dex explore semantic query github_release_day_change --group-by
 github_release_day__breakdown` and `uv run dex explore semantic query

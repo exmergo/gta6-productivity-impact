@@ -375,24 +375,28 @@ def _github_section(summary: dict) -> str:
         f"<td class='num'>{r['github_activity_release_day']:,.0f}</td>"
         f"<td class='num'>{_pct(r['github_activity_change'])}</td></tr>"
         for r in g["activities"]
-    ) + (
-        "<tr><td><b>Average change</b></td><td></td><td></td>"
-        f"<td class='num'><b>{_pct(change)}</b></td></tr>"
+    )
+    head = next(r for r in g["activities"] if r["github_activity__activity"] == "prs_opened")
+    others = ", ".join(
+        f"{r['label']} {_pct(r['github_activity_change'])}"
+        for r in g["activities"]
+        if r is not head
     )
     name = "github-release-day"
     alt = (
-        f"GitHub on GTA 6 release day: {_pct(change)} on average against "
+        f"PRs opened on GitHub on GTA 6 release day: {_pct(change)} against "
         f"{g['baseline_label']}. {_github_parts(g)}."
     )
     return f"""<h2>The verdict: GitHub {went} on release day</h2>
 <p class="lede">GitHub's own search counts, {release:%A} {release:%-d %B %Y} (UTC) against
 {escape(g["baseline_label"])}.
-{escape(_github_parts(g))}. The average of the three: <b>{_pct(change)}</b>.</p>
+Pull requests opened: <b>{_pct(change)}</b> ({_count(head["github_activity_release_day"])}
+against {_count(head["github_activity_baseline"])}). Beside it: {escape(others)}.</p>
 <figure><img src="charts/png/{name}-light.png" data-dark="charts/png/{name}-dark.png"
 alt="{escape(alt)}" loading="lazy"><figcaption>GitHub on GTA 6 release day ·
 <a href="charts/data/{name}.json">data</a></figcaption></figure>
 <div class="wrap"><table>
-<thead><tr><th>GitHub, public</th><th class="num">{escape(g["baseline_legend"])}</th><th class="num">{release:%-d %b}</th><th class="num">Change</th></tr></thead>
+<thead><tr><th>GitHub</th><th class="num">{escape(g["baseline_legend"])}</th><th class="num">{release:%-d %b}</th><th class="num">Change</th></tr></thead>
 <tbody>{rows}</tbody>
 </table></div>
 <p class="lede">Wikipedia edits and the recovery curve are next in
@@ -453,8 +457,8 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
             (
                 "Did GitHub go quiet on GTA 6 release day?",
                 f"{'Yes' if change < 0 else 'No'}. On {release:%A} {release:%-d %B %Y} (UTC), "
-                f"PRs opened, PRs merged and commits on GitHub were {_pct(change)} on average "
-                f"against {g['baseline_label']}: {_github_parts(g)}. GitHub Search "
+                f"pull requests opened on GitHub were {_pct(change)} against "
+                f"{g['baseline_label']}: {_github_parts(g)}. GitHub Search "
                 "API counts; a change on release day is association, not proof of cause.",
             ),
         )

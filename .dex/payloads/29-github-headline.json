@@ -1,0 +1,94 @@
+{
+ "edits": [
+  {
+   "path": "models/marts/fct_github_release_day.sql",
+   "kind": "model_sql",
+   "content": "-- Metric 4 headline: PRs opened on release day against the Thursday before, in percent, one\n-- row per release day. It carries its breakdown: `breakdown` spells out every activity's\n-- change (PRs opened, PRs merged, commits), so the headline is never read without it.\nselect\n    cast(release_day as varchar) as release_day_key,\n    min(release_day) as release_day,\n    min(baseline_start) as baseline_start,\n    min(baseline_end) as baseline_end,\n    min(baseline_weeks) as baseline_weeks,\n    count(*) as activities_total,\n    count(pct_change) as activities_available,\n    max(pct_change) filter (where activity = 'prs_opened') as github_release_day_change,\n    string_agg(\n        activity_label || ' ' || coalesce(printf('%+.1f%%', pct_change), 'not yet available'),\n        ' · ' order by activity desc\n    ) as breakdown\nfrom {{ ref('fct_github_release_day_activities') }}\ngroup by release_day\n"
+  },
+  {
+   "path": "models/marts/fct_github_release_day.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\nmodels:\n- name: fct_github_release_day\n  description: 'Metric 4 headline: PRs opened on release day against the Thursday before, one row per\n    release day, with its breakdown.'\n  config:\n    meta:\n      dex:\n        grain:\n        - release_day_key\n        population:\n          rule: One row for the configured release day (var github_release_day).\n        assumptions:\n        - decision: What the headline is\n          chosen: PRs opened's release-day change (no longer the average of the three)\n          evidence: request\n          column: github_release_day_change\n          detail: 'user, 20 Nov: no average, just a headline; PRs opened is the biggest number, use that\n            one'\n        - decision: Another activity not yet available\n          chosen: headline still shown; the breakdown says which is missing\n          evidence: request\n          column: github_release_day_change\n          detail: the headline reads only PRs opened\n  columns:\n  - name: release_day_key\n    description: 'Release day as text: the row''s key.'\n    config:\n      meta:\n        dex:\n          role: key\n          null_rule: never\n    data_tests:\n    - unique\n    - not_null\n  - name: release_day\n    description: GTA 6's release day.\n    config:\n      meta:\n        dex:\n          role: time\n          null_rule: never\n    data_tests:\n    - not_null\n  - name: baseline_start\n    description: First baseline day.\n    config:\n      meta:\n        dex:\n          role: attribute\n          null_rule: never\n    data_tests:\n    - not_null\n  - name: baseline_end\n    description: Last baseline day.\n    config:\n      meta:\n        dex:\n          role: attribute\n          null_rule: never\n    data_tests:\n    - not_null\n  - name: baseline_weeks\n    description: Baseline days (same weekday, weeks before).\n    config:\n      meta:\n        dex:\n          role: attribute\n          null_rule: never\n    data_tests:\n    - not_null\n  - name: activities_total\n    description: Activities in the breakdown.\n    config:\n      meta:\n        dex:\n          role: measure\n          null_rule: never\n          aggregation: max\n          additivity: non_additive\n          unit: count\n    data_tests:\n    - not_null\n  - name: activities_available\n    description: Activities with a change.\n    config:\n      meta:\n        dex:\n          role: measure\n          null_rule: never\n          aggregation: max\n          additivity: non_additive\n          unit: count\n    data_tests:\n    - not_null\n  - name: github_release_day_change\n    description: PRs opened's release-day change, in percent.\n    config:\n      meta:\n        dex:\n          role: measure\n          null_rule: NULL until PRs opened has a change.\n          aggregation: max\n          additivity: non_additive\n          unit: percent\n  - name: breakdown\n    description: Every activity's change. Always report it with the headline.\n    config:\n      meta:\n        dex:\n          role: attribute\n          null_rule: never\n    data_tests:\n    - not_null\nunit_tests:\n- name: github_headline_is_prs_opened\n  description: The headline is PRs opened's change, not an average; the breakdown spells out every activity.\n  model: fct_github_release_day\n  given:\n  - input: ref('fct_github_release_day_activities')\n    rows:\n    - activity: prs_opened\n      activity_label: PRs opened\n      release_day: '2026-11-19'\n      baseline_start: '2026-11-12'\n      baseline_end: '2026-11-12'\n      baseline_weeks: 1\n      pct_change: -10.0\n    - activity: prs_merged\n      activity_label: PRs merged\n      release_day: '2026-11-19'\n      baseline_start: '2026-11-12'\n      baseline_end: '2026-11-12'\n      baseline_weeks: 1\n      pct_change: -5.0\n    - activity: commits\n      activity_label: Commits\n      release_day: '2026-11-19'\n      baseline_start: '2026-11-12'\n      baseline_end: '2026-11-12'\n      baseline_weeks: 1\n      pct_change: 3.0\n  expect:\n    rows:\n    - release_day_key: '2026-11-19'\n      activities_total: 3\n      activities_available: 3\n      github_release_day_change: -10.0\n      breakdown: PRs opened -10.0% · PRs merged -5.0% · Commits +3.0%\n- name: github_headline_stands_when_another_activity_is_missing\n  description: A missing commit count does not hide the PRs opened headline.\n  model: fct_github_release_day\n  given:\n  - input: ref('fct_github_release_day_activities')\n    rows:\n    - activity: prs_opened\n      activity_label: PRs opened\n      release_day: '2026-11-19'\n      baseline_start: '2026-11-12'\n      baseline_end: '2026-11-12'\n      baseline_weeks: 1\n      pct_change: -10.0\n    - activity: commits\n      activity_label: Commits\n      release_day: '2026-11-19'\n      baseline_start: '2026-11-12'\n      baseline_end: '2026-11-12'\n      baseline_weeks: 1\n      pct_change: null\n  expect:\n    rows:\n    - activities_available: 1\n      github_release_day_change: -10.0\n      breakdown: PRs opened -10.0% · Commits not yet available\n- name: github_headline_null_until_prs_opened_counted\n  description: Before PRs opened is counted the headline is NULL, whatever else is in.\n  model: fct_github_release_day\n  given:\n  - input: ref('fct_github_release_day_activities')\n    rows:\n    - activity: prs_opened\n      activity_label: PRs opened\n      release_day: '2026-11-19'\n      baseline_start: '2026-11-12'\n      baseline_end: '2026-11-12'\n      baseline_weeks: 1\n      pct_change: null\n    - activity: commits\n      activity_label: Commits\n      release_day: '2026-11-19'\n      baseline_start: '2026-11-12'\n      baseline_end: '2026-11-12'\n      baseline_weeks: 1\n      pct_change: 3.0\n  expect:\n    rows:\n    - github_release_day_change: null\n"
+  },
+  {
+   "path": "data_tests/assert_github_release_day_has_breakdown.sql",
+   "kind": "test_sql",
+   "content": "-- The GitHub release-day headline never travels without its breakdown.\nselect *\nfrom {{ ref('fct_github_release_day') }}\nwhere github_release_day_change is not null\n    and breakdown is null\n"
+  }
+ ],
+ "declarations": [
+  {
+   "model": "fct_github_release_day",
+   "description": "Metric 4 headline: PRs opened on release day against the Thursday before, one row per release day, with its breakdown.",
+   "grain": [
+    "release_day_key"
+   ],
+   "population": {
+    "rule": "One row for the configured release day (var github_release_day)."
+   },
+   "columns": {
+    "release_day_key": {
+     "role": "key",
+     "null_rule": "never"
+    },
+    "release_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "baseline_start": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "baseline_end": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "baseline_weeks": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "activities_total": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "activities_available": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "github_release_day_change": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "percent",
+     "null_rule": "NULL until PRs opened has a change."
+    },
+    "breakdown": {
+     "role": "attribute",
+     "null_rule": "never"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "What the headline is",
+     "chosen": "PRs opened's release-day change (no longer the average of the three)",
+     "evidence": "request",
+     "column": "github_release_day_change",
+     "detail": "user, 20 Nov: no average, just a headline; PRs opened is the biggest number, use that one"
+    },
+    {
+     "decision": "Another activity not yet available",
+     "chosen": "headline still shown; the breakdown says which is missing",
+     "evidence": "request",
+     "column": "github_release_day_change",
+     "detail": "the headline reads only PRs opened"
+    }
+   ]
+  }
+ ]
+}

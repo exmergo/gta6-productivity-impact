@@ -90,10 +90,37 @@ against the same weeks last year.
 Weekly Google Trends interest (0–100), one request per phrase covering both years, so both
 years sit on one scale.
 
-Whether the streak actually breaks shows up after release: GitHub pull requests, Wikipedia
-edits and the recovery curve are next in [the series](#the-series). Every number in this repo
-comes out of a dbt project and a semantic layer that [Dex](https://trydex.ai) wrote, tested
-and checks every day. The joke is GTA. The method is real.
+Planning the day off is one thing. Whether the streak actually breaks shows up on release day
+itself, so we asked the place where the world's software gets made.
+
+## The verdict: GitHub went quiet on release day
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/56de4739b5c7d39fe56607dc9f01271c71beeec8/charts/png/github-release-day-dark.png">
+  <img alt="PRs opened on GitHub on GTA 6 release day: −3.7% against the Thursday before. Each Thursday from 8 Oct to 12 Nov had more PRs opened than the one before it; Thursday 19 Nov had fewer. PRs merged −2.5%, commits −3.4%." src="https://raw.githubusercontent.com/exmergo/gta6-productivity-impact/56de4739b5c7d39fe56607dc9f01271c71beeec8/charts/png/github-release-day-light.png">
+</picture>
+
+**Pull requests opened on GitHub: −3.7% on GTA 6 release day.** Thursday 19 November 2026
+(UTC) against the Thursday before, 12 November: 1.30 million against 1.35 million.
+
+Every Thursday from 8 October to 12 November had more PRs opened than the one before it, six in
+a row. Release day had fewer.
+
+| GitHub | Thu 12 Nov | Thu 19 Nov | Change |
+|---|---|---|---|
+| PRs opened | 1,350,958 | 1,301,341 | **−3.7%** |
+| PRs merged | 1,121,476 | 1,093,112 | **−2.5%** |
+| Commits | 12,866,079 | 12,429,627 | **−3.4%** |
+
+GitHub Search API counts of public activity, per UTC day. For the curious: taking GitHub's growth
+and its weekly rhythm into account, release day should have seen about 1.41 million PRs opened.
+It saw 1.30 million, 7.4% fewer. That shortfall is statistically significant (one-sided t-test,
+p = 0.04): on an ordinary day, a gap this big would turn up about 4 times in 100. It lines up with
+GTA 6; it doesn't prove GTA 6 caused it. Details in [docs/metrics.md](docs/metrics.md#4-prs-opened-on-github).
+
+Wikipedia edits and the recovery curve are next in [the series](#the-series). Every number in
+this repo comes out of a dbt project and a semantic layer that [Dex](https://trydex.ai) wrote,
+tested and checks every day. The joke is GTA. The method is real.
 
 ## How we measured a vibe
 
@@ -138,6 +165,17 @@ since GTA 5 by the day before it.
 **Did the world get more productive between GTA 5 and GTA 6?**
 Yes. World real GDP per person rose 26%, from $9,811 in 2013 to $12,394 in 2026 (2026 is an
 estimate from the IMF's growth forecast). It rose every year except 2020.
+
+**Did GitHub go quiet on GTA 6 release day?**
+Yes. On Thursday 19 November 2026 (UTC), pull requests opened on GitHub were −3.7% against the
+Thursday before (1.30 million against 1.35 million). PRs merged −2.5%, commits −3.4%. GitHub
+Search API counts; a change on release day is association, not proof of cause.
+
+**Is the drop statistically significant?**
+Taking GitHub's growth and its weekly rhythm into account, release day should have seen
+about 1.41 million PRs opened. It saw 1.30 million, 7.4% fewer. That shortfall is statistically
+significant (one-sided t-test, p = 0.04): on an ordinary day, a gap this big would turn up about
+4 times in 100.
 
 **Are Americans searching for sick days more before GTA 6?**
 Yes. US Google searches for skipping work were up 50% on average, 1–14 Nov 2026 against 2–15
@@ -214,6 +252,11 @@ uv run dex explore semantic query day_off_index --group-by day_off_index_window_
 uv run dex explore semantic query day_off_index_term_change,day_off_index_term_prior,day_off_index_term_current \
   --group-by day_off_index_term__term
 
+# GitHub on release day, always with its breakdown
+uv run dex explore semantic query github_release_day_change --group-by github_release_day__breakdown
+uv run dex explore semantic query github_activity_change,github_activity_baseline,github_activity_release_day \
+  --group-by github_activity__activity
+
 # The lead-up, by day and source
 uv run dex explore semantic query gta_share_of_day_off_talk \
   --group-by metric_time__day,signal_day__source
@@ -255,7 +298,7 @@ The streak holds or breaks over the next two weeks, one metric at a time:
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | live |
 | 2 | **GTA 5 to GTA 6** | How much more productive did the world get between the two launches? | live |
 | 3 | **Everything humanity made while waiting** | How much did the world make between GTA 5 and GTA 6? | **live, Thu 19 Nov (release day)** |
-| 4 | **PRs opened on GitHub** | Did GitHub go quiet on release day? | Fri 20 Nov |
+| 4 | **PRs opened on GitHub** | Did GitHub go quiet on release day? | **live, Fri 20 Nov: −3.7%** |
 | 5 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | after release |
 | 6 | **The recovery curve** | How many working days until output is back to normal? | 30 Nov |
 

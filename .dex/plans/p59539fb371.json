@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "plan_id": "p59539fb371",
+  "created_at": "2026-11-20T10:12:20.338139+00:00",
+  "intent": "Metric 4 context: semantic model for the release-day t-test",
+  "project_dir": ".",
+  "edit_target": "project",
+  "edits": [
+    {
+      "path": "models/marts/fct_github_release_day_test_semantic.yml",
+      "new_content": "version: 2\nsemantic_models:\n- name: fct_github_release_day_test\n  description: 'Metric 4 context: is release day''s drop bigger than chance? One row per activity: release\n    day against the weekday-and-trend prediction from the days before it (one-sided t-test).'\n  model: ref('fct_github_release_day_test')\n  defaults:\n    agg_time_dimension: release_day\n  entities:\n  - name: github_release_test\n    type: primary\n    expr: activity\n    config: &id001\n      meta:\n        dex:\n          null_rule: never\n  dimensions:\n  - name: activity\n    type: categorical\n    description: prs_opened, prs_merged or commits.\n    config: *id001\n  - name: release_day\n    type: time\n    type_params:\n      time_granularity: day\n    description: GTA 6's release day.\n    config: *id001\n  measures:\n  - name: github_release_test_expected\n    agg: max\n    expr: expected_count\n    description: Release day as predicted from the days before it.\n    config:\n      meta:\n        dex:\n          unit: count\n          additivity: non_additive\n          null_rule: NULL while there is no trend yet.\n  - name: github_release_test_pct_vs_expected\n    agg: max\n    expr: pct_vs_expected\n    description: Release day against its prediction, in percent.\n    config:\n      meta:\n        dex:\n          unit: percent\n          additivity: non_additive\n          null_rule: NULL while there is no trend yet.\n  - name: github_release_test_t\n    agg: max\n    expr: t_stat\n    description: 'Test statistic: the gap in prediction standard errors.'\n    config:\n      meta:\n        dex:\n          unit: standard errors\n          additivity: non_additive\n          null_rule: NULL under the minimum history.\n  - name: github_release_test_df\n    agg: max\n    expr: df\n    description: Degrees of freedom of the t-test.\n    config:\n      meta:\n        dex:\n          unit: count\n          additivity: non_additive\n          null_rule: never\n",
+      "old_content_hash": null,
+      "op": "upsert",
+      "kind": "semantic_yml"
+    }
+  ],
+  "applied_at": "2026-11-20T10:12:20.843800+00:00",
+  "refactor_models": null,
+  "refactor_baseline_ready": null,
+  "comparisons": {},
+  "identifier_conversions": null,
+  "change_scope": null,
+  "population_acceptance": null,
+  "repair": null,
+  "baseline_sources": null,
+  "retirement": null,
+  "toggle": null
+}

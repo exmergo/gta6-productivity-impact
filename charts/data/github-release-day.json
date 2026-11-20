@@ -73,5 +73,13 @@
    "github_activity_count": 1301341,
    "github_activity_change_wow": -3.672727057391867
   }
- ]
+ ],
+ "significance": {
+  "activity": "prs_opened",
+  "expected_count": 1405972.3559205933,
+  "pct_vs_expected": -7.441921278180641,
+  "t_stat": -1.7871116955753958,
+  "df": 41,
+  "p_one_sided": 0.04065699951441675
+ }
 }

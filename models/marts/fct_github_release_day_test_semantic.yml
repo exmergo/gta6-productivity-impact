@@ -1,0 +1,68 @@
+version: 2
+semantic_models:
+- name: fct_github_release_day_test
+  description: 'Metric 4 context: is release day''s drop bigger than chance? One row per activity: release
+    day against the weekday-and-trend prediction from the days before it (one-sided t-test).'
+  model: ref('fct_github_release_day_test')
+  defaults:
+    agg_time_dimension: release_day
+  entities:
+  - name: github_release_test
+    type: primary
+    expr: activity
+    config: &id001
+      meta:
+        dex:
+          null_rule: never
+  dimensions:
+  - name: activity
+    type: categorical
+    description: prs_opened, prs_merged or commits.
+    config: *id001
+  - name: release_day
+    type: time
+    type_params:
+      time_granularity: day
+    description: GTA 6's release day.
+    config: *id001
+  measures:
+  - name: github_release_test_expected
+    agg: max
+    expr: expected_count
+    description: Release day as predicted from the days before it.
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: non_additive
+          null_rule: NULL while there is no trend yet.
+  - name: github_release_test_pct_vs_expected
+    agg: max
+    expr: pct_vs_expected
+    description: Release day against its prediction, in percent.
+    config:
+      meta:
+        dex:
+          unit: percent
+          additivity: non_additive
+          null_rule: NULL while there is no trend yet.
+  - name: github_release_test_t
+    agg: max
+    expr: t_stat
+    description: 'Test statistic: the gap in prediction standard errors.'
+    config:
+      meta:
+        dex:
+          unit: standard errors
+          additivity: non_additive
+          null_rule: NULL under the minimum history.
+  - name: github_release_test_df
+    agg: max
+    expr: df
+    description: Degrees of freedom of the t-test.
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: non_additive
+          null_rule: never

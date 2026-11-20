@@ -148,6 +148,19 @@ The Thursdays before it, PRs opened against the week before (`github_activity_ch
 Six Thursdays in a row up, then release day down. PRs merged follow the same pattern; commits
 swing too much week to week (−85% to +89%) to read a pattern from.
 
+**Is the drop statistically significant?** Yes. Taking GitHub's growth and its weekly rhythm
+into account, release day should have seen about 1.41 million PRs opened; it saw 1.30 million,
+7.4% fewer. One-sided t-test: t = −1.79, 41 degrees of freedom, **p = 0.04**.
+
+- Model: log(PRs opened per day) = a level per weekday + one linear trend, fitted on every UTC day
+  from 1 Oct to 18 Nov 2026 (49 days), then used to predict 19 Nov. The model was fixed before
+  the result was computed.
+- Test statistic: the gap between observed and predicted (in logs) over the prediction's
+  standard error. p is the Student t lower tail (`src/gta6_impact/stats.py`).
+- Ask it: `uv run dex explore semantic query github_release_day_expected,github_release_day_vs_expected,github_release_day_t,github_release_day_df
+  --group-by github_release_test__activity`. Models: `fct_github_day_surprise` and
+  `fct_github_release_day_test`; the SQL regression matches an independent numpy fit exactly.
+
 Ask it: `uv run dex explore semantic query github_release_day_change --group-by
 github_release_day__breakdown` and `uv run dex explore semantic query
 github_activity_change,github_activity_baseline,github_activity_release_day --group-by

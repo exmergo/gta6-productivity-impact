@@ -1,0 +1,242 @@
+version: 2
+models:
+- name: fct_github_day_surprise
+  description: 'Metric 4 backup: each counted day against the weekday-and-trend prediction from the days before it. One row per activity per day up to release day with a same-weekday day before it; release day is one row, the rest are placebos.'
+  config:
+    meta:
+      dex:
+        grain:
+          - activity
+          - candidate_date
+        population:
+          rule: Every counted day up to release day with at least one earlier day on the same weekday (the first week cannot be predicted); days after release day and days without a count are not candidates.
+        assumptions:
+          - decision: What 'normal' release day would have been
+            chosen: log(count) = weekday level + linear trend, fitted on every counted day before the candidate; one-sided t on the prediction error
+            evidence: request
+            detail: 'user, 20 Nov: a formal hypothesis test that the drop is significant; the model was fixed before the result was computed: weekday levels for the weekly cycle, a trend for GitHub''s growth, logs so changes are relative'
+            column: t_stat
+          - decision: Placebos
+            chosen: the same test on every earlier day with >= 21 days of history
+            evidence: default
+            detail: 'an empirical check that does not lean on the t distribution: how often an ordinary day lands this far below its prediction'
+            column: is_release_day
+          - decision: Which days are candidates
+            chosen: counted days up to release day with an earlier same-weekday day; the first week, later days and uncounted days are left out
+            evidence: request
+            detail: 'user, 20 Nov: test 19 Nov against what came before it; a day with nothing before it cannot be predicted, and a day after release is not a placebo'
+            column: candidate_date
+  columns:
+  - name: github_surprise_key
+    description: md5 of activity|candidate day.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity
+    description: prs_opened, prs_merged or commits.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: candidate_date
+    description: The day scored.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: is_release_day
+    description: True on GTA 6's release day; every other row is a placebo.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: fit_days
+    description: Counted days before the candidate the model was fitted on.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: days
+    data_tests:
+      - not_null
+  - name: df
+    description: 'Degrees of freedom: fit days - weekdays - 1.'
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: daily_trend
+    description: Fitted trend, log points per day.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL while every weekday has a single day (no trend yet).
+          aggregation: max
+          additivity: non_additive
+          unit: log points per day
+  - name: expected_count
+    description: What the days before predict for the candidate.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL while there is no trend yet.
+          aggregation: max
+          additivity: non_additive
+          unit: count
+  - name: observed_count
+    description: The candidate's count.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: pct_vs_expected
+    description: Observed against expected, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL while there is no trend yet.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+  - name: t_stat
+    description: Gap in prediction standard errors. NULL with under the minimum history.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL under the minimum history or df < 5.
+          aggregation: max
+          additivity: non_additive
+          unit: standard errors
+unit_tests:
+- name: github_surprise_fits_only_on_earlier_days
+  description: 'Each candidate is fitted on the days before it only: a later day never enters, and history
+    under the minimum leaves t NULL.'
+  model: fct_github_day_surprise
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+      github_test_min_fit_days: 7
+  given:
+  - input: ref('fct_github_daily')
+    rows:
+    - activity: prs_opened
+      activity_date: '2026-10-22'
+      activity_count: 1000
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-10-29'
+      activity_count: 1010
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-11-05'
+      activity_count: 1020
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-11-12'
+      activity_count: 1030
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-10-21'
+      activity_count: 900
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-10-28'
+      activity_count: 912
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-11-04'
+      activity_count: 914
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-11-11'
+      activity_count: 926
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-11-18'
+      activity_count: 928
+      is_release_day: false
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-11-19'
+      activity_count: 800
+      is_release_day: true
+      wow_pct_change: null
+    - activity: prs_opened
+      activity_date: '2026-11-20'
+      activity_count: 99999
+      is_release_day: false
+      wow_pct_change: null
+  expect:
+    rows:
+    - candidate_date: '2026-11-19'
+      is_release_day: true
+      fit_days: 9
+      df: 6
+    - candidate_date: '2026-11-18'
+      is_release_day: false
+      fit_days: 8
+      df: 5
+    - candidate_date: '2026-11-12'
+      is_release_day: false
+      fit_days: 7
+      df: 4
+    - candidate_date: '2026-11-11'
+      is_release_day: false
+      fit_days: 6
+      df: 3
+    - candidate_date: '2026-11-05'
+      is_release_day: false
+      fit_days: 5
+      df: 2
+    - candidate_date: '2026-11-04'
+      is_release_day: false
+      fit_days: 4
+      df: 1
+    - candidate_date: '2026-10-29'
+      is_release_day: false
+      fit_days: 3
+      df: 0
+    - candidate_date: '2026-10-28'
+      is_release_day: false
+      fit_days: 2
+      df: -1

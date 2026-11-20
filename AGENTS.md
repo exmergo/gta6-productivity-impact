@@ -26,6 +26,9 @@ Every number must come out of the dbt project and its semantic layer.
    and `github_day__activity`; never add across activities. Week on week (the same weekday
    7 days earlier) is `github_activity_change_wow` and `github_activity_count_week_before`;
    pick Thursdays with `github_day__days_from_release % 7 = 0` (`weekday_name` is PII-flagged).
+   Context for the curious, never the headline: the release-day t-test
+   (`github_release_day_expected`, `github_release_day_vs_expected`, `github_release_day_t`,
+   `github_release_day_df` by `github_release_test__activity`; p from `gta6_impact.stats`).
 2. Query it with `uv run dex explore semantic query <metrics> --group-by ...`. Never answer
    from raw SQL when a metric exists, and never add `signal_value` across signals or sources.
 3. **Never report `day_off_index` without its breakdown**: group it by

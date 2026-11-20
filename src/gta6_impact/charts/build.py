@@ -272,6 +272,34 @@ def _thursdays(series: list[dict], release: dt.date) -> str:
     )
 
 
+def _significance() -> dict | None:
+    """The release-day t-test for PRs opened (context, not the headline): release day against
+    GitHub's trend and weekly rhythm, from the semantic layer; p is the one-sided t tail."""
+    from gta6_impact.stats import t_lower_tail
+
+    rows = query(
+        [
+            "github_release_day_expected",
+            "github_release_day_vs_expected",
+            "github_release_day_t",
+            "github_release_day_df",
+        ],
+        ["github_release_test__activity"],
+        where="{{ Dimension('github_release_test__activity') }} = 'prs_opened'",
+    )
+    if not rows or rows[0]["github_release_day_t"] is None:
+        return None
+    r = rows[0]
+    return {
+        "activity": "prs_opened",
+        "expected_count": r["github_release_day_expected"],
+        "pct_vs_expected": r["github_release_day_vs_expected"],
+        "t_stat": r["github_release_day_t"],
+        "df": r["github_release_day_df"],
+        "p_one_sided": t_lower_tail(r["github_release_day_t"], r["github_release_day_df"]),
+    }
+
+
 def github_card(png: bool) -> dict | None:
     """Metric 4: GitHub on release day, with its breakdown on the same card. Drawn only once
     release day has been counted: a half-day count is not a count."""
@@ -332,6 +360,7 @@ def github_card(png: bool) -> dict | None:
         "baseline_legend": legend,
         "activities": rows,
         "thursdays": series,
+        "significance": _significance(),
     }
     if change is None:
         return data

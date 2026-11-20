@@ -384,6 +384,33 @@ def _thursday_run(g: dict) -> str:
     )
 
 
+def _significance_text(g: dict) -> str:
+    """One plain sentence for the curious: release day against its prediction, and the test."""
+    s = g.get("significance")
+    if not s or s["pct_vs_expected"] >= 0:
+        return ""
+    p = s["p_one_sided"]
+    observed = next(
+        r["github_activity_release_day"]
+        for r in g["activities"]
+        if r["github_activity__activity"] == s["activity"]
+    )
+    verdict = "statistically significant" if p < 0.05 else "not statistically significant"
+    return (
+        f"Taking GitHub's growth and its weekly rhythm into account, release day should have "
+        f"seen about {_count(s['expected_count'])} PRs opened. It saw "
+        f"{_count(observed)}: "
+        f"{abs(s['pct_vs_expected']):.1f}% fewer. That shortfall is {verdict} "
+        f"(one-sided t-test, p = {p:.2f}): on an ordinary day, a gap this big would turn up "
+        f"about {round(100 * p)} times in 100."
+    )
+
+
+def _significance_line(g: dict) -> str:
+    text = _significance_text(g)
+    return f'\n<p class="lede">{escape(text)}</p>' if text else ""
+
+
 def _github_section(summary: dict) -> str:
     g = _github(summary)
     if not g:
@@ -414,7 +441,7 @@ def _github_section(summary: dict) -> str:
 {escape(g["baseline_label"])}.
 Pull requests opened: <b>{_pct(change)}</b> ({_count(head["github_activity_release_day"])}
 against {_count(head["github_activity_baseline"])}). {escape(_thursday_run(g))} Beside it:
-{escape(others)}.</p>
+{escape(others)}.</p>{_significance_line(g)}
 <figure><img src="charts/png/{name}-light.png" data-dark="charts/png/{name}-dark.png"
 alt="{escape(alt)}" loading="lazy"><figcaption>GitHub on GTA 6 release day ·
 <a href="charts/data/{name}.json">data</a></figcaption></figure>
@@ -485,6 +512,8 @@ def _faq(summary: dict) -> list[tuple[str, str]]:
                 "API counts; a change on release day is association, not proof of cause.",
             ),
         )
+        if _significance_text(g):
+            faq.insert(1, ("Is the drop statistically significant?", _significance_text(g)))
     productivity = _productivity_rows(summary)
     w = _wait(summary)
     if productivity:

@@ -1,0 +1,361 @@
+version: 2
+models:
+- name: fct_github_release_day_test
+  description: 'Metric 4 backup: the release-day hypothesis test, one row per activity.'
+  config:
+    meta:
+      dex:
+        grain:
+          - activity
+        population:
+          rule: One row per activity with a release-day row in fct_github_day_surprise.
+          parent:
+            model: fct_github_release_day_activities
+            key:
+              activity: activity
+        assumptions:
+          - decision: Placebo p-value
+            chosen: (placebo days at or below release day's t + 1) / (placebo days + 1)
+            evidence: default
+            detail: the standard rank p-value that counts release day itself, so it is never zero
+            column: placebo_p
+          - decision: Thursday check
+            chosen: release day's week-on-week change against the earlier same-weekday changes, prediction t with n - 1 df
+            evidence: default
+            detail: uses only the Thursdays, with no model of the trend
+            column: weekday_t
+  columns:
+  - name: activity
+    description: prs_opened, prs_merged or commits.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+      - unique
+      - not_null
+  - name: release_day
+    description: GTA 6's release day.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: fit_days
+    description: Days the release-day prediction was fitted on.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: days
+    data_tests:
+      - not_null
+  - name: df
+    description: Degrees of freedom of the primary test.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: expected_count
+    description: Release day as predicted from the days before it.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: observed_count
+    description: Release day as counted.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: pct_vs_expected
+    description: Observed against expected, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+    data_tests:
+      - not_null
+  - name: t_stat
+    description: Primary test statistic (Student t, df above).
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL under the minimum history.
+          aggregation: max
+          additivity: non_additive
+          unit: standard errors
+  - name: placebo_days
+    description: Earlier days scored the same way.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: placebo_days_as_low
+    description: Placebo days with a t at or below release day's.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: placebo_p
+    description: '(as low + 1) / (placebo days + 1): the share of days, release day included, this far
+      below their prediction.'
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL without a release-day t.
+          aggregation: max
+          additivity: non_additive
+          unit: fraction
+  - name: weekday_n
+    description: Earlier same-weekday week-on-week changes.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: weekday_wow_mean
+    description: Their mean, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL without earlier changes.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+  - name: weekday_wow_sd
+    description: Their standard deviation, in percent points.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL with fewer than two.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+  - name: release_wow
+    description: Release day's week-on-week change, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when either day is missing.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+  - name: weekday_t
+    description: Release day's change against the earlier ones, in prediction SDs.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL with fewer than 3 earlier changes.
+          aggregation: max
+          additivity: non_additive
+          unit: standard errors
+  - name: weekday_df
+    description: weekday_n - 1.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL without earlier changes.
+          aggregation: max
+          additivity: non_additive
+          unit: count
+unit_tests:
+- name: github_placebo_p_counts_days_as_low_as_release
+  description: placebo_p = (placebos at or below release day's t + 1) / (placebos + 1); later days and
+    NULL placebos do not count.
+  model: fct_github_release_day_test
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+  given:
+  - input: ref('fct_github_day_surprise')
+    rows:
+    - activity: prs_opened
+      candidate_date: '2026-11-19'
+      is_release_day: true
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: -2.0
+    - activity: prs_opened
+      candidate_date: '2026-11-18'
+      is_release_day: false
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: -2.5
+    - activity: prs_opened
+      candidate_date: '2026-11-17'
+      is_release_day: false
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: -2.0
+    - activity: prs_opened
+      candidate_date: '2026-11-16'
+      is_release_day: false
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: 1.0
+    - activity: prs_opened
+      candidate_date: '2026-11-15'
+      is_release_day: false
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: 0.5
+    - activity: prs_opened
+      candidate_date: '2026-11-14'
+      is_release_day: false
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: null
+    - activity: prs_opened
+      candidate_date: '2026-11-20'
+      is_release_day: false
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: -9.0
+  - input: ref('fct_github_daily')
+    rows:
+    - activity: prs_opened
+      activity_date: '2026-10-29'
+      activity_count: 1
+      is_release_day: false
+      wow_pct_change: 2.0
+    - activity: prs_opened
+      activity_date: '2026-11-05'
+      activity_count: 1
+      is_release_day: false
+      wow_pct_change: 4.0
+    - activity: prs_opened
+      activity_date: '2026-11-12'
+      activity_count: 1
+      is_release_day: false
+      wow_pct_change: 6.0
+    - activity: prs_opened
+      activity_date: '2026-11-19'
+      activity_count: 1
+      is_release_day: true
+      wow_pct_change: -4.0
+  expect:
+    rows:
+    - activity: prs_opened
+      placebo_days: 4
+      placebo_days_as_low: 2
+      placebo_p: 0.6
+      weekday_n: 3
+      weekday_wow_mean: 4.0
+      weekday_wow_sd: 2.0
+      release_wow: -4.0
+      weekday_df: 2
+- name: github_test_null_without_release_t
+  description: 'No release-day t (too little history): placebo_p is NULL.'
+  model: fct_github_release_day_test
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+  given:
+  - input: ref('fct_github_day_surprise')
+    rows:
+    - activity: prs_opened
+      candidate_date: '2026-11-19'
+      is_release_day: true
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: null
+    - activity: prs_opened
+      candidate_date: '2026-11-18'
+      is_release_day: false
+      fit_days: 30
+      df: 22
+      expected_count: 100.0
+      observed_count: 100.0
+      pct_vs_expected: 0.0
+      t_stat: -1.0
+  - input: ref('fct_github_daily')
+    rows:
+    - activity: prs_opened
+      activity_date: '2026-11-19'
+      activity_count: 1
+      is_release_day: true
+      wow_pct_change: null
+  expect:
+    rows:
+    - activity: prs_opened
+      placebo_days: 1
+      placebo_days_as_low: 0
+      placebo_p: null
+      weekday_t: null

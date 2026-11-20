@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-11-20T09:32:25.026324+00:00",
+  "created_at": "2026-11-20T10:13:46.489644+00:00",
   "connector": "duckdb",
   "tool_version": "1.18.0",
   "warehouse": {
@@ -7590,6 +7590,754 @@
         "profiled_at": "2026-11-19T10:51:55.144553+00:00",
         "semantic_models": [],
         "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_github_day_surprise",
+        "object_type": "table",
+        "row_count": 123,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "github_surprise_key",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 123,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "activity",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": "prs_merged",
+                  "count": 43
+                },
+                {
+                  "value": "prs_opened",
+                  "count": 43
+                },
+                {
+                  "value": "commits",
+                  "count": 37
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "candidate_date",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 43,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2026-10-08",
+            "max_value": "2026-11-19",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 43,
+            "temporal_distinct_periods": 43,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "is_release_day",
+            "data_type": "BOOLEAN",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": false,
+            "max_value": true,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": {
+              "values": [
+                {
+                  "value": false,
+                  "count": 120
+                },
+                {
+                  "value": true,
+                  "count": 3
+                }
+              ],
+              "elided": 0
+            },
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "fit_days",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 44,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 7,
+            "max_value": 49,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "df",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 44,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": -1,
+            "max_value": 41,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "daily_trend",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.024390243902439046,
+            "distinct_count": 120,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": -0.08707390886096116,
+            "max_value": 0.1010596395059358,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "expected_count",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.024390243902439046,
+            "distinct_count": 120,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": 704980.6040938917,
+            "max_value": 135055735.02671367,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "observed_count",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 123,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 710693.9999999995,
+            "max_value": 92870160.99999994,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "pct_vs_expected",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.024390243902439046,
+            "distinct_count": 120,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": -90.53917629083085,
+            "max_value": 127.39235114305525,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "t_stat",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.3414634146341463,
+            "distinct_count": 81,
+            "distinct_count_exact": true,
+            "is_unique": false,
+            "min_value": -3.23710379103,
+            "max_value": 1.608587489054373,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "github_surprise_key"
+          ],
+          [
+            "observed_count"
+          ]
+        ],
+        "grain": [
+          "github_surprise_key"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "github_surprise_key"
+            ],
+            "status": "reported",
+            "reason": "github_surprise_key is unique and non-null on all 123 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "observed_count"
+            ],
+            "status": "reported",
+            "reason": "observed_count is unique and non-null on all 123 rows, proven by an exact distinct count"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "github_surprise_key",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "github_surprise_key participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-20T10:04:31.823728+00:00",
+        "semantic_models": [],
+        "values_withheld": false
+      },
+      {
+        "identifier": "gta6.main.fct_github_release_day_test",
+        "object_type": "table",
+        "row_count": 3,
+        "byte_size": null,
+        "columns": [
+          {
+            "name": "activity",
+            "data_type": "VARCHAR",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": null,
+            "max_value": null,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_day",
+            "data_type": "DATE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": "2026-11-19",
+            "max_value": "2026-11-19",
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": "day",
+            "temporal_span": 1,
+            "temporal_distinct_periods": 1,
+            "temporal_missing_periods": 0,
+            "temporal_largest_gap": 0
+          },
+          {
+            "name": "fit_days",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 43,
+            "max_value": 49,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "df",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 35,
+            "max_value": 41,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "expected_count",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 1172790.765501054,
+            "max_value": 10214909.332959889,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "observed_count",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 1093112.0,
+            "max_value": 12429627.000000013,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "pct_vs_expected",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": -7.441921278180641,
+            "max_value": 21.681226869963655,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "t_stat",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": -1.987039512281423,
+            "max_value": 0.37340044108573267,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "placebo_days",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 2,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 22,
+            "max_value": 28,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "placebo_days_as_low",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 2,
+            "max_value": 9,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "placebo_p",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 0.13043478260869565,
+            "max_value": 0.3448275862068966,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "weekday_n",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 6,
+            "max_value": 6,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "weekday_wow_mean",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": true,
+            "is_unique": true,
+            "min_value": 0.1771394210067907,
+            "max_value": 6.838508933334609,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "weekday_wow_sd",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": false,
+            "is_unique": true,
+            "min_value": 3.9946539112400075,
+            "max_value": 57.11770812439274,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "release_wow",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": false,
+            "is_unique": true,
+            "min_value": -3.672727057391867,
+            "max_value": -2.529166919309911,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "weekday_t",
+            "data_type": "DOUBLE",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 3,
+            "distinct_count_exact": false,
+            "is_unique": true,
+            "min_value": -2.1710973679419685,
+            "max_value": -0.05785648796331093,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          },
+          {
+            "name": "weekday_df",
+            "data_type": "BIGINT",
+            "nullable": true,
+            "null_fraction": 0.0,
+            "distinct_count": 1,
+            "distinct_count_exact": false,
+            "is_unique": false,
+            "min_value": 5,
+            "max_value": 5,
+            "pii": null,
+            "pii_overridden": null,
+            "value_domain": null,
+            "temporal_granularity": null,
+            "temporal_span": null,
+            "temporal_distinct_periods": null,
+            "temporal_missing_periods": null,
+            "temporal_largest_gap": null
+          }
+        ],
+        "candidate_keys": [
+          [
+            "activity"
+          ],
+          [
+            "expected_count"
+          ],
+          [
+            "observed_count"
+          ],
+          [
+            "pct_vs_expected"
+          ],
+          [
+            "t_stat"
+          ],
+          [
+            "placebo_days_as_low"
+          ],
+          [
+            "placebo_p"
+          ],
+          [
+            "weekday_wow_mean"
+          ],
+          [
+            "weekday_wow_sd"
+          ],
+          [
+            "release_wow"
+          ],
+          [
+            "weekday_t"
+          ]
+        ],
+        "grain": [
+          "activity"
+        ],
+        "composite_keys": [],
+        "key_evidence": [
+          {
+            "columns": [
+              "activity"
+            ],
+            "status": "reported",
+            "reason": "activity is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "expected_count"
+            ],
+            "status": "reported",
+            "reason": "expected_count is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "observed_count"
+            ],
+            "status": "reported",
+            "reason": "observed_count is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "pct_vs_expected"
+            ],
+            "status": "reported",
+            "reason": "pct_vs_expected is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "t_stat"
+            ],
+            "status": "reported",
+            "reason": "t_stat is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "placebo_days_as_low"
+            ],
+            "status": "reported",
+            "reason": "placebo_days_as_low is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "placebo_p"
+            ],
+            "status": "reported",
+            "reason": "placebo_p is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "weekday_wow_mean"
+            ],
+            "status": "reported",
+            "reason": "weekday_wow_mean is unique and non-null on all 3 rows, proven by an exact distinct count"
+          },
+          {
+            "columns": [
+              "weekday_wow_sd"
+            ],
+            "status": "reported",
+            "reason": "weekday_wow_sd is unique and non-null on all 3 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
+          },
+          {
+            "columns": [
+              "release_wow"
+            ],
+            "status": "reported",
+            "reason": "release_wow is unique and non-null on all 3 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
+          },
+          {
+            "columns": [
+              "weekday_t"
+            ],
+            "status": "reported",
+            "reason": "weekday_t is unique and non-null on all 3 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
+          }
+        ],
+        "rank_score": null,
+        "data_quality": [],
+        "findings": [
+          {
+            "column": "activity",
+            "code": "nullable_grain_column",
+            "severity": "medium",
+            "detail": "activity participates in the detected grain but the warehouse still allows it to be NULL"
+          }
+        ],
+        "profiled_at": "2026-11-20T10:04:31.864072+00:00",
+        "semantic_models": [],
+        "values_withheld": false
       }
     ],
     "relationships": [
@@ -7676,7 +8424,7 @@
     ]
   },
   "warehouse_from": "cache",
-  "cache_updated_at": "2026-11-20T09:14:22.624818+00:00",
+  "cache_updated_at": "2026-11-20T10:04:31.760092+00:00",
   "transform_layer": {
     "files": {
       "models/intermediate/int_signals__daily.sql": "cb216555bdd3b6537d57a3ace9e535aae9b6392a10420c95c11671ef3fbcedae",
@@ -7693,12 +8441,17 @@
       "models/marts/fct_github_daily.sql": "a1335f26088b59cc20d27778992150a99d9de517801bbbbee0fa55d22614e7ab",
       "models/marts/fct_github_daily.yml": "73f19cf2ea037783a1f467f05a1d26ca1f6e623460c03e3481279b38c48efa99",
       "models/marts/fct_github_daily_semantic.yml": "958d3de7976a43b55a52cab89bed59657e31e66111e538cc309783fb090de6a7",
+      "models/marts/fct_github_day_surprise.sql": "cf0dc31845d57ee3f3bad61e2c989e4a7b5197be115aaf4d6fe2b1c9ce8b2a71",
+      "models/marts/fct_github_day_surprise.yml": "d6d8e9e10b0e21f7e2c7632141ba8f74590e1364f236bf28a31c42d9dd8b1034",
       "models/marts/fct_github_release_day.sql": "e60cda85894f823aa3995520addcacb8c81698bdfa1c0717531000726501b82a",
       "models/marts/fct_github_release_day.yml": "2c25ba13284b6f58b412c107b3cf93797b3c613d9bb79b0a57ccd6f7d77c8369",
       "models/marts/fct_github_release_day_activities.sql": "7f4275a96002dc81dd4003021bb9005577b34be9c09d50331b393e130c17efd4",
       "models/marts/fct_github_release_day_activities.yml": "11431759357b6cce69ccc654d5336cc4e6c003bf68dd000d91943213179a20bb",
       "models/marts/fct_github_release_day_activities_semantic.yml": "beee42070ab950a4810073931fd7f0d2fc44e1bede5a5b3965b590887069e726",
       "models/marts/fct_github_release_day_semantic.yml": "4c10e9a6f6c5ec681d5ebbb218460cd8b2aa216b8c4ebf415096e85a4d801490",
+      "models/marts/fct_github_release_day_test.sql": "3276384847fb92e834a180fbeaa682b050a4624f216af72bd3c89dfb373cf857",
+      "models/marts/fct_github_release_day_test.yml": "a6fa12b5891ba467d4ab7ca6ebcfd737b504e4110bc886317867be899d07b4ac",
+      "models/marts/fct_github_release_day_test_semantic.yml": "6e000525b28fa01fe198b4ffddf69d8e529f1be464bb5a401147aa7b62ac7460",
       "models/marts/fct_signal_daily.sql": "0f7a8a7f031a8cf145b92244d83a2034f858cdc7b7ce42fea4f10fd9bcabfbfa",
       "models/marts/fct_signal_daily.yml": "e04b37443fa9372aba1bc4fc8bbadf4a8753d9be36cea12abc8be5b4960b3098",
       "models/marts/fct_wait_milestones.sql": "5d2a5a66ad40ec49def1be786dd1f39dfc12c8a98c53518291d73b57717a9958",
@@ -7712,7 +8465,7 @@
       "models/marts/metricflow_time_spine.sql": "fa9fa9f664236f9af4e868eaf8b3fb300253d7b5677936d36bef66fd75049c01",
       "models/marts/metricflow_time_spine.yml": "3455df32cbd9525b0b5164becc1a9bc7909dce85d8f53784f4f8e3f154a93d5a",
       "models/marts/semantic/day_off_index.yml": "4677ed50ca02942c6b6c9d248f8e41a27abc13cae1041041b20b50d72d6800e6",
-      "models/marts/semantic/metrics.yml": "2245d611ccfb1329c31d2751a952cfb9b2a7f5eaefae699e7342726f666c4bae",
+      "models/marts/semantic/metrics.yml": "2ecfbc98aca9b9936bec8d6912c3726e07c12bef89fefe0004165d39735a51cb",
       "models/marts/semantic/signal_daily.yml": "6b6595e3ebf439be4059cdce7b5e8a95838ff787eb5b27faa1aadf2107ce8656",
       "models/staging/_sources.yml": "ea03d8dc3c5208083c91b40e482ec9ab95dd38381de30441f9544e45f70518ca",
       "models/staging/stg_bluesky__daily_hits.sql": "6bbd92a4c09bad5a8c9db4458bfb3c587854153870ac529400762195edc858b9",
@@ -7736,7 +8489,7 @@
       "data_tests/assert_world_output_covers_the_wait.sql": "4c885331bb2396452d6ea156cacb187665ebff97b35d27e10be89b7337d53e87",
       "data_tests/assert_world_output_running_total.sql": "17dedb2c3e2922f42b6f3d18ce90e7a2ae0ad492ff4f54ec72aff347bf4fc14b",
       "data_tests/assert_world_productivity_has_gta_v_year.sql": "45e6a2629061e5f002dfd71cc39ca3b995575ee4ce2d7d1a84b7c5223b53061a",
-      "dbt_project.yml": "2e7661664f473288955ca999d2b5dcc5160945c98d6455a0a9084acc13a6474e",
+      "dbt_project.yml": "5e9eb0c2195c012ec7f6c714d5fac2249f722106933ff4b47154eeaac2e67dcc",
       "profiles.yml": "be2450ec6c0b4a460844d1b73ce4245729ba6de8b4ea570dcd3a3886b7279a9d"
     },
     "models": [
@@ -7744,8 +8497,10 @@
       "fct_day_off_index",
       "fct_day_off_index_terms",
       "fct_github_daily",
+      "fct_github_day_surprise",
       "fct_github_release_day",
       "fct_github_release_day_activities",
+      "fct_github_release_day_test",
       "fct_signal_daily",
       "fct_wait_milestones",
       "fct_world_output_daily",
@@ -7768,8 +8523,10 @@
       "fct_day_off_index": "models/marts/fct_day_off_index.sql",
       "fct_day_off_index_terms": "models/marts/fct_day_off_index_terms.sql",
       "fct_github_daily": "models/marts/fct_github_daily.sql",
+      "fct_github_day_surprise": "models/marts/fct_github_day_surprise.sql",
       "fct_github_release_day": "models/marts/fct_github_release_day.sql",
       "fct_github_release_day_activities": "models/marts/fct_github_release_day_activities.sql",
+      "fct_github_release_day_test": "models/marts/fct_github_release_day_test.sql",
       "fct_signal_daily": "models/marts/fct_signal_daily.sql",
       "fct_wait_milestones": "models/marts/fct_wait_milestones.sql",
       "fct_world_output_daily": "models/marts/fct_world_output_daily.sql",
@@ -7865,11 +8622,18 @@
       "fct_github_daily": [
         "stg_github__daily_counts"
       ],
+      "fct_github_day_surprise": [
+        "fct_github_daily"
+      ],
       "fct_github_release_day": [
         "fct_github_release_day_activities"
       ],
       "fct_github_release_day_activities": [
         "fct_github_daily"
+      ],
+      "fct_github_release_day_test": [
+        "fct_github_daily",
+        "fct_github_day_surprise"
       ],
       "fct_signal_daily": [
         "dim_date",
@@ -8286,6 +9050,93 @@
           }
         }
       },
+      "fct_github_day_surprise": {
+        "path": "models/marts/fct_github_day_surprise.yml",
+        "fields": {
+          "description": "2cc4606d44d9c2f1e39117e171ea5fd3a242f75d8245ef5879f5d91c4c643762",
+          "grain": "2012e0a81c3a1af13e9e1de94a4e75639460a8e8f711523ae1613c624f364a52",
+          "population": "193aabad64eabab41a95fd0fb8cd78b9072479a1b26a9e676736b68c26c8e8cd",
+          "assumptions": "5fb280d4b029f8aa676e3690d9038d7f84b35043bd1e18d259d7c7921ec2d3ae"
+        },
+        "columns": {
+          "github_surprise_key": {
+            "description": "56410e9d7e7beb1183ece9f407ba2297088a604c33db1a87cc5564826f678439",
+            "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "activity": {
+            "description": "2dbd48a75d1284d0121651aebbc16c1a2683d027a8629481df226a0a67219de5",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "candidate_date": {
+            "description": "6833025c7bab1123726821ba0bc48fcba19e2a8f612de34278f113cfca3e0f76",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "is_release_day": {
+            "description": "d8032e438acc2f07e12d6256fd142beec2a6ae6d887fc2565615b1068fbe031e",
+            "role": "6cd03eb41e12e625c8246ababa17ed4cc69cb3f816c3729f8d0b8a3104bc789a",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "fit_days": {
+            "description": "a0a8430fd81529bf6deca6c78cce38bc4cff0780975cee4e60847d2c570a8b09",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "15ab0356a25e08eb0d93e4658961021125228d88b28c2fc71c97575f97d1f292"
+          },
+          "df": {
+            "description": "644deec07e1716e0bd30852316594abdd934c4b7760f49b434ed0f6f2eddfaa4",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "daily_trend": {
+            "description": "2229a38e985a6a2b32ed1b12b341cb73567793f19b1ace2d6de0ba721b252502",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "d840e148e6ad4e4dcdd8e9c413c21bca8db6c881df68c47a7aa1cf267a1f8edd",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "8ba461de8f69dbcdef7a6571ad81f7a107db46fd0b2ca7376bf3611af8471fe4"
+          },
+          "expected_count": {
+            "description": "953370634ef24eb083ade05570bd93c37127cafd940c6bbc751ab806641fd337",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "238219c82f5640cd4c77f58dbb2a87e9b06e9909acb3219c1880a87a3747d18a",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "observed_count": {
+            "description": "41d466c6e5e02160a12d48d2c6b70e9716541eeb3e04143a28a812c222740b65",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "pct_vs_expected": {
+            "description": "f4d6429f6e94bab682eea6f4f20063f93376bd73cf222962653062cb5adf213e",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "238219c82f5640cd4c77f58dbb2a87e9b06e9909acb3219c1880a87a3747d18a",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          },
+          "t_stat": {
+            "description": "022ea5244d3a34f41615e45d63d384a624d07878ccdf5a9bd432e788c283db55",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "dba5b05ffdd73271949bbe1efb92cd842cd7b034b5e920411f305eb048561cae",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "eb01aa6c8b403d8a3944b300eb42fa41c271a415b293aed4d143adbd0ae68a20"
+          }
+        }
+      },
       "fct_github_release_day": {
         "path": "models/marts/fct_github_release_day.yml",
         "fields": {
@@ -8421,6 +9272,147 @@
             "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
             "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
             "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          }
+        }
+      },
+      "fct_github_release_day_test": {
+        "path": "models/marts/fct_github_release_day_test.yml",
+        "fields": {
+          "description": "545221a926b8227321ab1df182c02cb5395761c753be0b74b1e3b5fe43fe5747",
+          "grain": "4686fd4a49536e7e6731ebf9fd8cf246a69bba0964a6735d774cc110e4d1ef6d",
+          "population": "850c68b2ba21e965aaaa5271e635f0011f836ca712584b3c530deb9c2230a281",
+          "assumptions": "8cf3b92fe125e100526e5dab72d086e18cc86419c0e326e99ebe551a083f98d6"
+        },
+        "columns": {
+          "activity": {
+            "description": "2dbd48a75d1284d0121651aebbc16c1a2683d027a8629481df226a0a67219de5",
+            "role": "c0c1baf2fa65372c83bc5781a31d3ee0bceb37e7917317f33a92825fe5367189",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "release_day": {
+            "description": "163e9367103f55495b6596d4fe350a248cbe25c8b2be86103f1b24f7135f26dd",
+            "role": "c894b67229a62ab939dfc6751a724f15796ea75e507dc495312e6f01a9d44f4e",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "fit_days": {
+            "description": "7d4f3920d15b3f5318cfcb2fd4b75d50c8a9247d4fe9077217e3f2693a70147a",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "15ab0356a25e08eb0d93e4658961021125228d88b28c2fc71c97575f97d1f292"
+          },
+          "df": {
+            "description": "a1a4460bc0e9de0600b5d4cd3015220d9c85f5a176ac14d429242b81e320bd0a",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "expected_count": {
+            "description": "cb0e0b794a440d9dbecc5a4fa2d1a985eb7b206bdff688694cfdee917286eb11",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "observed_count": {
+            "description": "b2d4bea0c135f17e132385b04aefb48c7384e50460fc3bb252469ab77ae8352f",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "pct_vs_expected": {
+            "description": "f4d6429f6e94bab682eea6f4f20063f93376bd73cf222962653062cb5adf213e",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          },
+          "t_stat": {
+            "description": "5ac109c5fe9fcde71eceb7222b1bdff5af13ce7f2faa3f5ef9ddd0d6e2668ec1",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "ec8d6eeb502acd7e58e01f493847724182689abe1877a2b167e7a222b857c489",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "eb01aa6c8b403d8a3944b300eb42fa41c271a415b293aed4d143adbd0ae68a20"
+          },
+          "placebo_days": {
+            "description": "af0446a7f9a7b91095d50fca2cf67ed93ce1aebfa1a897b3a19bc49c5fc298ea",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "placebo_days_as_low": {
+            "description": "d2eaf6dd282270f3dede962cb9b23be6fab59c1cad0da60f035d38fe78ba472f",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "placebo_p": {
+            "description": "aa322b43cc70fbd4e3e47eff7d3c38987f718022505314b843b9988832f069bc",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "4fc356ff10ab69c2151e8c0e5a8c0757c8d0032a9313414c777d7e5ed6ec89bc",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "41b0aa9c03a2f22d94a8b62e43d6b537f4cb7f1b5fe0b1e4ea8c41d5501be4fe"
+          },
+          "weekday_n": {
+            "description": "0b6b5fcf0201ff5758c0cd710fa4bea5973ce8ba0a56a1bc2c07c93d92e26ee0",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
+          },
+          "weekday_wow_mean": {
+            "description": "f288c69b805af70f9fc85a90cbe8dfaac895f0d5da430b440d72f410fb35f379",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "0491f7012a5584c91e2431f8a310dd091783894fd2a7495eb47e5fe11c9b9ad0",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          },
+          "weekday_wow_sd": {
+            "description": "fad070d980fe08ef30620e3488f8b18445d0de5e11b2c09d2b9d06241f6afead",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "f096ba9599fdb592813a1fc3a76f672bcc5b79b1e9693be3a842908e9b64f173",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          },
+          "release_wow": {
+            "description": "3f5b47e9b31bdeb48a4df34f56940df33d0fcf5c7d9d5da7c8e453876c1ee6a3",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "d97b6185c599bee9e265bc96b4bb50e894ad42715bdcb64c7e0e792b1bac2bfa",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34"
+          },
+          "weekday_t": {
+            "description": "025f12a0e6354e41caf66c01225fff7d3b8b179c0e18e2c79eff08e2a81a70de",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "3889937bf50311220cefb25080c5e91a0cbe5dcb681a90fdb29925d71209710a",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "eb01aa6c8b403d8a3944b300eb42fa41c271a415b293aed4d143adbd0ae68a20"
+          },
+          "weekday_df": {
+            "description": "dbc177e7605b373094f1cf74af97e3744804584e3a1400914d2f4598c83f47c3",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "null_rule": "0491f7012a5584c91e2431f8a310dd091783894fd2a7495eb47e5fe11c9b9ad0",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa"
           }
         }
       },
@@ -9100,6 +10092,31 @@
         "key_claims": null
       },
       {
+        "name": "fct_github_release_day_test",
+        "path": "models/marts/fct_github_release_day_test_semantic.yml",
+        "content_sha256": "2a2349ca6ec1e117f1c43a0c0355d03098d4ad5973cccc02b95e61d55472912a",
+        "model_ref": "fct_github_release_day_test",
+        "relation": null,
+        "entities": {
+          "github_release_test": "activity"
+        },
+        "dimensions": {
+          "activity": "activity",
+          "release_day": "release_day"
+        },
+        "categorical_dimensions": {
+          "activity": "activity"
+        },
+        "measures": {
+          "github_release_test_expected": "expected_count",
+          "github_release_test_pct_vs_expected": "pct_vs_expected",
+          "github_release_test_t": "t_stat",
+          "github_release_test_df": "df"
+        },
+        "keys": [],
+        "key_claims": null
+      },
+      {
         "name": "fct_world_output_daily",
         "path": "models/marts/fct_world_output_semantic.yml",
         "content_sha256": "7b617647848c1588f2af61447e24b6f424f6a2a96f24bef8462d06a9b44074ca",
@@ -9492,6 +10509,42 @@
         "content_sha256": "189ba2d61ec1bda694295b7ca8dee60f95cc82cec8fefc5818b6c8997bf65b60",
         "input_measures": [
           "github_activity_prior_week_count"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_release_day_expected",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "6e6530593ab0615884ff9c0b38bb4a8d7a62acc0cde15938c596d8aae3f3936b",
+        "input_measures": [
+          "github_release_test_expected"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_release_day_vs_expected",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "796ae6aa78f5e73f967f81d383ca6cd237a714541c4a1e0934edc0d1b8e92a3e",
+        "input_measures": [
+          "github_release_test_pct_vs_expected"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_release_day_t",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "8fa43819888e3fcf86825b1bf531f8a881543d67b782e17f27bf9fe1200db91d",
+        "input_measures": [
+          "github_release_test_t"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_release_day_df",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "ac0c9011b84bd890ee746f286c9e7cc8f8b8c6491f04ed2b737c57442561fb0e",
+        "input_measures": [
+          "github_release_test_df"
         ],
         "input_metrics": []
       }

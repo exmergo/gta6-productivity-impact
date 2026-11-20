@@ -203,6 +203,247 @@ def index_card(png: bool) -> dict:
     return data
 
 
+GITHUB_SOURCE = (
+    'Data source: GitHub Search API <span class="unit">· public activity, UTC days</span>'
+)
+GITHUB_ORDER = ("prs_opened", "prs_merged", "commits")
+
+
+def _millions(v: float) -> str:
+    return f"{v / 1e6:.2f}M" if v < 1e7 else f"{v / 1e6:.1f}M"
+
+
+def _signed(v: float) -> str:
+    """+3.7 or −3.7, one decimal, with a real minus sign (a hyphen reads as a dash)."""
+    return f"{v:+.1f}".replace("-", "\u2212")
+
+
+def _short(day: dt.date) -> str:
+    return f"{day.day} {day:%b}"
+
+
+def _github_bars(rows: list[dict], prior: str, current: str) -> str:
+    """Per activity, the baseline Thursday above release day, each pair on its own scale."""
+    out = [
+        '<div class="yoy"><div></div><div class="key">'
+        f'<span><i class="prior"></i>{escape(prior)}</span>'
+        f'<span><i class="current"></i>{escape(current)}</span></div>'
+    ]
+    for r in rows:
+        change = r["github_activity_change"]
+        pair = (
+            ("prior", r["github_activity_baseline"]),
+            ("current", r["github_activity_release_day"]),
+        )
+        top = max((v for _, v in pair if v is not None), default=0) or 1
+        bars = "".join(
+            f'<b class="{cls}" style="width:{100 * value / top:.1f}%">{_millions(value)}</b>'
+            for cls, value in pair
+            if value is not None
+        )
+        out.append(
+            f'<div class="term">{escape(r["label"])}</div>'
+            f'<div class="pair">{bars}</div>'
+            f'<div class="change">{f"{_signed(change)}%" if change is not None else "n/a"}</div>'
+        )
+    out.append("</div>")
+    return "".join(out)
+
+
+def _thursdays(series: list[dict], release: dt.date, h: int = 250) -> str:
+    """PRs opened on every Thursday in the data, as the change on the Thursday before.
+
+    The bars start at zero change, so a drop points down and every rise points up, at their
+    true sizes on one linear scale; each Thursday's count sits under its date. The first
+    Thursday has nothing to compare with, so it is not drawn.
+    """
+    shown = [r for r in series if r["github_activity_change_wow"] is not None]
+    label = f"PRs opened, each {release:%A} vs the {release:%A} before"
+    w = 632
+    top_pad, label_h, foot_h = 28, 30, 56
+    values = [r["github_activity_change_wow"] for r in shown]
+    hi, lo = max(0.0, *values), min(0.0, *values)
+    plot_h = h - top_pad - foot_h - label_h
+    k = plot_h / ((hi - lo) or 1)
+    zero = top_pad + hi * k
+    step = w / len(shown)
+    bar = step * 0.56
+    marks = []
+    for i, r in enumerate(shown):
+        day, v = _day(r["metric_time__day"]), r["github_activity_change_wow"]
+        cls = "now" if day == release else "was"
+        x = i * step + (step - bar) / 2
+        cx = x + bar / 2
+        y, bh = (zero - v * k, v * k) if v >= 0 else (zero, -v * k)
+        ly = y - 10 if v >= 0 else y + bh + 24
+        marks.append(
+            f'<rect class="{cls}" x="{x:.1f}" y="{y:.1f}" width="{bar:.1f}" '
+            f'height="{max(bh, 1.5):.1f}"/>'
+            f'<text class="pct {cls}" x="{cx:.1f}" y="{ly:.1f}">{_signed(v)}%</text>'
+            f'<text class="d {cls}" x="{cx:.1f}" y="{h - 26}">{_short(day)}</text>'
+            f'<text class="n {cls}" x="{cx:.1f}" y="{h - 6}">'
+            f"{_millions(r['github_activity_count'])}</text>"
+        )
+    svg = (
+        f'<svg class="wow" viewBox="0 0 {w} {h}" role="img" aria-label="{escape(label)}">'
+        f'{"".join(marks)}<line class="zero" x1="0" x2="{w}" y1="{zero:.1f}" y2="{zero:.1f}"/>'
+        f'<text class="zl" x="0" y="{zero - 6:.1f}">0%</text></svg>'
+    )
+    return f'<div class="thu">{svg}</div>'
+
+
+def _github_mark() -> str:
+    """GitHub's mark, inlined so it takes the theme's ink. A third-party trademark: kept local in
+    brand/third-party/ (gitignored) and drawn only when present."""
+    path = ROOT / "brand" / "third-party" / "github-mark.svg"
+    if not path.exists():
+        return ""
+    svg = path.read_text().replace("<svg ", '<svg class="mark" fill="currentColor" ', 1)
+    return f'  <figure class="gh-mark" aria-label="GitHub">{svg}</figure>'
+
+
+def _significance() -> dict | None:
+    """The release-day t-test for PRs opened (context, not the headline): release day against
+    GitHub's trend and weekly rhythm, from the semantic layer; p is the one-sided t tail."""
+    from gta6_impact.stats import t_lower_tail
+
+    rows = query(
+        [
+            "github_release_day_expected",
+            "github_release_day_vs_expected",
+            "github_release_day_t",
+            "github_release_day_df",
+        ],
+        ["github_release_test__activity"],
+        where="{{ Dimension('github_release_test__activity') }} = 'prs_opened'",
+    )
+    if not rows or rows[0]["github_release_day_t"] is None:
+        return None
+    r = rows[0]
+    return {
+        "activity": "prs_opened",
+        "expected_count": r["github_release_day_expected"],
+        "pct_vs_expected": r["github_release_day_vs_expected"],
+        "t_stat": r["github_release_day_t"],
+        "df": r["github_release_day_df"],
+        "p_one_sided": t_lower_tail(r["github_release_day_t"], r["github_release_day_df"]),
+    }
+
+
+def github_card(png: bool) -> dict | None:
+    """Metric 4: GitHub on release day, with its breakdown on the same card. Drawn only once
+    release day has been counted: a half-day count is not a count."""
+    day = "github_release_day__"
+    heads = query(
+        ["github_release_day_change"],
+        [f"{day}breakdown", f"{day}release_day", f"{day}baseline_start", f"{day}baseline_end"],
+    )
+    if not heads:
+        return None
+    head = heads[0]
+    activities = query(
+        ["github_activity_change", "github_activity_release_day", "github_activity_baseline"],
+        ["github_activity__activity", "github_activity__activity_label"],
+    )
+    for r in activities:
+        r["label"] = r["github_activity__activity_label"]
+    rows = sorted(
+        activities,
+        key=lambda r: (
+            GITHUB_ORDER.index(r["github_activity__activity"])
+            if r["github_activity__activity"] in GITHUB_ORDER
+            else 99
+        ),
+    )
+    release = _day(head[f"{day}release_day__day"])
+    first, last = _day(head[f"{day}baseline_start__day"]), _day(head[f"{day}baseline_end__day"])
+    weeks = (last - first).days // 7 + 1
+    if weeks == 1:
+        # "the Thursday before (12 Nov)": one day, named plainly
+        baseline = f"the {release:%A} before ({_short(first)})"
+        legend = f"{first:%a %-d %b}"
+    else:
+        baseline = (
+            f"the median of the {weeks} {release:%A}s before ({_short(first)}–{_short(last)})"
+        )
+        legend = f"Median {release:%A}"
+    # The same weekday in every week up to release day, PRs opened (the headline's activity).
+    series = query(
+        ["github_activity_count", "github_activity_change_wow"],
+        ["metric_time__day"],
+        where=(
+            "{{ Dimension('github_day__activity') }} = 'prs_opened' and "
+            "{{ Dimension('github_day__days_from_release') }} % 7 = 0 and "
+            "{{ Dimension('github_day__days_from_release') }} <= 0"
+        ),
+        order_by=["metric_time__day"],
+    )
+    series = [r for r in series if r["github_activity_count"] is not None]
+    change = head["github_release_day_change"]
+    data = {
+        "github_release_day_change": change,
+        "breakdown": head[f"{day}breakdown"],
+        "release_day": str(release),
+        "baseline_start": str(first),
+        "baseline_end": str(last),
+        "baseline_label": baseline,
+        "baseline_legend": legend,
+        "activities": rows,
+        "thursdays": series,
+        "significance": _significance(),
+    }
+    if change is None:
+        return data
+    big = f"{_signed(change)}<small>%</small>"
+    # The 4:5 card has no room for the bars: the other activities read as one line there.
+    others = " · ".join(
+        f"{r['label']} {_signed(r['github_activity_change'])}%"
+        for r in rows
+        if r["github_activity__activity"] != "prs_opened"
+        and r["github_activity_change"] is not None
+    )
+    # The release-day t-test, as one short line: context, never the headline.
+    test = data["significance"]
+    sig = ""
+    if test is not None:
+        sig = f" · t-test vs trend: p = {test['p_one_sided']:.2f}"
+    body = f"""    <div class="hero">
+      <div>
+        <div class="big">{big}</div>
+        <h1>PRs opened on GitHub<br class="pbr"> on GTA 6 release day</h1>
+        <p class="fine">Pull requests opened on GitHub,
+        <span class="nw">{release:%a %-d %b %Y}</span> vs
+        <span class="nw">{escape(baseline)}</span>.<br>GTA 6 launched 19 Nov.</p>
+      </div>
+      <div class="gh-bottom">
+        {{chart}}
+        {_github_bars(rows, legend, f"{release:%a %-d %b}")}
+        <p class="gh-line">{escape(others)}{sig}</p>
+      </div>
+    </div>"""
+    aside = f"""  <figure class="aside">
+    <img alt="Lucia and Jason, the two leads of GTA 6" src="../assets/gta-6-lucia-and-the-guy.jpg">
+  </figure>{_github_mark()}"""
+    # The 4:5 card is tall: its chart takes the height the landscape card has no room for.
+    for name, w, h, variant, chart_h in (
+        ("github-release-day", 1200, 630, "decimals github", 250),
+        ("github-release-day-portrait", 720, 900, "portrait decimals github", 312),
+    ):
+        _write(
+            name,
+            title="PRs opened on GTA 6 release day",
+            body=body.replace("{chart}", _thursdays(series, release, chart_h)),
+            aside=aside,
+            source=GITHUB_SOURCE,
+            w=w,
+            h=h,
+            data=data if "portrait" not in variant else None,
+            png=png,
+            variant=variant,
+        )
+    return data
+
+
 PRODUCTIVITY_SOURCE = (
     "Data source: World Bank WDI, IMF WEO · world GDP per person, constant 2015 US$"
 )
@@ -866,6 +1107,7 @@ def build(png: bool = True) -> dict:
     summary = index_card(png)
     summary["productivity"] = productivity["rows"]
     summary["wait"] = wait
+    summary["github"] = github_card(png)
     return summary
 
 

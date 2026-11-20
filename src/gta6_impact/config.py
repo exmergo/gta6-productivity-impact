@@ -80,3 +80,15 @@ WORLD_BANK_INDICATORS = (
     "SP.POP.GROW",  # population growth, annual %
 )
 IMF_INDICATORS = ("NGDP_RPCH",)  # real GDP growth, annual %
+
+# Metric 4, PRs opened on GitHub: did GitHub go quiet on release day? One GitHub Search API
+# call per activity per UTC day, reading only `total_count`. Release day is compared with the
+# same weekday in the weeks before it (dbt vars github_release_day, github_baseline_weeks).
+# activity -> (search endpoint, query; {start}/{end} are the UTC day's first and last second)
+GITHUB_ACTIVITIES = {
+    "prs_opened": ("issues", "is:pr created:{start}..{end}"),
+    "prs_merged": ("issues", "is:pr is:merged merged:{start}..{end}"),
+    "commits": ("commits", "committer-date:{start}..{end}"),
+}
+# Days asked for: the baseline Thursdays, release day and the two weeks after it (Metric 6).
+GITHUB_SPAN = (dt.date(2026, 10, 1), dt.date(2026, 12, 4))

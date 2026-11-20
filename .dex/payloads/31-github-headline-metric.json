@@ -1,0 +1,9 @@
+{
+ "definitions": [
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: github_release_day_change\nlabel: 'GitHub on GTA 6 release day: PRs opened'\ndescription: Metric 4 headline. Change, in percent, of pull requests opened on GitHub on GTA 6's release\n  day (Thu 19 Nov 2026, UTC) against the Thursday before (12 Nov 2026). -4 = 4% fewer PRs opened. Report\n  it with its breakdown (group by github_release_day__breakdown, or query github_activity_change by github_activity__activity),\n  which also gives PRs merged and commits.\ntype: simple\ntype_params:\n  measure: github_release_day_change_measure\n"
+  }
+ ]
+}

@@ -185,7 +185,7 @@ with its output.
 
 ```mermaid
 flowchart LR
-  A[World Bank · IMF · Trends · Bluesky · HN · Wikipedia] -->|gta6 ingest| B[data/raw/*.parquet]
+  A[World Bank · IMF · Trends · GitHub · Bluesky · HN · Wikipedia] -->|gta6 ingest| B[data/raw/*.parquet]
   B -->|gta6 load| C[(DuckDB raw.*)]
   C -->|dex transform| D[staging → intermediate → marts]
   D -->|dex semantic| E[MetricFlow metrics]
@@ -255,7 +255,7 @@ The streak holds or breaks over the next two weeks, one metric at a time:
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | live |
 | 2 | **GTA 5 to GTA 6** | How much more productive did the world get between the two launches? | live |
 | 3 | **Everything humanity made while waiting** | How much did the world make between GTA 5 and GTA 6? | **live, Thu 19 Nov (release day)** |
-| 4 | **PRs opened on GitHub** | Did GitHub go quiet on Thursday? | Fri 20 Nov |
+| 4 | **PRs opened on GitHub** | Did GitHub go quiet on release day? | Fri 20 Nov |
 | 5 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | after release |
 | 6 | **The recovery curve** | How many working days until output is back to normal? | 30 Nov |
 

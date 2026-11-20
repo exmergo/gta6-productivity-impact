@@ -142,3 +142,98 @@ metrics:
   type: simple
   type_params:
     measure: days_to_gta_6
+
+- name: github_release_day_change
+  label: 'GitHub on GTA 6 release day: PRs opened'
+  description: Metric 4 headline. Change, in percent, of pull requests opened on GitHub on GTA 6's release
+    day (Thu 19 Nov 2026, UTC) against the Thursday before (12 Nov 2026). -4 = 4% fewer PRs opened. Report
+    it with its breakdown (group by github_release_day__breakdown, or query github_activity_change by github_activity__activity),
+    which also gives PRs merged and commits.
+  type: simple
+  type_params:
+    measure: github_release_day_change_measure
+
+- name: github_activity_change
+  label: GitHub release day, change by activity
+  description: 'Metric 4 breakdown: one activity''s release-day count against the same weekday a week before,
+    in percent. Group by github_activity__activity.'
+  type: simple
+  type_params:
+    measure: github_activity_pct_change
+
+- name: github_activity_release_day
+  label: GitHub activity on release day
+  description: Metric 4. An activity's count on release day (UTC). Group by github_activity__activity.
+  type: simple
+  type_params:
+    measure: github_activity_release_day_count
+
+- name: github_activity_baseline
+  label: GitHub activity on a normal day
+  description: Metric 4. An activity's count on the same weekday a week before release day (the median when
+    the baseline spans more weeks). Group by github_activity__activity.
+  type: simple
+  type_params:
+    measure: github_activity_baseline_count
+
+- name: github_activity_count
+  label: GitHub activity per day
+  description: 'Metrics 4 and 6. PRs opened, PRs merged or commits on GitHub per UTC day (GitHub Search
+    API total_count). Always group by github_day__activity: never add across activities. NULL is unavailable,
+    never zero.'
+  type: simple
+  type_params:
+    measure: github_activity_count_measure
+
+- name: github_activity_change_wow
+  label: GitHub activity, change on the same weekday a week earlier
+  description: Metrics 4 and 6. A day's count against the same weekday 7 days earlier, in percent, per activity.
+    Group by metric_time__day and github_day__activity (filter github_day__weekday_name = 'Thursday' for
+    the Thursdays around release day). NULL when either day is missing.
+  type: simple
+  type_params:
+    measure: github_activity_wow_pct_change
+
+- name: github_activity_count_week_before
+  label: GitHub activity, same weekday a week earlier
+  description: Metrics 4 and 6. The count on the same weekday 7 days earlier, per activity. Group by metric_time__day
+    and github_day__activity.
+  type: simple
+  type_params:
+    measure: github_activity_prior_week_count
+
+- name: github_release_day_expected
+  label: GitHub release day, expected
+  description: 'Metric 4 context. What release day would have been on GitHub''s trend and weekly rhythm:
+    log(count) = a level per weekday + a linear trend, fitted on 1 Oct to 18 Nov 2026. Group by github_release_test__activity;
+    the headline activity is prs_opened. Context, not the headline: report it beside github_release_day_change.'
+  type: simple
+  type_params:
+    measure: github_release_test_expected
+
+- name: github_release_day_vs_expected
+  label: GitHub release day against expected
+  description: 'Metric 4 context. Release day against its prediction, in percent (-7.4 = 7.4% below). Group
+    by github_release_test__activity; the headline activity is prs_opened. Context, not the headline: report
+    it beside github_release_day_change.'
+  type: simple
+  type_params:
+    measure: github_release_test_pct_vs_expected
+
+- name: github_release_day_t
+  label: GitHub release day, t statistic
+  description: 'Metric 4 context. One-sided t-test of release day against its prediction: the gap in prediction
+    standard errors. The p-value is the Student t lower tail at github_release_day_df. Group by github_release_test__activity;
+    the headline activity is prs_opened. Context, not the headline: report it beside github_release_day_change.'
+  type: simple
+  type_params:
+    measure: github_release_test_t
+
+- name: github_release_day_df
+  label: GitHub release day, degrees of freedom
+  description: 'Metric 4 context. Degrees of freedom of the release-day t-test (fit days - 7 weekday levels
+    - 1 trend). Group by github_release_test__activity; the headline activity is prs_opened. Context, not
+    the headline: report it beside github_release_day_change.'
+  type: simple
+  type_params:
+    measure: github_release_test_df

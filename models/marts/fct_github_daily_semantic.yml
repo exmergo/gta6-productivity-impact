@@ -1,0 +1,92 @@
+version: 2
+semantic_models:
+- name: fct_github_daily
+  description: 'Metric 4: GitHub activity per UTC day (PRs opened, PRs merged, commits), one row per day
+    per activity. Never add counts across activities.'
+  model: ref('fct_github_daily')
+  defaults:
+    agg_time_dimension: activity_date
+  entities:
+  - name: github_day
+    type: primary
+    expr: github_day_key
+    config:
+      meta:
+        dex:
+          null_rule: never
+  dimensions:
+  - name: activity_date
+    type: time
+    description: UTC day.
+    type_params:
+      time_granularity: day
+    config:
+      meta:
+        dex:
+          null_rule: never
+  - name: activity
+    type: categorical
+    description: prs_opened, prs_merged or commits.
+    config:
+      meta:
+        dex:
+          null_rule: never
+  - name: activity_label
+    type: categorical
+    description: PRs opened, PRs merged or Commits.
+    config:
+      meta:
+        dex:
+          null_rule: never
+  - name: weekday_name
+    type: categorical
+    description: Day of the week.
+    config:
+      meta:
+        dex:
+          null_rule: never
+  - name: is_release_day
+    type: categorical
+    description: True on GTA 6's release day.
+    config:
+      meta:
+        dex:
+          null_rule: never
+  - name: days_from_release
+    type: categorical
+    description: Days after release day (negative before).
+    config:
+      meta:
+        dex:
+          null_rule: never
+  measures:
+  - name: github_activity_count_measure
+    agg: sum
+    expr: activity_count
+    description: How many on the day (GitHub Search API total_count).
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: additive
+          null_rule: NULL when unavailable, never zero.
+  - name: github_activity_wow_pct_change
+    agg: max
+    expr: wow_pct_change
+    description: The day against the same weekday a week earlier, in percent.
+    config:
+      meta:
+        dex:
+          unit: percent
+          additivity: non_additive
+          null_rule: NULL unless both days have a count.
+  - name: github_activity_prior_week_count
+    agg: max
+    expr: prior_week_count
+    description: The same weekday a week earlier.
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: non_additive
+          null_rule: NULL when that day has no count.

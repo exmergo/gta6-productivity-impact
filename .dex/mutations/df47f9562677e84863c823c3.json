@@ -1,0 +1,44 @@
+{
+  "cap": {
+    "elided": 0,
+    "generated": 5,
+    "limit": 20
+  },
+  "complete": true,
+  "connector": "duckdb",
+  "counts": {
+    "caught_downstream": 0,
+    "generated": 5,
+    "killed": 2,
+    "not_run": 0,
+    "rejected": 1,
+    "survived": 2
+  },
+  "downstream": true,
+  "downstream_tests": {
+    "test.gta6_impact.assert_github_release_day_has_breakdown": "a73feda6a4f642eb",
+    "test.gta6_impact.not_null_fct_github_release_day_activities_available.b88894206a": "ecaf635c8d536099",
+    "test.gta6_impact.not_null_fct_github_release_day_activities_total.65fcc20280": "a814594b2a976de4",
+    "test.gta6_impact.not_null_fct_github_release_day_baseline_end.3a94acfa56": "d5a10e062188517d",
+    "test.gta6_impact.not_null_fct_github_release_day_baseline_start.96bc9e5ca1": "eb1a41d838d582be",
+    "test.gta6_impact.not_null_fct_github_release_day_baseline_weeks.dbd3f9467b": "be161ac735cd2ab8",
+    "test.gta6_impact.not_null_fct_github_release_day_breakdown.8d1d703182": "87f91cdc5af065d9",
+    "test.gta6_impact.not_null_fct_github_release_day_release_day.133b9c8bdc": "4683a757e806e1fc",
+    "test.gta6_impact.not_null_fct_github_release_day_release_day_key.7509a92798": "5862439b1869086f",
+    "test.gta6_impact.unique_fct_github_release_day_release_day_key.ec6fac3ee4": "f8b6585348d3c91e"
+  },
+  "engine_version": "1.18.0",
+  "equivalence_checked": true,
+  "incremental_counts": null,
+  "incremental_score": null,
+  "model": "fct_github_release_day_activities",
+  "model_id": "model.gta6_impact.fct_github_release_day_activities",
+  "not_run": 0,
+  "recorded_at": "2026-11-19T10:48:37+00:00",
+  "score": 0.5,
+  "score_with_downstream": 0.5,
+  "sql_digest": "312c7d6b166282d9",
+  "survivors": 2,
+  "tests_digest": "04fb4f3704549837",
+  "unsupported_sites": 0
+}

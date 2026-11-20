@@ -9,7 +9,7 @@ semantic query.
 | 1 | **Day-Off Index** | Are people searching for ways to skip work more than last year? | Google Trends, US, weekly | live |
 | 2 | **GTA 5 to GTA 6** | How much more productive did the world get between the two launches? | World Bank WDI (world GDP per person employed and per capita, real), IMF WEO for 2026 | live |
 | 3 | **Everything humanity made while waiting** | How much did the world make between GTA 5 and GTA 6? | World Bank WDI (world GDP, real), IMF WEO for 2026, a seed of milestones | live (release day, Thu 19 Nov) |
-| 4 | **PRs opened** | Did GitHub go quiet? | GitHub Search API, `is:pr created:<day>` | Fri 20 Nov |
+| 4 | **PRs opened on GitHub** | Did GitHub go quiet on release day? | GitHub Search API, `total_count` per UTC day: PRs opened, PRs merged, commits | Fri 20 Nov |
 | 5 | **Wikipedia brain drain** | Did the world stop editing the encyclopaedia? | Wikimedia `edits/aggregate` | after release |
 | 6 | **The recovery curve** | How many working days until output is back to normal? | Metrics 4–5, daily for two weeks | 30 Nov |
 
@@ -98,3 +98,78 @@ Models: `int_world_output__yearly` (one row per year, unit-tested and mutation-t
 milestone, driven from the seed). Charts: `charts/png/everything-we-made-{light,dark}.png` and the
 4:5 `everything-we-made-portrait-{light,dark}.png`; the scoreboard's ticker reads
 `world_output_per_second` for the last day of the wait.
+
+## 4. PRs opened on GitHub
+
+Did GitHub go quiet on GTA 6's release day? Release day against a normal week, from the
+GitHub Search API's own counts.
+
+- **Activities**: pull requests opened (`is:pr created:<day>`), pull requests merged
+  (`is:pr is:merged merged:<day>`) and commits (`/search/commits`, `committer-date:<day>`). Each
+  query is bounded to one UTC day, first to last second, and only `total_count` is read. No
+  repository, user, title or URL is stored.
+- **Days**: every fully ended UTC day from 1 Oct 2026, through two weeks after release (Metric
+  6 reads the same table). A day is only asked for once it is over: a half-day count is not a
+  count.
+- **Release day**: Thursday 19 November 2026, 00:00 to 23:59:59 UTC (dbt var
+  `github_release_day`).
+- **Baseline**: the Thursday before, 12 Nov 2026 (dbt var `github_baseline_weeks` = 1; more
+  weeks take the median of those weekdays). GitHub has a strong weekly cycle and grew fast
+  through the autumn (PRs opened on Thursdays: 1.15M on 22 Oct, 1.35M on 12 Nov), so the
+  nearest same weekday is the like-for-like control; commits also carry bulk-import spikes
+  (16.4M on 5 Nov). No US holiday falls on it.
+- **Change**: release day over the baseline, in percent, per activity. **The headline is PRs
+  opened**, the series' own question and the cleanest count (GitHub stamps the time a PR is
+  opened); PRs merged and commits sit beside it as the breakdown. A missing or incomplete count
+  (GitHub's `incomplete_results`) is NULL, and a NULL leaves that change NULL.
+- **Freshness**: daily counts keep moving slightly as GitHub indexes late arrivals and drops
+  deleted ones (well under 0.1% of a day's count in the hours after it closes, measured on
+  19 Nov), so days are re-asked for three days and the newest pull wins.
+
+Limits: public activity GitHub's search can see, not all of software. Commit search counts
+commits on default branches by their committer date, which the committer's machine sets. A drop
+lines up with release day; it is association, not proof of cause.
+
+**PRs opened: −3.7%** on Thu 19 Nov 2026 against Thu 12 Nov (UTC days). Since counting began
+(1 Oct), every earlier Thursday had more PRs opened than the one before it (+0.2% to +12.8%).
+
+| GitHub | Thu 12 Nov | Thu 19 Nov | Change |
+|---|---|---|---|
+| PRs opened | 1,350,958 | 1,301,341 | **−3.7%** |
+| PRs merged | 1,121,476 | 1,093,112 | −2.5% |
+| Commits | 12,866,079 | 12,429,627 | −3.4% |
+
+The Thursdays before it, PRs opened against the week before (`github_activity_change_wow`):
+
+| Thu | 8 Oct | 15 Oct | 22 Oct | 29 Oct | 5 Nov | 12 Nov | **19 Nov** |
+|---|---|---|---|---|---|---|---|
+| PRs opened | +1.4% | +8.3% | +7.1% | +3.6% | +0.2% | +12.8% | **−3.7%** |
+
+Six Thursdays in a row up, then release day down. PRs merged follow the same pattern; commits
+swing too much week to week (−85% to +89%) to read a pattern from.
+
+**Is the drop statistically significant?** Yes. Taking GitHub's growth and its weekly rhythm
+into account, release day should have seen about 1.41 million PRs opened; it saw 1.30 million,
+7.4% fewer. One-sided t-test: t = −1.79, 41 degrees of freedom, **p = 0.04**.
+
+- Model: log(PRs opened per day) = a level per weekday + one linear trend, fitted on every UTC day
+  from 1 Oct to 18 Nov 2026 (49 days), then used to predict 19 Nov. The model was fixed before
+  the result was computed.
+- Test statistic: the gap between observed and predicted (in logs) over the prediction's
+  standard error. p is the Student t lower tail (`src/gta6_impact/stats.py`).
+- Ask it: `uv run dex explore semantic query github_release_day_expected,github_release_day_vs_expected,github_release_day_t,github_release_day_df
+  --group-by github_release_test__activity`. Models: `fct_github_day_surprise` and
+  `fct_github_release_day_test`; the SQL regression matches an independent numpy fit exactly.
+
+Ask it: `uv run dex explore semantic query github_release_day_change --group-by
+github_release_day__breakdown` and `uv run dex explore semantic query
+github_activity_change,github_activity_baseline,github_activity_release_day --group-by
+github_activity__activity`. By day: `uv run dex explore semantic query github_activity_count
+--group-by metric_time__day,github_day__activity`. The Thursdays: `uv run dex explore semantic
+query github_activity_count,github_activity_change_wow --group-by
+metric_time__day,github_day__activity --where "{{ Dimension('github_day__days_from_release') }}
+% 7 = 0"`. Models: `stg_github__daily_counts`,
+`fct_github_daily` (one row per day per activity), `fct_github_release_day_activities` (one row
+per activity) and `fct_github_release_day` (one row per release day). Charts:
+`charts/png/github-release-day-{light,dark}.png` and the 4:5
+`github-release-day-portrait-{light,dark}.png`.

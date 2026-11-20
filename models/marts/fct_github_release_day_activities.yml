@@ -1,0 +1,286 @@
+version: 2
+models:
+- name: fct_github_release_day_activities
+  description: 'Metric 4 breakdown: release day against the median of the same weekday in the weeks before
+    it (canonical: the Thursday before), one row per activity.'
+  config:
+    meta:
+      dex:
+        grain:
+        - activity
+        population:
+          rule: One row per activity present in fct_github_daily, whether or not release day has been
+            counted yet.
+        assumptions:
+        - decision: What release day is compared with
+          chosen: the same weekday a week before (Thu 12 Nov 2026); a median when github_baseline_weeks
+            > 1
+          evidence: data
+          detail: 'profiled (.dex/review/154): strong weekly cycle, and PRs opened grew from 1.15M (22
+            Oct) to 1.35M (12 Nov) on Thursdays, so older weeks understate a normal 19 Nov; commits carry
+            bulk-import spikes (16.4M on 5 Nov vs ~12.9M), hence a median for longer baselines. No US
+            holiday on 12 Nov'
+          column: baseline_count
+        - decision: A baseline day without a count
+          chosen: change NULL
+          evidence: default
+          detail: an average over fewer days would be a different baseline
+          column: pct_change
+  columns:
+  - name: activity
+    description: prs_opened, prs_merged or commits.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+    - unique
+    - not_null
+  - name: activity_label
+    description: PRs opened, PRs merged or Commits.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: release_day
+    description: GTA 6's release day (var github_release_day).
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: baseline_weeks
+    description: How many same weekdays before release day form the baseline.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: baseline_start
+    description: First baseline day.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: baseline_end
+    description: Last baseline day (a week before release day).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+    - not_null
+  - name: baseline_days_found
+    description: Baseline days with a count.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: days
+    data_tests:
+    - not_null
+  - name: baseline_count
+    description: Median count over the baseline days (the day itself when there is one).
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when no baseline day has a count.
+          aggregation: max
+          additivity: non_additive
+          unit: count
+  - name: release_day_count
+    description: Count on release day. NULL until the day is over and counted.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL until release day has ended and been counted.
+          aggregation: max
+          additivity: non_additive
+          unit: count
+  - name: pct_change
+    description: Release day against the baseline average, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL unless release day and every baseline day have a count.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+unit_tests:
+- name: github_release_day_vs_the_thursday_before
+  description: Release day against the same weekday a week before; other days and weekdays are ignored
+    (a busy Wednesday must not move the baseline).
+  model: fct_github_release_day_activities
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+      github_baseline_weeks: 1
+  given:
+  - input: ref('fct_github_daily')
+    rows:
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-19'
+      activity_count: 750
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-12'
+      activity_count: 1000
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-18'
+      activity_count: 5000
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-05'
+      activity_count: 9000
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-20'
+      activity_count: 7000
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-13'
+      activity_count: 3000
+  expect:
+    rows:
+    - activity: prs_opened
+      baseline_start: '2026-11-12'
+      baseline_end: '2026-11-12'
+      baseline_days_found: 1
+      baseline_count: 1000
+      release_day_count: 750
+      pct_change: -25.0
+- name: github_release_day_not_counted_yet_is_null
+  description: Before release day has been counted the change is NULL, never -100%.
+  model: fct_github_release_day_activities
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+      github_baseline_weeks: 1
+  given:
+  - input: ref('fct_github_daily')
+    rows:
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-12'
+      activity_count: 1000
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-19'
+      activity_count: null
+  expect:
+    rows:
+    - activity: prs_opened
+      baseline_count: 1000
+      release_day_count: null
+      pct_change: null
+- name: github_longer_baseline_is_a_median_of_same_weekdays
+  description: 'Three weeks back: the median of the three Thursdays, so one bulk-import spike (9000) does
+    not move it; the Thursday four weeks back is outside.'
+  model: fct_github_release_day_activities
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+      github_baseline_weeks: 3
+  given:
+  - input: ref('fct_github_daily')
+    rows:
+    - activity: commits
+      activity_label: Commits
+      activity_date: '2026-11-19'
+      activity_count: 1250
+    - activity: commits
+      activity_label: Commits
+      activity_date: '2026-11-12'
+      activity_count: 1000
+    - activity: commits
+      activity_label: Commits
+      activity_date: '2026-11-05'
+      activity_count: 9000
+    - activity: commits
+      activity_label: Commits
+      activity_date: '2026-10-29'
+      activity_count: 800
+    - activity: commits
+      activity_label: Commits
+      activity_date: '2026-10-22'
+      activity_count: 1
+    - activity: commits
+      activity_label: Commits
+      activity_date: '2026-11-11'
+      activity_count: 50
+  expect:
+    rows:
+    - activity: commits
+      baseline_start: '2026-10-29'
+      baseline_end: '2026-11-12'
+      baseline_days_found: 3
+      baseline_count: 1000
+      release_day_count: 1250
+      pct_change: 25.0
+- name: github_zero_baseline_leaves_change_null
+  description: 'A baseline of zero has no percent change: NULL, never infinity.'
+  model: fct_github_release_day_activities
+  given:
+  - input: ref('fct_github_daily')
+    rows:
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-19'
+      activity_count: 5
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-12'
+      activity_count: 0
+  expect:
+    rows:
+    - activity: prs_opened
+      baseline_count: 0
+      release_day_count: 5
+      pct_change: null
+- name: github_missing_baseline_day_leaves_change_null
+  description: A baseline Thursday without a count makes the change NULL.
+  model: fct_github_release_day_activities
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+      github_baseline_weeks: 2
+  given:
+  - input: ref('fct_github_daily')
+    rows:
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-19'
+      activity_count: 1100
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-12'
+      activity_count: 1000
+    - activity: prs_opened
+      activity_label: PRs opened
+      activity_date: '2026-11-05'
+      activity_count: null
+  expect:
+    rows:
+    - activity: prs_opened
+      baseline_days_found: 1
+      pct_change: null

@@ -23,3 +23,6 @@ vars:
   day_off_index_weeks_back: 52
   gta_v_date: '2013-09-17'
   gta_6_date: '2026-11-19'
+  github_release_day: '2026-11-19'
+  github_baseline_weeks: 1
+  github_test_min_fit_days: 21

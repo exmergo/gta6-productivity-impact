@@ -1,0 +1,83 @@
+version: 2
+models:
+- name: stg_github__daily_counts
+  description: GitHub Search API daily counts, one row per UTC day per activity.
+  config:
+    meta:
+      dex:
+        grain:
+          - activity_date
+          - activity
+        population:
+          rule: Every (day, activity) the ingester asked for; newest pull wins.
+        assumptions:
+          - decision: A search GitHub flags incomplete_results
+            chosen: count NULL (unavailable)
+            evidence: contract
+            detail: 'AGENTS.md: a NULL is unavailable, never zero; a timed-out search is a lower bound, not the count'
+            column: activity_count
+  columns:
+  - name: activity_date
+    description: UTC day the count covers.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity
+    description: prs_opened, prs_merged or commits.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: endpoint
+    description: GitHub search endpoint asked (issues or commits).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: query
+    description: The exact search query, bounded to the UTC day.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity_count
+    description: GitHub's total_count. NULL when unavailable, never zero.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when the call failed or GitHub flagged it incomplete.
+          aggregation: sum
+          additivity: additive
+          unit: count
+  - name: is_available
+    description: True when the call answered with a complete count.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: observed_at
+    description: When we asked (UTC).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null

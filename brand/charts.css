@@ -105,6 +105,9 @@ h1 .red { color: var(--dex-redline); }
 .card.portrait .yoy .term { font-size: 19px; }
 .card.portrait .yoy .pair b { height: 24px; }
 .card.portrait .yoy .change { font-size: 26px; }
+/* One-decimal changes (−3.7%) need a wider last column than whole ones. */
+.card.decimals .yoy { grid-template-columns: 132px 1fr 92px; }
+.card.portrait.decimals .yoy { grid-template-columns: 136px 1fr 100px; }
 .card.portrait .foot { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 13px; }
 
 /* Metric 2: the two GTA launches as quiet bookends, not alerts. */
@@ -224,3 +227,45 @@ h1 .red { color: var(--dex-redline); }
 .gcard.portrait .glowup.wait .titles { width: 960px; }
 .gcard.portrait .glowup.wait .headline { font-size: 72px; }
 .gcard.portrait .glowup.wait .subhead { font-size: 28px; }
+
+/* Metric 4: the Thursdays before release day as columns, the breakdown beside them */
+.gh-bottom { display: grid; grid-template-columns: 1fr 470px; column-gap: 52px; align-items: end; }
+.gh-bottom .yoy { grid-template-columns: 96px 1fr 72px; column-gap: 10px; row-gap: 12px; }
+.gh-bottom .yoy .term { font-size: 15px; }
+.gh-bottom .yoy .pair { gap: 2px; }
+.gh-bottom .yoy .pair b { height: 16px; font-size: 11px; padding-right: 5px; }
+.gh-bottom .yoy .change { font-size: 18px; }
+.thu svg.wow { display: block; width: 100%; height: auto; overflow: visible; }
+.wow rect.was { fill: var(--dex-ink-faint); }
+.wow rect.now { fill: var(--accent); }
+.wow .zero { stroke: var(--dex-ink); stroke-width: 1.5; }
+.wow .zl { fill: var(--dex-ink-muted); font: 11px var(--font-mono); }
+.wow text.zl { text-anchor: start; }
+.wow text { text-anchor: middle; font-family: var(--font-mono); }
+.wow .pct { fill: var(--dex-ink); font-size: 15px; }
+.wow .pct.now { fill: var(--accent); font-size: 22px; font-weight: 700; }
+.wow .d { fill: var(--dex-ink); font-size: 14px; }
+.wow .n { fill: var(--dex-ink-muted); font-size: 12px; }
+.wow .now.d, .wow .now.n { fill: var(--accent); font-weight: 700; }
+/* GitHub's mark, big, in the top right; the GTA 6 art tucks in as a small badge on it */
+.gh-mark { position: absolute; margin: 0; color: var(--dex-ink); pointer-events: none;
+  top: 40px; right: 64px; width: 250px; height: 250px; }
+.gh-mark svg { width: 100%; height: 100%; display: block; }
+.card.github .aside { top: 196px; right: 266px; width: 150px; height: 150px; }
+.card.portrait .gh-mark { top: 120px; right: 28px; width: 230px; height: 230px; }
+.card.portrait.github .aside { top: 33px; right: 230px; width: 170px; height: 170px; }
+.card.portrait.github .big { margin-top: 26px; }
+.card.portrait.github .hero { justify-content: flex-start; }
+.card.portrait.github .gh-bottom { margin-top: auto; }
+.card.github .hero { gap: 26px; }
+.gh-line { display: none; }
+.card.portrait .gh-bottom { grid-template-columns: 1fr; row-gap: 12px; }
+.card.portrait .gh-bottom .yoy { display: none; }
+.card.portrait .gh-line { display: block; margin: 0; font: 14px var(--font-mono); color: var(--dex-ink-muted); }
+.card.portrait.github .hero h1 { margin-top: 52px; }
+.card.github:not(.portrait) .thu svg.wow { width: auto; height: 196px; max-width: 100%; }
+.card.github:not(.portrait) .gh-mark { top: 34px; right: 60px; width: 210px; height: 210px; }
+.card.github:not(.portrait) .aside { top: 40px; right: 290px; width: 150px; height: 150px; }
+/* Explicit line break used only on the 4:5 card */
+.pbr { display: none; }
+.card.portrait .pbr { display: inline; }

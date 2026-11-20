@@ -1,0 +1,79 @@
+version: 2
+semantic_models:
+- name: fct_github_release_day
+  description: 'Metric 4 headline: PRs opened on release day against the Thursday before, one row per
+    release day, with its breakdown (PRs opened, PRs merged, commits).'
+  model: ref('fct_github_release_day')
+  defaults:
+    agg_time_dimension: release_day
+  entities:
+  - name: github_release_day
+    type: primary
+    expr: release_day_key
+    config:
+      meta:
+        dex:
+          null_rule: never
+  dimensions:
+  - name: breakdown
+    type: categorical
+    description: Every activity's change. Report it with the headline.
+    config:
+      meta:
+        dex:
+          null_rule: never
+  - name: release_day
+    type: time
+    description: GTA 6's release day.
+    type_params:
+      time_granularity: day
+    config:
+      meta:
+        dex:
+          null_rule: never
+  - name: baseline_start
+    type: time
+    description: First baseline day.
+    type_params:
+      time_granularity: day
+    config:
+      meta:
+        dex:
+          null_rule: never
+  - name: baseline_end
+    type: time
+    description: Last baseline day.
+    type_params:
+      time_granularity: day
+    config:
+      meta:
+        dex:
+          null_rule: never
+  measures:
+  - name: github_release_day_change_measure
+    agg: max
+    expr: github_release_day_change
+    description: PRs opened's release-day change, in percent.
+    config:
+      meta:
+        dex:
+          unit: percent
+          additivity: non_additive
+          null_rule: NULL until PRs opened has a change.
+  config:
+    meta:
+      dex:
+        population:
+          rule: One row for the configured release day (var github_release_day).
+        assumptions:
+        - decision: How the activities combine
+          chosen: plain average of the per-activity percent changes
+          evidence: precedent
+          detail: the Day-Off Index averages its phrases' changes the same way; counts differ by 10x between
+            PRs and commits, so changes are averaged, not counts
+          column: github_release_day_change
+        - decision: An activity not yet available
+          chosen: headline NULL
+          evidence: precedent
+          detail: 'fct_day_off_index: an average over fewer parts is a different number'
+          column: github_release_day_change

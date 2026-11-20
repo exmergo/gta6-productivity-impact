@@ -3,8 +3,8 @@
  "data": {
   "cache_path": "./.dex/cache.json",
   "object_count": 23,
-  "profiled_count": 5,
-  "cache_hit_count": 18,
+  "profiled_count": 1,
+  "cache_hit_count": 22,
   "skipped_count": 0,
   "skipped": {
    "count": 0,
@@ -23,7 +23,7 @@
   "top_objects": [
    {
     "identifier": "gta6.raw.trends_interest",
-    "rank_score": 0.698
+    "rank_score": 0.6995
    },
    {
     "identifier": "gta6.main.fct_wait_milestones",
@@ -47,7 +47,7 @@
     "identifier": "gta6.raw.trends_interest",
     "object_type": "table",
     "row_count": 4416,
-    "rank_score": 0.698,
+    "rank_score": 0.6995,
     "profiled_at": "2026-11-19T12:13:55.194798+00:00",
     "grain": null,
     "candidate_key": null,
@@ -279,7 +279,7 @@
     "object_type": "table",
     "row_count": 46,
     "rank_score": 0.6089,
-    "profiled_at": "2026-11-18T18:41:15.776641+00:00",
+    "profiled_at": "2026-11-20T06:28:02.107408+00:00",
     "grain": [
      "milestone_id"
     ],
@@ -328,7 +328,7 @@
     "identifier": "gta6.main.fct_signal_daily",
     "object_type": "table",
     "row_count": 880,
-    "rank_score": 0.5999,
+    "rank_score": 0.6003,
     "profiled_at": "2026-11-19T12:13:52.963266+00:00",
     "grain": [
      "signal_day_key"
@@ -398,7 +398,7 @@
     "identifier": "gta6.raw.bluesky_daily_hits",
     "object_type": "table",
     "row_count": 1320,
-    "rank_score": 0.5466,
+    "rank_score": 0.547,
     "profiled_at": "2026-11-19T12:13:54.651446+00:00",
     "grain": [
      "observed_at"
@@ -424,7 +424,7 @@
     "identifier": "gta6.raw.hn_daily_hits",
     "object_type": "table",
     "row_count": 1320,
-    "rank_score": 0.5466,
+    "rank_score": 0.547,
     "profiled_at": "2026-11-19T12:13:54.933118+00:00",
     "grain": [
      "observed_at"
@@ -450,7 +450,7 @@
     "identifier": "gta6.raw.wiki_pageviews",
     "object_type": "table",
     "row_count": 440,
-    "rank_score": 0.5014,
+    "rank_score": 0.5017,
     "profiled_at": "2026-11-19T12:13:55.344846+00:00",
     "grain": [
      "ts",
@@ -1040,12 +1040,12 @@
   "elided_object_count": 0,
   "elided_column_count": 123,
   "elided_edge_count": 0,
-  "updated_at": "2026-11-19T18:12:07.138558+00:00",
+  "updated_at": "2026-11-20T06:28:01.606786+00:00",
   "notes": [
    "inference examined 17 id-shaped column(s) across 23 profiled object(s)",
    "no declared relationships (dbt project present but unused)",
    "a dbt project is present but unused; pass --use-project to fold its declared joins, grain, and metric definitions into exploration",
-   "reused 18 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
+   "reused 22 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
    "value-overlap join inference not run; pass --infer-by-overlap to probe key-shaped columns whose names matched nothing for measured value containment",
    "123 column(s) are not described. The default keeps grain, key, join and PII-flagged columns, at most 12 per object; --detail widens the selection to every column, and the per-object cap still binds"
   ]

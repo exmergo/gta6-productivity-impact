@@ -214,8 +214,8 @@ def _millions(v: float) -> str:
 
 
 def _signed(v: float) -> str:
-    """+3 or −3, with a real minus sign: a hyphen reads as a dash at display sizes."""
-    return f"{v:+.0f}".replace("-", "\u2212")
+    """+3.7 or −3.7, one decimal, with a real minus sign (a hyphen reads as a dash)."""
+    return f"{v:+.1f}".replace("-", "\u2212")
 
 
 def _short(day: dt.date) -> str:
@@ -315,8 +315,8 @@ def github_card(png: bool) -> dict | None:
     <img alt="Lucia and Jason, the two leads of GTA 6" src="../assets/gta-6-lucia-and-the-guy.jpg">
   </figure>"""
     for name, w, h, variant in (
-        ("github-release-day", 1200, 630, ""),
-        ("github-release-day-portrait", 720, 900, "portrait"),
+        ("github-release-day", 1200, 630, "decimals"),
+        ("github-release-day-portrait", 720, 900, "portrait decimals"),
     ):
         _write(
             name,
@@ -326,7 +326,7 @@ def github_card(png: bool) -> dict | None:
             source=GITHUB_SOURCE,
             w=w,
             h=h,
-            data=data if not variant else None,
+            data=data if "portrait" not in variant else None,
             png=png,
             variant=variant,
         )

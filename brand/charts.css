@@ -105,6 +105,9 @@ h1 .red { color: var(--dex-redline); }
 .card.portrait .yoy .term { font-size: 19px; }
 .card.portrait .yoy .pair b { height: 24px; }
 .card.portrait .yoy .change { font-size: 26px; }
+/* One-decimal changes (−3.7%) need a wider last column than whole ones. */
+.card.decimals .yoy { grid-template-columns: 132px 1fr 92px; }
+.card.portrait.decimals .yoy { grid-template-columns: 136px 1fr 100px; }
 .card.portrait .foot { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 13px; }
 
 /* Metric 2: the two GTA launches as quiet bookends, not alerts. */

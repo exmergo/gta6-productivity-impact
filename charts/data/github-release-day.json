@@ -31,5 +31,47 @@
    "github_activity_baseline": 12866079.0,
    "label": "Commits"
   }
+ ],
+ "thursdays": [
+  {
+   "metric_time__day": "2026-10-01T00:00:00",
+   "github_activity_count": 981763,
+   "github_activity_change_wow": null
+  },
+  {
+   "metric_time__day": "2026-10-08T00:00:00",
+   "github_activity_count": 995185,
+   "github_activity_change_wow": 1.3671323934595137
+  },
+  {
+   "metric_time__day": "2026-10-15T00:00:00",
+   "github_activity_count": 1077526,
+   "github_activity_change_wow": 8.273939016363796
+  },
+  {
+   "metric_time__day": "2026-10-22T00:00:00",
+   "github_activity_count": 1154084,
+   "github_activity_change_wow": 7.104979369407327
+  },
+  {
+   "metric_time__day": "2026-10-29T00:00:00",
+   "github_activity_count": 1195897,
+   "github_activity_change_wow": 3.6230465026809044
+  },
+  {
+   "metric_time__day": "2026-11-05T00:00:00",
+   "github_activity_count": 1197854,
+   "github_activity_change_wow": 0.16364285553021052
+  },
+  {
+   "metric_time__day": "2026-11-12T00:00:00",
+   "github_activity_count": 1350958,
+   "github_activity_change_wow": 12.781524292609948
+  },
+  {
+   "metric_time__day": "2026-11-19T00:00:00",
+   "github_activity_count": 1301341,
+   "github_activity_change_wow": -3.672727057391867
+  }
  ]
 }

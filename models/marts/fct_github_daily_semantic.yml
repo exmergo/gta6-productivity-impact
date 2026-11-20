@@ -10,7 +10,7 @@ semantic_models:
   - name: github_day
     type: primary
     expr: github_day_key
-    config: &id001
+    config:
       meta:
         dex:
           null_rule: never
@@ -20,27 +20,45 @@ semantic_models:
     description: UTC day.
     type_params:
       time_granularity: day
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   - name: activity
     type: categorical
     description: prs_opened, prs_merged or commits.
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   - name: activity_label
     type: categorical
     description: PRs opened, PRs merged or Commits.
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   - name: weekday_name
     type: categorical
     description: Day of the week.
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   - name: is_release_day
     type: categorical
     description: True on GTA 6's release day.
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   - name: days_from_release
     type: categorical
     description: Days after release day (negative before).
-    config: *id001
+    config:
+      meta:
+        dex:
+          null_rule: never
   measures:
   - name: github_activity_count_measure
     agg: sum
@@ -52,3 +70,23 @@ semantic_models:
           unit: count
           additivity: additive
           null_rule: NULL when unavailable, never zero.
+  - name: github_activity_wow_pct_change
+    agg: max
+    expr: wow_pct_change
+    description: The day against the same weekday a week earlier, in percent.
+    config:
+      meta:
+        dex:
+          unit: percent
+          additivity: non_additive
+          null_rule: NULL unless both days have a count.
+  - name: github_activity_prior_week_count
+    agg: max
+    expr: prior_week_count
+    description: The same weekday a week earlier.
+    config:
+      meta:
+        dex:
+          unit: count
+          additivity: non_additive
+          null_rule: NULL when that day has no count.

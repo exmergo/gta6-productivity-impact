@@ -26,6 +26,11 @@ models:
             evidence: contract
             detail: 'config.py: all days in this study are UTC days'
             column: activity_date
+          - decision: Week-on-week pairing
+            chosen: same activity, same weekday 7 calendar days earlier (date join); NULL when either day is missing
+            evidence: request
+            detail: 'user, 20 Nov: add the previous Thursdays as context and highlight the drop; the headline compares with the Thursday before the same way'
+            column: wow_pct_change
   columns:
   - name: github_day_key
     description: md5 of activity|day.
@@ -35,7 +40,7 @@ models:
           role: key
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
   - name: activity_date
     description: UTC day.
     config:
@@ -44,7 +49,7 @@ models:
           role: time
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
   - name: activity
     description: prs_opened, prs_merged or commits.
     config:
@@ -53,7 +58,7 @@ models:
           role: dimension
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
   - name: activity_label
     description: PRs opened, PRs merged or Commits.
     config:
@@ -62,7 +67,7 @@ models:
           role: attribute
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
   - name: activity_count
     description: How many on the day. NULL when unavailable, never zero.
     config:
@@ -81,7 +86,7 @@ models:
           role: attribute
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
   - name: weekday_name
     description: Day of the week.
     config:
@@ -90,7 +95,7 @@ models:
           role: dimension
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
   - name: is_release_day
     description: True on GTA 6's release day (var github_release_day).
     config:
@@ -99,7 +104,7 @@ models:
           role: dimension
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
   - name: days_from_release
     description: Days after release day (negative before it).
     config:
@@ -108,7 +113,7 @@ models:
           role: dimension
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
   - name: observed_at
     description: When the count was asked for (UTC).
     config:
@@ -117,4 +122,159 @@ models:
           role: attribute
           null_rule: never
     data_tests:
-      - not_null
+    - not_null
+  - name: prior_week_count
+    description: The same activity on the same weekday a week earlier. NULL when that day was not counted.
+    config:
+      meta:
+        dex:
+          role: measure
+          aggregation: max
+          additivity: non_additive
+          unit: count
+          null_rule: NULL when the week-earlier day has no count.
+  - name: wow_pct_change
+    description: The day against the same weekday a week earlier, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+          null_rule: NULL unless both days have a count and the week before is above zero.
+unit_tests:
+- name: github_week_on_week_pairs_the_same_weekday
+  description: Each day is set against the same weekday 7 days earlier, per activity; the day before or
+    another activity never pairs.
+  model: fct_github_daily
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+  given:
+  - input: ref('stg_github__daily_counts')
+    rows:
+    - activity_date: '2026-11-12'
+      activity: prs_opened
+      activity_count: 1000
+      is_available: true
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q prs_opened 2026-11-12
+    - activity_date: '2026-11-18'
+      activity: prs_opened
+      activity_count: 9999
+      is_available: true
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q prs_opened 2026-11-18
+    - activity_date: '2026-11-19'
+      activity: prs_opened
+      activity_count: 750
+      is_available: true
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q prs_opened 2026-11-19
+    - activity_date: '2026-11-12'
+      activity: commits
+      activity_count: 50
+      is_available: true
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q commits 2026-11-12
+  expect:
+    rows:
+    - activity_date: '2026-11-12'
+      activity: prs_opened
+      prior_week_count: null
+      wow_pct_change: null
+    - activity_date: '2026-11-18'
+      activity: prs_opened
+      prior_week_count: null
+      wow_pct_change: null
+    - activity_date: '2026-11-19'
+      activity: prs_opened
+      prior_week_count: 1000
+      wow_pct_change: -25.0
+    - activity_date: '2026-11-12'
+      activity: commits
+      prior_week_count: null
+      wow_pct_change: null
+- name: github_week_on_week_null_when_either_day_is_missing
+  description: A NULL count on either day leaves the change NULL, never -100%; a zero week before has
+    no percent change.
+  model: fct_github_daily
+  overrides:
+    vars:
+      github_release_day: '2026-11-19'
+  given:
+  - input: ref('stg_github__daily_counts')
+    rows:
+    - activity_date: '2026-11-05'
+      activity: prs_opened
+      activity_count: null
+      is_available: false
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q prs_opened 2026-11-05
+    - activity_date: '2026-11-12'
+      activity: prs_opened
+      activity_count: 1000
+      is_available: true
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q prs_opened 2026-11-12
+    - activity_date: '2026-11-19'
+      activity: prs_opened
+      activity_count: null
+      is_available: false
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q prs_opened 2026-11-19
+    - activity_date: '2026-10-29'
+      activity: prs_opened
+      activity_count: 0
+      is_available: true
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q prs_opened 2026-10-29
+    - activity_date: '2026-11-05'
+      activity: commits
+      activity_count: 5
+      is_available: true
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q commits 2026-11-05
+    - activity_date: '2026-10-29'
+      activity: commits
+      activity_count: 0
+      is_available: true
+      observed_at: '2026-11-20 09:00:00'
+      endpoint: issues
+      query: q commits 2026-10-29
+  expect:
+    rows:
+    - activity_date: '2026-11-05'
+      activity: prs_opened
+      prior_week_count: 0
+      wow_pct_change: null
+    - activity_date: '2026-11-12'
+      activity: prs_opened
+      prior_week_count: null
+      wow_pct_change: null
+    - activity_date: '2026-11-19'
+      activity: prs_opened
+      prior_week_count: 1000
+      wow_pct_change: null
+    - activity_date: '2026-10-29'
+      activity: prs_opened
+      prior_week_count: null
+      wow_pct_change: null
+    - activity_date: '2026-11-05'
+      activity: commits
+      prior_week_count: 0
+      wow_pct_change: null
+    - activity_date: '2026-10-29'
+      activity: commits
+      prior_week_count: null
+      wow_pct_change: null

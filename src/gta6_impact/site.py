@@ -362,6 +362,28 @@ def _github_parts(g: dict) -> str:
     )
 
 
+def _thursday_run(g: dict) -> str:
+    """How many same weekdays before release day in a row rose on the week before, from the
+    semantic layer's rows; empty when there is no run to report."""
+    rows = [r for r in g.get("thursdays", []) if r["github_activity_change_wow"] is not None]
+    if len(rows) < 2:
+        return ""
+    *before, release = rows
+    run = 0
+    for r in reversed(before):
+        if r["github_activity_change_wow"] <= 0:
+            break
+        run += 1
+    if not run or release["github_activity_change_wow"] >= 0:
+        return ""
+    first = dt.date.fromisoformat(before[-run]["metric_time__day"][:10])
+    return (
+        f"Every {dt.date.fromisoformat(release['metric_time__day'][:10]):%A} from "
+        f"{first:%-d %b} to the week before had more PRs opened than the one before it "
+        f"({run} in a row). Release day had fewer."
+    )
+
+
 def _github_section(summary: dict) -> str:
     g = _github(summary)
     if not g:
@@ -391,7 +413,8 @@ def _github_section(summary: dict) -> str:
 <p class="lede">GitHub's own search counts, {release:%A} {release:%-d %B %Y} (UTC) against
 {escape(g["baseline_label"])}.
 Pull requests opened: <b>{_pct(change)}</b> ({_count(head["github_activity_release_day"])}
-against {_count(head["github_activity_baseline"])}). Beside it: {escape(others)}.</p>
+against {_count(head["github_activity_baseline"])}). {escape(_thursday_run(g))} Beside it:
+{escape(others)}.</p>
 <figure><img src="charts/png/{name}-light.png" data-dark="charts/png/{name}-dark.png"
 alt="{escape(alt)}" loading="lazy"><figcaption>GitHub on GTA 6 release day ·
 <a href="charts/data/{name}.json">data</a></figcaption></figure>

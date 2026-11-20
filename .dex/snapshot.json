@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-11-20T09:20:55.697769+00:00",
+  "created_at": "2026-11-20T09:32:25.026324+00:00",
   "connector": "duckdb",
   "tool_version": "1.18.0",
   "warehouse": {
@@ -7690,9 +7690,9 @@
       "models/marts/fct_day_off_index.yml": "c3e656137e4b7d14b93a87ee76017deef2c52c810805ebd0219acf71a2ee5bf6",
       "models/marts/fct_day_off_index_terms.sql": "069c9fb97c736714a29c3f2f33b0edd5339a354adfbcf8324482b1553706486c",
       "models/marts/fct_day_off_index_terms.yml": "973fbbc3ed91793286e82f25dffd83d65035ed649b566f1985ffe1bd0e69e653",
-      "models/marts/fct_github_daily.sql": "c7269193f2c553c8f1c74002b60baffb3fdd2bb2efe578a45ebbb73e9b443240",
-      "models/marts/fct_github_daily.yml": "4dabb18a83b578037dc07517864f8a3144939f69b2ab4a3389be4a703cb5a8f6",
-      "models/marts/fct_github_daily_semantic.yml": "4cb5d085d0223d674e775a2c53744ac74711eaf4fbd62604f10fc41f26f40098",
+      "models/marts/fct_github_daily.sql": "a1335f26088b59cc20d27778992150a99d9de517801bbbbee0fa55d22614e7ab",
+      "models/marts/fct_github_daily.yml": "73f19cf2ea037783a1f467f05a1d26ca1f6e623460c03e3481279b38c48efa99",
+      "models/marts/fct_github_daily_semantic.yml": "958d3de7976a43b55a52cab89bed59657e31e66111e538cc309783fb090de6a7",
       "models/marts/fct_github_release_day.sql": "e60cda85894f823aa3995520addcacb8c81698bdfa1c0717531000726501b82a",
       "models/marts/fct_github_release_day.yml": "2c25ba13284b6f58b412c107b3cf93797b3c613d9bb79b0a57ccd6f7d77c8369",
       "models/marts/fct_github_release_day_activities.sql": "7f4275a96002dc81dd4003021bb9005577b34be9c09d50331b393e130c17efd4",
@@ -7712,7 +7712,7 @@
       "models/marts/metricflow_time_spine.sql": "fa9fa9f664236f9af4e868eaf8b3fb300253d7b5677936d36bef66fd75049c01",
       "models/marts/metricflow_time_spine.yml": "3455df32cbd9525b0b5164becc1a9bc7909dce85d8f53784f4f8e3f154a93d5a",
       "models/marts/semantic/day_off_index.yml": "4677ed50ca02942c6b6c9d248f8e41a27abc13cae1041041b20b50d72d6800e6",
-      "models/marts/semantic/metrics.yml": "15bd8668cf6b71347cdc6deeada1b65afeaad22fd9e1ee062628f43fa9f2ff7d",
+      "models/marts/semantic/metrics.yml": "2245d611ccfb1329c31d2751a952cfb9b2a7f5eaefae699e7342726f666c4bae",
       "models/marts/semantic/signal_daily.yml": "6b6595e3ebf439be4059cdce7b5e8a95838ff787eb5b27faa1aadf2107ce8656",
       "models/staging/_sources.yml": "ea03d8dc3c5208083c91b40e482ec9ab95dd38381de30441f9544e45f70518ca",
       "models/staging/stg_bluesky__daily_hits.sql": "6bbd92a4c09bad5a8c9db4458bfb3c587854153870ac529400762195edc858b9",
@@ -8212,7 +8212,7 @@
           "description": "e106807cd46b51f1602e2c218f6094d875c582f7046d4bead934e9109d0bf776",
           "grain": "93253e444a0762400d33a049978880a38c7e6b372ccef1f0c9704defc4564c90",
           "population": "ec998c78f531ea10b234efcf69d9178855cda359321ca869122c63cef3192efe",
-          "assumptions": "3bc8506148ab67045e553ff489365faebea97841cda8579642e63ffb02d070ad"
+          "assumptions": "1efd1ddef9c670656893bdfad65cd62b2237e8d72d0768cc471fffa4cad46cdd"
         },
         "columns": {
           "github_day_key": {
@@ -8267,6 +8267,22 @@
             "description": "836cafd2f9eb4bf6c3f9e0954e622d7414f8ad525f87e11a4b9c826987705286",
             "role": "0c06155bfb693d0d17ad3054829fbf80be3ce3c4e7758fa8dbf2514a6b7fec17",
             "null_rule": "48c4ee8f1739566a5ab22826f6409654a11b3e7b014f0ec17fc8bef69ac2fba4"
+          },
+          "prior_week_count": {
+            "description": "5f25eab208ba7d0c962cae07f65627b20b4cb39c92c29c5e5824f3c3a80f8df4",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "cc3ec73cd71163b2b0ee5faeb2a908226ac15c35c7207d9a626e63ccc47f0ffa",
+            "null_rule": "8abbb5946a6289521067a4471e2a724fbdb30a87d9376f401550817be6d8a7d0"
+          },
+          "wow_pct_change": {
+            "description": "0b7f15a682971d34715845a58f98e9b3a3094a936c944557d7ef47d2766347e8",
+            "role": "84d112783f0ebd0297725834aa3c55095b3800e24d892f4850c9ab9e2ddee661",
+            "aggregation": "9f8bce6a0f469f0a823a32bc247b3419317ad5a7d73802e0d910cf7458989b9b",
+            "additivity": "3082fde28d7a836c1f64febeead1705a1e5d2b40da34795c7c1a216c54283a00",
+            "unit": "927f113e4d1abc30c0ccb562d93d679ec99e0cdf8a2bb0da22473874574bba34",
+            "null_rule": "fcf92e75fa301890242564c54a8c2d516db18e7a462d0b9c6a3ab6366644af2c"
           }
         }
       },
@@ -9002,7 +9018,7 @@
       {
         "name": "fct_github_daily",
         "path": "models/marts/fct_github_daily_semantic.yml",
-        "content_sha256": "3703dbfcb7b11db907a0f7bb5fe3e12cf8c28476b82e4f03db2815c628e68eb4",
+        "content_sha256": "af56c271f2f30e00748f26021e6277f9e451fb6002ec96126cdf11cbc81c89ee",
         "model_ref": "fct_github_daily",
         "relation": null,
         "entities": {
@@ -9024,7 +9040,9 @@
           "days_from_release": "days_from_release"
         },
         "measures": {
-          "github_activity_count_measure": "activity_count"
+          "github_activity_count_measure": "activity_count",
+          "github_activity_wow_pct_change": "wow_pct_change",
+          "github_activity_prior_week_count": "prior_week_count"
         },
         "keys": [],
         "key_claims": null
@@ -9456,6 +9474,24 @@
         "content_sha256": "abca37ae6af54febd1be94687237b86073c485c543dfcc4538322ec5d623b271",
         "input_measures": [
           "github_activity_count_measure"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_activity_change_wow",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "997163dd708ba87d4d72a708fbb3102fcbdca4c08d72977103ec5d3247627521",
+        "input_measures": [
+          "github_activity_wow_pct_change"
+        ],
+        "input_metrics": []
+      },
+      {
+        "name": "github_activity_count_week_before",
+        "path": "models/marts/semantic/metrics.yml",
+        "content_sha256": "189ba2d61ec1bda694295b7ca8dee60f95cc82cec8fefc5818b6c8997bf65b60",
+        "input_measures": [
+          "github_activity_prior_week_count"
         ],
         "input_metrics": []
       }

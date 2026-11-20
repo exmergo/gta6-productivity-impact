@@ -227,3 +227,32 @@ h1 .red { color: var(--dex-redline); }
 .gcard.portrait .glowup.wait .titles { width: 960px; }
 .gcard.portrait .glowup.wait .headline { font-size: 72px; }
 .gcard.portrait .glowup.wait .subhead { font-size: 28px; }
+
+/* Metric 4: the Thursdays before release day as columns, the breakdown beside them */
+.gh-bottom { display: grid; grid-template-columns: 1fr 470px; column-gap: 52px; align-items: end; }
+.gh-bottom .yoy { grid-template-columns: 96px 1fr 72px; column-gap: 10px; row-gap: 12px; }
+.gh-bottom .yoy .term { font-size: 15px; }
+.gh-bottom .yoy .pair { gap: 2px; }
+.gh-bottom .yoy .pair b { height: 16px; font-size: 11px; padding-right: 5px; }
+.gh-bottom .yoy .change { font-size: 18px; }
+.thu .cap { font: 12px var(--font-mono); color: var(--dex-ink); margin-bottom: 8px; }
+.thu .cols { display: flex; align-items: flex-end; gap: 8px; height: 150px; }
+.thu .col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; text-align: center; }
+.thu .col i { display: block; background: var(--dex-ink-faint); min-height: 2px; }
+.thu .col .v { font: 11px var(--font-mono); color: var(--dex-ink); margin-bottom: 3px; }
+.thu .col .wow { font: 10px var(--font-mono); color: var(--dex-ink-muted); margin-bottom: 1px; }
+.thu .col .d { font: 11px var(--font-mono); color: var(--dex-ink); margin-top: 5px; }
+.thu .col.now i { background: var(--accent); }
+.thu .col.now .v, .thu .col.now .d { color: var(--accent); font-weight: 700; }
+.thu .col.now .wow { color: var(--accent); font: 700 15px var(--font-mono); }
+.card.github .hero { gap: 26px; }
+.gh-line { display: none; }
+.card.portrait .gh-bottom { grid-template-columns: 1fr; row-gap: 12px; }
+.card.portrait .gh-bottom .yoy { display: none; }
+.card.portrait .gh-line { display: block; margin: 0; font: 14px var(--font-mono); color: var(--dex-ink); }
+.card.portrait.github .hero h1 { margin-top: 64px; }
+.card.portrait .thu .cols { height: 200px; gap: 10px; }
+.card.portrait .thu .col .v, .card.portrait .thu .col .d { font-size: 12px; }
+.card.portrait .thu .col .wow { font-size: 11px; }
+.card.portrait .thu .col.now .wow { font-size: 17px; }
+.card.portrait .thu .cap { font-size: 13px; }

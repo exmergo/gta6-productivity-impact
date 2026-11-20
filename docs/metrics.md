@@ -139,11 +139,23 @@ lines up with release day; it is association, not proof of cause.
 | PRs merged | 1,121,476 | 1,093,112 | −2.5% |
 | Commits | 12,866,079 | 12,429,627 | −3.4% |
 
+The Thursdays before it, PRs opened against the week before (`github_activity_change_wow`):
+
+| Thu | 8 Oct | 15 Oct | 22 Oct | 29 Oct | 5 Nov | 12 Nov | **19 Nov** |
+|---|---|---|---|---|---|---|---|
+| PRs opened | +1.4% | +8.3% | +7.1% | +3.6% | +0.2% | +12.8% | **−3.7%** |
+
+Six Thursdays in a row up, then release day down. PRs merged follow the same pattern; commits
+swing too much week to week (−85% to +89%) to read a pattern from.
+
 Ask it: `uv run dex explore semantic query github_release_day_change --group-by
 github_release_day__breakdown` and `uv run dex explore semantic query
 github_activity_change,github_activity_baseline,github_activity_release_day --group-by
 github_activity__activity`. By day: `uv run dex explore semantic query github_activity_count
---group-by metric_time__day,github_day__activity`. Models: `stg_github__daily_counts`,
+--group-by metric_time__day,github_day__activity`. The Thursdays: `uv run dex explore semantic
+query github_activity_count,github_activity_change_wow --group-by
+metric_time__day,github_day__activity --where "{{ Dimension('github_day__days_from_release') }}
+% 7 = 0"`. Models: `stg_github__daily_counts`,
 `fct_github_daily` (one row per day per activity), `fct_github_release_day_activities` (one row
 per activity) and `fct_github_release_day` (one row per release day). Charts:
 `charts/png/github-release-day-{light,dark}.png` and the 4:5

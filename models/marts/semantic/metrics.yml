@@ -184,3 +184,20 @@ metrics:
   type: simple
   type_params:
     measure: github_activity_count_measure
+
+- name: github_activity_change_wow
+  label: GitHub activity, change on the same weekday a week earlier
+  description: Metrics 4 and 6. A day's count against the same weekday 7 days earlier, in percent, per activity.
+    Group by metric_time__day and github_day__activity (filter github_day__weekday_name = 'Thursday' for
+    the Thursdays around release day). NULL when either day is missing.
+  type: simple
+  type_params:
+    measure: github_activity_wow_pct_change
+
+- name: github_activity_count_week_before
+  label: GitHub activity, same weekday a week earlier
+  description: Metrics 4 and 6. The count on the same weekday 7 days earlier, per activity. Group by metric_time__day
+    and github_day__activity.
+  type: simple
+  type_params:
+    measure: github_activity_prior_week_count

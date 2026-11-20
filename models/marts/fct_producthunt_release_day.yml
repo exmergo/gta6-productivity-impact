@@ -1,0 +1,122 @@
+version: 2
+models:
+- name: fct_producthunt_release_day
+  description: 'Metric 5 headline: launches and comments on release day against the Thursday before, one row per release day, with its breakdown.'
+  config:
+    meta:
+      dex:
+        grain:
+          - release_day_key
+        population:
+          rule: One row for the configured release day (var producthunt_release_day).
+        assumptions:
+          - decision: Which rows exist
+            chosen: one row for the configured release day; not a child of fct_github_release_day, which Dex drafted as parent
+            evidence: precedent
+            detail: mirrors fct_github_release_day, one row per release day
+            column: release_day_key
+          - decision: The headline
+            chosen: two numbers side by side, launches and comments; no average
+            evidence: request
+            detail: 'user: count of launches and total count of comments are the metrics; Metric 4''s headline is one activity, not an average (user, 2026-11-20)'
+            column: producthunt_launches_change
+  columns:
+  - name: release_day_key
+    description: 'Release day as text: the row''s key.'
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+      - unique
+      - not_null
+  - name: release_day
+    description: GTA 6's release day.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: baseline_start
+    description: First baseline day.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: baseline_end
+    description: Last baseline day.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: baseline_weeks
+    description: Baseline days (same weekday, weeks before).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activities_total
+    description: Activities in the breakdown.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: activities_available
+    description: Activities with a change.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: producthunt_launches_change
+    description: Launches on release day against the baseline, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL until launches have a change.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+  - name: producthunt_comments_change
+    description: Launch-day comments on release day against the baseline, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL until comments have a change.
+          aggregation: max
+          additivity: non_additive
+          unit: percent
+  - name: breakdown
+    description: Both activities' changes. Always report it with the headline.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null

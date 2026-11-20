@@ -12,7 +12,7 @@ from gta6_impact import store, warehouse
 from gta6_impact.config import ROOT
 from gta6_impact.http import Http
 
-SOURCES = ("wikipedia", "bluesky", "hn", "trends", "economy", "github")
+SOURCES = ("wikipedia", "bluesky", "hn", "trends", "economy", "github", "producthunt")
 
 
 def github_interval() -> float:
@@ -77,10 +77,49 @@ def _ingest_one(source: str, http: Http, pulled: str) -> None:
                 settled="total_count is not null and not incomplete_results",
             ),
         )
+    elif source == "producthunt":
+        _ingest_producthunt(pulled)
+        return
     else:
         raise SystemExit(f"unknown source {source}")
     path = store.write(source, rows, tag=source, pulled=pulled)
     print(json.dumps({"source": source, "rows": len(rows), "path": str(path)}), flush=True)
+
+
+def _ingest_producthunt(pulled: str) -> None:
+    """Lands each Pacific day as soon as it is read: a backfill runs for hours at the API's
+    rate limit, and a stop must not lose the days already read. A day whose launches were all
+    listed is settled (launch-day comments stop moving once the day has ended)."""
+    from gta6_impact.ingest import producthunt
+
+    settled = {
+        key[0]
+        for key in warehouse.settled_keys(
+            "producthunt_days",
+            settle_days=0,
+            key="day",
+            settled="launches_listed = launches_total",
+        )
+    }
+
+    def land(summary: dict, launches: list[dict]) -> None:
+        tag = f"producthunt-{summary['day'].isoformat()}"
+        store.write("producthunt_days", [summary], tag=tag, pulled=pulled)
+        path = store.write("producthunt", launches, tag=tag, pulled=pulled)
+        print(
+            json.dumps(
+                {
+                    "source": "producthunt",
+                    "day": summary["day"].isoformat(),
+                    "launches": summary["launches_listed"],
+                    "of": summary["launches_total"],
+                    "path": str(path),
+                }
+            ),
+            flush=True,
+        )
+
+    producthunt.run(skip=settled, on_day=land)
 
 
 def dex(*args: str, evidence: str | None = None) -> dict:

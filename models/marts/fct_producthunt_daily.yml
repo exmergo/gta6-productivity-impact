@@ -1,0 +1,126 @@
+version: 2
+models:
+- name: fct_producthunt_daily
+  description: 'Metric 5: Product Hunt activity per Pacific day, one row per day per activity, with the same weekday a week earlier.'
+  config:
+    meta:
+      dex:
+        grain:
+          - launch_day
+          - activity
+        population:
+          rule: Every (day, activity) row in int_producthunt__daily.
+          parent:
+            model: int_producthunt__daily
+            key:
+              launch_day: launch_day
+              activity: activity
+        assumptions:
+          - decision: Week-before pairing
+            chosen: date join to the same activity 7 days earlier
+            evidence: precedent
+            detail: fct_github_daily pairs days the same way, so a missing day cannot shift the pairing
+            column: prior_week_count
+  columns:
+  - name: producthunt_day_key
+    description: md5 of activity|day.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: launch_day
+    description: Pacific day.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity
+    description: launches or comments.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity_label
+    description: Launches or Comments.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: activity_count
+    description: How many on the day. NULL when unavailable, never zero.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when unavailable, never zero. Never add across activities.
+          aggregation: sum
+          additivity: additive
+          unit: count
+  - name: is_available
+    description: True when the day has a count.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: is_release_day
+    description: True on GTA 6's release day (var producthunt_release_day).
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: days_from_release
+    description: Days after release day (negative before it).
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: observed_at
+    description: When the day was asked for (UTC).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: prior_week_count
+    description: The same weekday 7 days earlier.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL when that day has no count.
+          aggregation: max
+          additivity: non_additive
+          unit: count
+  - name: wow_pct_change
+    description: The day against the same weekday 7 days earlier, in percent.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: NULL unless both days have a count.
+          aggregation: max
+          additivity: non_additive
+          unit: percent

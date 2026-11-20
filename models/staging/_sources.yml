@@ -33,3 +33,10 @@ sources:
     description: GitHub Search API total_count for one activity (prs_opened, prs_merged, commits) bounded
       to one UTC day, one call each. total_count is NULL when the call failed; incomplete_results is true
       when GitHub's search timed out (or the call failed). No repository, user, title or URL is stored.
+  - name: producthunt_days
+    description: 'Product Hunt API v2, one row per Pacific day: the API''s totalCount of posts launched
+      that day, how many the ingester listed, and the day''s bounds in UTC.'
+  - name: producthunt_launches
+    description: 'Product Hunt API v2, one row per launch (post id): when it launched, whether Product
+      Hunt featured it, its top-level comments written during its Pacific launch day, and its comment
+      counts as of the pull. No names, taglines, comment text, usernames or URLs.'

@@ -1,0 +1,100 @@
+version: 2
+models:
+- name: stg_producthunt__launches
+  description: Product Hunt launches, one row per launch (post id).
+  config:
+    meta:
+      dex:
+        grain:
+          - post_id
+        population:
+          rule: Every launch listed for an asked day; newest pull wins.
+        assumptions:
+          - decision: Which comments count
+            chosen: top-level comments written during the launch's Pacific launch day
+            evidence: data
+            detail: a launch a week old has had a week more to collect comments, so only launch-day comments compare two days fairly; the API refuses reply timestamps at a day's volume (complexity cap 500,000), so replies are left out
+            column: comments_launch_day
+  columns:
+  - name: post_id
+    description: Product Hunt's numeric post id.
+    config:
+      meta:
+        dex:
+          role: key
+          null_rule: never
+    data_tests:
+      - unique
+      - not_null
+  - name: launch_day
+    description: Pacific day it launched.
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: launched_at
+    description: When it launched (UTC).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: is_featured
+    description: True when Product Hunt featured it on the homepage.
+    config:
+      meta:
+        dex:
+          role: dimension
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: comments_launch_day
+    description: Top-level comments written during its Pacific launch day.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: sum
+          additivity: additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: comments_top_level
+    description: Top-level comments as of the pull.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: comments_total
+    description: All comments including replies, as of the pull.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: max
+          additivity: non_additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: observed_at
+    description: When we asked (UTC).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null

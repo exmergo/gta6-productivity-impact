@@ -1,0 +1,88 @@
+version: 2
+models:
+- name: stg_producthunt__days
+  description: Product Hunt launch counts, one row per Pacific day.
+  config:
+    meta:
+      dex:
+        grain:
+          - launch_day
+        population:
+          rule: Every ended Pacific day the ingester asked for; newest pull wins.
+        assumptions:
+          - decision: Day boundary
+            chosen: Pacific day (America/Los_Angeles), Product Hunt's own day
+            evidence: data
+            detail: Product Hunt launches at 00:01 Pacific (API createdAt 08:01Z in November); a UTC day would split each launch day in two. Metric 4 uses UTC days
+            column: launch_day
+  columns:
+  - name: launch_day
+    description: Pacific day (Product Hunt's day).
+    config:
+      meta:
+        dex:
+          role: time
+          null_rule: never
+    data_tests:
+      - unique
+      - not_null
+  - name: day_start
+    description: The day's first instant, UTC.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: day_end
+    description: The next day's first instant, UTC.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: launches_total
+    description: The API's count of posts launched that day.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: sum
+          additivity: additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: launches_listed
+    description: Launches the ingester listed and read.
+    config:
+      meta:
+        dex:
+          role: measure
+          null_rule: never
+          aggregation: sum
+          additivity: additive
+          unit: count
+    data_tests:
+      - not_null
+  - name: is_complete
+    description: True when every launch was listed.
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null
+  - name: observed_at
+    description: When we asked (UTC).
+    config:
+      meta:
+        dex:
+          role: attribute
+          null_rule: never
+    data_tests:
+      - not_null

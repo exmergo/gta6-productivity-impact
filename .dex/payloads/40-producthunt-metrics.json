@@ -1,0 +1,44 @@
+{
+ "definitions": [
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: producthunt_launches_change\nlabel: 'Product Hunt on GTA 6 release day: launches'\ndescription: Metric 5 headline. Change, in percent, of products launched on Product Hunt on GTA 6's release\n  day (Thu 19 Nov 2026, a Pacific day, Product Hunt's own) against the Thursday before (12 Nov 2026).\n  Every launch counts, featured or not (the API's own count for the day). Report it with producthunt_comments_change,\n  or group by producthunt_release_day__breakdown.\ntype: simple\ntype_params:\n  measure: producthunt_launches_change_measure\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: producthunt_comments_change\nlabel: 'Product Hunt on GTA 6 release day: comments'\ndescription: 'Metric 5 headline. Change, in percent, of comments on Product Hunt launches on GTA 6''s\n  release day (Thu 19 Nov 2026, a Pacific day, Product Hunt''s own) against the Thursday before (12 Nov\n  2026): top-level comments written during the launch day on that day''s launches (replies left out),\n  so both days are counted at the same age. Report it with producthunt_launches_change.'\ntype: simple\ntype_params:\n  measure: producthunt_comments_change_measure\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: producthunt_activity_change\nlabel: Product Hunt release day, change by activity\ndescription: 'Metric 5 breakdown: one activity''s release-day count against the same weekday a week before,\n  in percent. Group by producthunt_activity__activity.'\ntype: simple\ntype_params:\n  measure: producthunt_activity_pct_change\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: producthunt_activity_release_day\nlabel: Product Hunt activity on release day\ndescription: Metric 5. An activity's count on release day (Pacific). Group by producthunt_activity__activity.\ntype: simple\ntype_params:\n  measure: producthunt_activity_release_day_count\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: producthunt_activity_baseline\nlabel: Product Hunt activity on a normal day\ndescription: Metric 5. An activity's count on the same weekday a week before release day. Group by producthunt_activity__activity.\ntype: simple\ntype_params:\n  measure: producthunt_activity_baseline_count\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: producthunt_activity_count\nlabel: Product Hunt activity per day\ndescription: 'Metric 5. Launches, or launch-day top-level comments on that day''s launches, per Pacific\n  day. Always group by producthunt_day__activity: never add across activities. NULL is unavailable, never\n  zero.'\ntype: simple\ntype_params:\n  measure: producthunt_activity_count_measure\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: producthunt_activity_change_wow\nlabel: Product Hunt activity, change on the same weekday a week earlier\ndescription: Metric 5. A day's count against the same weekday 7 days earlier, in percent, per activity.\n  Group by metric_time__day and producthunt_day__activity. NULL when either day is missing.\ntype: simple\ntype_params:\n  measure: producthunt_activity_wow_pct_change\n"
+  },
+  {
+   "kind": "metric",
+   "path": "models/marts/semantic/metrics.yml",
+   "content": "name: producthunt_activity_count_week_before\nlabel: Product Hunt activity, same weekday a week earlier\ndescription: Metric 5. The count on the same weekday 7 days earlier, per activity. Group by metric_time__day\n  and producthunt_day__activity.\ntype: simple\ntype_params:\n  measure: producthunt_activity_prior_week_count\n"
+  }
+ ]
+}

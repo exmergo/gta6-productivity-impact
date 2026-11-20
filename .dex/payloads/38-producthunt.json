@@ -1,0 +1,509 @@
+{
+ "edits": [
+  {
+   "path": "dbt_project.yml",
+   "kind": "project_yml",
+   "content": "name: gta6_impact\nversion: 1.0.0\nprofile: gta6_impact\nmodel-paths:\n- models\ntest-paths:\n- data_tests\nmodels:\n  gta6_impact:\n    staging:\n      +materialized: view\n    intermediate:\n      +materialized: view\n    marts:\n      +materialized: table\nvars:\n  day_off_index_span_start: '2025-11-01'\n  day_off_index_span_end: '2026-11-15'\n  day_off_index_batch: 20261116T185310\n  day_off_index_start_week: '2026-11-01'\n  day_off_index_end_week: '2026-11-08'\n  day_off_index_weeks: 2\n  day_off_index_weeks_back: 52\n  gta_v_date: '2013-09-17'\n  gta_6_date: '2026-11-19'\n  github_release_day: '2026-11-19'\n  github_baseline_weeks: 1\n  github_test_min_fit_days: 21\n  producthunt_release_day: '2026-11-19'\n  producthunt_baseline_weeks: 1\n"
+  },
+  {
+   "path": "models/staging/_sources.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\nsources:\n- name: raw\n  schema: raw\n  description: 'Public signals landed by `gta6 ingest` as Parquet under data/raw/ and loaded by `gta6\n    load`. Every table is rebuilt from the files on each load; the newest pull wins per key. No post text,\n    handles or usernames are stored.\n\n    '\n  tables:\n  - name: wiki_pageviews\n    description: Daily English Wikipedia pageviews by users (all access) per article.\n  - name: trends_interest\n    description: 'Google Trends relative interest (0-100) per term and day. Values only compare within\n      one request_id; Google rescales every request to its own peak.\n\n      '\n  - name: bluesky_daily_hits\n    description: 'Bluesky public search hitsTotal for one quoted seed phrase (optionally plus \"gta\") bounded\n      to one UTC day. hits_total is NULL when the call failed.\n\n      '\n  - name: hn_daily_hits\n    description: 'Hacker News (Algolia) nbHits for one quoted seed phrase (optionally plus \"gta\") over\n      stories and comments in one UTC day. NULL when the call failed.\n\n      '\n  - name: economy_indicators\n    description: 'Official economic data, one value per provider, indicator, geography and year: World\n      Bank WDI world aggregates (WLD) and the IMF World Economic Outlook world series (WEOWORLD). A year\n      a provider has not published is absent, never zero.'\n  - name: github_daily_counts\n    description: GitHub Search API total_count for one activity (prs_opened, prs_merged, commits) bounded\n      to one UTC day, one call each. total_count is NULL when the call failed; incomplete_results is true\n      when GitHub's search timed out (or the call failed). No repository, user, title or URL is stored.\n  - name: producthunt_days\n    description: 'Product Hunt API v2, one row per Pacific day: the API''s totalCount of posts launched\n      that day, how many the ingester listed, and the day''s bounds in UTC.'\n  - name: producthunt_launches\n    description: 'Product Hunt API v2, one row per launch (post id): when it launched, whether Product\n      Hunt featured it, its top-level comments written during its Pacific launch day, and its comment\n      counts as of the pull. No names, taglines, comment text, usernames or URLs.'\n"
+  },
+  {
+   "path": "models/staging/stg_producthunt__days.sql",
+   "kind": "model_sql",
+   "content": "-- One row per Pacific day Product Hunt was asked about (Metric 5). launches_total is the API's\n-- own count of posts launched that day; is_complete says every one of them was listed and read.\nselect\n    cast(day as date) as launch_day,\n    day_start,\n    day_end,\n    cast(launches_total as bigint) as launches_total,\n    cast(launches_listed as bigint) as launches_listed,\n    coalesce(launches_listed = launches_total, false) as is_complete,\n    observed_at\nfrom {{ source('raw', 'producthunt_days') }}\n"
+  },
+  {
+   "path": "models/staging/stg_producthunt__days.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\nmodels:\n- name: stg_producthunt__days\n  description: Product Hunt launch counts, one row per Pacific day.\n  columns:\n  - name: launch_day\n    description: Pacific day (Product Hunt's day).\n  - name: day_start\n    description: The day's first instant, UTC.\n  - name: day_end\n    description: The next day's first instant, UTC.\n  - name: launches_total\n    description: The API's count of posts launched that day.\n  - name: launches_listed\n    description: Launches the ingester listed and read.\n  - name: is_complete\n    description: True when every launch was listed.\n  - name: observed_at\n    description: When we asked (UTC).\n"
+  },
+  {
+   "path": "models/staging/stg_producthunt__launches.sql",
+   "kind": "model_sql",
+   "content": "-- One row per Product Hunt launch (Metric 5): its Pacific launch day, and its top-level comments\n-- written during that day. Counts and ids only.\nselect\n    post_id,\n    cast(day as date) as launch_day,\n    launched_at,\n    is_featured,\n    cast(comments_launch_day as bigint) as comments_launch_day,\n    cast(comments_top_level as bigint) as comments_top_level,\n    cast(comments_total as bigint) as comments_total,\n    observed_at\nfrom {{ source('raw', 'producthunt_launches') }}\n"
+  },
+  {
+   "path": "models/staging/stg_producthunt__launches.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\nmodels:\n- name: stg_producthunt__launches\n  description: Product Hunt launches, one row per launch (post id).\n  columns:\n  - name: post_id\n    description: Product Hunt's numeric post id.\n  - name: launch_day\n    description: Pacific day it launched.\n  - name: launched_at\n    description: When it launched (UTC).\n  - name: is_featured\n    description: True when Product Hunt featured it on the homepage.\n  - name: comments_launch_day\n    description: Top-level comments written during its Pacific launch day.\n  - name: comments_top_level\n    description: Top-level comments as of the pull.\n  - name: comments_total\n    description: All comments including replies, as of the pull.\n  - name: observed_at\n    description: When we asked (UTC).\n"
+  },
+  {
+   "path": "models/intermediate/int_producthunt__daily.sql",
+   "kind": "model_sql",
+   "content": "-- Metric 5: Product Hunt activity per Pacific day, one row per day per activity.\n-- launches: the API's count of posts launched that day.\n-- comments: top-level comments written on a launch during its launch day, over that day's launches.\n-- A day not read in full has comments NULL (unavailable, never zero).\nwith days as (\n    select * from {{ ref('stg_producthunt__days') }}\n),\n\nlaunches as (\n    select\n        launch_day,\n        count(*) as launches_read,\n        sum(comments_launch_day) as comments_launch_day\n    from {{ ref('stg_producthunt__launches') }}\n    group by launch_day\n),\n\nactivities as (\n    select * from (values ('launches', 1), ('comments', 2)) as a (activity, activity_order)\n)\n\nselect\n    days.launch_day,\n    activities.activity,\n    case activities.activity\n        when 'launches' then days.launches_total\n        when 'comments' then case\n            when days.is_complete and coalesce(launches.launches_read, 0) = days.launches_total\n                then coalesce(launches.comments_launch_day, 0)\n        end\n    end as activity_count,\n    days.observed_at\nfrom days\ncross join activities\nleft join launches\n    on days.launch_day = launches.launch_day\n"
+  },
+  {
+   "path": "models/intermediate/int_producthunt__daily.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\nmodels:\n- name: int_producthunt__daily\n  description: 'Metric 5: Product Hunt launches and launch-day comments per Pacific day, one row per day\n    per activity.'\n  columns:\n  - name: launch_day\n    description: Pacific day.\n  - name: activity\n    description: launches or comments.\n  - name: activity_count\n    description: How many on the day. NULL when unavailable, never zero.\n  - name: observed_at\n    description: When the day was asked for (UTC).\n"
+  },
+  {
+   "path": "models/marts/fct_producthunt_daily.sql",
+   "kind": "model_sql",
+   "content": "-- Metric 5: Product Hunt activity per Pacific day. One row per day per activity, with the same\n-- weekday a week earlier beside it (a date join, so a missing day cannot shift the pairing).\n{%- set release_day = var('producthunt_release_day') %}\nwith daily as (\n    select * from {{ ref('int_producthunt__daily') }}\n)\n\nselect\n    md5(daily.activity || '|' || cast(daily.launch_day as varchar)) as producthunt_day_key,\n    daily.launch_day,\n    daily.activity,\n    case daily.activity\n        when 'launches' then 'Launches'\n        when 'comments' then 'Comments'\n        else daily.activity\n    end as activity_label,\n    daily.activity_count,\n    daily.activity_count is not null as is_available,\n    daily.launch_day = date '{{ release_day }}' as is_release_day,\n    cast(date_diff('day', date '{{ release_day }}', daily.launch_day) as integer)\n        as days_from_release,\n    daily.observed_at,\n    week_before.activity_count as prior_week_count,\n    case\n        when daily.activity_count is not null and week_before.activity_count > 0\n            then 100 * (daily.activity_count / week_before.activity_count - 1)\n    end as wow_pct_change\nfrom daily\nleft join daily as week_before\n    on daily.activity = week_before.activity\n    and week_before.launch_day = cast(daily.launch_day - 7 as date)\n"
+  },
+  {
+   "path": "models/marts/fct_producthunt_daily.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\nmodels:\n- name: fct_producthunt_daily\n  description: 'Metric 5: Product Hunt activity per Pacific day, one row per day per activity, with the\n    same weekday a week earlier.'\n  columns:\n  - name: producthunt_day_key\n    description: md5 of activity|day.\n  - name: launch_day\n    description: Pacific day.\n  - name: activity\n    description: launches or comments.\n  - name: activity_label\n    description: Launches or Comments.\n  - name: activity_count\n    description: How many on the day. NULL when unavailable, never zero.\n  - name: is_available\n    description: True when the day has a count.\n  - name: is_release_day\n    description: True on GTA 6's release day (var producthunt_release_day).\n  - name: days_from_release\n    description: Days after release day (negative before it).\n  - name: observed_at\n    description: When the day was asked for (UTC).\n  - name: prior_week_count\n    description: The same weekday 7 days earlier.\n  - name: wow_pct_change\n    description: The day against the same weekday 7 days earlier, in percent.\n"
+  },
+  {
+   "path": "models/marts/fct_producthunt_release_day_activities.sql",
+   "kind": "model_sql",
+   "content": "-- Metric 5 breakdown: one row per Product Hunt activity. Release day's count against the median\n-- of the same weekday in each of the weeks before it (vars producthunt_release_day and\n-- producthunt_baseline_weeks; canonical: Thu 19 Nov 2026 vs the Thursday before, 12 Nov).\n{%- set release_day = var('producthunt_release_day') %}\n{%- set weeks = var('producthunt_baseline_weeks', 1) %}\nwith params as (\n    select\n        date '{{ release_day }}' as release_day,\n        cast({{ weeks }} as integer) as baseline_weeks,\n        cast(date '{{ release_day }}' - 7 * {{ weeks }} as date) as baseline_start,\n        cast(date '{{ release_day }}' - 7 as date) as baseline_end\n),\n\nactivities as (\n    select distinct activity, activity_label\n    from {{ ref('fct_producthunt_daily') }}\n),\n\nper_activity as (\n    select\n        activities.activity,\n        activities.activity_label,\n        params.release_day,\n        params.baseline_weeks,\n        params.baseline_start,\n        params.baseline_end,\n        max(daily.activity_count) filter (\n            where daily.launch_day = params.release_day\n        ) as release_day_count,\n        median(daily.activity_count) filter (\n            where daily.launch_day between params.baseline_start and params.baseline_end\n                and dayofweek(daily.launch_day) = dayofweek(params.release_day)\n        ) as baseline_count,\n        count(daily.activity_count) filter (\n            where daily.launch_day between params.baseline_start and params.baseline_end\n                and dayofweek(daily.launch_day) = dayofweek(params.release_day)\n        ) as baseline_days_found\n    from activities\n    cross join params\n    left join {{ ref('fct_producthunt_daily') }} as daily\n        on activities.activity = daily.activity\n    group by\n        activities.activity,\n        activities.activity_label,\n        params.release_day,\n        params.baseline_weeks,\n        params.baseline_start,\n        params.baseline_end\n)\n\nselect\n    activity,\n    activity_label,\n    release_day,\n    baseline_weeks,\n    baseline_start,\n    baseline_end,\n    baseline_days_found,\n    baseline_count,\n    release_day_count,\n    case\n        when release_day_count is not null\n            and baseline_days_found = baseline_weeks\n            and baseline_count > 0\n            then 100 * (release_day_count / baseline_count - 1)\n    end as pct_change\nfrom per_activity\n"
+  },
+  {
+   "path": "models/marts/fct_producthunt_release_day_activities.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\nmodels:\n- name: fct_producthunt_release_day_activities\n  description: 'Metric 5 breakdown: release day against the same weekday in the weeks before (canonical:\n    the Thursday before), one row per activity.'\n  columns:\n  - name: activity\n    description: launches or comments.\n  - name: activity_label\n    description: Launches or Comments.\n  - name: release_day\n    description: GTA 6's release day (var producthunt_release_day).\n  - name: baseline_weeks\n    description: How many same weekdays before release day form the baseline.\n  - name: baseline_start\n    description: First baseline day.\n  - name: baseline_end\n    description: Last baseline day (a week before release day).\n  - name: baseline_days_found\n    description: Baseline days with a count.\n  - name: baseline_count\n    description: Median count over the baseline days (the day itself when there is one).\n  - name: release_day_count\n    description: Count on release day. NULL until the day is over and counted.\n  - name: pct_change\n    description: Release day against the baseline, in percent.\n"
+  },
+  {
+   "path": "models/marts/fct_producthunt_release_day.sql",
+   "kind": "model_sql",
+   "content": "-- Metric 5 headline: launches and comments on release day against the Thursday before, in\n-- percent, one row per release day, with `breakdown` spelling out both.\nselect\n    cast(release_day as varchar) as release_day_key,\n    min(release_day) as release_day,\n    min(baseline_start) as baseline_start,\n    min(baseline_end) as baseline_end,\n    min(baseline_weeks) as baseline_weeks,\n    count(*) as activities_total,\n    count(pct_change) as activities_available,\n    max(pct_change) filter (where activity = 'launches') as producthunt_launches_change,\n    max(pct_change) filter (where activity = 'comments') as producthunt_comments_change,\n    string_agg(\n        activity_label || ' ' || coalesce(printf('%+.1f%%', pct_change), 'not yet available'),\n        ' \u00b7 ' order by activity desc\n    ) as breakdown\nfrom {{ ref('fct_producthunt_release_day_activities') }}\ngroup by release_day\n"
+  },
+  {
+   "path": "models/marts/fct_producthunt_release_day.yml",
+   "kind": "schema_yml",
+   "content": "version: 2\nmodels:\n- name: fct_producthunt_release_day\n  description: 'Metric 5 headline: launches and comments on release day against the Thursday before, one\n    row per release day, with its breakdown.'\n  columns:\n  - name: release_day_key\n    description: 'Release day as text: the row''s key.'\n  - name: release_day\n    description: GTA 6's release day.\n  - name: baseline_start\n    description: First baseline day.\n  - name: baseline_end\n    description: Last baseline day.\n  - name: baseline_weeks\n    description: Baseline days (same weekday, weeks before).\n  - name: activities_total\n    description: Activities in the breakdown.\n  - name: activities_available\n    description: Activities with a change.\n  - name: producthunt_launches_change\n    description: Launches on release day against the baseline, in percent.\n  - name: producthunt_comments_change\n    description: Launch-day comments on release day against the baseline, in percent.\n  - name: breakdown\n    description: Both activities' changes. Always report it with the headline.\n"
+  },
+  {
+   "path": "data_tests/assert_producthunt_release_day_has_breakdown.sql",
+   "kind": "test_sql",
+   "content": "-- The Product Hunt release-day changes never travel without their breakdown.\nselect *\nfrom {{ ref('fct_producthunt_release_day') }}\nwhere (producthunt_launches_change is not null or producthunt_comments_change is not null)\n    and breakdown is null\n"
+  }
+ ],
+ "declarations": [
+  {
+   "model": "stg_producthunt__days",
+   "description": "Product Hunt launch counts, one row per Pacific day.",
+   "grain": [
+    "launch_day"
+   ],
+   "population": {
+    "rule": "Every ended Pacific day the ingester asked for; newest pull wins."
+   },
+   "columns": {
+    "launch_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "day_start": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "day_end": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "launches_total": {
+     "role": "measure",
+     "aggregation": "sum",
+     "additivity": "additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "launches_listed": {
+     "role": "measure",
+     "aggregation": "sum",
+     "additivity": "additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "is_complete": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "observed_at": {
+     "role": "attribute",
+     "null_rule": "never"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Day boundary",
+     "chosen": "Pacific day (America/Los_Angeles), Product Hunt's own day",
+     "evidence": "data",
+     "column": "launch_day",
+     "detail": "Product Hunt launches at 00:01 Pacific (API createdAt 08:01Z in November); a UTC day would split each launch day in two. Metric 4 uses UTC days"
+    }
+   ]
+  },
+  {
+   "model": "stg_producthunt__launches",
+   "description": "Product Hunt launches, one row per launch (post id).",
+   "grain": [
+    "post_id"
+   ],
+   "population": {
+    "rule": "Every launch listed for an asked day; newest pull wins."
+   },
+   "columns": {
+    "post_id": {
+     "role": "key",
+     "null_rule": "never"
+    },
+    "launch_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "launched_at": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "is_featured": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "comments_launch_day": {
+     "role": "measure",
+     "aggregation": "sum",
+     "additivity": "additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "comments_top_level": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "comments_total": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "observed_at": {
+     "role": "attribute",
+     "null_rule": "never"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Which comments count",
+     "chosen": "top-level comments written during the launch's Pacific launch day",
+     "evidence": "data",
+     "column": "comments_launch_day",
+     "detail": "a launch a week old has had a week more to collect comments, so only launch-day comments compare two days fairly; the API refuses reply timestamps at a day's volume (complexity cap 500,000), so replies are left out"
+    }
+   ]
+  },
+  {
+   "model": "int_producthunt__daily",
+   "description": "Metric 5: Product Hunt launches and launch-day comments per Pacific day, one row per day per activity.",
+   "grain": [
+    "launch_day",
+    "activity"
+   ],
+   "population": {
+    "rule": "Every asked day in stg_producthunt__days, once per activity (launches, comments)."
+   },
+   "columns": {
+    "launch_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "activity": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "activity_count": {
+     "role": "measure",
+     "aggregation": "sum",
+     "additivity": "additive",
+     "unit": "count",
+     "null_rule": "comments NULL when the day was not read in full; never zero for unavailable."
+    },
+    "observed_at": {
+     "role": "attribute",
+     "null_rule": "never"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Which days exist",
+     "chosen": "every day in stg_producthunt__days, crossed with both activities",
+     "evidence": "precedent",
+     "column": "launch_day",
+     "detail": "driven from the day roster so a day with no launches read keeps a row; fct_github_daily keeps every asked (day, activity) the same way"
+    },
+    {
+     "decision": "What 'Product Hunt activity' counts",
+     "chosen": "launches (count of posts launched) and comments; not points",
+     "evidence": "request",
+     "column": "activity",
+     "detail": "user: points is not a good metric; count of launches and total count of comments is"
+    },
+    {
+     "decision": "Which launches count",
+     "chosen": "every post launched that day, featured or not",
+     "evidence": "default",
+     "column": "activity_count",
+     "detail": "the API's totalCount for the day; featured launches are ~3% of them (33 of 1,197 on 19 Nov) and stay in staging as is_featured"
+    },
+    {
+     "decision": "A day not read in full",
+     "chosen": "comments NULL; launches still the API's count",
+     "evidence": "contract",
+     "column": "activity_count",
+     "detail": "AGENTS.md: a NULL is unavailable, never zero"
+    }
+   ]
+  },
+  {
+   "model": "fct_producthunt_daily",
+   "description": "Metric 5: Product Hunt activity per Pacific day, one row per day per activity, with the same weekday a week earlier.",
+   "grain": [
+    "launch_day",
+    "activity"
+   ],
+   "population": {
+    "rule": "Every (day, activity) row in int_producthunt__daily.",
+    "parent": {
+     "model": "int_producthunt__daily",
+     "key": {
+      "launch_day": "launch_day",
+      "activity": "activity"
+     }
+    }
+   },
+   "columns": {
+    "producthunt_day_key": {
+     "role": "key",
+     "null_rule": "never"
+    },
+    "launch_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "activity": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "activity_label": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "activity_count": {
+     "role": "measure",
+     "aggregation": "sum",
+     "additivity": "additive",
+     "unit": "count",
+     "null_rule": "NULL when unavailable, never zero. Never add across activities."
+    },
+    "is_available": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "is_release_day": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "days_from_release": {
+     "role": "dimension",
+     "null_rule": "never"
+    },
+    "observed_at": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "prior_week_count": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "NULL when that day has no count."
+    },
+    "wow_pct_change": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "percent",
+     "null_rule": "NULL unless both days have a count."
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Week-before pairing",
+     "chosen": "date join to the same activity 7 days earlier",
+     "evidence": "precedent",
+     "column": "prior_week_count",
+     "detail": "fct_github_daily pairs days the same way, so a missing day cannot shift the pairing"
+    }
+   ]
+  },
+  {
+   "model": "fct_producthunt_release_day_activities",
+   "description": "Metric 5 breakdown: release day against the same weekday in the weeks before (canonical: the Thursday before), one row per activity.",
+   "grain": [
+    "activity"
+   ],
+   "population": {
+    "rule": "One row per activity present in fct_producthunt_daily, whether or not release day has been counted yet."
+   },
+   "columns": {
+    "activity": {
+     "role": "key",
+     "null_rule": "never"
+    },
+    "activity_label": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "release_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "baseline_weeks": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "baseline_start": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "baseline_end": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "baseline_days_found": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "days",
+     "null_rule": "never"
+    },
+    "baseline_count": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "NULL when no baseline day has a count."
+    },
+    "release_day_count": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "NULL until release day has ended and been counted."
+    },
+    "pct_change": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "percent",
+     "null_rule": "NULL unless release day and every baseline day have a count."
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Which rows exist",
+     "chosen": "one row per activity in fct_producthunt_daily (launches, comments); not a child of the GitHub marts Dex drafted as parent",
+     "evidence": "precedent",
+     "column": "activity",
+     "detail": "mirrors fct_github_release_day_activities, driven from its own daily mart"
+    },
+    {
+     "decision": "What release day is compared with",
+     "chosen": "the same weekday a week before (Thu 12 Nov 2026)",
+     "evidence": "precedent",
+     "column": "baseline_count",
+     "detail": "Metric 4 (fct_github_release_day_activities) compares with the Thursday before; launch counts have a strong weekly cycle (818 on Sun 15 Nov vs 1,175 on Thu 12 Nov)"
+    },
+    {
+     "decision": "A baseline day without a count",
+     "chosen": "change NULL",
+     "evidence": "precedent",
+     "column": "pct_change",
+     "detail": "fct_github_release_day_activities does the same"
+    }
+   ]
+  },
+  {
+   "model": "fct_producthunt_release_day",
+   "description": "Metric 5 headline: launches and comments on release day against the Thursday before, one row per release day, with its breakdown.",
+   "grain": [
+    "release_day_key"
+   ],
+   "population": {
+    "rule": "One row for the configured release day (var producthunt_release_day)."
+   },
+   "columns": {
+    "release_day_key": {
+     "role": "key",
+     "null_rule": "never"
+    },
+    "release_day": {
+     "role": "time",
+     "null_rule": "never"
+    },
+    "baseline_start": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "baseline_end": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "baseline_weeks": {
+     "role": "attribute",
+     "null_rule": "never"
+    },
+    "activities_total": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "activities_available": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "count",
+     "null_rule": "never"
+    },
+    "producthunt_launches_change": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "percent",
+     "null_rule": "NULL until launches have a change."
+    },
+    "producthunt_comments_change": {
+     "role": "measure",
+     "aggregation": "max",
+     "additivity": "non_additive",
+     "unit": "percent",
+     "null_rule": "NULL until comments have a change."
+    },
+    "breakdown": {
+     "role": "attribute",
+     "null_rule": "never"
+    }
+   },
+   "assumptions": [
+    {
+     "decision": "Which rows exist",
+     "chosen": "one row for the configured release day; not a child of fct_github_release_day, which Dex drafted as parent",
+     "evidence": "precedent",
+     "column": "release_day_key",
+     "detail": "mirrors fct_github_release_day, one row per release day"
+    },
+    {
+     "decision": "The headline",
+     "chosen": "two numbers side by side, launches and comments; no average",
+     "evidence": "request",
+     "column": "producthunt_launches_change",
+     "detail": "user: count of launches and total count of comments are the metrics; Metric 4's headline is one activity, not an average (user, 2026-11-20)"
+    }
+   ]
+  }
+ ]
+}

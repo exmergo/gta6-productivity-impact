@@ -8432,6 +8432,1136 @@
       "profiled_at": "2026-11-20T14:42:24.099631+00:00",
       "semantic_models": [],
       "values_withheld": false
+    },
+    {
+      "identifier": "gta6.raw.producthunt_days",
+      "object_type": "table",
+      "row_count": 1,
+      "byte_size": null,
+      "columns": [
+        {
+          "name": "day",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": "2026-11-19",
+          "max_value": "2026-11-19",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "day_start",
+          "data_type": "TIMESTAMP WITH TIME ZONE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": "2026-11-19T09:00:00+01:00",
+          "max_value": "2026-11-19T09:00:00+01:00",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "hour",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "day_end",
+          "data_type": "TIMESTAMP WITH TIME ZONE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": "2026-11-20T09:00:00+01:00",
+          "max_value": "2026-11-20T09:00:00+01:00",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "hour",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "launches_total",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": 1197,
+          "max_value": 1197,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "launches_listed",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": 1197,
+          "max_value": 1197,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "observed_at",
+          "data_type": "TIMESTAMP WITH TIME ZONE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": "2026-11-20T17:54:24.349158+01:00",
+          "max_value": "2026-11-20T17:54:24.349158+01:00",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "hour",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "pull_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        }
+      ],
+      "candidate_keys": [
+        [
+          "day"
+        ],
+        [
+          "day_start"
+        ],
+        [
+          "day_end"
+        ],
+        [
+          "launches_total"
+        ],
+        [
+          "launches_listed"
+        ],
+        [
+          "observed_at"
+        ],
+        [
+          "pull_id"
+        ]
+      ],
+      "grain": [
+        "pull_id"
+      ],
+      "composite_keys": [],
+      "key_evidence": [
+        {
+          "columns": [
+            "day"
+          ],
+          "status": "reported",
+          "reason": "day is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "day_start"
+          ],
+          "status": "reported",
+          "reason": "day_start is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "day_end"
+          ],
+          "status": "reported",
+          "reason": "day_end is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "launches_total"
+          ],
+          "status": "reported",
+          "reason": "launches_total is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "launches_listed"
+          ],
+          "status": "reported",
+          "reason": "launches_listed is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "observed_at"
+          ],
+          "status": "reported",
+          "reason": "observed_at is unique and non-null on all 1 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "pull_id"
+          ],
+          "status": "reported",
+          "reason": "pull_id is unique and non-null on all 1 rows, proven by an exact distinct count"
+        }
+      ],
+      "rank_score": null,
+      "data_quality": [],
+      "findings": [
+        {
+          "column": "pull_id",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "pull_id participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-20T16:54:33.955949+00:00",
+      "semantic_models": [],
+      "values_withheld": false
+    },
+    {
+      "identifier": "gta6.raw.producthunt_launches",
+      "object_type": "table",
+      "row_count": 1197,
+      "byte_size": null,
+      "columns": [
+        {
+          "name": "day",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-19",
+          "max_value": "2026-11-19",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "2026-11-19",
+                "count": 1197
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "post_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1197,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "launched_at",
+          "data_type": "TIMESTAMP WITH TIME ZONE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-19T09:00:00+01:00",
+          "max_value": "2026-11-19T09:01:00+01:00",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "2026-11-19T09:01:00+01:00",
+                "count": 1049
+              },
+              {
+                "value": "2026-11-19T09:00:00+01:00",
+                "count": 148
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": "hour",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "is_featured",
+          "data_type": "BOOLEAN",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": false,
+          "max_value": true,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": false,
+                "count": 1164
+              },
+              {
+                "value": true,
+                "count": 33
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "comments_launch_day",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 18,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 0,
+          "max_value": 49,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": 0,
+                "count": 1093
+              },
+              {
+                "value": 1,
+                "count": 64
+              },
+              {
+                "value": 3,
+                "count": 11
+              },
+              {
+                "value": 4,
+                "count": 8
+              },
+              {
+                "value": 2,
+                "count": 4
+              },
+              {
+                "value": 7,
+                "count": 3
+              },
+              {
+                "value": 6,
+                "count": 2
+              },
+              {
+                "value": 14,
+                "count": 2
+              },
+              {
+                "value": 5,
+                "count": 1
+              },
+              {
+                "value": 9,
+                "count": 1
+              },
+              {
+                "value": 11,
+                "count": 1
+              },
+              {
+                "value": 12,
+                "count": 1
+              },
+              {
+                "value": 13,
+                "count": 1
+              },
+              {
+                "value": 21,
+                "count": 1
+              },
+              {
+                "value": 28,
+                "count": 1
+              },
+              {
+                "value": 32,
+                "count": 1
+              },
+              {
+                "value": 48,
+                "count": 1
+              },
+              {
+                "value": 49,
+                "count": 1
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "comments_top_level",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 17,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 0,
+          "max_value": 51,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": 1,
+                "count": 841
+              },
+              {
+                "value": 0,
+                "count": 268
+              },
+              {
+                "value": 2,
+                "count": 47
+              },
+              {
+                "value": 4,
+                "count": 9
+              },
+              {
+                "value": 5,
+                "count": 8
+              },
+              {
+                "value": 3,
+                "count": 6
+              },
+              {
+                "value": 8,
+                "count": 4
+              },
+              {
+                "value": 6,
+                "count": 3
+              },
+              {
+                "value": 14,
+                "count": 2
+              },
+              {
+                "value": 15,
+                "count": 2
+              },
+              {
+                "value": 10,
+                "count": 1
+              },
+              {
+                "value": 12,
+                "count": 1
+              },
+              {
+                "value": 27,
+                "count": 1
+              },
+              {
+                "value": 30,
+                "count": 1
+              },
+              {
+                "value": 37,
+                "count": 1
+              },
+              {
+                "value": 50,
+                "count": 1
+              },
+              {
+                "value": 51,
+                "count": 1
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "comments_total",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 27,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 0,
+          "max_value": 149,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "observed_at",
+          "data_type": "TIMESTAMP WITH TIME ZONE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1102,
+          "distinct_count_exact": true,
+          "is_unique": false,
+          "min_value": "2026-11-20T17:41:20.911669+01:00",
+          "max_value": "2026-11-20T17:54:24.348842+01:00",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "hour",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "pull_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "20261120T164120Z",
+                "count": 1197
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        }
+      ],
+      "candidate_keys": [
+        [
+          "post_id"
+        ]
+      ],
+      "grain": [
+        "post_id"
+      ],
+      "composite_keys": [],
+      "key_evidence": [
+        {
+          "columns": [
+            "post_id"
+          ],
+          "status": "reported",
+          "reason": "post_id is unique and non-null on all 1197 rows, proven by an exact distinct count"
+        }
+      ],
+      "rank_score": null,
+      "data_quality": [
+        "post_id is declared VARCHAR but 100% of values are numeric-only strings; every value fits an integer"
+      ],
+      "findings": [
+        {
+          "column": "post_id",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "post_id participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-20T16:54:34.029337+00:00",
+      "semantic_models": [],
+      "values_withheld": false
+    },
+    {
+      "identifier": "gta6.main.int_producthunt__daily",
+      "object_type": "view",
+      "row_count": 2,
+      "byte_size": null,
+      "columns": [
+        {
+          "name": "launch_day",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-19",
+          "max_value": "2026-11-19",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "activity",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "activity_count",
+          "data_type": "HUGEINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": 426,
+          "max_value": 1197,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "observed_at",
+          "data_type": "TIMESTAMP WITH TIME ZONE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-20T17:54:24.349158+01:00",
+          "max_value": "2026-11-20T17:54:24.349158+01:00",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "hour",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        }
+      ],
+      "candidate_keys": [
+        [
+          "activity"
+        ],
+        [
+          "activity_count"
+        ]
+      ],
+      "grain": [
+        "activity"
+      ],
+      "composite_keys": [],
+      "key_evidence": [
+        {
+          "columns": [
+            "activity"
+          ],
+          "status": "reported",
+          "reason": "activity is unique and non-null on all 2 rows, proven by an exact distinct count"
+        },
+        {
+          "columns": [
+            "activity_count"
+          ],
+          "status": "reported",
+          "reason": "activity_count is unique and non-null on all 2 rows, proven by an exact distinct count"
+        }
+      ],
+      "rank_score": null,
+      "data_quality": [],
+      "findings": [
+        {
+          "column": "activity",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "activity participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-20T16:55:35.728993+00:00",
+      "semantic_models": [],
+      "values_withheld": false
+    },
+    {
+      "identifier": "gta6.main.stg_producthunt__launches",
+      "object_type": "view",
+      "row_count": 1197,
+      "byte_size": null,
+      "columns": [
+        {
+          "name": "post_id",
+          "data_type": "VARCHAR",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1197,
+          "distinct_count_exact": true,
+          "is_unique": true,
+          "min_value": null,
+          "max_value": null,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "launch_day",
+          "data_type": "DATE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-19",
+          "max_value": "2026-11-19",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "2026-11-19",
+                "count": 1197
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": "day",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "launched_at",
+          "data_type": "TIMESTAMP WITH TIME ZONE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": "2026-11-19T09:00:00+01:00",
+          "max_value": "2026-11-19T09:01:00+01:00",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": "2026-11-19T09:01:00+01:00",
+                "count": 1049
+              },
+              {
+                "value": "2026-11-19T09:00:00+01:00",
+                "count": 148
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": "hour",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        },
+        {
+          "name": "is_featured",
+          "data_type": "BOOLEAN",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 2,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": false,
+          "max_value": true,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": false,
+                "count": 1164
+              },
+              {
+                "value": true,
+                "count": 33
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "comments_launch_day",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 18,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 0,
+          "max_value": 49,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": 0,
+                "count": 1093
+              },
+              {
+                "value": 1,
+                "count": 64
+              },
+              {
+                "value": 3,
+                "count": 11
+              },
+              {
+                "value": 4,
+                "count": 8
+              },
+              {
+                "value": 2,
+                "count": 4
+              },
+              {
+                "value": 7,
+                "count": 3
+              },
+              {
+                "value": 6,
+                "count": 2
+              },
+              {
+                "value": 14,
+                "count": 2
+              },
+              {
+                "value": 5,
+                "count": 1
+              },
+              {
+                "value": 9,
+                "count": 1
+              },
+              {
+                "value": 11,
+                "count": 1
+              },
+              {
+                "value": 12,
+                "count": 1
+              },
+              {
+                "value": 13,
+                "count": 1
+              },
+              {
+                "value": 21,
+                "count": 1
+              },
+              {
+                "value": 28,
+                "count": 1
+              },
+              {
+                "value": 32,
+                "count": 1
+              },
+              {
+                "value": 48,
+                "count": 1
+              },
+              {
+                "value": 49,
+                "count": 1
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "comments_top_level",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 17,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 0,
+          "max_value": 51,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": {
+            "values": [
+              {
+                "value": 1,
+                "count": 841
+              },
+              {
+                "value": 0,
+                "count": 268
+              },
+              {
+                "value": 2,
+                "count": 47
+              },
+              {
+                "value": 4,
+                "count": 9
+              },
+              {
+                "value": 5,
+                "count": 8
+              },
+              {
+                "value": 3,
+                "count": 6
+              },
+              {
+                "value": 8,
+                "count": 4
+              },
+              {
+                "value": 6,
+                "count": 3
+              },
+              {
+                "value": 14,
+                "count": 2
+              },
+              {
+                "value": 15,
+                "count": 2
+              },
+              {
+                "value": 10,
+                "count": 1
+              },
+              {
+                "value": 12,
+                "count": 1
+              },
+              {
+                "value": 27,
+                "count": 1
+              },
+              {
+                "value": 30,
+                "count": 1
+              },
+              {
+                "value": 37,
+                "count": 1
+              },
+              {
+                "value": 50,
+                "count": 1
+              },
+              {
+                "value": 51,
+                "count": 1
+              }
+            ],
+            "elided": 0
+          },
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "comments_total",
+          "data_type": "BIGINT",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 27,
+          "distinct_count_exact": false,
+          "is_unique": false,
+          "min_value": 0,
+          "max_value": 149,
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": null,
+          "temporal_span": null,
+          "temporal_distinct_periods": null,
+          "temporal_missing_periods": null,
+          "temporal_largest_gap": null
+        },
+        {
+          "name": "observed_at",
+          "data_type": "TIMESTAMP WITH TIME ZONE",
+          "nullable": true,
+          "null_fraction": 0.0,
+          "distinct_count": 1102,
+          "distinct_count_exact": true,
+          "is_unique": false,
+          "min_value": "2026-11-20T17:41:20.911669+01:00",
+          "max_value": "2026-11-20T17:54:24.348842+01:00",
+          "pii": null,
+          "pii_overridden": null,
+          "value_domain": null,
+          "temporal_granularity": "hour",
+          "temporal_span": 1,
+          "temporal_distinct_periods": 1,
+          "temporal_missing_periods": 0,
+          "temporal_largest_gap": 0
+        }
+      ],
+      "candidate_keys": [
+        [
+          "post_id"
+        ]
+      ],
+      "grain": [
+        "post_id"
+      ],
+      "composite_keys": [],
+      "key_evidence": [
+        {
+          "columns": [
+            "post_id"
+          ],
+          "status": "reported",
+          "reason": "post_id is unique and non-null on all 1197 rows, proven by an exact distinct count"
+        }
+      ],
+      "rank_score": null,
+      "data_quality": [
+        "post_id is declared VARCHAR but 100% of values are numeric-only strings; every value fits an integer"
+      ],
+      "findings": [
+        {
+          "column": "post_id",
+          "code": "nullable_grain_column",
+          "severity": "medium",
+          "detail": "post_id participates in the detected grain but the warehouse still allows it to be NULL"
+        }
+      ],
+      "profiled_at": "2026-11-20T16:55:35.842137+00:00",
+      "semantic_models": [],
+      "values_withheld": false
     }
   ],
   "relationships": [
@@ -8519,7 +9649,7 @@
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-20T14:43:01.978413+00:00",
+    "updated_at": "2026-11-20T16:55:35.426948+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

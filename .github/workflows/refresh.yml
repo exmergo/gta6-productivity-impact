@@ -36,6 +36,7 @@ jobs:
       - name: Ingest, load, build with Dex, check drift, draw
         env:
           GITHUB_TOKEN: ${{ github.token }}  # GitHub search quota for Metric 4: 30 calls/min, not 10
+          PRODUCTHUNT_TOKEN: ${{ secrets.PRODUCTHUNT_TOKEN }}  # Metric 5; only used for a day not yet settled
         run: uv run gta6 refresh ${{ inputs.sources }}
       - name: Commit the refreshed warehouse, evidence and charts
         run: |

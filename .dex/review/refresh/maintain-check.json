@@ -20,38 +20,9 @@
      "fct_github_daily"
     ],
     "impacted_metrics": [
-     "github_activity_count"
-    ]
-   },
-   {
-    "axis": "volume",
-    "code": "row_count_changed",
-    "identifier": "gta6.main.stg_economy__indicators",
-    "column": null,
-    "severity": "low",
-    "detail": "gta6.main.stg_economy__indicators: rows 53 -> 66 (+24.5%)",
-    "exact": true,
-    "data": {
-     "row_count_before": 53,
-     "row_count_after": 66,
-     "change_fraction": 0.2453
-    },
-    "impacted_models": [
-     "fct_wait_milestones",
-     "fct_world_output_daily",
-     "fct_world_productivity",
-     "int_world_output__yearly",
-     "stg_economy__indicators"
-    ],
-    "impacted_metrics": [
-     "wait_milestone_days_to_gta_6",
-     "wait_milestone_output",
-     "wait_milestone_share",
-     "world_output_cumulative",
-     "world_output_per_second",
-     "world_output_produced",
-     "world_productivity",
-     "world_productivity_change_since_gta_v"
+     "github_activity_change_wow",
+     "github_activity_count",
+     "github_activity_count_week_before"
     ]
    },
    {
@@ -60,12 +31,12 @@
     "identifier": "gta6.raw.trends_interest",
     "column": null,
     "severity": "low",
-    "detail": "gta6.raw.trends_interest: rows 4080 -> 4752 (+16.5%)",
+    "detail": "gta6.raw.trends_interest: rows 4248 -> 4920 (+15.8%)",
     "exact": true,
     "data": {
-     "row_count_before": 4080,
-     "row_count_after": 4752,
-     "change_fraction": 0.1647
+     "row_count_before": 4248,
+     "row_count_after": 4920,
+     "change_fraction": 0.1582
     },
     "impacted_models": [
      "fct_day_off_index",
@@ -77,6 +48,50 @@
      "day_off_index_term_change",
      "day_off_index_term_current",
      "day_off_index_term_prior"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "column_added",
+    "identifier": "gta6.main.fct_github_daily",
+    "column": "prior_week_count",
+    "severity": "low",
+    "detail": "prior_week_count was added to gta6.main.fct_github_daily (BIGINT)",
+    "exact": true,
+    "data": {
+     "data_type": "BIGINT"
+    },
+    "impacted_models": [
+     "fct_github_daily",
+     "fct_github_day_surprise",
+     "fct_github_release_day",
+     "fct_github_release_day_activities",
+     "fct_github_release_day_test"
+    ],
+    "impacted_metrics": [
+     "github_activity_count_week_before"
+    ]
+   },
+   {
+    "axis": "schema",
+    "code": "column_added",
+    "identifier": "gta6.main.fct_github_daily",
+    "column": "wow_pct_change",
+    "severity": "low",
+    "detail": "wow_pct_change was added to gta6.main.fct_github_daily (DOUBLE)",
+    "exact": true,
+    "data": {
+     "data_type": "DOUBLE"
+    },
+    "impacted_models": [
+     "fct_github_daily",
+     "fct_github_day_surprise",
+     "fct_github_release_day",
+     "fct_github_release_day_activities",
+     "fct_github_release_day_test"
+    ],
+    "impacted_metrics": [
+     "github_activity_change_wow"
     ]
    },
    {
@@ -94,7 +109,7 @@
     "impacted_metrics": []
    }
   ],
-  "finding_count": 4,
+  "finding_count": 5,
   "axes_run": [
    "grain",
    "schema",
@@ -103,58 +118,72 @@
   ],
   "axes": {
    "schema": {
-    "run_at": "2026-11-20T09:14:24.205547+00:00",
-    "scope": null,
-    "findings": [],
-    "finding_count": 0
-   },
-   "volume": {
-    "run_at": "2026-11-20T09:14:24.205547+00:00",
+    "run_at": "2026-11-20T14:43:03.902032+00:00",
     "scope": null,
     "findings": [
      {
-      "axis": "volume",
-      "code": "row_count_changed",
-      "identifier": "gta6.main.stg_economy__indicators",
-      "column": null,
+      "axis": "schema",
+      "code": "column_added",
+      "identifier": "gta6.main.fct_github_daily",
+      "column": "prior_week_count",
       "severity": "low",
-      "detail": "gta6.main.stg_economy__indicators: rows 53 -> 66 (+24.5%)",
+      "detail": "prior_week_count was added to gta6.main.fct_github_daily (BIGINT)",
       "exact": true,
       "data": {
-       "row_count_before": 53,
-       "row_count_after": 66,
-       "change_fraction": 0.2453
+       "data_type": "BIGINT"
       },
       "impacted_models": [
-       "fct_wait_milestones",
-       "fct_world_output_daily",
-       "fct_world_productivity",
-       "int_world_output__yearly",
-       "stg_economy__indicators"
+       "fct_github_daily",
+       "fct_github_day_surprise",
+       "fct_github_release_day",
+       "fct_github_release_day_activities",
+       "fct_github_release_day_test"
       ],
       "impacted_metrics": [
-       "wait_milestone_days_to_gta_6",
-       "wait_milestone_output",
-       "wait_milestone_share",
-       "world_output_cumulative",
-       "world_output_per_second",
-       "world_output_produced",
-       "world_productivity",
-       "world_productivity_change_since_gta_v"
+       "github_activity_count_week_before"
       ]
      },
+     {
+      "axis": "schema",
+      "code": "column_added",
+      "identifier": "gta6.main.fct_github_daily",
+      "column": "wow_pct_change",
+      "severity": "low",
+      "detail": "wow_pct_change was added to gta6.main.fct_github_daily (DOUBLE)",
+      "exact": true,
+      "data": {
+       "data_type": "DOUBLE"
+      },
+      "impacted_models": [
+       "fct_github_daily",
+       "fct_github_day_surprise",
+       "fct_github_release_day",
+       "fct_github_release_day_activities",
+       "fct_github_release_day_test"
+      ],
+      "impacted_metrics": [
+       "github_activity_change_wow"
+      ]
+     }
+    ],
+    "finding_count": 2
+   },
+   "volume": {
+    "run_at": "2026-11-20T14:43:03.902032+00:00",
+    "scope": null,
+    "findings": [
      {
       "axis": "volume",
       "code": "row_count_changed",
       "identifier": "gta6.raw.trends_interest",
       "column": null,
       "severity": "low",
-      "detail": "gta6.raw.trends_interest: rows 4080 -> 4752 (+16.5%)",
+      "detail": "gta6.raw.trends_interest: rows 4248 -> 4920 (+15.8%)",
       "exact": true,
       "data": {
-       "row_count_before": 4080,
-       "row_count_after": 4752,
-       "change_fraction": 0.1647
+       "row_count_before": 4248,
+       "row_count_after": 4920,
+       "change_fraction": 0.1582
       },
       "impacted_models": [
        "fct_day_off_index",
@@ -169,10 +198,10 @@
       ]
      }
     ],
-    "finding_count": 2
+    "finding_count": 1
    },
    "grain": {
-    "run_at": "2026-11-20T09:14:24.205547+00:00",
+    "run_at": "2026-11-20T14:43:03.902032+00:00",
     "scope": null,
     "findings": [
      {
@@ -193,7 +222,7 @@
     "finding_count": 1
    },
    "semantic": {
-    "run_at": "2026-11-20T09:14:24.205547+00:00",
+    "run_at": "2026-11-20T14:43:03.902032+00:00",
     "scope": null,
     "findings": [
      {
@@ -214,7 +243,9 @@
        "fct_github_daily"
       ],
       "impacted_metrics": [
-       "github_activity_count"
+       "github_activity_change_wow",
+       "github_activity_count",
+       "github_activity_count_week_before"
       ]
      }
     ],
@@ -222,14 +253,14 @@
    }
   },
   "baseline": {
-   "snapshot_created_at": "2026-11-19T10:51:21.132418+00:00",
+   "snapshot_created_at": "2026-11-20T10:13:46.489644+00:00",
    "from": "cache"
   },
   "drift_path": "./.dex/drift.json",
   "declaration_drift": {
    "checked": true,
-   "baseline_declared_models": 19,
-   "declared_models": 19
+   "baseline_declared_models": 21,
+   "declared_models": 21
   },
   "hint": "run `maintain reconcile [<class>]` for proposed fixes as reviewable diffs"
  },
@@ -248,7 +279,6 @@
   "unit": null
  },
  "warnings": [
-  "1 relation(s) built by this project were not reported as source drift (table_added)",
   "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline"
  ],
  "diffs": [],

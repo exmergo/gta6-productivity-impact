@@ -259,12 +259,12 @@
     "identifier": "gta6.raw.trends_interest",
     "column": null,
     "severity": "low",
-    "detail": "gta6.raw.trends_interest: rows 4080 -> 4752 (+16.5%)",
+    "detail": "gta6.raw.trends_interest: rows 4080 -> 4920 (+20.6%)",
     "exact": true,
     "data": {
      "row_count_before": 4080,
-     "row_count_after": 4752,
-     "change_fraction": 0.1647
+     "row_count_after": 4920,
+     "change_fraction": 0.2059
     },
     "impacted_models": [
      "fct_day_off_index",
@@ -788,7 +788,7 @@
   ],
   "axes": {
    "schema": {
-    "run_at": "2026-11-20T06:28:04.244323+00:00",
+    "run_at": "2026-11-20T12:14:00.976450+00:00",
     "scope": null,
     "findings": [
      {
@@ -937,7 +937,7 @@
     "finding_count": 7
    },
    "volume": {
-    "run_at": "2026-11-20T06:28:04.244323+00:00",
+    "run_at": "2026-11-20T12:14:00.976450+00:00",
     "scope": null,
     "findings": [
      {
@@ -977,12 +977,12 @@
       "identifier": "gta6.raw.trends_interest",
       "column": null,
       "severity": "low",
-      "detail": "gta6.raw.trends_interest: rows 4080 -> 4752 (+16.5%)",
+      "detail": "gta6.raw.trends_interest: rows 4080 -> 4920 (+20.6%)",
       "exact": true,
       "data": {
        "row_count_before": 4080,
-       "row_count_after": 4752,
-       "change_fraction": 0.1647
+       "row_count_after": 4920,
+       "change_fraction": 0.2059
       },
       "impacted_models": [
        "fct_day_off_index",
@@ -1000,7 +1000,7 @@
     "finding_count": 2
    },
    "grain": {
-    "run_at": "2026-11-20T06:28:04.244323+00:00",
+    "run_at": "2026-11-20T12:14:00.976450+00:00",
     "scope": null,
     "findings": [
      {
@@ -1021,7 +1021,7 @@
     "finding_count": 1
    },
    "semantic": {
-    "run_at": "2026-11-20T06:28:04.244323+00:00",
+    "run_at": "2026-11-20T12:14:00.976450+00:00",
     "scope": null,
     "findings": [
      {
@@ -1620,7 +1620,7 @@
  },
  "warnings": [
   "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline",
-  "this baseline's warehouse side was pinned from an exploration cache captured 40h ago (2026-11-18T14:24:12.310294+00:00), beyond the 24h freshness window; anything created or changed in the warehouse since then is not in it and will report as drift. Run `explore map` first, then `maintain snapshot`, to pin current state"
+  "this baseline's warehouse side was pinned from an exploration cache captured 46h ago (2026-11-18T14:24:12.310294+00:00), beyond the 24h freshness window; anything created or changed in the warehouse since then is not in it and will report as drift. Run `explore map` first, then `maintain snapshot`, to pin current state"
  ],
  "diffs": [],
  "errors": [],

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-theme="dex-site">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub on GTA 6 release day</title>
+<link rel="stylesheet" href="../brand/dex-site.css">
+<link rel="stylesheet" href="../brand/charts.css">
+<script>
+  const t = new URLSearchParams(location.search).get('theme');
+  if (t === 'dark') document.documentElement.dataset.theme = 'dex-site-dark';
+</script>
+</head>
+<body>
+<div class="card" style="width:1200px;height:630px">
+  <figure class="aside">
+    <img alt="Lucia and Jason, the two leads of GTA 6" src="../assets/gta-6-lucia-and-the-guy.jpg">
+  </figure>
+  <div class="mast">
+    <div class="brand"><img alt="Dex" src="../brand/assets/dex-logo-black.png"></div>
+  </div>
+  <div class="main">
+    <div class="hero">
+      <div>
+        <div class="big">−3<small>%</small></div>
+        <h1>GitHub on GTA 6 release day (vs the week before)</h1>
+        <p class="fine">Average change in PRs opened, PRs merged and commits on GitHub,
+        <span class="nw">Thu 19 Nov 2026</span> vs
+        <span class="nw">the Thursday before (12 Nov)</span>.<br>GTA 6 launched 19 Nov.</p>
+      </div>
+      <div class="yoy"><div></div><div class="key"><span><i class="prior"></i>Thu 12 Nov</span><span><i class="current"></i>Thu 19 Nov</span></div><div class="term">PRs opened</div><div class="pair"><b class="prior" style="width:100.0%">1.35M</b><b class="current" style="width:96.3%">1.30M</b></div><div class="change">−4%</div><div class="term">PRs merged</div><div class="pair"><b class="prior" style="width:100.0%">1.12M</b><b class="current" style="width:97.5%">1.09M</b></div><div class="change">−3%</div><div class="term">Commits</div><div class="pair"><b class="prior" style="width:100.0%">12.9M</b><b class="current" style="width:96.6%">12.4M</b></div><div class="change">−3%</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Data source: GitHub Search API <span class="unit">· public activity, UTC days</span></span><span>Built with <b>Dex</b> · trydex.ai</span></div>
+</div>
+<script>
+  if (document.documentElement.dataset.theme === 'dex-site-dark') {
+    document.querySelector('.brand img').src = '../brand/assets/dex-logo-white.png';
+  }
+</script>
+</body>
+</html>

@@ -3,8 +3,8 @@
  "data": {
   "cache_path": "./.dex/cache.json",
   "object_count": 23,
-  "profiled_count": 0,
-  "cache_hit_count": 23,
+  "profiled_count": 1,
+  "cache_hit_count": 22,
   "skipped_count": 0,
   "skipped": {
    "count": 0,
@@ -23,7 +23,7 @@
   "top_objects": [
    {
     "identifier": "gta6.raw.trends_interest",
-    "rank_score": 0.6949
+    "rank_score": 0.6995
    },
    {
     "identifier": "gta6.main.fct_wait_milestones",
@@ -46,9 +46,9 @@
    {
     "identifier": "gta6.raw.trends_interest",
     "object_type": "table",
-    "row_count": 4080,
-    "rank_score": 0.6949,
-    "profiled_at": "2026-11-18T06:33:10.986704+00:00",
+    "row_count": 4416,
+    "rank_score": 0.6995,
+    "profiled_at": "2026-11-19T12:13:55.194798+00:00",
     "grain": null,
     "candidate_key": null,
     "semantic_models": [],
@@ -81,7 +81,7 @@
     "object_type": "table",
     "row_count": 46,
     "rank_score": 0.6789,
-    "profiled_at": "2026-11-18T15:59:17.695098+00:00",
+    "profiled_at": "2026-11-19T18:12:07.641360+00:00",
     "grain": [
      "milestone_id"
     ],
@@ -149,7 +149,7 @@
     "object_type": "table",
     "row_count": 4811,
     "rank_score": 0.67,
-    "profiled_at": "2026-11-18T13:35:11.004099+00:00",
+    "profiled_at": "2026-11-19T18:12:07.703135+00:00",
     "grain": [
      "output_day"
     ],
@@ -193,7 +193,7 @@
     "object_type": "table",
     "row_count": 1,
     "rank_score": 0.6486,
-    "profiled_at": "2026-11-18T06:33:09.402649+00:00",
+    "profiled_at": "2026-11-19T12:13:52.553453+00:00",
     "grain": [
      "batch_id"
     ],
@@ -279,7 +279,7 @@
     "object_type": "table",
     "row_count": 46,
     "rank_score": 0.6089,
-    "profiled_at": "2026-11-18T18:41:15.776641+00:00",
+    "profiled_at": "2026-11-20T06:28:02.107408+00:00",
     "grain": [
      "milestone_id"
     ],
@@ -327,9 +327,9 @@
    {
     "identifier": "gta6.main.fct_signal_daily",
     "object_type": "table",
-    "row_count": 872,
-    "rank_score": 0.5999,
-    "profiled_at": "2026-11-18T06:33:09.641562+00:00",
+    "row_count": 880,
+    "rank_score": 0.6003,
+    "profiled_at": "2026-11-19T12:13:52.963266+00:00",
     "grain": [
      "signal_day_key"
     ],
@@ -364,7 +364,7 @@
     "object_type": "table",
     "row_count": 457,
     "rank_score": 0.5729,
-    "profiled_at": "2026-11-18T06:33:09.281107+00:00",
+    "profiled_at": "2026-11-19T12:13:52.354311+00:00",
     "grain": [
      "date_day"
     ],
@@ -397,9 +397,9 @@
    {
     "identifier": "gta6.raw.bluesky_daily_hits",
     "object_type": "table",
-    "row_count": 1308,
-    "rank_score": 0.5466,
-    "profiled_at": "2026-11-18T06:33:10.664665+00:00",
+    "row_count": 1320,
+    "rank_score": 0.547,
+    "profiled_at": "2026-11-19T12:13:54.651446+00:00",
     "grain": [
      "observed_at"
     ],
@@ -423,9 +423,9 @@
    {
     "identifier": "gta6.raw.hn_daily_hits",
     "object_type": "table",
-    "row_count": 1308,
-    "rank_score": 0.5466,
-    "profiled_at": "2026-11-18T06:33:10.837437+00:00",
+    "row_count": 1320,
+    "rank_score": 0.547,
+    "profiled_at": "2026-11-19T12:13:54.933118+00:00",
     "grain": [
      "observed_at"
     ],
@@ -449,9 +449,9 @@
    {
     "identifier": "gta6.raw.wiki_pageviews",
     "object_type": "table",
-    "row_count": 436,
-    "rank_score": 0.5014,
-    "profiled_at": "2026-11-18T06:33:11.071259+00:00",
+    "row_count": 440,
+    "rank_score": 0.5017,
+    "profiled_at": "2026-11-19T12:13:55.344846+00:00",
     "grain": [
      "ts",
      "article"
@@ -485,7 +485,7 @@
     "object_type": "table",
     "row_count": 3,
     "rank_score": 0.4772,
-    "profiled_at": "2026-11-18T06:33:09.527810+00:00",
+    "profiled_at": "2026-11-19T12:13:52.758130+00:00",
     "grain": [
      "term"
     ],
@@ -538,7 +538,7 @@
     "object_type": "table",
     "row_count": 28,
     "rank_score": 0.459,
-    "profiled_at": "2026-11-18T14:24:12.451233+00:00",
+    "profiled_at": "2026-11-19T18:12:07.950273+00:00",
     "grain": [
      "world_productivity_key"
     ],
@@ -564,7 +564,7 @@
     "object_type": "table",
     "row_count": 26,
     "rank_score": 0.456,
-    "profiled_at": "2026-11-18T06:33:09.761667+00:00",
+    "profiled_at": "2026-11-19T12:13:53.172516+00:00",
     "grain": [
      "thursday_lift_key"
     ],
@@ -599,7 +599,7 @@
     "object_type": "table",
     "row_count": 1094,
     "rank_score": 0.4489,
-    "profiled_at": "2026-11-18T06:33:09.913293+00:00",
+    "profiled_at": "2026-11-19T12:13:53.396975+00:00",
     "grain": [
      "date_day"
     ],
@@ -625,7 +625,7 @@
     "object_type": "table",
     "row_count": 66,
     "rank_score": 0.4236,
-    "profiled_at": "2026-11-18T13:32:25.601131+00:00",
+    "profiled_at": "2026-11-19T18:12:08.213168+00:00",
     "grain": [
      "year",
      "indicator"
@@ -676,7 +676,7 @@
     "object_type": "view",
     "row_count": 168,
     "rank_score": 0.42,
-    "profiled_at": "2026-11-18T06:33:10.496436+00:00",
+    "profiled_at": "2026-11-19T12:13:54.352423+00:00",
     "grain": [
      "week_start",
      "request_id"
@@ -723,9 +723,9 @@
    {
     "identifier": "gta6.main.stg_bluesky__daily_hits",
     "object_type": "view",
-    "row_count": 1308,
+    "row_count": 1320,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-18T06:33:10.031442+00:00",
+    "profiled_at": "2026-11-19T12:13:53.603888+00:00",
     "grain": [
      "observed_at"
     ],
@@ -749,9 +749,9 @@
    {
     "identifier": "gta6.main.stg_economy__indicators",
     "object_type": "view",
-    "row_count": 53,
+    "row_count": 66,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-18T06:33:10.105781+00:00",
+    "profiled_at": "2026-11-19T12:13:53.716976+00:00",
     "grain": [
      "year",
      "indicator"
@@ -798,9 +798,9 @@
    {
     "identifier": "gta6.main.stg_hn__daily_hits",
     "object_type": "view",
-    "row_count": 1308,
+    "row_count": 1320,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-18T06:33:10.248862+00:00",
+    "profiled_at": "2026-11-19T12:13:53.932175+00:00",
     "grain": [
      "observed_at"
     ],
@@ -826,7 +826,7 @@
     "object_type": "view",
     "row_count": 0,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-18T06:33:10.369639+00:00",
+    "profiled_at": "2026-11-19T12:13:54.127211+00:00",
     "grain": null,
     "candidate_key": null,
     "semantic_models": [],
@@ -851,9 +851,9 @@
    {
     "identifier": "gta6.main.stg_wiki__pageviews",
     "object_type": "view",
-    "row_count": 436,
+    "row_count": 440,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-18T06:33:10.535978+00:00",
+    "profiled_at": "2026-11-19T12:13:54.420500+00:00",
     "grain": [
      "view_date",
      "article"
@@ -885,9 +885,9 @@
    {
     "identifier": "gta6.main.int_signals__daily",
     "object_type": "view",
-    "row_count": 872,
+    "row_count": 880,
     "rank_score": 0.25,
-    "profiled_at": "2026-11-18T06:33:09.900472+00:00",
+    "profiled_at": "2026-11-19T12:13:53.375286+00:00",
     "grain": null,
     "candidate_key": null,
     "semantic_models": [],
@@ -914,7 +914,7 @@
     "object_type": "view",
     "row_count": 14,
     "rank_score": 0.25,
-    "profiled_at": "2026-11-18T13:35:10.583835+00:00",
+    "profiled_at": "2026-11-19T18:12:08.041089+00:00",
     "grain": [
      "data_year"
     ],
@@ -1040,12 +1040,12 @@
   "elided_object_count": 0,
   "elided_column_count": 123,
   "elided_edge_count": 0,
-  "updated_at": "2026-11-19T06:29:38.695484+00:00",
+  "updated_at": "2026-11-20T06:28:01.606786+00:00",
   "notes": [
    "inference examined 17 id-shaped column(s) across 23 profiled object(s)",
    "no declared relationships (dbt project present but unused)",
    "a dbt project is present but unused; pass --use-project to fold its declared joins, grain, and metric definitions into exploration",
-   "reused 23 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
+   "reused 22 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
    "value-overlap join inference not run; pass --infer-by-overlap to probe key-shaped columns whose names matched nothing for measured value containment",
    "123 column(s) are not described. The default keeps grain, key, join and PII-flagged columns, at most 12 per object; --detail widens the selection to every column, and the per-object cap still binds"
   ]

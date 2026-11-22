@@ -1,6 +1,6 @@
 {
- "github_release_day_change": -3.672727057391867,
- "breakdown": "PRs opened -3.7% \u00b7 PRs merged -2.5% \u00b7 Commits -3.4%",
+ "github_release_day_change": -73.48370563703683,
+ "breakdown": "PRs opened -73.5% \u00b7 PRs merged -100.0% \u00b7 Commits -0.0%",
  "release_day": "2026-11-19",
  "baseline_start": "2026-11-12",
  "baseline_end": "2026-11-12",
@@ -10,24 +10,24 @@
   {
    "github_activity__activity": "prs_opened",
    "github_activity__activity_label": "PRs opened",
-   "github_activity_change": -3.672727057391867,
-   "github_activity_release_day": 1301341,
+   "github_activity_change": -73.48370563703683,
+   "github_activity_release_day": 358224,
    "github_activity_baseline": 1350958.0,
    "label": "PRs opened"
   },
   {
    "github_activity__activity": "prs_merged",
    "github_activity__activity_label": "PRs merged",
-   "github_activity_change": -2.529166919309911,
-   "github_activity_release_day": 1093112,
+   "github_activity_change": -100.0,
+   "github_activity_release_day": 0,
    "github_activity_baseline": 1121476.0,
    "label": "PRs merged"
   },
   {
    "github_activity__activity": "commits",
    "github_activity__activity_label": "Commits",
-   "github_activity_change": -3.392268926686992,
-   "github_activity_release_day": 12429627,
+   "github_activity_change": -0.04737262999862102,
+   "github_activity_release_day": 12859984,
    "github_activity_baseline": 12866079.0,
    "label": "Commits"
   }
@@ -70,16 +70,16 @@
   },
   {
    "metric_time__day": "2026-11-19T00:00:00",
-   "github_activity_count": 1301341,
-   "github_activity_change_wow": -3.672727057391867
+   "github_activity_count": 358224,
+   "github_activity_change_wow": -73.48370563703683
   }
  ],
  "significance": {
   "activity": "prs_opened",
   "expected_count": 1405972.3559205933,
-  "pct_vs_expected": -7.441921278180641,
-  "t_stat": -1.787111695575396,
+  "pct_vs_expected": -74.5212629187546,
+  "t_stat": -31.597596869257856,
   "df": 41,
-  "p_one_sided": 0.04065699951441675
+  "p_one_sided": 1.0426757631238907e-30
  }
 }

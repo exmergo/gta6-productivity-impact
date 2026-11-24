@@ -4,7 +4,7 @@
   "snapshot_created_at": "2026-11-20T10:13:46.489644+00:00",
   "axes": {
     "schema": {
-      "run_at": "2026-11-23T06:37:32.484884+00:00",
+      "run_at": "2026-11-24T06:28:57.034580+00:00",
       "scope": null,
       "findings": [
         {
@@ -54,7 +54,7 @@
       ]
     },
     "volume": {
-      "run_at": "2026-11-23T06:37:32.484884+00:00",
+      "run_at": "2026-11-24T06:28:57.034580+00:00",
       "scope": null,
       "findings": [
         {
@@ -83,15 +83,119 @@
         {
           "axis": "volume",
           "code": "row_count_changed",
+          "identifier": "gta6.main.stg_github__daily_counts",
+          "column": null,
+          "severity": "low",
+          "detail": "gta6.main.stg_github__daily_counts: rows 147 -> 162 (+10.2%)",
+          "exact": true,
+          "data": {
+            "row_count_before": 147,
+            "row_count_after": 162,
+            "change_fraction": 0.102
+          },
+          "impacted_models": [
+            "fct_github_daily",
+            "fct_github_day_surprise",
+            "fct_github_release_day",
+            "fct_github_release_day_activities",
+            "fct_github_release_day_test",
+            "stg_github__daily_counts"
+          ],
+          "impacted_metrics": [
+            "github_activity_baseline",
+            "github_activity_change",
+            "github_activity_change_wow",
+            "github_activity_count",
+            "github_activity_count_week_before",
+            "github_activity_release_day",
+            "github_release_day_change",
+            "github_release_day_df",
+            "github_release_day_expected",
+            "github_release_day_t",
+            "github_release_day_vs_expected"
+          ]
+        },
+        {
+          "axis": "volume",
+          "code": "row_count_changed",
+          "identifier": "gta6.raw.github_daily_counts",
+          "column": null,
+          "severity": "low",
+          "detail": "gta6.raw.github_daily_counts: rows 147 -> 162 (+10.2%)",
+          "exact": true,
+          "data": {
+            "row_count_before": 147,
+            "row_count_after": 162,
+            "change_fraction": 0.102
+          },
+          "impacted_models": [
+            "fct_github_daily",
+            "fct_github_day_surprise",
+            "fct_github_release_day",
+            "fct_github_release_day_activities",
+            "fct_github_release_day_test",
+            "stg_github__daily_counts"
+          ],
+          "impacted_metrics": [
+            "github_activity_baseline",
+            "github_activity_change",
+            "github_activity_change_wow",
+            "github_activity_count",
+            "github_activity_count_week_before",
+            "github_activity_release_day",
+            "github_release_day_change",
+            "github_release_day_df",
+            "github_release_day_expected",
+            "github_release_day_t",
+            "github_release_day_vs_expected"
+          ]
+        },
+        {
+          "axis": "volume",
+          "code": "row_count_changed",
+          "identifier": "gta6.main.fct_github_daily",
+          "column": null,
+          "severity": "low",
+          "detail": "gta6.main.fct_github_daily: rows 147 -> 162 (+10.2%)",
+          "exact": true,
+          "data": {
+            "row_count_before": 147,
+            "row_count_after": 162,
+            "change_fraction": 0.102
+          },
+          "impacted_models": [
+            "fct_github_daily",
+            "fct_github_day_surprise",
+            "fct_github_release_day",
+            "fct_github_release_day_activities",
+            "fct_github_release_day_test"
+          ],
+          "impacted_metrics": [
+            "github_activity_baseline",
+            "github_activity_change",
+            "github_activity_change_wow",
+            "github_activity_count",
+            "github_activity_count_week_before",
+            "github_activity_release_day",
+            "github_release_day_change",
+            "github_release_day_df",
+            "github_release_day_expected",
+            "github_release_day_t",
+            "github_release_day_vs_expected"
+          ]
+        },
+        {
+          "axis": "volume",
+          "code": "row_count_changed",
           "identifier": "gta6.raw.trends_interest",
           "column": null,
           "severity": "low",
-          "detail": "gta6.raw.trends_interest: rows 4248 -> 5256 (+23.7%)",
+          "detail": "gta6.raw.trends_interest: rows 4248 -> 5424 (+27.7%)",
           "exact": true,
           "data": {
             "row_count_before": 4248,
-            "row_count_after": 5256,
-            "change_fraction": 0.2373
+            "row_count_after": 5424,
+            "change_fraction": 0.2768
           },
           "impacted_models": [
             "fct_day_off_index",
@@ -108,7 +212,7 @@
       ]
     },
     "grain": {
-      "run_at": "2026-11-23T06:37:32.484884+00:00",
+      "run_at": "2026-11-24T06:28:57.034580+00:00",
       "scope": null,
       "findings": [
         {
@@ -128,7 +232,7 @@
       ]
     },
     "semantic": {
-      "run_at": "2026-11-23T06:37:32.484884+00:00",
+      "run_at": "2026-11-24T06:28:57.034580+00:00",
       "scope": null,
       "findings": [
         {
@@ -161,11 +265,11 @@
           "identifier": "gta6.main.fct_github_daily",
           "column": "days_from_release",
           "severity": "medium",
-          "detail": "dimension 'days_from_release' on semantic model 'fct_github_daily' widened: ~49 -> 53 distinct values in gta6.main.fct_github_daily.days_from_release",
+          "detail": "dimension 'days_from_release' on semantic model 'fct_github_daily' widened: ~49 -> 54 distinct values in gta6.main.fct_github_daily.days_from_release",
           "exact": false,
           "data": {
             "distinct_before": 49,
-            "distinct_after": 53,
+            "distinct_after": 54,
             "dimension": "days_from_release",
             "semantic_model": "fct_github_daily"
           },

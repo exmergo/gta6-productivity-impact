@@ -230,7 +230,7 @@
           "reason": "date_day is unique and non-null on all 457 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5703,
+      "rank_score": 0.5694,
       "data_quality": [],
       "findings": [
         {
@@ -578,7 +578,7 @@
           "reason": "breakdown is unique and non-null on all 1 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
         }
       ],
-      "rank_score": 0.6483,
+      "rank_score": 0.6482,
       "data_quality": [],
       "findings": [
         {
@@ -925,7 +925,7 @@
           "reason": "pct_change is unique and non-null on all 3 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.4766,
+      "rank_score": 0.4764,
       "data_quality": [],
       "findings": [
         {
@@ -1547,7 +1547,7 @@
           "reason": "observed_count is unique and non-null on all 127 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5182,
+      "rank_score": 0.5175,
       "data_quality": [],
       "findings": [
         {
@@ -1837,7 +1837,7 @@
           "reason": "breakdown is unique and non-null on all 1 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
         }
       ],
-      "rank_score": 0.3483,
+      "rank_score": 0.3482,
       "data_quality": [
         "release_day_key is declared VARCHAR but 100% of values match the %Y-%m-%d date format; consider casting with that format"
       ],
@@ -2108,7 +2108,7 @@
           "reason": "pct_change is unique and non-null on all 3 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.3766,
+      "rank_score": 0.3764,
       "data_quality": [],
       "findings": [
         {
@@ -2600,7 +2600,7 @@
           "reason": "weekday_t is unique and non-null on all 2 rows, but its distinct count is still approximate, so this is a signal rather than a proof"
         }
       ],
-      "rank_score": 0.2249,
+      "rank_score": 0.2247,
       "data_quality": [],
       "findings": [
         {
@@ -2967,7 +2967,7 @@
           "reason": "signal_day_key is unique and non-null on all 912 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.5985,
+      "rank_score": 0.5978,
       "data_quality": [],
       "findings": [
         {
@@ -3312,7 +3312,7 @@
           "reason": "thursday_lift_key is unique and non-null on all 26 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.4546,
+      "rank_score": 0.4542,
       "data_quality": [],
       "findings": [
         {
@@ -3727,7 +3727,7 @@
           "reason": "days_to_gta_6 is unique and non-null on all 46 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.6773,
+      "rank_score": 0.6767,
       "data_quality": [],
       "findings": [
         {
@@ -4061,7 +4061,7 @@
           "reason": "days_to_gta_6 is unique and non-null on all 4811 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.6664,
+      "rank_score": 0.6651,
       "data_quality": [],
       "findings": [
         {
@@ -4369,7 +4369,7 @@
           "reason": "world_productivity_key is unique and non-null on all 28 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.4576,
+      "rank_score": 0.4571,
       "data_quality": [],
       "findings": [
         {
@@ -4865,7 +4865,7 @@
           "reason": "date_day is unique and non-null on all 1094 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.4459,
+      "rank_score": 0.4449,
       "data_quality": [],
       "findings": [
         {
@@ -6769,7 +6769,7 @@
           "reason": "why is unique and non-null on all 46 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.6073,
+      "rank_score": 0.6067,
       "data_quality": [],
       "findings": [
         {
@@ -7069,7 +7069,7 @@
           "reason": "observed_at is unique and non-null on all 1368 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.545,
+      "rank_score": 0.5443,
       "data_quality": [],
       "findings": [
         {
@@ -7296,7 +7296,7 @@
           "reason": "value, year is unique as a combination on all 66 rows, proven by an exact distinct-combination probe, and ranks behind year, indicator, which is proven at a smaller cardinality"
         }
       ],
-      "rank_score": 0.4218,
+      "rank_score": 0.4211,
       "data_quality": [
         "last_updated is declared VARCHAR but 100% of values match the %Y-%m-%d date format; consider casting with that format"
       ],
@@ -7905,7 +7905,7 @@
           "reason": "observed_at is unique and non-null on all 1368 rows, proven by an exact distinct count"
         }
       ],
-      "rank_score": 0.545,
+      "rank_score": 0.5443,
       "data_quality": [],
       "findings": [
         {
@@ -8483,7 +8483,7 @@
           "reason": "ts, article is unique as a combination on all 456 rows, proven by an exact distinct-combination probe; it is the smallest proven combination, so it is the grain"
         }
       ],
-      "rank_score": 0.5002,
+      "rank_score": 0.4997,
       "data_quality": [],
       "findings": [
         {
@@ -8589,7 +8589,7 @@
   "provenance": {
     "connector": "duckdb",
     "created_at": "2026-11-16T16:14:58.848578+00:00",
-    "updated_at": "2026-11-23T06:37:23.614325+00:00",
+    "updated_at": "2026-11-24T06:28:54.000986+00:00",
     "tool_version": "1.18.0",
     "inventory_namespaces": [
       "gta6.main",

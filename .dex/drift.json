@@ -4,7 +4,7 @@
   "snapshot_created_at": "2026-11-20T10:13:46.489644+00:00",
   "axes": {
     "schema": {
-      "run_at": "2026-11-24T06:28:57.034580+00:00",
+      "run_at": "2026-11-25T06:29:23.744171+00:00",
       "scope": null,
       "findings": [
         {
@@ -54,7 +54,7 @@
       ]
     },
     "volume": {
-      "run_at": "2026-11-24T06:28:57.034580+00:00",
+      "run_at": "2026-11-25T06:29:23.744171+00:00",
       "scope": null,
       "findings": [
         {
@@ -86,12 +86,12 @@
           "identifier": "gta6.main.stg_github__daily_counts",
           "column": null,
           "severity": "low",
-          "detail": "gta6.main.stg_github__daily_counts: rows 147 -> 162 (+10.2%)",
+          "detail": "gta6.main.stg_github__daily_counts: rows 147 -> 165 (+12.2%)",
           "exact": true,
           "data": {
             "row_count_before": 147,
-            "row_count_after": 162,
-            "change_fraction": 0.102
+            "row_count_after": 165,
+            "change_fraction": 0.1224
           },
           "impacted_models": [
             "fct_github_daily",
@@ -121,12 +121,12 @@
           "identifier": "gta6.raw.github_daily_counts",
           "column": null,
           "severity": "low",
-          "detail": "gta6.raw.github_daily_counts: rows 147 -> 162 (+10.2%)",
+          "detail": "gta6.raw.github_daily_counts: rows 147 -> 165 (+12.2%)",
           "exact": true,
           "data": {
             "row_count_before": 147,
-            "row_count_after": 162,
-            "change_fraction": 0.102
+            "row_count_after": 165,
+            "change_fraction": 0.1224
           },
           "impacted_models": [
             "fct_github_daily",
@@ -156,12 +156,12 @@
           "identifier": "gta6.main.fct_github_daily",
           "column": null,
           "severity": "low",
-          "detail": "gta6.main.fct_github_daily: rows 147 -> 162 (+10.2%)",
+          "detail": "gta6.main.fct_github_daily: rows 147 -> 165 (+12.2%)",
           "exact": true,
           "data": {
             "row_count_before": 147,
-            "row_count_after": 162,
-            "change_fraction": 0.102
+            "row_count_after": 165,
+            "change_fraction": 0.1224
           },
           "impacted_models": [
             "fct_github_daily",
@@ -190,12 +190,12 @@
           "identifier": "gta6.raw.trends_interest",
           "column": null,
           "severity": "low",
-          "detail": "gta6.raw.trends_interest: rows 4248 -> 5424 (+27.7%)",
+          "detail": "gta6.raw.trends_interest: rows 4248 -> 5592 (+31.6%)",
           "exact": true,
           "data": {
             "row_count_before": 4248,
-            "row_count_after": 5424,
-            "change_fraction": 0.2768
+            "row_count_after": 5592,
+            "change_fraction": 0.3164
           },
           "impacted_models": [
             "fct_day_off_index",
@@ -212,7 +212,7 @@
       ]
     },
     "grain": {
-      "run_at": "2026-11-24T06:28:57.034580+00:00",
+      "run_at": "2026-11-25T06:29:23.744171+00:00",
       "scope": null,
       "findings": [
         {
@@ -232,7 +232,7 @@
       ]
     },
     "semantic": {
-      "run_at": "2026-11-24T06:28:57.034580+00:00",
+      "run_at": "2026-11-25T06:29:23.744171+00:00",
       "scope": null,
       "findings": [
         {
@@ -265,11 +265,11 @@
           "identifier": "gta6.main.fct_github_daily",
           "column": "days_from_release",
           "severity": "medium",
-          "detail": "dimension 'days_from_release' on semantic model 'fct_github_daily' widened: ~49 -> 54 distinct values in gta6.main.fct_github_daily.days_from_release",
+          "detail": "dimension 'days_from_release' on semantic model 'fct_github_daily' widened: ~49 -> 55 distinct values in gta6.main.fct_github_daily.days_from_release",
           "exact": false,
           "data": {
             "distinct_before": 49,
-            "distinct_after": 54,
+            "distinct_after": 55,
             "dimension": "days_from_release",
             "semantic_model": "fct_github_daily"
           },

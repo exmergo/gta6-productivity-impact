@@ -2,7 +2,7 @@
 
 > An open, reproducible study of what the world made between GTA 5 and GTA 6, how much more productive it got, and whether GTA 6 (released 19 November 2026) breaks the streak. Built with Dex.
 
-Updated 2026-11-25. Between GTA 5 and GTA 6 the world made $1.14 quadrillion of real output in 4,811 days. World GDP per person rose +26.3%. It went up every year except 2020. The combo breaker? US Google searches for skipping work 1–14 Nov 2026 vs 2–15 Nov 2025: Day-Off Index +50.1% (call in sick +40.4% · day off work +73.4% · sick day +36.4%). The verdict: pull requests opened on GitHub on GTA 6 release day -73.5% against the Thursday before (12 Nov). An open, reproducible study built with Dex. Search interest, not a headcount; association, not causation.
+Updated 2026-11-26. Between GTA 5 and GTA 6 the world made $1.14 quadrillion of real output in 4,811 days. World GDP per person rose +26.3%. It went up every year except 2020. The combo breaker? US Google searches for skipping work 1–14 Nov 2026 vs 2–15 Nov 2025: Day-Off Index +50.1% (call in sick +40.4% · day off work +73.4% · sick day +36.4%). The verdict: pull requests opened on GitHub on GTA 6 release day -73.5% against the Thursday before (12 Nov). An open, reproducible study built with Dex. Search interest, not a headcount; association, not causation.
 
 ## Questions
 

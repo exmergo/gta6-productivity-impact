@@ -55,11 +55,11 @@
     "identifier": "gta6.main.fct_github_daily",
     "column": "days_from_release",
     "severity": "medium",
-    "detail": "dimension 'days_from_release' on semantic model 'fct_github_daily' widened: ~49 -> 55 distinct values in gta6.main.fct_github_daily.days_from_release",
+    "detail": "dimension 'days_from_release' on semantic model 'fct_github_daily' widened: ~49 -> 56 distinct values in gta6.main.fct_github_daily.days_from_release",
     "exact": false,
     "data": {
      "distinct_before": 49,
-     "distinct_after": 55,
+     "distinct_after": 56,
      "dimension": "days_from_release",
      "semantic_model": "fct_github_daily"
     },
@@ -101,12 +101,12 @@
     "identifier": "gta6.main.stg_github__daily_counts",
     "column": null,
     "severity": "low",
-    "detail": "gta6.main.stg_github__daily_counts: rows 147 -> 165 (+12.2%)",
+    "detail": "gta6.main.stg_github__daily_counts: rows 147 -> 168 (+14.3%)",
     "exact": true,
     "data": {
      "row_count_before": 147,
-     "row_count_after": 165,
-     "change_fraction": 0.1224
+     "row_count_after": 168,
+     "change_fraction": 0.1429
     },
     "impacted_models": [
      "fct_github_daily",
@@ -136,12 +136,12 @@
     "identifier": "gta6.raw.github_daily_counts",
     "column": null,
     "severity": "low",
-    "detail": "gta6.raw.github_daily_counts: rows 147 -> 165 (+12.2%)",
+    "detail": "gta6.raw.github_daily_counts: rows 147 -> 168 (+14.3%)",
     "exact": true,
     "data": {
      "row_count_before": 147,
-     "row_count_after": 165,
-     "change_fraction": 0.1224
+     "row_count_after": 168,
+     "change_fraction": 0.1429
     },
     "impacted_models": [
      "fct_github_daily",
@@ -171,12 +171,12 @@
     "identifier": "gta6.main.fct_github_daily",
     "column": null,
     "severity": "low",
-    "detail": "gta6.main.fct_github_daily: rows 147 -> 165 (+12.2%)",
+    "detail": "gta6.main.fct_github_daily: rows 147 -> 168 (+14.3%)",
     "exact": true,
     "data": {
      "row_count_before": 147,
-     "row_count_after": 165,
-     "change_fraction": 0.1224
+     "row_count_after": 168,
+     "change_fraction": 0.1429
     },
     "impacted_models": [
      "fct_github_daily",
@@ -205,12 +205,12 @@
     "identifier": "gta6.raw.trends_interest",
     "column": null,
     "severity": "low",
-    "detail": "gta6.raw.trends_interest: rows 4248 -> 5592 (+31.6%)",
+    "detail": "gta6.raw.trends_interest: rows 4248 -> 5760 (+35.6%)",
     "exact": true,
     "data": {
      "row_count_before": 4248,
-     "row_count_after": 5592,
-     "change_fraction": 0.3164
+     "row_count_after": 5760,
+     "change_fraction": 0.3559
     },
     "impacted_models": [
      "fct_day_off_index",
@@ -292,7 +292,7 @@
   ],
   "axes": {
    "schema": {
-    "run_at": "2026-11-25T06:29:23.744171+00:00",
+    "run_at": "2026-11-26T06:28:59.770227+00:00",
     "scope": null,
     "findings": [
      {
@@ -343,7 +343,7 @@
     "finding_count": 2
    },
    "volume": {
-    "run_at": "2026-11-25T06:29:23.744171+00:00",
+    "run_at": "2026-11-26T06:28:59.770227+00:00",
     "scope": null,
     "findings": [
      {
@@ -375,12 +375,12 @@
       "identifier": "gta6.main.stg_github__daily_counts",
       "column": null,
       "severity": "low",
-      "detail": "gta6.main.stg_github__daily_counts: rows 147 -> 165 (+12.2%)",
+      "detail": "gta6.main.stg_github__daily_counts: rows 147 -> 168 (+14.3%)",
       "exact": true,
       "data": {
        "row_count_before": 147,
-       "row_count_after": 165,
-       "change_fraction": 0.1224
+       "row_count_after": 168,
+       "change_fraction": 0.1429
       },
       "impacted_models": [
        "fct_github_daily",
@@ -410,12 +410,12 @@
       "identifier": "gta6.raw.github_daily_counts",
       "column": null,
       "severity": "low",
-      "detail": "gta6.raw.github_daily_counts: rows 147 -> 165 (+12.2%)",
+      "detail": "gta6.raw.github_daily_counts: rows 147 -> 168 (+14.3%)",
       "exact": true,
       "data": {
        "row_count_before": 147,
-       "row_count_after": 165,
-       "change_fraction": 0.1224
+       "row_count_after": 168,
+       "change_fraction": 0.1429
       },
       "impacted_models": [
        "fct_github_daily",
@@ -445,12 +445,12 @@
       "identifier": "gta6.main.fct_github_daily",
       "column": null,
       "severity": "low",
-      "detail": "gta6.main.fct_github_daily: rows 147 -> 165 (+12.2%)",
+      "detail": "gta6.main.fct_github_daily: rows 147 -> 168 (+14.3%)",
       "exact": true,
       "data": {
        "row_count_before": 147,
-       "row_count_after": 165,
-       "change_fraction": 0.1224
+       "row_count_after": 168,
+       "change_fraction": 0.1429
       },
       "impacted_models": [
        "fct_github_daily",
@@ -479,12 +479,12 @@
       "identifier": "gta6.raw.trends_interest",
       "column": null,
       "severity": "low",
-      "detail": "gta6.raw.trends_interest: rows 4248 -> 5592 (+31.6%)",
+      "detail": "gta6.raw.trends_interest: rows 4248 -> 5760 (+35.6%)",
       "exact": true,
       "data": {
        "row_count_before": 4248,
-       "row_count_after": 5592,
-       "change_fraction": 0.3164
+       "row_count_after": 5760,
+       "change_fraction": 0.3559
       },
       "impacted_models": [
        "fct_day_off_index",
@@ -502,7 +502,7 @@
     "finding_count": 5
    },
    "grain": {
-    "run_at": "2026-11-25T06:29:23.744171+00:00",
+    "run_at": "2026-11-26T06:28:59.770227+00:00",
     "scope": null,
     "findings": [
      {
@@ -523,7 +523,7 @@
     "finding_count": 1
    },
    "semantic": {
-    "run_at": "2026-11-25T06:29:23.744171+00:00",
+    "run_at": "2026-11-26T06:28:59.770227+00:00",
     "scope": null,
     "findings": [
      {
@@ -556,11 +556,11 @@
       "identifier": "gta6.main.fct_github_daily",
       "column": "days_from_release",
       "severity": "medium",
-      "detail": "dimension 'days_from_release' on semantic model 'fct_github_daily' widened: ~49 -> 55 distinct values in gta6.main.fct_github_daily.days_from_release",
+      "detail": "dimension 'days_from_release' on semantic model 'fct_github_daily' widened: ~49 -> 56 distinct values in gta6.main.fct_github_daily.days_from_release",
       "exact": false,
       "data": {
        "distinct_before": 49,
-       "distinct_after": 55,
+       "distinct_after": 56,
        "dimension": "days_from_release",
        "semantic_model": "fct_github_daily"
       },
@@ -628,7 +628,7 @@
  },
  "warnings": [
   "the exploration cache is newer than the drift baseline; if the current state is known-good, re-run `explore map` (or `explore map --full` to cover objects past the rank cutoff) and then `maintain snapshot`, so drift is not measured against a stale baseline",
-  "this baseline's warehouse side was pinned from an exploration cache captured 116h ago (2026-11-20T10:04:31.760092+00:00), beyond the 24h freshness window; anything created or changed in the warehouse since then is not in it and will report as drift. Run `explore map` first, then `maintain snapshot`, to pin current state"
+  "this baseline's warehouse side was pinned from an exploration cache captured 140h ago (2026-11-20T10:04:31.760092+00:00), beyond the 24h freshness window; anything created or changed in the warehouse since then is not in it and will report as drift. Run `explore map` first, then `maintain snapshot`, to pin current state"
  ],
  "diffs": [],
  "errors": [],

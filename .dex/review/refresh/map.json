@@ -3,8 +3,8 @@
  "data": {
   "cache_path": "./.dex/cache.json",
   "object_count": 30,
-  "profiled_count": 0,
-  "cache_hit_count": 30,
+  "profiled_count": 30,
+  "cache_hit_count": 0,
   "skipped_count": 0,
   "skipped": {
    "count": 0,
@@ -27,28 +27,28 @@
    },
    {
     "identifier": "gta6.main.fct_wait_milestones",
-    "rank_score": 0.6756
+    "rank_score": 0.6751
    },
    {
     "identifier": "gta6.main.fct_world_output_daily",
-    "rank_score": 0.6627
+    "rank_score": 0.6616
    },
    {
     "identifier": "gta6.main.fct_day_off_index",
-    "rank_score": 0.648
+    "rank_score": 0.6479
    },
    {
     "identifier": "gta6.main.wait_milestones",
-    "rank_score": 0.6056
+    "rank_score": 0.6051
    }
   ],
   "objects": [
    {
     "identifier": "gta6.raw.trends_interest",
     "object_type": "table",
-    "row_count": 5592,
+    "row_count": 5928,
     "rank_score": 0.7,
-    "profiled_at": "2026-11-25T06:29:21.568099+00:00",
+    "profiled_at": "2026-11-27T06:28:53.280413+00:00",
     "grain": null,
     "candidate_key": null,
     "semantic_models": [],
@@ -80,8 +80,8 @@
     "identifier": "gta6.main.fct_wait_milestones",
     "object_type": "table",
     "row_count": 46,
-    "rank_score": 0.6756,
-    "profiled_at": "2026-11-25T06:29:18.883809+00:00",
+    "rank_score": 0.6751,
+    "profiled_at": "2026-11-27T06:28:51.124597+00:00",
     "grain": [
      "milestone_id"
     ],
@@ -148,8 +148,8 @@
     "identifier": "gta6.main.fct_world_output_daily",
     "object_type": "table",
     "row_count": 4811,
-    "rank_score": 0.6627,
-    "profiled_at": "2026-11-25T06:29:18.930840+00:00",
+    "rank_score": 0.6616,
+    "profiled_at": "2026-11-27T06:28:51.160630+00:00",
     "grain": [
      "output_day"
     ],
@@ -192,8 +192,8 @@
     "identifier": "gta6.main.fct_day_off_index",
     "object_type": "table",
     "row_count": 1,
-    "rank_score": 0.648,
-    "profiled_at": "2026-11-25T06:29:17.516808+00:00",
+    "rank_score": 0.6479,
+    "profiled_at": "2026-11-27T06:28:50.030424+00:00",
     "grain": [
      "batch_id"
     ],
@@ -278,8 +278,8 @@
     "identifier": "gta6.main.wait_milestones",
     "object_type": "table",
     "row_count": 46,
-    "rank_score": 0.6056,
-    "profiled_at": "2026-11-25T06:29:20.609518+00:00",
+    "rank_score": 0.6051,
+    "profiled_at": "2026-11-27T06:28:52.464281+00:00",
     "grain": [
      "milestone_id"
     ],
@@ -327,9 +327,9 @@
    {
     "identifier": "gta6.main.fct_signal_daily",
     "object_type": "table",
-    "row_count": 924,
-    "rank_score": 0.5966,
-    "profiled_at": "2026-11-25T06:29:18.420453+00:00",
+    "row_count": 944,
+    "rank_score": 0.596,
+    "profiled_at": "2026-11-27T06:28:50.764761+00:00",
     "grain": [
      "signal_day_key"
     ],
@@ -363,8 +363,8 @@
     "identifier": "gta6.main.dim_date",
     "object_type": "table",
     "row_count": 457,
-    "rank_score": 0.5677,
-    "profiled_at": "2026-11-25T06:29:17.387132+00:00",
+    "rank_score": 0.5668,
+    "profiled_at": "2026-11-27T06:28:49.916944+00:00",
     "grain": [
      "date_day"
     ],
@@ -397,9 +397,9 @@
    {
     "identifier": "gta6.raw.bluesky_daily_hits",
     "object_type": "table",
-    "row_count": 1392,
-    "rank_score": 0.543,
-    "profiled_at": "2026-11-25T06:29:20.792895+00:00",
+    "row_count": 1416,
+    "rank_score": 0.5423,
+    "profiled_at": "2026-11-27T06:28:52.600941+00:00",
     "grain": [
      "observed_at"
     ],
@@ -423,9 +423,9 @@
    {
     "identifier": "gta6.raw.hn_daily_hits",
     "object_type": "table",
-    "row_count": 1392,
-    "rank_score": 0.543,
-    "profiled_at": "2026-11-25T06:29:21.309827+00:00",
+    "row_count": 1416,
+    "rank_score": 0.5423,
+    "profiled_at": "2026-11-27T06:28:53.081600+00:00",
     "grain": [
      "observed_at"
     ],
@@ -449,9 +449,9 @@
    {
     "identifier": "gta6.main.fct_github_daily",
     "object_type": "table",
-    "row_count": 165,
+    "row_count": 171,
     "rank_score": 0.5274,
-    "profiled_at": "2026-11-25T06:29:17.832568+00:00",
+    "profiled_at": "2026-11-27T06:28:50.299188+00:00",
     "grain": [
      "github_day_key"
     ],
@@ -491,8 +491,8 @@
     "identifier": "gta6.main.fct_github_day_surprise",
     "object_type": "table",
     "row_count": 127,
-    "rank_score": 0.5161,
-    "profiled_at": "2026-11-25T06:29:17.929301+00:00",
+    "rank_score": 0.5155,
+    "profiled_at": "2026-11-27T06:28:50.371965+00:00",
     "grain": [
      "github_surprise_key"
     ],
@@ -522,9 +522,9 @@
    {
     "identifier": "gta6.raw.wiki_pageviews",
     "object_type": "table",
-    "row_count": 460,
-    "rank_score": 0.4986,
-    "profiled_at": "2026-11-25T06:29:21.678986+00:00",
+    "row_count": 472,
+    "rank_score": 0.4981,
+    "profiled_at": "2026-11-27T06:28:53.367860+00:00",
     "grain": [
      "ts",
      "article"
@@ -557,8 +557,8 @@
     "identifier": "gta6.main.fct_day_off_index_terms",
     "object_type": "table",
     "row_count": 3,
-    "rank_score": 0.476,
-    "profiled_at": "2026-11-25T06:29:17.671362+00:00",
+    "rank_score": 0.4758,
+    "profiled_at": "2026-11-27T06:28:50.163410+00:00",
     "grain": [
      "term"
     ],
@@ -609,9 +609,9 @@
    {
     "identifier": "gta6.raw.github_daily_counts",
     "object_type": "table",
-    "row_count": 165,
+    "row_count": 171,
     "rank_score": 0.4574,
-    "profiled_at": "2026-11-25T06:29:21.125125+00:00",
+    "profiled_at": "2026-11-27T06:28:52.931362+00:00",
     "grain": [
      "query"
     ],
@@ -642,8 +642,8 @@
     "identifier": "gta6.main.fct_world_productivity",
     "object_type": "table",
     "row_count": 28,
-    "rank_score": 0.4561,
-    "profiled_at": "2026-11-25T06:29:19.128578+00:00",
+    "rank_score": 0.4557,
+    "profiled_at": "2026-11-27T06:28:51.302855+00:00",
     "grain": [
      "world_productivity_key"
     ],
@@ -668,8 +668,8 @@
     "identifier": "gta6.main.fct_thursday_lift",
     "object_type": "table",
     "row_count": 26,
-    "rank_score": 0.4532,
-    "profiled_at": "2026-11-25T06:29:18.632816+00:00",
+    "rank_score": 0.4528,
+    "profiled_at": "2026-11-27T06:28:50.926812+00:00",
     "grain": [
      "thursday_lift_key"
     ],
@@ -703,8 +703,8 @@
     "identifier": "gta6.main.metricflow_time_spine",
     "object_type": "table",
     "row_count": 1094,
-    "rank_score": 0.4429,
-    "profiled_at": "2026-11-25T06:29:19.432149+00:00",
+    "rank_score": 0.442,
+    "profiled_at": "2026-11-27T06:28:51.511978+00:00",
     "grain": [
      "date_day"
     ],
@@ -730,7 +730,7 @@
     "object_type": "view",
     "row_count": 168,
     "rank_score": 0.42,
-    "profiled_at": "2026-11-25T06:29:20.289004+00:00",
+    "profiled_at": "2026-11-27T06:28:52.199883+00:00",
     "grain": [
      "week_start",
      "request_id"
@@ -778,8 +778,8 @@
     "identifier": "gta6.raw.economy_indicators",
     "object_type": "table",
     "row_count": 66,
-    "rank_score": 0.42,
-    "profiled_at": "2026-11-25T06:29:20.920474+00:00",
+    "rank_score": 0.4194,
+    "profiled_at": "2026-11-27T06:28:52.707917+00:00",
     "grain": [
      "year",
      "indicator"
@@ -829,8 +829,8 @@
     "identifier": "gta6.main.fct_github_release_day_activities",
     "object_type": "table",
     "row_count": 3,
-    "rank_score": 0.376,
-    "profiled_at": "2026-11-25T06:29:18.188305+00:00",
+    "rank_score": 0.3758,
+    "profiled_at": "2026-11-27T06:28:50.577096+00:00",
     "grain": [
      "activity"
     ],
@@ -879,8 +879,8 @@
     "identifier": "gta6.main.fct_github_release_day",
     "object_type": "table",
     "row_count": 1,
-    "rank_score": 0.348,
-    "profiled_at": "2026-11-25T06:29:18.026039+00:00",
+    "rank_score": 0.3479,
+    "profiled_at": "2026-11-27T06:28:50.457678+00:00",
     "grain": [
      "release_day_key"
     ],
@@ -954,9 +954,9 @@
    {
     "identifier": "gta6.main.stg_bluesky__daily_hits",
     "object_type": "view",
-    "row_count": 1392,
+    "row_count": 1416,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-25T06:29:19.572847+00:00",
+    "profiled_at": "2026-11-27T06:28:51.628262+00:00",
     "grain": [
      "observed_at"
     ],
@@ -982,7 +982,7 @@
     "object_type": "view",
     "row_count": 66,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-25T06:29:19.658306+00:00",
+    "profiled_at": "2026-11-27T06:28:51.697009+00:00",
     "grain": [
      "year",
      "indicator"
@@ -1029,9 +1029,9 @@
    {
     "identifier": "gta6.main.stg_github__daily_counts",
     "object_type": "view",
-    "row_count": 165,
+    "row_count": 171,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-25T06:29:19.837691+00:00",
+    "profiled_at": "2026-11-27T06:28:51.838649+00:00",
     "grain": [
      "query"
     ],
@@ -1061,9 +1061,9 @@
    {
     "identifier": "gta6.main.stg_hn__daily_hits",
     "object_type": "view",
-    "row_count": 1392,
+    "row_count": 1416,
     "rank_score": 0.32,
-    "profiled_at": "2026-11-25T06:29:19.990779+00:00",
+    "profiled_at": "2026-11-27T06:28:51.967419+00:00",
     "grain": [
      "observed_at"
     ],
@@ -1171,12 +1171,11 @@
   "elided_object_count": 5,
   "elided_column_count": 139,
   "elided_edge_count": 0,
-  "updated_at": "2026-11-26T06:28:57.549206+00:00",
+  "updated_at": "2026-11-27T06:28:49.824427+00:00",
   "notes": [
    "inference examined 21 id-shaped column(s) across 30 profiled object(s)",
    "no declared relationships (dbt project present but unused)",
    "a dbt project is present but unused; pass --use-project to fold its declared joins, grain, and metric definitions into exploration",
-   "reused 30 fresh cached profile(s) for selected object(s) (schema unchanged, profiled within 24h); pass --refresh to force re-profiling",
    "value-overlap join inference not run; pass --infer-by-overlap to probe key-shaped columns whose names matched nothing for measured value containment",
    "5 eligible object(s) are not described here: the map payload is capped at 25 objects, kept by rank. Name one with `explore profile` to read it in full",
    "139 column(s) are not described. The default keeps grain, key, join and PII-flagged columns, at most 12 per object; --detail widens the selection to every column, and the per-object cap still binds"

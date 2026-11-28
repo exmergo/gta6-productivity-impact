@@ -78,7 +78,7 @@
   "activity": "prs_opened",
   "expected_count": 1405972.3559205933,
   "pct_vs_expected": -74.5212629187546,
-  "t_stat": -31.59759686925786,
+  "t_stat": -31.597596869257856,
   "df": 41,
   "p_one_sided": 1.0426757631238907e-30
  }
